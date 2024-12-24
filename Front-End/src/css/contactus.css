@@ -1,0 +1,217 @@
+.nu-contact-page {
+    /* Scope the font import to only this page */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+    
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .nu-contact-page * {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .nu-contact-container {
+    flex: 1;
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:70px;
+  }
+  
+  .nu-contact-content {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    max-width: 700px;
+    width: 85%;
+    margin: 1.5rem 0;
+  }
+  
+  .nu-image-section {
+    flex: 1;
+    position: relative;
+  }
+  
+  .nu-image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .nu-form-section {
+    flex: 1;
+    padding: 1.2rem;
+  }
+  
+  .nu-form-section h1 {
+    color: #2A7A79;
+    margin-bottom: 1.8rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .nu-form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .nu-form-group:last-of-type {
+    margin-bottom: 2rem;
+  }
+  
+  .nu-form-group input,
+  .nu-form-group textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    font-size: 0.85rem;
+    font-weight: 300;
+  }
+  
+  .nu-form-group textarea {
+    height: 100px;
+    background-color: #f1f1f1;
+    resize: vertical;
+  }
+  
+  .nu-submit-btn {
+    background-color: #2A7A79;
+    color: white;
+    padding: 0.5rem 1.8rem;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin-left: 120px;
+  }
+  
+  .nu-submit-btn:hover {
+    background-color: #236665;
+  }
+  .message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+  }
+  
+  .message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  
+  .message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .nu-submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nu-contact-container {
+      margin-top:150px !important;
+      padding: 1rem ;
+    }
+  
+    .nu-contact-content {
+      flex-direction: column;
+      width: 90%;
+      margin: 0;
+      border: 1px solid #e0e0e0;
+      background: #ffffff;
+      border-radius: 5%;
+      box-shadow: none; 
+    }
+  
+    .nu-image-section {
+      display: none; 
+    }
+  
+    .nu-form-section {
+      padding: 1.5rem 1rem;
+    }
+  
+    .nu-form-section h1 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+      font-weight:bold ;
+    }
+  
+    .nu-form-group {
+      margin-bottom: 1rem;
+    }
+  
+    .nu-form-group input,
+    .nu-form-group textarea {
+      background-color: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 0.8rem;
+      font-size: 0.9rem;
+    }
+  
+    .nu-form-group textarea {
+      height: 120px;
+    }
+  
+    .nu-submit-btn {
+      width: auto; /* Changed from 100% */
+      min-width: 120px; /* Added minimum width */
+      padding: 0.8rem 2rem;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      display: block; /* To keep it aligned */
+      margin: 0 auto; 
+    }
+    .message {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 4px;
+        text-align: center;
+      }
+      
+      .message.success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      
+      .message.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      
+      .nu-submit-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+  }
+  
+  @media (max-width: 480px) {
+    .nu-contact-container {
+      padding: 1rem;
+      margin: 3rem 0; /* Slightly reduced margin for smaller screens */
+    }
+  
+    .nu-contact-content {
+      width: 100%;
+    }
+  }

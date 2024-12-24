@@ -15,7 +15,7 @@ import EditAdminProfile from './page/admin/editAdminProfile.js';
 
 //Employee 
 import EmployeeDashboard from './page/employee/employeeDashboard';
-import ForgotPassword from './page/forgotPassword';
+import ForgotPassword from './page/employee/forgotPassword';
 import EmployeeProfile from './page/employee/employeeProfile';
 
 
@@ -27,7 +27,6 @@ function App() {
         {/* Main Routes */}
 
         <Route path="/" element={< MainPage/>} />
-
         <Route path="/login" element={<SigninPage/>} />
         <Route path="/services" element={<Services/>} />
         <Route path="/aboutus" element={<Aboutus/>} />
@@ -39,7 +38,6 @@ function App() {
         <Route path="/adminChange-password" element={<AdminChangePassword />} />
         <Route path="/admin-profile" element={<AdminProfile />} />
         <Route path="/edit-admin-profile" element={<EditAdminProfile />} />
-
 
 
         {/* Employee-Side Routes */}

@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+.hmr-profile-container {
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 40px auto;
+}
+
+
+.hmr-emp-back-button {
+  position: fixed;
+  font-size: 50px; 
+  top: 120px; 
+  left: 30px; 
+  width: 50px;
+  height: 50px;
+  background-color: #24757e; 
+  color: white; 
+  border: none;
+  border-radius: 50%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 1000; 
+}
+
+.hmr-emp-back-button:hover {
+  background-color: #1a5c63; 
+}
+
+.hmr-emp-back-button:focus {
+  outline: none;
+}
+
+
+.hmr-emp-back-button-icon {
+  font-size: 100px; 
+  font-weight: bold;
+  line-height: 1;
+  margin-top: -2px; 
+  color: inherit; 
+}
+
+.hmr-profile-title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  color: #24757e;
+  margin-bottom: 50px;
+  margin-top: 150px;
+}
+
+.hmr-profile-header-card {
+  display: flex;
+  align-items: center;
+  background: #f6f6f6;
+  border: 2px solid #D9D9D9;
+  border-radius: 25px;
+  padding: 15px;
+  margin: 0 10px;
+  position: relative;
+  box-shadow: inset 0 0 0 10px #FFFFFF;
+  background-clip: padding-box;
+}
+
+.hmr-profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 80px;
+  margin-left: 20px;
+  border: 6px solid #4d8e95;
+}
+
+.hmr-profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hmr-profile-name {
+  font-size: 18px;
+  color: #000000;
+  margin: 0;
+}
+
+.hmr-profile-id,
+.hmr-profile-designation {
+  font-size: 16px;
+  color: #969696;
+  margin: 5px 0;
+}
+
+.hmr-profile-details-card {
+  background: #FFFFFF;
+  border: 2px solid #D9D9D9;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 30px 10px;
+}
+
+.hmr-details-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.hmr-details-item {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.hmr-details-item h4 {
+  font-size: 18px;
+  color: black;
+  margin-bottom: 8px;
+  margin-top: 10px;
+  margin-left: 50px;
+}
+
+.hmr-details-item p {
+  font-size: 18px;
+  color: #828282;
+  margin-bottom: 30px;
+  margin-left: 50px;
+}
+
+.hmr-details-item:last-child {
+  margin-right: 0;
+}
+
+
+@media (max-width: 768px) {
+  .hmr-profile-container {
+    padding: 10px;
+    margin: 20px auto;
+    max-width: 100%;
+  }
+
+  .hmr-emp-back-button {
+    top: 120px; 
+    left: 30px; 
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .hmr-profile-title {
+    font-size: 28px;
+    margin-top: 100px;
+  }
+
+  .hmr-profile-header-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .hmr-profile-avatar {
+    width: 70px;
+    height: 70px;
+    margin: 0 0 10px 0;
+  }
+
+  .hmr-profile-info {
+    align-items: center;
+  }
+
+  .hmr-profile-name {
+    font-size: 20px;
+  }
+
+  .hmr-profile-id {
+    font-size: 14px;
+    margin-top: 5px;
+    display: none;
+  }
+
+  .hmr-profile-designation {
+    font-size: 15px;
+  }
+
+  .hmr-profile-details-card {
+    background-color: #f4f4f4;
+    padding: 6px;
+    margin: 6px 0;
+    border: none;
+    max-width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hmr-details-row {
+    flex-direction: column;
+    margin-bottom: 2px;
+  }
+
+  .hmr-details-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    padding-left: 35px;
+  }
+
+  .hmr-details-item h4,
+  .hmr-details-item p {
+    font-size: 14px;
+    margin-left: 0;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  .hmr-details-item h4 {
+    font-weight: bold;
+  }
+
+  .hmr-details-item p {
+    font-weight: normal;
+  }
+}
