@@ -1,18 +1,23 @@
-import mysql from 'mysql';
+import mysql from 'mysql2';
+import dotenv from 'dotenv';
 
-const con = mysql.createConnection({
-    host: "localhost",
-    user:"root",
-    password:"",
-    database:"Client_Management_System"
-})
+dotenv.config();
 
-con.connect((err) => {
+const pool = mysql.createPool({
+    host: process.env.DB_HOST || '127.0.0.1',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || 'Client_Management_System',
+    port: process.env.DB_PORT || 3306, // Default to 3306 if not specified
+});
+
+pool.getConnection((err, connection) => {
     if (err) {
         console.error('Database connection failed: ', err);
         return;
     }
     console.log('Connected to the database');
+    connection.release(); // Release the connection back to the pool
 });
 
-export const db = con; //export the connection to use or add by Routes files.
+export default pool.promise();

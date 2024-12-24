@@ -1,33 +1,27 @@
-import {db} from '../utils/db.js';
+import db from '../utils/db.js'; 
 import path from 'path';
 import fs from 'fs';
 import multer from 'multer';
 
-
-export const getAllTaskProgress = (req, res) => {
+// Fetch all task progress
+export const getAllTaskProgress = async (req, res) => {
   const query = `SELECT * FROM TaskProgress`; // Adjust table name
-  db.query(query, (err, results) => {
-    if (err) {
-      console.error('Error fetching tasks:', err);
-      return res.status(500).json({ error: 'Failed to fetch tasks' });
-    }
+  try {
+    const [results] = await db.query(query); // Use promise-based query
     res.json(results);
-  });
+  } catch (err) {
+    console.error('Error fetching task progress:', err.message);
+    res.status(500).json({ error: 'Failed to fetch task progress' });
+  }
 };
 
-// Download Task Progress Attachment
-
-export const downloadAttachment = (req, res) => {
+// Download task progress attachment
+export const downloadAttachment = async (req, res) => {
   const { TaskProgressID } = req.params; // Task Progress ID
-
-  // Query to get the file path from the database
   const query = `SELECT Attachment FROM TaskProgress WHERE TaskProgressID = ?`;
 
-  db.query(query, [TaskProgressID], (err, results) => {
-    if (err) {
-      console.error('Database error:', err);
-      return res.status(500).json({ error: 'Internal server error' });
-    }
+  try {
+    const [results] = await db.query(query, [TaskProgressID]);
 
     if (results.length === 0) {
       console.error('File not found for TaskProgressID:', TaskProgressID);
@@ -48,62 +42,64 @@ export const downloadAttachment = (req, res) => {
     // Send the file to the client
     res.download(resolvedPath, (err) => {
       if (err) {
-        console.error('Error downloading file:', err);
+        console.error('Error downloading file:', err.message);
         res.status(500).json({ error: 'Failed to download file' });
       }
     });
-  });
+  } catch (err) {
+    console.error('Database error:', err.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 };
-
 
 // Configure multer to save files to a directory
 export const upload = multer({
   storage: multer.diskStorage({
-      destination: (req, file, cb) => {
-          const uploadDir = './uploads';
-          if (!fs.existsSync(uploadDir)) {
-              fs.mkdirSync(uploadDir, { recursive: true });
-          }
-          cb(null, uploadDir);
-      },
-      filename: (req, file, cb) => {
-          cb(null, `${Date.now()}-${file.originalname}`);
+    destination: (req, file, cb) => {
+      const uploadDir = './uploads';
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
       }
-  })
+      cb(null, uploadDir);
+    },
+    filename: (req, file, cb) => {
+      cb(null, `${Date.now()}-${file.originalname}`);
+    },
+  }),
 });
 
 // Function to insert task progress into the database
- const addTaskProgress = (taskData, callback) => {
+const addTaskProgress = async (taskData) => {
   const { TaskID, EmployeeID, TaskName, TaskDescription, Attachment } = taskData;
   const sql = `
-      INSERT INTO TaskProgress (TaskID, EmployeeID, TaskName, TaskDescription, Attachment)
-      VALUES (?, ?, ?, ?, ?)
+    INSERT INTO TaskProgress (TaskID, EmployeeID, TaskName, TaskDescription, Attachment)
+    VALUES (?, ?, ?, ?, ?)
   `;
-  db.query(sql, [TaskID, EmployeeID, TaskName, TaskDescription, Attachment], callback);
+  try {
+    await db.query(sql, [TaskID, EmployeeID, TaskName, TaskDescription, Attachment]);
+  } catch (err) {
+    throw new Error('Error inserting task progress: ' + err.message);
+  }
 };
 
 // Handle task progress submissions
-export const handleTaskProgress = (req, res) => {
+export const handleTaskProgress = async (req, res) => {
   const { TaskID, EmployeeID, TaskName, TaskDescription } = req.body;
   const file = req.file ? path.join('uploads', req.file.filename) : null;
 
   const taskData = {
-      TaskID,
-      EmployeeID: EmployeeID,
-      TaskName,
-      TaskDescription: TaskDescription,
-      Attachment: file
+    TaskID,
+    EmployeeID,
+    TaskName,
+    TaskDescription,
+    Attachment: file,
   };
 
-  addTaskProgress(taskData, (err) => {
-      if (err) {
-          console.error('Error inserting task progress:', err);
-          return res.status(500).send('Error saving task progress.');
-      }
-      res.send('Task progress added successfully.');
-  });
+  try {
+    await addTaskProgress(taskData);
+    res.send('Task progress added successfully.');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Error saving task progress.');
+  }
 };
-
-
-
-
