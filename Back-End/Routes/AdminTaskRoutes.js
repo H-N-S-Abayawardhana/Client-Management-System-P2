@@ -4,7 +4,7 @@ import express from 'express';
 import mysql from 'mysql';
 import bodyParser from 'body-parser';
 
-import db from '../utils/db.js';
+import {db} from '../utils/db.js';
 
 const router = express.Router();
 

@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import authenticateToken from '../middleware/authMiddleware.js';
-import db from '../utils/db.js';
+import {db} from '../utils/db.js';
 
 const router = express.Router();
 

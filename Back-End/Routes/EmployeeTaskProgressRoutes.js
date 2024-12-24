@@ -1,7 +1,8 @@
 import express from 'express';
 import mysql from 'mysql';
 import multer from 'multer';
-import db from '../utils/db.js';
+import { db } from '../utils/db.js';
+
 
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' }); // Configure multer for file uploads
