@@ -3,21 +3,22 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 //Main
 import MainPage from './page/mainPage';
 import SigninPage from './page/signinPage';
-import Services from './page/services';
-import Aboutus from './page/aboutUs.js';
-import ContactUs from './page/contactUs.js';
 
 //Admin
 import AdminDashboard from './page/admin/adminDashboardPage';
 import AdminChangePassword from './page/admin/adminChangePassword.js';
-import AdminProfile from './page/admin/adminProfile.js';
-import EditAdminProfile from './page/admin/editAdminProfile.js';
+
+//Task - Admin Side
+import AdminManageTask from './page/admin/adminManageTask';
+import AdminAddTask from './page/admin/AdminAddTask';
+import AdminReceivedTask from './page/admin/AdminReceivedTask';
 
 //Employee 
 import EmployeeDashboard from './page/employee/employeeDashboard';
-import ForgotPassword from './page/forgotPassword';
-import EmployeeProfile from './page/employee/employeeProfile';
-
+//Task - Employee Side
+import EmployeeReceivedTask from './page/employee/EmployeeReceivedTask';
+import EmployeeManageTask from './page/employee/EmployeeManageTask';
+import EmployeeAddTaskProgress from './page/employee/EmployeeAddTaskProgress';
 
 
 function App() {
@@ -29,23 +30,26 @@ function App() {
         <Route path="/" element={< MainPage/>} />
 
         <Route path="/login" element={<SigninPage/>} />
-        <Route path="/services" element={<Services/>} />
-        <Route path="/aboutus" element={<Aboutus/>} />
-        <Route path="/contactus" element={<ContactUs/>} />
         
 
         {/* Admin-Side Routes */}
         <Route path="/admin-Dashboard" element={<AdminDashboard/>} />
         <Route path="/adminChange-password" element={<AdminChangePassword />} />
-        <Route path="/admin-profile" element={<AdminProfile />} />
-        <Route path="/edit-admin-profile" element={<EditAdminProfile />} />
+
+        {/* Task - Routes */}
+        <Route path="/admin-manage-task" element={<AdminManageTask/>}/>
+        <Route path="/admin-add-task" element={<AdminAddTask/>}/>
+        <Route path="/admin-recived-task" element={<AdminReceivedTask/>}/>
 
 
 
         {/* Employee-Side Routes */}
         <Route path="/employee-dashboard" element={<EmployeeDashboard/>}/>
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/employee-profile" element={<EmployeeProfile />} />
+
+        {/* Task - Routes */}
+        <Route path="/employee-progress-task" element={<EmployeeAddTaskProgress/>}/>
+        <Route path="/employee-recived-task" element={<EmployeeReceivedTask/>}/>
+        <Route path="/employee-manage-task-prgress" element={<EmployeeManageTask/>}/>
 
       </Routes>
     </Router>

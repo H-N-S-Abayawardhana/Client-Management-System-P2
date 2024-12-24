@@ -7,6 +7,11 @@ import authRoutes from './Routes/auth.js';
 import adminRoutes from './Routes/admin.js'; 
 import employeeRoutes from './Routes/employee.js';
 
+//Task
+import AdminTaskRoutes from './Routes/AdminTaskRoutes.js';
+import EmployeeTaskProgressRoutes from './Routes/EmployeeTaskProgressRoutes.js';
+import TaskProgrssRoutes from './Routes/taskProgressRoutes.js'
+
 dotenv.config();
 
 const app = express();
@@ -20,6 +25,12 @@ app.use(bodyParser.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/employee', employeeRoutes);
+
+//Task
+app.use('/admin/task', AdminTaskRoutes);
+app.use('/uploads', express.static('uploads'));
+app.use('/employee/task', EmployeeTaskProgressRoutes);
+app.use('/api',TaskProgrssRoutes);
 
 // Default route
 app.get('/', (req, res) => {
