@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from '../components/templetes/Navbar';
+import Navbar from '../components/templetes/adminNavBar';
 import Footer from '../components/templetes/Footer';
 import '../css/contactus.css';
 import contactBgImage from '../assets/contactusbg.jpeg';

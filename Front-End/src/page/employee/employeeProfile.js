@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; 
-import Navbar from "../../components/templetes/Navbar";
+import Navbar from "../../components/templetes/empNavBar";
 import Footer from "../../components/templetes/Footer";
 import "../../css/employee/employeeprofile.css";
 import profileIcon from "../../assets/employee2.png";
@@ -22,9 +22,9 @@ const EmployeeProfile = () => {
   }, []);
 
   useEffect(() => {
-    const employeeID = 1;
+    const employeeID = 1; // Replace with the actual employee ID
 
-    fetch(`http://localhost:8800/api/employee/${employeeID}`)
+    fetch(`http://localhost:5000/api/employee/${employeeID}`)
       .then((response) => response.json())
       .then((data) => setEmployee(data))
       .catch((error) => console.error("Error fetching employee data:", error));

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/templetes/Navbar";
+import Navbar from "../../components/templetes/adminNavBar";
 import Footer from "../../components/templetes/Footer";
 import "../../css/admin/editAdminProfile.css";
 import { useNavigate } from "react-router-dom";

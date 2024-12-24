@@ -5,7 +5,7 @@ import cors from 'cors';
 
 import authRoutes from './Routes/auth.js';
 import adminRoutes from './Routes/admin.js'; 
-import employeeRoutes from './Routes/employee.js';
+import EmployeeRoutes from './Routes/EmployeeRoutes.js';
 
 dotenv.config();
 
@@ -19,14 +19,14 @@ app.use(bodyParser.json());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
-app.use('/api/employee', employeeRoutes);
+app.use('/api/employee', EmployeeRoutes);
 
 // Default route
 app.get('/', (req, res) => {
     res.send('Client Management System API is running.');
 });
 
-app.listen(PORT, () => {
+app.listen(5000, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 

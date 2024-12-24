@@ -8,10 +8,22 @@ const pool = mysql.createPool({
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || '',
     database: process.env.DB_NAME || 'Client_Management_System',
-    port: process.env.DB_PORT || 3308, // Default to 3306 if not specified
+    port: process.env.DB_PORT || 3308,
+});
+
+// Test connection
+pool.getConnection((err, connection) => {
+    if (err) {
+        console.error('Database connection failed:', err);
+        return;
+    }
+    console.log('Database connected successfully');
+    connection.release();
+});
+
+// Add error listeners
+pool.on('error', (err) => {
+    console.error('Pool error:', err);
 });
 
 export default pool.promise();
-
-
-

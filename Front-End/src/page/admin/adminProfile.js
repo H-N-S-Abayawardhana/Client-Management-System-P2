@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/templetes/Navbar";
+import Navbar from "../../components/templetes/adminNavBar";
 import Footer from "../../components/templetes/Footer";
 import "../../css/admin/adminprofile.css";
 import profileIcon from "../../assets/employee2.png";
