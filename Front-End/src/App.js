@@ -12,6 +12,8 @@ import AdminChangePassword from './page/admin/adminChangePassword.js';
 import AdminManageTask from './page/admin/adminManageTask';
 import AdminAddTask from './page/admin/AdminAddTask';
 import AdminReceivedTask from './page/admin/AdminReceivedTask';
+//Service - Admin Side
+import AdminAddService from './page/admin/AdminAddService.js';
 
 //Employee 
 import EmployeeDashboard from './page/employee/employeeDashboard';
@@ -41,6 +43,8 @@ function App() {
         <Route path="/admin-add-task" element={<AdminAddTask/>}/>
         <Route path="/admin-recived-task" element={<AdminReceivedTask/>}/>
 
+        {/* Service - Routes */}
+        <Route path="/admin-add-service" element={<AdminAddService/>}/>
 
 
         {/* Employee-Side Routes */}
