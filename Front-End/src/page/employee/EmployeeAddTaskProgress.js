@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import '../../css/employee/(apwgr)EmployeeAddTaskProgress.css';
 
-import Navbar from '../../components/templetes/Navbar';
+import Navbar from '../../components/templetes/empNavBar';
 import Footer from '../../components/templetes/Footer';
 import Sidebar from '../../components/templetes/ESideBar';
 

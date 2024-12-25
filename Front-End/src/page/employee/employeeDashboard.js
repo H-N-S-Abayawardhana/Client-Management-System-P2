@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from '../../components/templetes/Navbar';
+import Navbar from '../../components/templetes/empNavBar';
 import Footer from '../../components/PagesFooter';
 import Sidebar from '../../components/templetes/ESideBar';
 
