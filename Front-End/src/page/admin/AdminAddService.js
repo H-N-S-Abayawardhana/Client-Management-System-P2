@@ -143,12 +143,10 @@ const AdminAddService = () => {
                     </table>
                 </div>
 
-                <div className="apwgr-back-button-area">
-                    <div className="apwgr-but-inside">
-                        <button className="btn apwgr-back-btn my-3" onClick={() => navigate('#invoice')}>
-                            <span className="bi bi-arrow-left m-3">Back To Invoice</span>
-                        </button>
-                    </div>
+                <div className="button-row">
+                    <button className="btn apwgr-back-btn my-3" onClick={() => navigate('#invoice')}>
+                        <span className="bi bi-arrow-left m-3">Back To Invoice</span>
+                    </button>
                 </div>
             </div>
 

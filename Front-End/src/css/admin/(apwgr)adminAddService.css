@@ -76,13 +76,12 @@
 }
 
 .reset-button {
-    background-color: #f5f5f5;
-    color: #333;
-    border: 1px solid #ccc;
+    background-color: #158d93;
+    color: white;
 }
 
 .reset-button:hover {
-    background-color: #e3e3e3;
+    background-color: #11777e;
 }
 
 .table-container {
