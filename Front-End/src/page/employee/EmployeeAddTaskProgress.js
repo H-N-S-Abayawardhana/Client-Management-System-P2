@@ -38,7 +38,7 @@ const EmployeeAddTaskProgress = () => {
       }
   
       try { // Send the form data to the server using axios POST request
-        const response = await axios.post('http://localhost:8800/employee/task/task-progress', formData, {
+        const response = await axios.post('http://localhost:5000/employee/task/task-progress', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

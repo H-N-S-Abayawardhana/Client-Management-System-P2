@@ -42,7 +42,7 @@ const AdminAddService = () => {
             return;
         }
         try {
-            const response = await fetch('http://localhost:8800/admin/service/add-service', {
+            const response = await fetch('http://localhost:5000/admin/service/add-service', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ const AdminAddService = () => {
     // Fetch all services from the API
     const fetchServices = async () => {
         try {
-            const response = await axios.get('http://localhost:8800/admin/service/services');
+            const response = await axios.get('http://localhost:5000/admin/service/services');
             setServices(response.data); // Update state with fetched data
         } catch (error) {
             console.error('Error fetching services:', error);
@@ -77,7 +77,7 @@ const AdminAddService = () => {
     // Delete a service
     const handleDeleteService = async (ServiceID) => {
         try {
-            await axios.delete(`http://localhost:8800/admin/service/services/${ServiceID}`);
+            await axios.delete(`http://localhost:5000/admin/service/services/${ServiceID}`);
             setServices(services.filter(service => service.ServiceID !== ServiceID)); // Update the list after deletion
             alert('Task deleted successfully.');
         } catch (error) {

@@ -27,7 +27,7 @@ export default function AdminReceivedTask() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get('http://localhost:8800/employee/task/admin-recived-tasks-progress');
+        const response = await axios.get('http://localhost:5000/employee/task/admin-recived-tasks-progress');
         setTasks(response.data);
 
       } catch (error) {
@@ -94,7 +94,7 @@ export default function AdminReceivedTask() {
                         </span>
                         {task.Attachment ? (
                           <a
-                            href={`http://localhost:8800/api/task-progress/download/${task.TaskProgressID}`}
+                            href={`http://localhost:5000/api/task-progress/download/${task.TaskProgressID}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >

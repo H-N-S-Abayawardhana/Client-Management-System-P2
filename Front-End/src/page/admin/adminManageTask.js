@@ -23,7 +23,7 @@ const AdminManageTask = () => {
     // Fetch tasks from the API
     const fetchTasks = async () => {
         try {
-            const response = await axios.get('http://localhost:8800/admin/task/tasks');
+            const response = await axios.get('http://localhost:5000/admin/task/tasks');
             setTasks(response.data);
         } catch (error) {
             console.error('Error fetching tasks:', error);
@@ -33,7 +33,7 @@ const AdminManageTask = () => {
     // Delete a task
     const deleteTask = async (taskId) => {
         try {
-            await axios.delete(`http://localhost:8800/admin/task/tasks/${taskId}`);
+            await axios.delete(`http://localhost:5000/admin/task/tasks/${taskId}`);
             // Remove the task from the state
             setTasks(tasks.filter(task => task.TaskID !== taskId));
             alert('Task deleted successfully.');
