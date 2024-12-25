@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import "../../css/admin/(apwgr)adminManageTask.css";
 
-import Navbar from '../../components/templetes/Navbar';
+import Navbar from '../../components/templetes/adminNavBar';
 import Footer from '../../components/templetes/Footer';
 import Sidebar from '../../components/templetes/SideBar';
 

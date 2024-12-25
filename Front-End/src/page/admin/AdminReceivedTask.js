@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/admin/(apwgr)adminRecivedTask.css'
 import { IoDownloadOutline } from "react-icons/io5";
 
-import Navbar from '../../components/templetes/Navbar';
+import Navbar from '../../components/templetes/adminNavBar';
 import Footer from '../../components/templetes/Footer';
 import Sidebar from '../../components/templetes/SideBar';
 
