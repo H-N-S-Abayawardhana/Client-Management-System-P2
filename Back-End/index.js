@@ -10,7 +10,6 @@ import employeeRoutes from './Routes/employee.js';
 //Tasks
 import AdminTaskRoutes from './Routes/AdminTaskRoutes.js'; // Import AdminRoutes.
 import EmployeeTaskProgressRoutes from './Routes/EmployeeTaskProgressRoutes.js';
-import TaskProgrssRoutes from './Routes/taskProgressRoutes.js'
 
 dotenv.config();
 
@@ -31,7 +30,6 @@ app.use('/api/employee', employeeRoutes);
 app.use('/admin/task', AdminTaskRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/employee/task', EmployeeTaskProgressRoutes);
-app.use('/api',TaskProgrssRoutes);
 
 
 // Default route

@@ -27,7 +27,7 @@ export default function AdminReceivedTask() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get('http://localhost:8800/api/admin-recived-tasks-progress');
+        const response = await axios.get('http://localhost:8800/employee/task/admin-recived-tasks-progress');
         setTasks(response.data);
 
       } catch (error) {
