@@ -34,8 +34,8 @@
     padding: 50px;
     padding-top: 40px;
     border-radius: 6px;
-    background-color: #6666668c;
-    margin-bottom: 30px;
+    background-color: hsla(168, 7%, 73%, 0.459);
+    /*margin-bottom: 30px;*/
 
     display: flex;
     justify-content: space-between;
@@ -87,6 +87,7 @@
     display: flex;
     justify-content:start;
     gap: 40px;
+    margin-top: 30px;
     margin-bottom: 30px;
 }
 
