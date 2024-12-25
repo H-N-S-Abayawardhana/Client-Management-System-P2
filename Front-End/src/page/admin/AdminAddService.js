@@ -34,19 +34,34 @@ const AdminAddService = () => {
     };
 
     // Add new service to the table
-    const handleAddService = () => {
-        if (serviceData.ServiceName && serviceData.Description && serviceData.Cost) {
-            const newService = {
-                id: idCounter,
-                ...serviceData,
-            };
-            setServices([...services, newService]);
-            setIdCounter(idCounter + 1);
-            setServiceData({ ServiceName: '', Description: '', Cost: '' });
-        } else {
+    const handleAddService = async (e) => {
+        e.preventDefault();
+        if (!serviceData.ServiceName || !serviceData.Description || !serviceData.Cost) {
             alert('Please fill in all fields.');
+            return;
+        }
+        try {
+            const response = await fetch('http://localhost:8800/admin/service/add-service', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(serviceData),
+            });
+            const result = await response.json();
+            if (response.ok) {
+                alert('Task added successfully!');
+                // Reset fields after successful addition
+                setServiceData({ ServiceName: '', Description: '', Cost: '' });
+            } else {
+                alert(result.message || 'Failed to add task.');
+            }
+        } catch (error) {
+            console.error('Error adding task:', error);
+            alert('Something went wrong.');
         }
     };
+    
 
     // Reset the input fields
     const handleReset = () => {
@@ -66,9 +81,9 @@ const AdminAddService = () => {
             <div className="apwgr-main-service-container">
                 <nav className="breadcrumb" aria-label="breadcrumb">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a className="text-decoration-none" href="/admin-Dashboard">Home</a></li>
-                        <li className="breadcrumb-item"><a className="text-decoration-none" href="/admin-manage-service">Invoice</a></li>
-                        <li className="breadcrumb-item"><a className="text-decoration-none" href="/admin-manage-service">Add Invoice</a></li>
+                        <li className="breadcrumb-item"><a className="text-decoration-none" href="#">Home</a></li>
+                        <li className="breadcrumb-item"><a className="text-decoration-none" href="#">Invoice</a></li>
+                        <li className="breadcrumb-item"><a className="text-decoration-none" href="#">Add Invoice</a></li>
                         <li className="breadcrumb-item active" aria-current="page">Add Service</li>
                     </ol>
                 </nav>
