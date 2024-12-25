@@ -67,7 +67,8 @@ const AdminAddService = () => {
                 <nav className="breadcrumb" aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><a className="text-decoration-none" href="/admin-Dashboard">Home</a></li>
-                        <li className="breadcrumb-item"><a className="text-decoration-none" href="/admin-manage-service">Manage Services</a></li>
+                        <li className="breadcrumb-item"><a className="text-decoration-none" href="/admin-manage-service">Invoice</a></li>
+                        <li className="breadcrumb-item"><a className="text-decoration-none" href="/admin-manage-service">Add Invoice</a></li>
                         <li className="breadcrumb-item active" aria-current="page">Add Service</li>
                     </ol>
                 </nav>
