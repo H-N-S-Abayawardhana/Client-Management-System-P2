@@ -80,30 +80,41 @@ const AdminAddService = () => {
 
                 {/* Input Fields Row */}
                 <div className="input-row-continer">
-                    <div className="input-row">
+                    <div className="input-group">
+                        <label htmlFor="ServiceName">Service Name</label>
                         <input
+                            id="ServiceName"
                             type="text"
                             name="ServiceName"
-                            placeholder="Service Name"
+                            placeholder="Enter Service Name"
                             value={serviceData.ServiceName}
                             onChange={handleInputChange}
                         />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="Description">Description</label>
                         <input
+                            id="Description"
                             type="text"
                             name="Description"
-                            placeholder="Description"
+                            placeholder="Enter Description"
                             value={serviceData.Description}
                             onChange={handleInputChange}
                         />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="Cost">Cost</label>
                         <input
+                            id="Cost"
                             type="number"
                             name="Cost"
-                            placeholder="Cost"
+                            placeholder="Enter Cost"
                             value={serviceData.Cost}
                             onChange={handleInputChange}
                         />
                     </div>
                 </div>
+
 
                 {/* Buttons */}
                 <div className="button-row">

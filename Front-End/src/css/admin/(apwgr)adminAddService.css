@@ -17,9 +17,6 @@
 
 
 
-
-/*new*/
-
 .admin-add-service-container {
     padding: 20px;
     font-family: Arial, sans-serif;
@@ -35,10 +32,42 @@
 
 .input-row-continer{
     padding: 50px;
+    padding-top: 40px;
     border-radius: 6px;
-    background-color: #666;
-    margin-bottom: 40px;
+    background-color: #6666668c;
+    margin-bottom: 30px;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
 }
+
+/*new*/
+
+
+.input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group label {
+    font-size: 15px;
+    color: #000000;
+}
+
+.input-group input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+
+/*end*/
+
+
 .input-row {
     display: flex;
     justify-content: space-between;
@@ -58,7 +87,7 @@
     display: flex;
     justify-content:start;
     gap: 40px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .add-button,
