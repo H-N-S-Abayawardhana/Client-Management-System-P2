@@ -33,7 +33,12 @@
     color: #666;
 }
 
-
+.input-row-continer{
+    padding: 50px;
+    border-radius: 6px;
+    background-color: #666;
+    margin-bottom: 40px;
+}
 .input-row {
     display: flex;
     justify-content: space-between;
@@ -121,7 +126,7 @@
     background-color: #e04a4a;
 }
 
-.back-button {
+.button-row .back-button {
     margin-top: 20px;
     display: block;
     padding: 10px 20px;
@@ -133,6 +138,6 @@
     cursor: pointer;
 }
 
-.back-button:hover {
+.button-row .back-button:hover {
     background-color: #11777e;
 }

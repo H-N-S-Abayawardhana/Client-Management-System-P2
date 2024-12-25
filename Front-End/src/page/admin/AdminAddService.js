@@ -13,7 +13,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const AdminAddService = () => {
     const [sidebarVisible, setSidebarVisible] = useState(false);
 
-
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
@@ -80,28 +79,30 @@ const AdminAddService = () => {
 
 
                 {/* Input Fields Row */}
-                <div className="input-row">
-                    <input
-                        type="text"
-                        name="ServiceName"
-                        placeholder="Service Name"
-                        value={serviceData.ServiceName}
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        type="text"
-                        name="Description"
-                        placeholder="Description"
-                        value={serviceData.Description}
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        type="number"
-                        name="Cost"
-                        placeholder="Cost"
-                        value={serviceData.Cost}
-                        onChange={handleInputChange}
-                    />
+                <div className="input-row-continer">
+                    <div className="input-row">
+                        <input
+                            type="text"
+                            name="ServiceName"
+                            placeholder="Service Name"
+                            value={serviceData.ServiceName}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            type="text"
+                            name="Description"
+                            placeholder="Description"
+                            value={serviceData.Description}
+                            onChange={handleInputChange}
+                        />
+                        <input
+                            type="number"
+                            name="Cost"
+                            placeholder="Cost"
+                            value={serviceData.Cost}
+                            onChange={handleInputChange}
+                        />
+                    </div>
                 </div>
 
                 {/* Buttons */}
@@ -144,7 +145,7 @@ const AdminAddService = () => {
                 </div>
 
                 <div className="button-row">
-                    <button className="btn apwgr-back-btn my-3" onClick={() => navigate('#invoice')}>
+                    <button className="btn back-button my-3" onClick={() => navigate('#invoice')}>
                         <span className="bi bi-arrow-left m-3">Back To Invoice</span>
                     </button>
                 </div>
