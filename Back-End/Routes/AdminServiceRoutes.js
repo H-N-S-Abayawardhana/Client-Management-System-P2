@@ -24,7 +24,7 @@ router.post('/add-service', async (req, res) => {
 });
 
 // Fetch All Services Route
-router.get('/service', async (req, res) => {
+router.get('/services', async (req, res) => {
     const sql = `SELECT * FROM Service`;
     try {
         const [results] = await db.query(sql);

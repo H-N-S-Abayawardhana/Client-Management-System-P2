@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import "../../css/admin/(apwgr)adminAddService.css";
@@ -9,6 +9,7 @@ import Sidebar from '../../components/templetes/SideBar';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 
 const AdminAddService = () => {
     const [sidebarVisible, setSidebarVisible] = useState(false);
@@ -22,9 +23,8 @@ const AdminAddService = () => {
         Description: '',
         Cost: '',
     });
-    const [services, setServices] = useState([]);
-    const [idCounter, setIdCounter] = useState(1);
 
+    const [services, setServices] = useState([]); // Use a single state for services
     const navigate = useNavigate();
 
     // Handle input changes
@@ -53,6 +53,7 @@ const AdminAddService = () => {
                 alert('Task added successfully!');
                 // Reset fields after successful addition
                 setServiceData({ ServiceName: '', Description: '', Cost: '' });
+                fetchServices(); // Reload services after adding a new one
             } else {
                 alert(result.message || 'Failed to add task.');
             }
@@ -61,18 +62,37 @@ const AdminAddService = () => {
             alert('Something went wrong.');
         }
     };
-    
+
+    // Fetch all services from the API
+    const fetchServices = async () => {
+        try {
+            const response = await axios.get('http://localhost:8800/admin/service/services');
+            setServices(response.data); // Update state with fetched data
+        } catch (error) {
+            console.error('Error fetching services:', error);
+        }
+    };
+
+    // Delete a service
+    const handleDeleteService = async (ServiceID) => {
+        try {
+            await axios.delete(`http://localhost:8800/admin/service/services/${ServiceID}`);
+            setServices(services.filter(service => service.ServiceID !== ServiceID)); // Update the list after deletion
+            alert('Task deleted successfully.');
+        } catch (error) {
+            console.error('Error deleting task:', error);
+            alert('Failed to delete task.');
+        }
+    };
 
     // Reset the input fields
     const handleReset = () => {
         setServiceData({ ServiceName: '', Description: '', Cost: '' });
     };
 
-    // Delete a service from the table
-    const handleDeleteService = (id) => {
-        const updatedServices = services.filter((service) => service.id !== id);
-        setServices(updatedServices);
-    };
+    useEffect(() => {
+        fetchServices(); // Fetch services when component mounts
+    }, []);
 
     return (
         <div>
@@ -91,8 +111,6 @@ const AdminAddService = () => {
                 <div className="apwgr-head">
                     <h1 className="text-center">Add Service</h1>
                 </div>
-
-
 
                 {/* Input Fields Row */}
                 <div className="input-row-continer">
@@ -131,7 +149,6 @@ const AdminAddService = () => {
                     </div>
                 </div>
 
-
                 {/* Buttons */}
                 <div className="button-row">
                     <button className="add-button" onClick={handleAddService}>Add</button>
@@ -152,15 +169,15 @@ const AdminAddService = () => {
                         </thead>
                         <tbody>
                             {services.map((service) => (
-                                <tr key={service.id}>
-                                    <td>{service.id}</td>
+                                <tr key={service.ServiceID}>
+                                    <td>{service.ServiceID}</td>
                                     <td>{service.ServiceName}</td>
                                     <td>{service.Description}</td>
                                     <td>{service.Cost}</td>
                                     <td>
                                         <button
                                             className="delete-button"
-                                            onClick={() => handleDeleteService(service.id)}
+                                            onClick={() => handleDeleteService(service.ServiceID)}
                                         >
                                             Delete
                                         </button>
