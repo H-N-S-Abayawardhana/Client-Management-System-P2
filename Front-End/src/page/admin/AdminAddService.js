@@ -108,7 +108,7 @@ const AdminAddService = () => {
                     </ol>
                 </nav>
 
-                <div className="apwgr-head">
+                <div className="apwgr-head-service">
                     <h1 className="text-center">Add Service</h1>
                 </div>
 
