@@ -1,0 +1,228 @@
+.msa-form-container{
+    /*padding: 20px;*/
+    border-radius: 8px;
+    margin: 10px;
+    color: #4c7476;
+    overflow-y: auto;
+    overflow-x: hidden;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 10px;
+}
+.msa-form-container .msa-profile-breadcrumb {
+    font-size: 18px;
+    font-weight: 100;
+    margin-top: 50px;
+    margin-left: 250px;
+    margin-bottom: 14px;
+    font-family: 'Arial', sans-serif;
+}
+/* Style for 'Home' */
+.msa-form-container .msa-profile-breadcrumb span.home {
+    color: black; /* Black color for Home */
+}
+
+/* Style for 'Contact' */
+.msa-form-container .msa-profile-breadcrumb span.contact {
+    color: #24757E; /* Green color for Contact */
+}
+/* Footer adjustments for desktop view */
+@media (min-width: 1024px) {
+    .container3 {
+        width: calc(100% - 230px);
+        margin-left: auto;
+        right: 0;
+    }
+}
+.msa-form-container .msa-payment-form-container{
+    margin: 20px;
+}
+/* Optional: Add spacing if needed */
+.msa-form-container .msa-payment-form-container .head-name {
+    margin-left: 680px;
+}
+.msa-form-container .msa-payment-form-container .head-name h1{
+    color: #24757E;
+    margin-bottom:25px;
+    max-width: 100%;
+}
+.msa-form-container .msa-payment-form-container .invoice-card {
+    width: 80%;
+    max-width: 400px; /* Slightly larger max-width for better visuals */
+    padding:  30px 50px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: 670px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.msa-form-container .msa-payment-form-container .invoice-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+}
+.msa-form-container .msa-payment-form-container .invoice-card p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: black;
+}
+.msa-form-container .msa-payment-form-container .invoice-card p strong {
+    align-items: center;
+    flex: 1;
+    text-align: right;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.msa-form-container .msa-payment-form-container .invoice-card p span {
+    align-items: center;
+    flex: 2;
+    text-align: center;
+    white-space: nowrap;
+    padding-left:20px;
+}
+.download-btn {
+    align-items: center;
+    background-color: #24757E;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    width: 10%;
+    margin-left: 830px;
+}
+.download-btn:hover {
+    background-color: #1d5d65;
+}
+
+.sidebar-toggle {
+    display: none; /* Hidden by default for larger screens */
+}
+
+/* Tablet View (max-width: 780px) */
+@media (max-width: 780px) {
+    .msa-form-container .msa-profile-breadcrumb {
+        display: none;
+    }
+    .msa-form-container .msa-payment-form-container .head-name {
+        margin-left: 25px;
+    }
+    .msa-form-container .msa-payment-form-container .head-name h2 {
+        font-size: 20px;
+        padding-top:90px ;
+        font-weight: 600;
+    }
+    .msa-form-container .msa-payment-form-container .invoice-card {
+        width: 80%; /* Adjust width for tablets */
+        margin: 15px ;
+    }
+    .msa-form-container .msa-payment-form-container .invoice-card h3 {
+        font-size: 18px;
+    }
+    .msa-form-container .msa-payment-form-container .invoice-card p {
+        font-size: 15px;
+    }
+    .download-btn {
+        width: 60%;
+        margin: 10px auto;
+        display: block;
+    }
+
+    .sidebar-toggle {
+        display: block; /* Show the toggle button on mobile */
+        z-index: 9999 !important;
+        position: fixed;
+        top: 15px;
+        left: 85%;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        background-color: #346269;
+        color: white;
+        cursor: pointer;
+    }
+
+    .sidebar-toggle {
+        display: block;
+    }
+
+    .sidebar-toggle:hover {
+        background-color: #1f5d53;
+    }
+
+}
+/* Mobile View (max-width: 480px) */
+@media (max-width: 480px) {
+    .msa-form-container {
+        padding: 10px; /* Add padding to avoid touching edges */
+    }
+    .msa-form-container-container .msa-profile-breadcrumb {
+        display: none;
+    }
+    .msa-form-container .msa-payment-form-container .head-name {
+        /*margin: 0 auto; !* Center align *!*/
+        margin-top: 60px;
+        margin-bottom: 30px;
+    }
+    .msa-form-container .msa-payment-form-container .head-name h2 {
+        font-size: 20px;
+        text-align: center; /* Center text */
+
+    }
+    .msa-form-container .msa-payment-form-container .invoice-card {
+        width: 90%; /* Full width for mobile */
+        padding: 15px; /* Adjust padding for mobile */
+        margin: 0 auto 30px; /* Center align and add spacing below */
+        box-shadow: none; /* Simplify design */
+    }
+    .msa-form-container .msa-payment-form-container .invoice-card h3 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    .msa-form-container .msa-payment-form-container .invoice-card p {
+        font-size: 17px;
+    }
+    .download-btn {
+        width: 50%; /* Full width for button */
+        font-size: 20px;
+        margin: 10px auto; /* Center align */
+        display: block; /* Ensure no inline issues */
+    }
+
+    .sidebar-toggle {
+        display: block; /* Show the toggle button on mobile */
+        z-index: 9999 !important;
+        position: fixed;
+        top: 15px;
+        left: 85%;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        background-color: #346269;
+        color: white;
+        cursor: pointer;
+    }
+
+    .sidebar-toggle {
+        display: block;
+    }
+
+    .sidebar-toggle:hover {
+        background-color: #1f5d53;
+    }
+
+}
