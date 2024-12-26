@@ -65,6 +65,26 @@ router.get("/:id", async (req, res) => {
       res.status(500).json({ error: "Database error" });
     }
   });
+  // Route to update admin data
+router.put("/:id", (req, res) => {
+    const adminID = req.params.id;
+    const { AdminName, UserName, Email, ContactNumber } = req.body;
+  
+    const query = `
+      UPDATE Admin 
+      SET Name = ?, Username = ?, Email = ?, ContactNumber = ?
+      WHERE AdminID = ?`;
+  
+    con.query(query, [AdminName, UserName, Email, ContactNumber, adminID], (err, result) => {
+      if (err) {
+        console.error("Error updating admin data:", err);
+        res.status(500).send("Error updating admin data");
+      } else {
+        res.send("Admin profile updated successfully");
+      }
+    });
+  });
+  
 
 // Fetch received tasks
 router.get('/received', (req, res) => {

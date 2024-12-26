@@ -8,6 +8,7 @@ import profileIcon from "../../assets/employee2.png";
 const EmployeeProfile = () => {
   const [employee, setEmployee] = useState(null);
   const [isMobile, setIsMobile] = useState(window.matchMedia("(max-width: 768px)").matches);
+  const [error, setError] = useState("");
   const navigate = useNavigate(); 
 
   useEffect(() => {
@@ -25,9 +26,20 @@ const EmployeeProfile = () => {
     const employeeID = 1; // Replace with the actual employee ID
 
     fetch(`http://localhost:5000/api/employee/${employeeID}`)
-      .then((response) => response.json())
-      .then((data) => setEmployee(data))
-      .catch((error) => console.error("Error fetching employee data:", error));
+      .then((response) => {
+        if(!response.ok)  {
+          throw new Error("Failed to fetch user data");
+        }
+         return response.json();
+        })
+      .then((data) => {
+        setEmployee(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching employee data:", error);
+        setError("Error fetching employee data");
+      });
+
   }, []);
 
   const formatDate = (dateString) => {

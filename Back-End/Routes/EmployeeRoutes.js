@@ -5,19 +5,35 @@ import authenticateToken from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 // Route to fetch employee data
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   const employeeID = req.params.id;
+  console.log("Route accessed with ID:", employeeID);
 
-  const query = "SELECT * FROM Employee WHERE EmployeeID = ?";
-  con.query(query, [employeeID], (err, result) => {
-    if (err) {
-      console.error("Error fetching employee data:", err);
-      res.status(500).send("Error fetching employee data");
-    } else {
-      res.json(result[0]);
+  try{
+    const [rows] = await db.query(`
+      SELECT 
+        Name As EmployeeName,
+        Designation As Designation,
+        Email,
+        ContactNumber,
+        Address,
+        WorkStartDate
+      FROM Employee
+      WHERE EmployeeID = ?`,
+      [employeeID]
+    );
+    if (!rows.length){
+      return res.status(404).json({ message: "Employee not found" });
     }
+    res.json(rows[0]);
+  } catch (err) {
+    console.error("Database error", err);
+    res.status(500).json({ message: "Database error" });
+  }
   });
-});
+
+ 
+
 
 // Get tasks for the logged-in employee
 router.get("/tasks", authenticateToken, async (req, res) => {
