@@ -12,6 +12,8 @@ import AdminDashboard from './page/admin/adminDashboardPage';
 import AdminChangePassword from './page/admin/adminChangePassword.js';
 import AdminProfile from './page/admin/adminProfile.js';
 import EditAdminProfile from './page/admin/editAdminProfile.js';
+import PaymentInformation from './page/admin/paymentinformation';
+import Payment from './page/admin/payment';
 
 //Employee 
 import EmployeeDashboard from './page/employee/employeeDashboard';
@@ -38,6 +40,8 @@ function App() {
         <Route path="/adminChange-password" element={<AdminChangePassword />} />
         <Route path="/admin-profile" element={<AdminProfile />} />
         <Route path="/edit-admin-profile" element={<EditAdminProfile />} />
+        <Route path="/payment" element={<Payment/>} />
+        <Route path="/payment-information/:selectedPaymentId" element={<PaymentInformation />} />
 
 
         {/* Employee-Side Routes */}
