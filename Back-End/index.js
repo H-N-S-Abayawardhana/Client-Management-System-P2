@@ -4,8 +4,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 
 import authRoutes from './Routes/auth.js';
-import adminRoutes from './Routes/admin.js'; 
-import EmployeeRoutes from './Routes/EmployeeRoutes.js';
+import adminRoutes from './Routes/AdminRoutes.js'; 
+import employeeRoutes from './Routes/EmployeeRoutes.js';
 
 dotenv.config();
 
@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
-app.use('/api/employee', EmployeeRoutes);
+app.use('/api/employee', employeeRoutes);
 
 // Default route
 app.get('/', (req, res) => {
