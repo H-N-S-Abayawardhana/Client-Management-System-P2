@@ -114,46 +114,53 @@ const AdminAddService = () => {
                 </div>
 
                 {/* Input Fields Row */}
-                <div className="input-row-continer">
-                    <div className="input-group">
-                        <label htmlFor="ServiceName">Service Name</label>
-                        <input
-                            id="ServiceName"
-                            type="text"
-                            name="ServiceName"
-                            placeholder="Enter Service Name"
-                            value={serviceData.ServiceName}
-                            onChange={handleInputChange}
-                        />
+                <div className="service-input-section">
+
+                    <div className="input-row-continer">
+                        <div className="input-group">
+                            <label htmlFor="ServiceName">Service Name</label>
+                            <input
+                                id="ServiceName"
+                                type="text"
+                                name="ServiceName"
+                                placeholder="Enter Service Name"
+                                value={serviceData.ServiceName}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="input-group">
+                            <label htmlFor="Description">Description</label>
+                            <input
+                                id="Description"
+                                type="text"
+                                name="Description"
+                                placeholder="Enter Description"
+                                value={serviceData.Description}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="input-group">
+                            <label htmlFor="Cost">Cost</label>
+                            <input
+                                id="Cost"
+                                type="number"
+                                name="Cost"
+                                placeholder="Enter Cost"
+                                value={serviceData.Cost}
+                                onChange={handleInputChange}
+                            />
+                        </div>
                     </div>
-                    <div className="input-group">
-                        <label htmlFor="Description">Description</label>
-                        <input
-                            id="Description"
-                            type="text"
-                            name="Description"
-                            placeholder="Enter Description"
-                            value={serviceData.Description}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="input-group">
-                        <label htmlFor="Cost">Cost</label>
-                        <input
-                            id="Cost"
-                            type="number"
-                            name="Cost"
-                            placeholder="Enter Cost"
-                            value={serviceData.Cost}
-                            onChange={handleInputChange}
-                        />
+
+                    {/* Buttons */}
+                    <div className="button-row">
+                        <button className="add-button" onClick={handleAddService}>Add</button>
+                        <button className="reset-button" onClick={handleReset}>Reset</button>
                     </div>
                 </div>
 
-                {/* Buttons */}
-                <div className="button-row">
-                    <button className="add-button" onClick={handleAddService}>Add</button>
-                    <button className="reset-button" onClick={handleReset}>Reset</button>
+                <div className="apwgr-head-sub">
+                    <h1 className="text-center">Services</h1>
                 </div>
 
                 {/* Services Table */}

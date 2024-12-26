@@ -176,8 +176,16 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+    .service-input-section {
+        border: 1px solid #008080; /* Add border with teal color */
+        padding: 20px;
+        padding-bottom: 0;
+        border-radius: 8px;
+    }
 
-
+    .apwgr-head-sub h1{
+        margin: 20px;
+    }
     .apwgr-head-service h1 {
         margin-top: 100px;
     }
