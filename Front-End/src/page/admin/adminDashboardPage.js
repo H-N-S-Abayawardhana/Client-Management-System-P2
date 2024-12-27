@@ -32,7 +32,7 @@ function AdminDashboard() {
 
   const getAttendCount = async () => {
     try{
-        const response = await fetch('http://localhost:8800/api/attendCount')
+        const response = await fetch('http://localhost:5000/api/attendCount')
         const responseData = await response.json()
         if(!response.ok){
           console.log("error")
@@ -53,7 +53,7 @@ function AdminDashboard() {
 
   const getEmpCount = async () => {
     try{
-        const response = await fetch('http://localhost:8800/api/empCount')
+        const response = await fetch('http://localhost:5000/api/empCount')
         const responseData = await response.json()
         if(!response.ok){
           console.log("error")
@@ -71,7 +71,7 @@ function AdminDashboard() {
 
   const getInvoiceCount = async () => {
     try{
-        const response = await fetch('http://localhost:8800/api/invoiceCount')
+        const response = await fetch('http://localhost:5000/api/invoiceCount')
         const responseData = await response.json()
         if(!response.ok){
           console.log("error")
@@ -89,7 +89,7 @@ function AdminDashboard() {
 
   const getData = async () => {
     try{
-      const response = await fetch('http://localhost:8800/api/received')
+      const response = await fetch('http://localhost:5000/api/received')
       const responseData = await response.json()
       if(!response.ok){
         console.log("error")

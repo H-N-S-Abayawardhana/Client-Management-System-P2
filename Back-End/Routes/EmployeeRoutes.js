@@ -1,5 +1,5 @@
 import express from "express";
-import con from "../utils/db.js";
+import db from "../utils/db.js";
 import authenticateToken from "../middleware/authMiddleware.js";
 
 const router = express.Router();
@@ -15,9 +15,11 @@ router.get("/:id", async (req, res) => {
         Name As EmployeeName,
         Designation As Designation,
         Email,
+        Name ,
         ContactNumber,
         Address,
-        WorkStartDate
+        WorkStartDate,
+        EmployeeID
       FROM Employee
       WHERE EmployeeID = ?`,
       [employeeID]

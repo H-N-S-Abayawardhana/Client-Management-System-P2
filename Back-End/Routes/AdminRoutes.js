@@ -40,18 +40,18 @@ router.post('/change-password', authenticateToken, async (req, res) => {
 // Route to fetch admin data by ID
 router.get("/:id", async (req, res) => {
     const adminID = req.params.id;
-    console.log("Route accessed with ID:", adminID);
+    //console.log("Route accessed with ID:", adminID);
   
     try {
       const [rows] = await db.query(`
         SELECT 
           Name AS AdminName, 
           Username AS UserName, 
-          Email, 
+          Email,
           ContactNumber, 
-          RegistrationDate 
-        FROM Admin 
-        WHERE AdminID = ?`, 
+          RegistrationDate
+        FROM Admin
+        WHERE AdminID = ?`,
         [adminID]
       );
   
@@ -68,22 +68,37 @@ router.get("/:id", async (req, res) => {
   // Route to update admin data
 router.put("/:id", (req, res) => {
     const adminID = req.params.id;
-    const { AdminName, UserName, Email, ContactNumber } = req.body;
+    const { AdminName, UserName, Email, ContactNumber, RegistrationDate } = req.body;
   
     const query = `
       UPDATE Admin 
-      SET Name = ?, Username = ?, Email = ?, ContactNumber = ?
-      WHERE AdminID = ?`;
+      SET Name = ?,
+          Username = ?,
+          Email = ?,
+          ContactNumber = ?,
+          RegistrationDate = ?
+      WHERE AdminID = ?`; 
   
-    con.query(query, [AdminName, UserName, Email, ContactNumber, adminID], (err, result) => {
-      if (err) {
-        console.error("Error updating admin data:", err);
-        res.status(500).send("Error updating admin data");
-      } else {
-        res.send("Admin profile updated successfully");
-      }
+    con.query(query, [
+        AdminName,
+        UserName,
+        Email,
+        ContactNumber,
+        RegistrationDate, // Added this parameter
+        adminID
+    ], (err, result) => {
+        if (err) {
+            console.error("Error updating admin data:", err);
+            return res.status(500).json({ message: "Error updating admin data", error: err.message });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: "Admin not found" });
+        }
+
+        res.json({ message: "Admin profile updated successfully" });
     });
-  });
+});
   
 
 // Fetch received tasks

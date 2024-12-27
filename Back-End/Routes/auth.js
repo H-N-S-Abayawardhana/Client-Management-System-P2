@@ -84,6 +84,33 @@ router.post('/logout', async (req, res) => {
     }
 });
 
+// // Middleware to check session status
+// app.get('/check-session', (req, res) => {
+//     const { token } = req.query; // Assume the token is passed as a query parameter
+  
+//     if (!token) {
+//       return res.status(400).json({ message: 'Token is required' });
+//     }
+  
+//     const query = `
+//       SELECT * FROM session_logs
+//       WHERE Token = ? AND LogoutTime IS NULL
+//     `;
+  
+//     db.query(query, [token], (err, results) => {
+//       if (err) {
+//         console.error(err);
+//         return res.status(500).json({ message: 'Database query failed' });
+//       }
+  
+//       if (results.length > 0) {
+//         res.json({ message: 'Session is active', session: results[0] });
+//       } else {
+//         res.json({ message: 'Session has expired' });
+//       }
+//     });
+//   });
+
 export default router;
 
 
