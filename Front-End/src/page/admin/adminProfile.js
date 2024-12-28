@@ -19,7 +19,7 @@ const AdminProfile = () => {
   useEffect(() => {
     const adminID = 1; 
 
-    fetch(`http://localhost:5000/api/admin/${adminID}`)
+    fetch(`http://localhost:5000/api/admin/admin/${adminID}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch admin data");

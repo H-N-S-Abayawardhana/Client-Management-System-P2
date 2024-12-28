@@ -20,7 +20,7 @@ const EditAdminProfile = () => {
 
   useEffect(() => {
     if (adminID) {
-      fetch(`http://localhost:5000/api/admin/${adminID}`)
+      fetch(`http://localhost:5000/api/admin/admin/${adminID}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Failed to fetch admin data");
@@ -72,7 +72,7 @@ const EditAdminProfile = () => {
     const formattedDate = convertDDMMYYYYToDate(admin.RegistrationDate);
     admin.RegistrationDate = formattedDate;
 
-    fetch(`http://localhost:5000/api/admin/${adminID}`, {
+    fetch(`http://localhost:5000/api/admin/admin/${adminID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
