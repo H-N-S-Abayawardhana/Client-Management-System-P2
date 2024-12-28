@@ -34,22 +34,80 @@ router.get("/:id", async (req, res) => {
   }
   });
 
- 
-
-
-// Get tasks for the logged-in employee
-router.get("/tasks", authenticateToken, async (req, res) => {
-  if (req.user.userType !== 'Employee') {
-    return res.status(403).json({ message: 'Access denied.' });
-  }
+//Fetch Employee Count
+router.get('/employee/empCount', async (req, res) => {
+  const query = "SELECT COUNT(EmployeeID) AS empCount FROM employee";
 
   try {
-    const [tasks] = await con.query('SELECT * FROM Task WHERE EmployeeID = ?', [req.user.id]);
-    res.status(200).json(tasks);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Internal server error.' });
+      const [rows] = await db.query(query);
+      const count = rows[0]?.empCount || 0; 
+      return res.status(200).json({ empCount: count });
+  } catch (error) {
+      console.error("Database query error:", error);
+      return res.status(500).json({ error: "Database error" });
   }
 });
+
+// Fetch attendance count
+router.get('/employee/attendCount', async (req, res) => {
+    try {
+        const currentDate = new Date().toISOString().split('T')[0];
+        console.log(currentDate);
+
+        const query = "SELECT COUNT(AttendanceID) AS attendCount FROM attendance WHERE Date = ?";
+        const [data] = await db.query(query, [currentDate]); 
+
+        if (data[0].attendCount > 0) {
+            return res.status(200).json(data[0].attendCount);
+        } else {
+            return res.json(0);
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'An error occurred while fetching the attendance count.' });
+    }
+});
+
+
+// Fetch invoice count
+router.get('/employee/invoiceCount', async (req, res) => {
+  const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM invoice";
+
+  try {
+      // Use promise-based query
+      const [rows] = await db.query(query); 
+      const invoiceCount = rows[0]?.invoiceCount || 0; 
+      return res.status(200).json({ invoiceCount }); 
+  } catch (error) {
+      console.error("Database error:", error);
+      return res.status(500).json({ error: "Database error" });
+  }
+});
+
+
+//Fetch Tasks
+router.get('/employee/task', async (req, res) => {
+  const query = `
+      SELECT 
+          employee.Name AS EmployeeName, 
+          task.TaskName, 
+          task.Deadline, 
+          task.Budget, 
+          task.Description 
+      FROM task 
+      INNER JOIN employee ON task.EmployeeID = employee.EmployeeID
+  `;
+
+  try {
+      // Use promise-based query
+      const [rows] = await db.query(query); 
+      return res.status(200).json(rows); 
+  } catch (error) {
+      console.error("Database error:", error);
+      return res.status(500).json({ error: "Database error" });
+  }
+});
+
+
 
 export default router;

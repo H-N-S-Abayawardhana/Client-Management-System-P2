@@ -75,17 +75,17 @@ export default function Navbar() {
               className="navbar-nav d-flex flex-row justify-content-center justify-content-lg-end w-auto mt-2 mt-lg-0"
             >
               <li className="nav-item me-3">
-                <a className="nav-link text-white" href="#">
+                <a className="nav-link text-white" href="/aboutus">
                   About Us
                 </a>
               </li>
               <li className="nav-item me-3">
-                <a className="nav-link text-white" href="#">
+                <a className="nav-link text-white" href="/services">
                   Services
                 </a>
               </li>
               <li className="nav-item me-5">
-                <a className="nav-link text-white" href="#">
+                <a className="nav-link text-white" href="/contactus">
                   Contact Us
                 </a>
               </li>

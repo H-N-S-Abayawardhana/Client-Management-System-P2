@@ -34,7 +34,7 @@ function EmployeeDashboard() {
 
   const getAttendCount = async () => {
     try{
-        const response = await fetch('http://localhost:5000/api/attendCount')
+        const response = await fetch('http://localhost:5000/api/employee/employee/attendCount')
         const responseData = await response.json()
         if(!response.ok){
           console.log("error")
@@ -54,44 +54,46 @@ function EmployeeDashboard() {
   };
 
   const getEmpCount = async () => {
-    try{
-        const response = await fetch('http://localhost:5000/api/empCount')
-        const responseData = await response.json()
-        if(!response.ok){
-          console.log("error")
-        }
-        else{
-          console.log(responseData)
-          const count = responseData.toString().padStart(2, '0');
-          setEmpCount(count)
-        }
-    }
-    catch(error){
-         console.log(error)
-    }
-  };
+    try {
+        const response = await fetch('http://localhost:5000/api/employee/employee/empCount');
+        const responseData = await response.json();
 
-  const getInvoiceCount = async () => {
-    try{
-        const response = await fetch('http://localhost:5000/api/invoiceCount')
-        const responseData = await response.json()
-        if(!response.ok){
-          console.log("error")
+        if (!response.ok) {
+            console.error("Error fetching employee count:", responseData);
+        } else {
+            console.log("Employee Count Response:", responseData);
+            // Access empCount from the response object
+            const count = responseData.empCount.toString().padStart(2, '0'); 
+            setEmpCount(count);
         }
-        else{
-          console.log(responseData)
-          const count = responseData.toString().padStart(2, '0');
-          setInvoiceCount(count)
-        }
+    } catch (error) {
+        console.error("Fetch error:", error);
     }
-    catch(error){
-         console.log(error)
-    }
-  };
+};
+
+
+const getInvoiceCount = async () => {
+  try {
+      const response = await fetch('http://localhost:5000/api/employee/employee/invoiceCount');
+      const responseData = await response.json();
+
+      if (!response.ok) {
+          console.error("Error fetching invoice count:", responseData);
+      } else {
+          console.log("Invoice Count Response:", responseData);
+          // Access invoiceCount from the response object
+          const count = responseData.invoiceCount.toString().padStart(2, '0'); 
+          setInvoiceCount(count);
+      }
+  } catch (error) {
+      console.error("Fetch error:", error);
+  }
+};
+
 
   const getData = async () => {
     try{
-      const response = await fetch('http://localhost:5000/api/task')
+      const response = await fetch('http://localhost:5000/api/employee/employee/task')
       const responseData = await response.json()
       if(!response.ok){
         console.log("error")
@@ -114,67 +116,67 @@ function EmployeeDashboard() {
   }, []);
 
   return (
-    <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
+    <div className="ae-d-flex flex-column" style={{ minHeight: '100vh' }}>
       <Navbar />
-      <button className="sidebar-toggle" onClick={toggleSidebar}>☰</button>
+      <button className="ae-sidebar-toggle" onClick={toggleSidebar}>☰</button>
 
       <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
         <Sidebar sidebarVisible={sidebarVisible} />
        
 
-        <div className="main-content">
-          <div className="grid-container">
-            <div className="video-section">
+        <div className="ae-main-content">
+          <div className="ae-grid-container">
+            <div className="ae-video-section">
 
-              <div className="info-card green">
-              <div className="info-header-content">
+              <div className="ae-info-card green">
+              <div className="ae-info-header-content">
               <img src={attendImage} alt="Attend" style={{ marginLeft: '60px', height:'35px', width:'35px' }}/>
-                <div className="info-header">Today <br />Attendance</div>
+                <div className="ae-info-header">Today <br />Attendance</div>
                 </div>
-                <div className="info-value-box">
-                <div className="info-value gray">{attendance }</div>
+                <div className="ae-info-value-box">
+                <div className="ae-info-value gray">{attendance }</div>
                 </div>
               </div>
 
 
-              <div className="info-card green">
-              <div className="info-header-content">
+              <div className="ae-info-card green">
+              <div className="ae-info-header-content">
               <img src={InfoInvoice} alt="InfoInvoice" style={{ marginLeft: '60px', height:'30px', width:'30px' }}/>
-                <div className="info-header">Total <br/> Employees</div>
+                <div className="ae-info-header">Total <br/> Employees</div>
                 </div>
-                <div className="info-value-box">
-                  <div className="info-value gray"> {employee }</div>
+                <div className="ae-info-value-box">
+                  <div className="ae-info-value gray"> {employee }</div>
                 </div>
               </div>
 
 
 
-              <div className="info-card green">
-               <div className="info-header-content">
+              <div className="ae-info-card green">
+               <div className="ae-info-header-content">
               <img src={InfoPay} alt="InfoPay" style={{ marginLeft: '60px', height:'40px', width:'40px' }}/>
-                <div className="info-header">Pending <br />Invoices</div>
+                <div className="ae-info-header">Pending <br />Invoices</div>
                 </div>
-                <div className="info-value-box">
-                  <div className="info-value gray">{invoice }</div>
+                <div className="ae-info-value-box">
+                  <div className="ae-info-value gray">{invoice }</div>
                 </div>
               </div>
               
             </div>
 
 
-            <div className="sidebar-section">
-              <div className="overview-ae">Overview</div>
-              <h3 className="vision-title-ae">Our Mission</h3>
-              <p className="mission-vision-text-ae">
+            <div className="ae-sidebar-section">
+              <div className="ae-overview-ae">Overview</div>
+              <h3 className="ae-vision-title-ae">Our Mission</h3>
+              <p className="ae-mission-vision-text-ae">
                 Our mission is to showcase emerging market talent globally to provide a genuinely local solution to organizational needs
               </p>
-              <h3 className="vision-title-ae">Our Vision</h3>
-              <p className="mission-vision-text-ae">
+              <h3 className="ae-vision-title-ae">Our Vision</h3>
+              <p className="ae-mission-vision-text-ae">
                 We aspire to be the premier choice for all human resource and business solutions. By extending our services across borders, we tap into a broad spectrum of talent from emerging countries and industries, providing diversity in the workplace and ensuring companies find the leadership talent they need.
               </p>
-              <div className="vision-title-ae">
-                <h3 className="vision-title-ae">Our Services</h3>
-                <ul className="mission-vision-text-ae">
+              <div className="ae-vision-title-ae">
+                <h3 className="ae-vision-title-ae">Our Services</h3>
+                <ul className="ae-mission-vision-text-ae">
                   <li>Headhunting</li>
                   <li>Professional Resume Writing</li>
                   <li>Interview Preparation</li>
@@ -183,13 +185,13 @@ function EmployeeDashboard() {
               </div>
             </div>
 
-            <div className="content-section">
-              <div className="my-tasks">
-                <p className="task-title">My Tasks</p>
+            <div className="ae-content-section">
+              <div className="ae-my-tasks">
+                <p className="ae-task-title">My Tasks</p>
 
                 
-                  <div className="table-container">
-                    <table className="task-table">
+                  <div className="ae-table-container">
+                    <table className="ae-task-table">
                       <thead>
                         <tr>
                           <th>Task Name</th>
