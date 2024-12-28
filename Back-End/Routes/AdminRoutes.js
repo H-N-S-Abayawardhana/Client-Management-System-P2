@@ -181,37 +181,6 @@ router.get("/admin/:id", async (req, res) => {
 
 
   
-<<<<<<< HEAD
-=======
-    const query = `
-      UPDATE Admin 
-      SET Name = ?,
-          Username = ?,
-          Email = ?,
-          ContactNumber = ?,
-          RegistrationDate = ?
-      WHERE AdminID = ?`; 
-  
-    con.query(query, [
-        AdminName,
-        UserName,
-        Email,
-        ContactNumber,
-        RegistrationDate, // Added this parameter
-        adminID
-    ], (err, result) => {
-        if (err) {
-            console.error("Error updating admin data:", err);
-            return res.status(500).json({ message: "Error updating admin data", error: err.message });
-        }
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ message: "Admin not found" });
-        }
-
-        res.json({ message: "Admin profile updated successfully" });
-    });
-});
   
 
 // Fetch received tasks
