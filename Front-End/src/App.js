@@ -12,11 +12,14 @@ import AdminDashboard from './page/admin/adminDashboardPage';
 import AdminChangePassword from './page/admin/adminChangePassword.js';
 import AdminProfile from './page/admin/adminProfile.js';
 import EditAdminProfile from './page/admin/editAdminProfile.js';
-import PaymentInformation from './page/admin/paymentinformation';
-import Payment from './page/admin/payment';
+import PaymentInformation from './page/admin/payemnt/paymentinformation';
+import Payment from './page/admin/payemnt/payment';
+import InvoiceTable from './page/admin/invoice/AllInvoices';
+import Invoice from './page/admin/invoice/invoice';
+import CreateInvoice from "./page/admin/invoice/addService";
 
 
-//Employee 
+//Employee
 import EmployeeDashboard from './page/employee/employeeDashboard';
 import ForgotPassword from './page/employee/forgotPassword';
 import EmployeeProfile from './page/employee/employeeProfile';
@@ -34,7 +37,7 @@ function App() {
         <Route path="/services" element={<Services/>} />
         <Route path="/aboutus" element={<Aboutus/>} />
         <Route path="/contactus" element={<ContactUs/>} />
-        
+
 
         {/* Admin-Side Routes */}
         <Route path="/admin-Dashboard" element={<AdminDashboard/>} />
@@ -43,6 +46,9 @@ function App() {
         <Route path="/edit-admin-profile" element={<EditAdminProfile />} />
         <Route path="/payment" element={<Payment/>} />
         <Route path="/payment-information/:selectedPaymentId" element={<PaymentInformation />} />
+        <Route path="/All-invoice" element={<InvoiceTable/>} />
+        <Route path="/invoice" element={<Invoice />} />
+        <Route path="/Add-Service" element={<CreateInvoice/>} />
 
 
         {/* Employee-Side Routes */}
