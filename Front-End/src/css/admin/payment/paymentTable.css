@@ -1,4 +1,4 @@
-.msa-paymnet-container {
+.msa-payment-container {
     justify-content: center;
     align-items: center;
     padding: 40px 10px;
@@ -8,7 +8,7 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
-.msa-profile-breadcrumb {
+.msa-payment-container .msa-profile-breadcrumb {
     font-size: 18px;
     font-weight: 100;
     margin-top: 50px;
@@ -17,16 +17,16 @@
     font-family: 'Arial', sans-serif;
 }
 /* Style for 'Home' */
-.msa-profile-breadcrumb span.home {
+.msa-payment-container .msa-profile-breadcrumb span.home {
     color: black; /* Black color for Home */
 }
 
 /* Style for 'Contact' */
-.msa-profile-breadcrumb span.contact {
+.msa-payment-container .msa-profile-breadcrumb span.contact {
     color: #24757E; /* Green color for Contact */
 }
 
-.msa-payment-table-container {
+.msa-payment-container .msa-payment-table-container {
     margin: 20px;
 }
 
@@ -37,12 +37,12 @@
 }
 
 
-.head h1{
+.msa-payment-container .head h1{
     color: #24757E;
     margin-bottom:30px;
     max-width: 100%;
 }
-.view-btn {
+.msa-payment-container .view-btn {
     padding: 1px 10px;
     color: white;
     background-color: #24757E;
@@ -53,7 +53,7 @@
 
 }
 
-.delete-btn {
+.msa-payment-container .delete-btn {
     padding: 1px 10px;
     color: white;
     background-color: #E46B6B;
@@ -63,14 +63,14 @@
     margin: 3px;
 
 }
-.msa-container-table {
+.msa-payment-container .msa-container-table {
     align-items: center; /* Center-align the table container */
     padding: 20px;
     margin-left: 250px;
     max-width: 100%; /* Limit the maximum width */
 }
 
-.pyment-tbl {
+.msa-payment-container .msa-pyment-tbl {
     width: 90%; /* Make the table width responsive */
     border-radius: 2px;
     border-collapse: collapse;
@@ -125,18 +125,18 @@ tbody::-webkit-scrollbar-thumb:hover {
 }
 
 @media (max-width: 780px) {
-    .msa-profile-breadcrumb {
+    msa-paymnet-container .msa-profile-breadcrumb {
         display: none;
     }
 
-    .head h1 {
+    msa-paymnet-container .head h1 {
         padding-top: 60px;
         margin-bottom: 30px;
         font-size: calc(1.375rem + 1.5vw);
         font-weight: bold !important;
     }
 
-    .msa-container-table {
+    msa-paymnet-container .msa-container-table {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -189,16 +189,16 @@ tbody::-webkit-scrollbar-thumb:hover {
 }
 
 @media (max-width: 480px) {
-    .msa-profile-breadcrumb {
+    msa-paymnet-container .msa-profile-breadcrumb {
         display: none;
     }
 
-    .head h1 {
+    msa-paymnet-container .head h1 {
         margin-top: 50px;
         margin-bottom: 30px;
     }
 
-    .msa-container-table {
+    msa-paymnet-container .msa-container-table {
         overflow-x: auto; /* Enable horizontal scroll */
         overflow-y: hidden; /* Prevent any unnecessary vertical scroll in the container */
         white-space: nowrap; /* Prevent wrapping inside the table */

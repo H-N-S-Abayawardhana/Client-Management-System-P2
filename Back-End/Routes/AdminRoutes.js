@@ -270,7 +270,6 @@ router.get("/payment", async (req, res) => {
         return res.status(500).json({ error: "Database query failed" });
     }
 });
-
 // Get Payment by ID
 router.get("/payment/:id", async (req, res) => {
     const sql = "SELECT * FROM payment WHERE paymentID = ?";
@@ -334,8 +333,6 @@ router.delete("/payment/:id", async (req, res) => {
         });
     }
 });
-
-
 //Get Invoice
 router.get("/invoice/:id", async (req, res) => {
     const sql = "SELECT * FROM invoice WHERE invoiceID = ?";
@@ -368,8 +365,6 @@ router.get("/invoice/:id", async (req, res) => {
         });
     }
 });
-
-
 //Get Employee
 router.get("/employee/:id", async (req, res) => {
     const sql = "SELECT * FROM employee WHERE EmployeeID = ?";
@@ -402,6 +397,138 @@ router.get("/employee/:id", async (req, res) => {
         });
     }
 });
+// Get All Invoices
+router.get('/invoice', async (req, res) => {
+    const sql = 'SELECT * FROM invoice';
 
+    try {
+        // Execute the query and await the result
+        const [data] = await db.query(sql);
+
+        // Respond with the retrieved invoices
+        return res.json({
+            success: true,
+            message: 'Invoices retrieved successfully',
+            data: data, // Return the array of invoices
+        });
+    } catch (err) {
+        console.error('Error executing query:', err.message);
+
+        // Respond with error details
+        return res.status(500).json({
+            success: false,
+            message: 'Database query failed',
+            error: err.message, // Include the error message for debugging
+        });
+    }
+});
+// Delete Invoice
+router.delete("/invoice/:id", async (req, res) => {
+    const invoiceID = req.params.id;
+    console.log("DELETE /invoice/:id called with ID:", invoiceID);
+
+    const sql = "DELETE FROM invoice WHERE invoiceID = ?";
+
+    try {
+        // Execute the delete query and destructure the result
+        const [result] = await db.query(sql, [invoiceID]);
+
+        // Check if any rows were affected
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Invoice not found",
+            });
+        }
+
+        // Respond with success
+        return res.status(200).json({
+            success: true,
+            message: "Invoice deleted successfully",
+            data: { invoiceID },
+        });
+    } catch (err) {
+        console.error("Error deleting invoice:", err.message);
+
+        // Respond with error details
+        return res.status(500).json({
+            success: false,
+            message: "Error deleting invoice from database",
+            details: err.message,
+        });
+    }
+});
+// Save New Invoice
+router.post("/invoice", async (req, res) => {
+    const sql = `
+        INSERT INTO invoice (invoiceID, EmployeeID, AccountID, total_cost, invoice_date, description)
+        VALUES (?, ?, ?, ?, ?, ?)
+    `;
+    const values = [
+        req.body.invoiceID,
+        req.body.EmployeeID,
+        req.body.AccountID, // Fixed typo: Ensure it matches 'AccountID' in your database schema
+        req.body.total_cost,
+        req.body.invoice_date, // Ensure it matches 'invoice_date' in your database schema
+        req.body.description || null, // Optional field; defaults to null if not provided
+    ];
+
+    try {
+        // Execute the query and retrieve the result
+        const [result] = await db.query(sql, values);
+
+        // Return success response with inserted data details
+        return res.status(201).json({
+            success: true,
+            message: "Invoice added successfully",
+            data: {
+                invoiceID: req.body.invoiceID,
+                EmployeeID: req.body.EmployeeID,
+                AccountID: req.body.AccountID,
+                total_cost: req.body.total_cost,
+                invoice_date: req.body.invoice_date,
+                description: req.body.description || null,
+                insertId: result.insertId, // Include the auto-generated ID if applicable
+            },
+        });
+    } catch (err) {
+        console.error("Error inserting invoice data:", err.message);
+
+        // Respond with error details
+        return res.status(500).json({
+            success: false,
+            message: "Error inserting data into database",
+            details: err.message,
+        });
+    }
+});
+// Save New Service
+router.post("/service", async (req, res) => {
+    console.log(req.body.invoiceID);
+    const sql = "INSERT INTO service (serviceID, invoiceID, service_description, cost) VALUES (?, ?, ?, ?)";
+    const values = [
+        req.body.serviceID,
+        req.body.invoiceID,
+        req.body.service_description,
+        req.body.cost
+    ];
+
+    db.query(sql, values, (err, data) => {
+        if (err) {
+            console.error("Error inserting service data:", err.message);
+            return res.status(500).json({
+                success: false,
+                message: "Error inserting data into database",
+                details: err.message
+            });
+        }
+
+        return res.status(201).json({
+            success: true,
+            message: "Service added successfully",
+            data: data // Sending back the response data
+        });
+    });
+});
 
 export default router;

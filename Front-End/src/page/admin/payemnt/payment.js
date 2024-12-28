@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import '../../css/admin/paymentTable.css';
-import Navbar from "../../components/templetes/MainNav";
-import Footer from "../../components/PagesFooter";
-import Sidebar from "../../components/templetes/SideBar";
+import '../../../css/admin/payment/paymentTable.css';
+import Navbar from "../../../components/templetes/MainNav";
+import Footer from "../../../components/PagesFooter";
+import Sidebar from "../../../components/templetes/SideBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // useNavigate import
 import {toast} from "react-toastify";
@@ -64,13 +64,18 @@ const PaymentsTable = () => {
 
     };
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString("en-GB");
+    };
+
     return (
         <div>
             <Navbar />
-            <div className="msa-paymnet-container">
-                <nav className="msa-breadcrumb" aria-label="breadcrumb">
+            <div className="msa-payment-container">
+                <nav>
                     <p className="msa-profile-breadcrumb">
-                        <span className="home">Home</span> / <span className="contact">Payment</span>
+                        <span className="home">Home</span> / <span className="home">Invoice</span> / <span className="contact">All Invoices</span>
                     </p>
                 </nav>
                 <div className="msa-payment-table-container">
@@ -86,7 +91,7 @@ const PaymentsTable = () => {
                     {/* Render the table when payments data is loaded */}
                     {!loading && !error && (
                         <div className="msa-container-table">
-                            <table className='pyment-tbl'>
+                            <table className='msa-pyment-tbl'>
                                 <thead>
                                 <tr>
                                     <th>No</th>
@@ -104,7 +109,7 @@ const PaymentsTable = () => {
                                         <td>{payment.invoiceID}</td>
                                         <td>{payment.EmployeeID}</td>
                                         <td>{payment.amount}</td>
-                                        <td>{payment.payment_date}</td>
+                                        <td>{formatDate(payment.payment_date)}</td>
                                         <td>
                                             <button
                                                 className="view-btn"

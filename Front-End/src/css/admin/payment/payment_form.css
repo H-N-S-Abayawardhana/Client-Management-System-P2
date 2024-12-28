@@ -1,5 +1,4 @@
 .msa-form-container{
-    /*padding: 20px;*/
     border-radius: 8px;
     margin: 10px;
     color: #4c7476;
@@ -7,13 +6,12 @@
     overflow-x: hidden;
     justify-content: center;
     align-items: center;
-    padding: 40px 10px;
 }
 .msa-form-container .msa-profile-breadcrumb {
     font-size: 18px;
     font-weight: 100;
-    margin-top: 50px;
-    margin-left: 250px;
+    margin-top: 80px;
+    margin-left: 290px;
     margin-bottom: 14px;
     font-family: 'Arial', sans-serif;
 }

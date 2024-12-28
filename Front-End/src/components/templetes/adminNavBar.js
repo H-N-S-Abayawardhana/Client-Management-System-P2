@@ -125,7 +125,7 @@ export default function Navbar() {
                     }}
                   >
                     <li>
-                      <a className="dropdown-item" href="#">
+                      <a className="dropdown-item" href="/admin-profile">
                         My Profile
                       </a>
                     </li>
