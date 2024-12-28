@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from '../components/templetes/adminNavBar';
+import Navbar from '../components/templetes/MainNav';
 import Footer from '../components/templetes/Footer';
 import '../css/contactus.css';
 import contactBgImage from '../assets/contactusbg.jpeg';
@@ -28,7 +28,7 @@ const ContactUs = () => {
     setResponseMessage({ text: '', type: '' });
 
     try {
-      const response = await axios.post('http://localhost:8800/api/sendMail', formData);
+      const response = await axios.post('http://localhost:5000/api/sendMail', formData);
       
       if (response.status === 200) {
         setResponseMessage({ 
