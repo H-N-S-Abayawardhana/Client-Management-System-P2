@@ -1,141 +1,101 @@
+
+
 /* General Layout */
-.d-flex {
-    display: flex;
-  }
-  
-  .flex-column {
-    flex-direction: column;
-  }
-  
-  .flex-grow-1 {
-    flex-grow: 1;
-  }
-  
-  /* Main Content Container */
-  .main-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f8f8f8;
-    padding: 2px;
-    box-sizing: border-box;
-    margin-top: 40px;
-  }
-  
+.ae-d-flex {
+  display: flex;
+}
+
+.ae-flex-column {
+  flex-direction: column;
+}
+
+.ae-flex-grow-1 {
+  flex-grow: 1;
+}
+
+/* Main Content Container */
+.ae-main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f8f8;
+  padding: 2px;
+  box-sizing: border-box;
+  margin-top: 40px;
+}
+
 /* Grid Layout */
-.grid-container {
+.ae-grid-container {
   display: grid;
   grid-template-areas:
-    "video sidebar"
-    "content sidebar";
-  grid-template-columns: 2fr 1fr; /* Sidebar takes 1 part, content and video take 3 parts */
-  grid-template-rows: 3fr 2fr; /* Video taller, content section larger */
-  gap: 30px;
+      "video sidebar"
+      "content sidebar";
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 3fr 2fr;
+  gap: 20px; 
   width: 100%;
-  max-width: 1300px; /* Centered content */
-  height: 80vh; /* Adjust the grid height */
+  max-width: 1500px;
+  height: 80vh;
+  padding-left: 150px;
 }
 
-/* Mobile View */
-@media (max-width: 768px) {
-  .grid-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Adjust spacing for smaller screens */
-    height: auto; /* Let the height adjust naturally */
-    padding: 10px; /* Add padding for better spacing */
-    margin-top: 50px;
-  }
-
-  /* Adjust children for better mobile view */
-  .video-section,
-  .content-section,
-  .sidebar {
-    width: 100%; /* Full width */
-    height: auto; /* Auto height */
-  }
+/* Sidebar Section */
+.ae-sidebar-section {
+  grid-area: sidebar;
+  background-color: #dbf7f7;
+  border-radius: 8px;
+  text-align: left;
+  padding: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 550px;
+  transform: translateX(-50px); 
+  margin-left: 130px; 
+  width: 300px; 
 }
-
-
-
-
-  /* Sidebar (Left Side) */
-  .sidebar-section {
-    grid-area: sidebar;
-    background-color: #dbf7f7;
-    border-radius: 8px;
-    text-align: left;
-    padding: 20px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    height: 550px;
-  }
-  
-  /* Video Section (Top-Right) */
-  .video-section {
-    grid-area: video;
-    background-color: #ffffff;
-    border-radius: 8px;
-    text-align: center;
-    padding: 5px;
-    font-size: 1.8rem;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    height: 50%; /* Makes the video section taller */
-    
-  }
-  
-  /* Dynamic Content Section (Bottom-Right) */
-  .content-section {
-    grid-area: content;
-    background-color: #ffffff;
-    border-radius: 8px;
-    text-align: center;
-    padding: 20px;
-    font-size: 1.8rem;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: -180px;
-    height: 350px;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .grid-container {
-      grid-template-areas:
-        "sidebar"
-        "video"
-        "content";
-      grid-template-columns: 1fr; /* Single column layout */
-      grid-template-rows: auto;
-    }
-  
-    .sidebar-section,
-    .video-section,
-    .content-section {
-      height: auto;
-    }
-  }
-
-
-
-
-
 
 /* Video Section */
-.video-section {
+.ae-video-section {
+  grid-area: video;
+  background-color: #ffffff;
+  border-radius: 8px;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 50%;
   display: flex;
-  gap: 80px; /* Spacing between cards */
+  gap: 80px;
   justify-content: flex-start;
   align-items: center;
-  padding: 20px;
+  transform: translateX(120px);
+  margin-right: 60px;
+  width: 850px;
+  padding-right: 40px;
 }
 
-/* Green Card (Top Layer) */
-.info-card.green {
+/* Dynamic Content Section */
+.ae-content-section {
+  grid-area: content;
+  background-color: #ffffff;
+  border-radius: 8px;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: -180px;
+  height: 350px;
+  transform: translateX(120px);
+  width: 850px;
+}
+
+/* Green Card */
+.ae-info-card.green {
   position: relative;
-  background-color: #6d848c; /* Green */
+  background-color: #6d848c;
   color: #fff;
   width: 180px;
   height: 120px;
@@ -149,12 +109,12 @@
   font-size: 1rem;
   font-weight: bold;
   z-index: 1;
- margin-right: 20px;
- gap: 30px;
+  margin-right: 20px;
+  gap: 30px;
 }
 
 /* Icons inside Green Card */
-.info-header {
+.ae-info-header {
   display: flex;
   flex-direction: column;
   justify-items: left;
@@ -165,18 +125,13 @@
   transform: translateX(-28px);
 }
 
-
-
-
-
-
-/* Gray Box (Number Box) */
-.info-value-box {
+/* Gray Box */
+.ae-info-value-box {
   position: absolute;
-  top: 50%; /* Align to center of card vertically */
-  right: -90px; /* Slightly outside the green box */
-  transform: translateY(-50%); /* Align perfectly in center */
-  background-color: #e0e0e0; /* Light Gray */
+  top: 50%;
+  right: -90px;
+  transform: translateY(-50%);
+  background-color: #e0e0e0;
   color: #333;
   font-size: 1.8rem;
   font-weight: bold;
@@ -187,152 +142,138 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2; /* Ensure it's behind the green card */
+  z-index: 2;
   margin-right: 5px;
-  
 }
 
-  
-  /* Header Styling for the Cards */
-  .info-card .info-header {
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-  
-  /* Optional: Mobile Responsiveness */
-  @media (max-width: 768px) {
-    .video-section {
-      flex-direction: column; /* Stack the cards vertically on smaller screens */
-    }
-  }
+/* Sidebar Content Styles */
+.ae-sidebar-section p {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #666;
+  font-weight: 100;
+}
 
+.ae-vision-title-ae {
+  font-size: 20px;
+  font-weight: 400;
+  color: #254684;
+  margin-top: 20px;
+  margin-bottom: 4px;
+  text-align: justify;
+}
 
+.ae-mission-vision-text-ae {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 30px;
+}
 
+.ae-service-vision-title-ae {
+  margin-top: 30px;
+}
 
+.ae-mission-vision-text-ae li {
+  margin-bottom: 5px;
+}
 
+.ae-overview-ae {
+  font-weight: 400;
+  margin-bottom: 30px;
+}
 
-
-
-  .sidebar-section {
-  
-    padding: 20px;
-    border-radius: 10px; /* Rounded corners */
-  }
-  
-  .sidebar-section p {
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: #666; /* Dark gray text color */
-    font-weight: 100;
-  }
-  
-  .vision-title-ae {
-    font-size: 20px;
-    font-weight: 400;
-    color: #254684;
-    margin-top: 20px;
-    margin-bottom: 4px;
-    text-align: justify;
-  }
-  
-  .mission-vision-text-ae {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #666; /* Dark gray text color */
-  }
-  
-  .service-vision-title-ae {
-    margin-top: 20px;
-  }
-  
-  .mission-vision-text-ae {
-    list-style: none;
-    padding-left: 0;
-  }
-  
-  .mission-vision-text-ae li {
-    margin-bottom: 5px;
-  }
-
-  .overview-ae {
-    font-weight: 400;
-  }
-
-  
- 
-
-
-
-
-
-
-
-
-
-
-/* Container for the table */
-.table-container {
+/* Table Styles */
+.ae-table-container {
   width: 100%;
   margin: 20px 0;
-  overflow-x: auto; /* Allow horizontal scrolling on smaller screens */
+  overflow-x: auto;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
 
-/* Table styling with borders */
-.task-table {
+.ae-task-table {
   width: 100%;
-  border-collapse: collapse; /* Ensures lines don't double up */
+  border-collapse: collapse;
   font-family: Arial, sans-serif;
+  border: 10px solid #d1f0f2;
 }
 
-.task-table {
-  border: 10px solid #d1f0f2; /* Outline border with desired color (e.g., green) */
-  border-collapse: collapse; /* Ensures borders don't double */
-  width: 100%;
-}
-
-/* Internal table borders */
-.task-table th, 
-.task-table td {
-  border: 1px solid #ddd; /* Light gray borders for internal lines */
-  padding: 12px; /* Space between text and border */
-  text-align: center; /* Align text to the left */
+.ae-task-table th, 
+.ae-task-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
   font-size: 14px;
   font-weight: 200;
 }
 
-/* Table header styling */
-.task-table th {
-  background-color: #c6c6c6; /* Darker header background */
-  color: #393939; /* White text */
+.ae-task-table th {
+  background-color: #c6c6c6;
+  color: #393939;
   font-weight: bold;
   font-size: 15px;
 }
 
-/* Alternate row color for better readability */
-.task-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9; /* Light gray alternate row */
+.ae-task-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-/* Hover effect on rows */
-.task-table tbody tr:hover {
-  background-color: #f1f1f1; /* Slight highlight on hover */
+.ae-task-table tbody tr:hover {
+  background-color: #f1f1f1;
 }
 
-/* Empty Rows Styling */
-.task-table tbody tr td:empty {
-  background-color: #f4f4f4; /* Slight gray for empty cells */
+.ae-task-table tbody tr td:empty {
+  background-color: #f4f4f4;
 }
 
-/* Task Title Styling */
-.task-title  {
+.ae-task-title {
   font-size: 20px;
   font-weight: bold;
   color: #525252;
-  
   text-transform: uppercase;
   text-align: left;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .ae-grid-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      height: auto;
+      padding: 10px;
+      margin-top: 50px;
+      padding-left: 0;
+      max-width: 100%;
+  }
+
+  .ae-video-section,
+  .ae-content-section,
+  .ae-sidebar-section {
+      width: 100%;
+      height: auto;
+      transform: none;
+      margin-left: 0;
+      margin-right: 0;
+  }
+
+  .ae-video-section {
+      flex-direction: column;
+      padding-right: 20px;
+  }
+
+  .ae-sidebar-section,
+  .ae-video-section,
+  .ae-content-section {
+      height: auto;
+  }
+
+  .ae-mission-vision-text-ae,
+  .ae-overview-ae {
+      margin-bottom: 20px;
+  }
 }
