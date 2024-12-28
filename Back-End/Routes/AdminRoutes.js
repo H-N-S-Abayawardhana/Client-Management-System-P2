@@ -150,13 +150,26 @@ router.get('/admin/invoiceCount', async (req, res) => {
 });
 
 
-// Route to fetch admin data by ID
-router.get("/admin/:id", async (req, res) => {
-    const adminID = req.params.id;
-    //console.log("Route accessed with ID:", adminID);
-  
+//Route to get current admin profile
+router.get("/current/profile", async (req, res) => {
     try {
-      const [rows] = await db.query(`
+      // Get the most recent active session
+      const [sessions] = await db.query(`
+        SELECT UserID, UserType 
+        FROM sessionlogs 
+        WHERE LogoutTime IS NULL 
+        AND UserType = 'Admin'
+        ORDER BY LoginTime DESC 
+        LIMIT 1
+      `);
+  
+      if (!sessions.length) {
+        return res.status(401).json({ message: "No active admin session found" });
+      }
+  
+      const { UserID } = sessions[0];
+  
+      const [admins] = await db.query(`
         SELECT 
           Name AS AdminName, 
           Username AS UserName, 
@@ -165,17 +178,18 @@ router.get("/admin/:id", async (req, res) => {
           RegistrationDate
         FROM Admin
         WHERE AdminID = ?`,
-        [adminID]
+        [UserID]
       );
   
-      if (!rows.length) {
-        return res.status(404).json({ error: "Admin not found" });
+      if (!admins.length) {
+        return res.status(404).json({ message: "Admin not found" });
       }
   
-      res.json(rows[0]);
+      res.json(admins[0]);
+  
     } catch (err) {
       console.error("Database error:", err);
-      res.status(500).json({ error: "Database error" });
+      res.status(500).json({ message: "Database error" });
     }
   });
 

@@ -17,11 +17,15 @@ const AdminProfile = () => {
   };
 
   useEffect(() => {
-    const adminID = 1; 
-
-    fetch(`http://localhost:5000/api/admin/admin/${adminID}`)
+    // Updated to use the new endpoint
+    fetch('http://localhost:5000/api/admin/current/profile')
       .then((response) => {
         if (!response.ok) {
+          if (response.status === 401) {
+            // Handle unauthorized access - redirect to login
+            navigate('/login');
+            throw new Error("No active session");
+          }
           throw new Error("Failed to fetch admin data");
         }
         return response.json();
@@ -33,7 +37,7 @@ const AdminProfile = () => {
         console.error("Error fetching admin data:", error);
         setError("Error fetching admin data");
       });
-  }, []);
+  }, [navigate]);
 
   if (!admin) {
     return (
