@@ -4,35 +4,55 @@ import authenticateToken from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Route to fetch employee data
-router.get("/:id", async (req, res) => {
-  const employeeID = req.params.id;
-  console.log("Route accessed with ID:", employeeID);
+// New route to get current user data
+router.get("/current/profile", async (req, res) => {
+  try {
+    // Get the most recent active session (no logout time)
+    const [sessions] = await db.query(`
+      SELECT UserID, UserType 
+      FROM sessionlogs 
+      WHERE LogoutTime IS NULL 
+      ORDER BY LoginTime DESC 
+      LIMIT 1
+    `);
 
-  try{
-    const [rows] = await db.query(`
-      SELECT 
-        Name As EmployeeName,
-        Designation As Designation,
-        Email,
-        Name ,
-        ContactNumber,
-        Address,
-        WorkStartDate,
-        EmployeeID
-      FROM Employee
-      WHERE EmployeeID = ?`,
-      [employeeID]
-    );
-    if (!rows.length){
-      return res.status(404).json({ message: "Employee not found" });
+    if (!sessions.length) {
+      return res.status(401).json({ message: "No active session found" });
     }
-    res.json(rows[0]);
+
+    const { UserID, UserType } = sessions[0];
+
+    // If user is an employee, query employee table
+    if (UserType === 'Employee') {
+      const [employees] = await db.query(`
+        SELECT 
+          Name,
+          Designation,
+          Email,
+          ContactNumber,
+          Address,
+          WorkStartDate,
+          EmployeeID
+        FROM Employee
+        WHERE EmployeeID = ?`,
+        [UserID]
+      );
+
+      if (!employees.length) {
+        return res.status(404).json({ message: "Employee not found" });
+      }
+
+      res.json(employees[0]);
+    } else {
+      // Handle admin case if needed
+      return res.status(400).json({ message: "Invalid user type for this endpoint" });
+    }
+
   } catch (err) {
-    console.error("Database error", err);
+    console.error("Database error:", err);
     res.status(500).json({ message: "Database error" });
   }
-  });
+});
 
 //Fetch Employee Count
 router.get('/employee/empCount', async (req, res) => {

@@ -23,24 +23,29 @@ const EmployeeProfile = () => {
   }, []);
 
   useEffect(() => {
-    const employeeID = 1; // Replace with the actual employee ID
+   // Updated to use the new endpoint
+   fetch('http://localhost:5000/api/employee/current/profile')
+   .then((response) => {
+     if (!response.ok) {
+       if (response.status === 401) {
+         // Handle unauthorized access - redirect to login
+         navigate('/login');
+         throw new Error("No active session");
+       }
+       throw new Error("Failed to fetch user data");
+     }
+     return response.json();
+   })
+   .then((data) => {
+     setEmployee(data);
+   })
+   .catch((error) => {
+     console.error("Error fetching employee data:", error);
+     setError("Error fetching employee data");
+   });
+}, [navigate]);
 
-    fetch(`http://localhost:5000/api/employee/${employeeID}`)
-      .then((response) => {
-        if(!response.ok)  {
-          throw new Error("Failed to fetch user data");
-        }
-         return response.json();
-        })
-      .then((data) => {
-        setEmployee(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching employee data:", error);
-        setError("Error fetching employee data");
-      });
-
-  }, []);
+  
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
