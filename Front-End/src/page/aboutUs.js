@@ -2,7 +2,7 @@ import React from "react";
 import "../css/aboutus.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import Navbar from '../components/templetes/adminNavBar';
+import Navbar from '../components/templetes/MainNav';
 import Footer from "../components/templetes/Footer";
 
 // Import images
