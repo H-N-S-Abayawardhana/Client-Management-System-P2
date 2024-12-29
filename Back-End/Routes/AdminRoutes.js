@@ -37,43 +37,51 @@ router.post('/change-password', authenticateToken, async (req, res) => {
     }
 });
 
-// Route to update admin data
-router.put("/admin/:id", (req, res) => {
-    const adminID = req.params.id;
-    const { AdminName, UserName, Email, ContactNumber, RegistrationDate } = req.body;
+// Route for update current admin's profile
+router.put("/current/update", async (req, res) => {
+    try {
+      // Get the current admin's ID from active session
+      const [sessions] = await db.query(`
+        SELECT UserID
+        FROM sessionlogs 
+        WHERE LogoutTime IS NULL 
+        AND UserType = 'Admin'
+        ORDER BY LoginTime DESC 
+        LIMIT 1
+      `);
   
-    const query = `
-      UPDATE Admin 
-      SET Name = ?,
-          Username = ?,
-          Email = ?,
-          ContactNumber = ?,
-          RegistrationDate = ?
-      WHERE AdminID = ?`; 
+      if (!sessions.length) {
+        return res.status(401).json({ message: "No active admin session found" });
+      }
   
-    con.query(query, [
-        AdminName,
-        UserName,
-        Email,
-        ContactNumber,
-        RegistrationDate, 
-        adminID
-    ], (err, result) => {
-        if (err) {
-            console.error("Error updating admin data:", err);
-            return res.status(500).json({ message: "Error updating admin data", error: err.message });
-        }
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ message: "Admin not found" });
-        }
-
-        res.json({ message: "Admin profile updated successfully" });
-    });
-});
+      const adminID = sessions[0].UserID;
+      const { AdminName, UserName, Email, ContactNumber, RegistrationDate } = req.body;
+  
+      // Update the admin's data
+      const [result] = await db.query(`
+        UPDATE Admin 
+        SET Name = ?,
+            Username = ?,
+            Email = ?,
+            ContactNumber = ?,
+            RegistrationDate = ?
+        WHERE AdminID = ?
+      `, [AdminName, UserName, Email, ContactNumber, RegistrationDate, adminID]);
+  
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ message: "Admin not found" });
+      }
+  
+      res.json({ message: "Admin profile updated successfully" });
+  
+    } catch (err) {
+      console.error("Database error:", err);
+      res.status(500).json({ message: "Error updating admin data", error: err.message });
+    }
+  });
   
 
-// // Fetch received tasks
+// Fetch received tasks
 router.get('/admin/received', async (req, res) => {
     try {
         const query = `
@@ -116,7 +124,7 @@ router.get('/admin/attendCount', async (req, res) => {
 });
 
 
-// Fetch employee count// Fetch employee count
+// Fetch employee count
 router.get('/admin/empCount', async (req, res) => {
     try {
         const query = "SELECT COUNT(EmployeeID) AS empCount FROM employee";
@@ -132,7 +140,7 @@ router.get('/admin/empCount', async (req, res) => {
     }
 });
 
-
+// Fetch invoice count
 router.get('/admin/invoiceCount', async (req, res) => {
     try {
         const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM invoice";

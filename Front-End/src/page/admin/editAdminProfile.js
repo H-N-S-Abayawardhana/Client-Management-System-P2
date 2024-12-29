@@ -3,6 +3,8 @@ import Navbar from "../../components/templetes/adminNavBar";
 import Footer from "../../components/templetes/Footer";
 import "../../css/admin/editAdminProfile.css";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditAdminProfile = () => {
   const [admin, setAdmin] = useState({
@@ -14,38 +16,37 @@ const EditAdminProfile = () => {
   });
 
   const [error, setError] = useState("");
-
-  // Temporarily hardcode the admin ID ||  Simulate logged-in user's ID
-  const adminID = 1;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (adminID) {
-      fetch(`http://localhost:5000/api/admin/admin/${adminID}`)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to fetch admin data");
+    fetch('http://localhost:5000/api/admin/current/profile')
+      .then((response) => {
+        if (!response.ok) {
+          if (response.status === 401) {
+            toast.error("Session expired. Please login again.");
+            navigate('/login');
+            throw new Error("No active session");
           }
-          return response.json();
-        })
-        .then((data) => {
-          if (data.RegistrationDate) {
-            const date = new Date(data.RegistrationDate);
-            data.RegistrationDate = formatDateToDDMMYYYY(date);
-          } else {
-            const currentDate = new Date();
-            data.RegistrationDate = formatDateToDDMMYYYY(currentDate);
-          }
-          setAdmin(data);
-        })
-        .catch(() => {
-          setError("Error fetching admin data");
-          error("Error fetching admin data");
-        });
-    } else {
-      setError("No admin ID found");
-      error("No admin ID found");
-    }
-  }, [error]);
+          throw new Error("Failed to fetch admin data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.RegistrationDate) {
+          const date = new Date(data.RegistrationDate);
+          data.RegistrationDate = formatDateToDDMMYYYY(date);
+        } else {
+          const currentDate = new Date();
+          data.RegistrationDate = formatDateToDDMMYYYY(currentDate);
+        }
+        setAdmin(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setError("Error fetching admin data");
+        toast.error("Failed to load admin data. Please try again later.");
+      });
+  }, [navigate]);
 
   const formatDateToDDMMYYYY = (date) => {
     const day = String(date.getDate()).padStart(2, "0");
@@ -59,8 +60,6 @@ const EditAdminProfile = () => {
     return `${year}-${month}-${day}`;
   };
 
-  const navigate = useNavigate();
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setAdmin({ ...admin, [name]: value });
@@ -69,26 +68,45 @@ const EditAdminProfile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formattedDate = convertDDMMYYYYToDate(admin.RegistrationDate);
-    admin.RegistrationDate = formattedDate;
+    // Show loading toast
+    const loadingToast = toast.loading("Updating profile...");
 
-    fetch(`http://localhost:5000/api/admin/admin/${adminID}`, {
+    const formattedDate = convertDDMMYYYYToDate(admin.RegistrationDate);
+    const updatedAdmin = {
+      ...admin,
+      RegistrationDate: formattedDate
+    };
+
+    fetch('http://localhost:5000/api/admin/current/update', {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(admin),
+      body: JSON.stringify(updatedAdmin),
     })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to update admin details");
         }
-        alert("Profile updated successfully!");
-        navigate("/admin-profile"); 
+        return response.json();
       })
-      .catch(() => {
+      .then((data) => {
+        // Dismiss loading toast and show success
+        toast.dismiss(loadingToast);
+        toast.success("Profile updated successfully!");
+        
+        // Navigate after a short delay to allow toast to be seen
+        setTimeout(() => {
+          navigate("/admin-profile");
+        }, 1500);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
         setError("Error updating admin details");
-        alert("Error updating admin details");
+        
+        // Dismiss loading toast and show error
+        toast.dismiss(loadingToast);
+        toast.error("Failed to update profile. Please try again.");
       });
   };
 
@@ -159,6 +177,19 @@ const EditAdminProfile = () => {
       </div>
       <Footer />
       
+      {/* Toast Container */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
