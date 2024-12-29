@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/templetes/empNavBar';
 import Footer from '../../components/PagesFooter';
 import Sidebar from '../../components/templetes/SideBar';
@@ -12,14 +13,118 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../../css/employee/empdash.css';
 
 function EmployeeDashboard() {
+  const navigate = useNavigate();
   const [sidebarVisible, setSidebarVisible] = useState(false);
-  const [tasks, setTasks] = useState([]); // State to store fetched tasks
+  const [tasks, setTasks] = useState([]);
   const [attendance, setAttendCount] = useState(null);
   const [employee, setEmpCount] = useState([]);
   const [invoice, setInvoiceCount] = useState([]);
   const [data, setData] = useState([]);
-  // const [loading, setLoading] = useState(true); // State for loading status
-  // const [error, setError] = useState(null); // State for error handling
+
+  // Check token and session on component mount
+  useEffect(() => {
+    checkSession();
+  }, []);
+
+  const checkSession = () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+  };
+
+  const makeAuthenticatedRequest = async (url) => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.status === 401 || response.status === 403) {
+        // Token expired or invalid
+        localStorage.removeItem('token');
+        navigate('/login');
+        return null;
+      }
+
+      return response;
+    } catch (error) {
+      console.error('Request error:', error);
+      return null;
+    }
+  };
+
+  const getAttendCount = async () => {
+    try {
+      const response = await makeAuthenticatedRequest('http://localhost:5000/api/employee/employee/attendCount');
+      if (response) {
+        const responseData = await response.json();
+        const count = responseData.toString().padStart(2, '0');
+        setAttendCount(count);
+      }
+    } catch (error) {
+      console.error('Attendance count error:', error);
+    }
+  };
+
+  const getEmpCount = async () => {
+    try {
+      const response = await makeAuthenticatedRequest('http://localhost:5000/api/employee/employee/empCount');
+      if (response) {
+        const responseData = await response.json();
+        const count = responseData.empCount.toString().padStart(2, '0');
+        setEmpCount(count);
+      }
+    } catch (error) {
+      console.error('Employee count error:', error);
+    }
+  };
+
+  const getInvoiceCount = async () => {
+    try {
+      const response = await makeAuthenticatedRequest('http://localhost:5000/api/employee/employee/invoiceCount');
+      if (response) {
+        const responseData = await response.json();
+        const count = responseData.invoiceCount.toString().padStart(2, '0');
+        setInvoiceCount(count);
+      }
+    } catch (error) {
+      console.error('Invoice count error:', error);
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const response = await makeAuthenticatedRequest('http://localhost:5000/api/employee/employee/task');
+      if (response) {
+        const responseData = await response.json();
+        setData(responseData);
+      }
+    } catch (error) {
+      console.error('Task data error:', error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await Promise.all([
+        getAttendCount(),
+        getEmpCount(),
+        getInvoiceCount(),
+        getData()
+      ]);
+    };
+
+    fetchData();
+
+    // Set up interval to check session every 30 seconds
+    const sessionCheckInterval = setInterval(checkSession, 30000);
+
+    return () => clearInterval(sessionCheckInterval);
+  }, []);
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
@@ -30,91 +135,7 @@ function EmployeeDashboard() {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${year}-${month}-${day}`;
-    };
-
-  const getAttendCount = async () => {
-    try{
-        const response = await fetch('http://localhost:5000/api/employee/employee/attendCount')
-        const responseData = await response.json()
-        if(!response.ok){
-          console.log("error")
-        }
-        else{
-           console.log(responseData)
-          const count = responseData.toString().padStart(2, '0');
-          console.log(count)
-         
-          setAttendCount(count)
-          
-        }
-    }
-    catch(error){
-         console.log(error)
-    }
   };
-
-  const getEmpCount = async () => {
-    try {
-        const response = await fetch('http://localhost:5000/api/employee/employee/empCount');
-        const responseData = await response.json();
-
-        if (!response.ok) {
-            console.error("Error fetching employee count:", responseData);
-        } else {
-            console.log("Employee Count Response:", responseData);
-            // Access empCount from the response object
-            const count = responseData.empCount.toString().padStart(2, '0'); 
-            setEmpCount(count);
-        }
-    } catch (error) {
-        console.error("Fetch error:", error);
-    }
-};
-
-
-const getInvoiceCount = async () => {
-  try {
-      const response = await fetch('http://localhost:5000/api/employee/employee/invoiceCount');
-      const responseData = await response.json();
-
-      if (!response.ok) {
-          console.error("Error fetching invoice count:", responseData);
-      } else {
-          console.log("Invoice Count Response:", responseData);
-          // Access invoiceCount from the response object
-          const count = responseData.invoiceCount.toString().padStart(2, '0'); 
-          setInvoiceCount(count);
-      }
-  } catch (error) {
-      console.error("Fetch error:", error);
-  }
-};
-
-
-  const getData = async () => {
-    try{
-      const response = await fetch('http://localhost:5000/api/employee/employee/task')
-      const responseData = await response.json()
-      if(!response.ok){
-        console.log("error")
-      }
-      else{
-        console.log(responseData)
-        setData(responseData)
-      }
-  }
-  catch(error){
-       console.log(error)
-  }
-  }
-
-  useEffect(() => {
-    getAttendCount()
-    getEmpCount()
-    getInvoiceCount()
-    getData()
-  }, []);
-
   return (
     <div className="ae-d-flex flex-column" style={{ minHeight: '100vh' }}>
       <Navbar />
@@ -231,4 +252,19 @@ const getInvoiceCount = async () => {
   );
 }
 
-export default EmployeeDashboard;
+const withAuth = (WrappedComponent) => {
+  return function WithAuthComponent(props) {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/login');
+      }
+    }, [navigate]);
+
+    return <WrappedComponent {...props} />;
+  };
+};
+
+export default withAuth(EmployeeDashboard);

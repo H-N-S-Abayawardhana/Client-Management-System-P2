@@ -24,6 +24,10 @@ import EmployeeDashboard from './page/employee/employeeDashboard';
 import ForgotPassword from './page/employee/forgotPassword';
 import EmployeeProfile from './page/employee/employeeProfile';
 
+import ProtectedRoute from './Routes/ProtectedRoute';
+
+
+
 
 
 function App() {
@@ -40,10 +44,10 @@ function App() {
 
 
         {/* Admin-Side Routes */}
-        <Route path="/admin-Dashboard" element={<AdminDashboard/>} />
-        <Route path="/adminChange-password" element={<AdminChangePassword />} />
-        <Route path="/admin-profile" element={<AdminProfile />} />
-        <Route path="/edit-admin-profile" element={<EditAdminProfile />} />
+        <Route path="/admin-Dashboard" element={<ProtectedRoute><AdminDashboard/></ProtectedRoute>} />
+        <Route path="/adminChange-password" element={<ProtectedRoute><AdminChangePassword /></ProtectedRoute>} />
+        <Route path="/admin-profile" element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
+        <Route path="/edit-admin-profile" element={<ProtectedRoute><EditAdminProfile /></ProtectedRoute>} />
         <Route path="/payment" element={<Payment/>} />
         <Route path="/payment-information/:selectedPaymentId" element={<PaymentInformation />} />
         <Route path="/All-invoice" element={<InvoiceTable/>} />
@@ -52,9 +56,9 @@ function App() {
 
 
         {/* Employee-Side Routes */}
-        <Route path="/employee-dashboard" element={<EmployeeDashboard/>}/>
+        <Route path="/employee-dashboard" element={<ProtectedRoute><EmployeeDashboard/></ProtectedRoute>}/>
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/employee-profile" element={<EmployeeProfile />} />
+        <Route path="/employee-profile" element={<ProtectedRoute><EmployeeProfile /></ProtectedRoute>} />
 
       </Routes>
     </Router>
