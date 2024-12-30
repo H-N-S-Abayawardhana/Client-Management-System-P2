@@ -94,7 +94,7 @@ export default function AdminReceivedTask() {
                         </span>
                         {task.Attachment ? (
                           <a
-                            href={`http://localhost:5000/api/task-progress/download/${task.TaskProgressID}`}
+                            href={`http://localhost:5000/employee/task/task-progress/download/${task.TaskProgressID}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >

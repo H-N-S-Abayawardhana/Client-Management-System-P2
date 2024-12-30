@@ -197,7 +197,7 @@ const AdminAddService = () => {
                 </div>
 
                 <div className="button-row">
-                    <button className="btn back-button my-3" onClick={() => navigate('#invoice')}>
+                    <button className="btn back-button my-3" onClick={() => navigate('/invoice')}>
                         <span className="bi bi-arrow-left m-3">Back To Invoice</span>
                     </button>
                 </div>
