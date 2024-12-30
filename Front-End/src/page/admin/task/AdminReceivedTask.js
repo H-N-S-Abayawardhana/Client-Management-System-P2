@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../css/admin/(apwgr)adminRecivedTask.css'
+import '../../../css/admin/(apwgr)adminRecivedTask.css'
 import { IoDownloadOutline } from "react-icons/io5";
 
-import Navbar from '../../components/templetes/adminNavBar';
-import Footer from '../../components/templetes/Footer';
-import Sidebar from '../../components/templetes/SideBar';
+import Navbar from '../../../components/templetes/adminNavBar';
+import Footer from '../../../components/templetes/Footer';
+import Sidebar from '../../../components/templetes/SideBar';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

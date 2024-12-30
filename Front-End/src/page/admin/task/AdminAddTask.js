@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import "../../css/admin/(apwgr)adminAddTask.css";
+import "../../../css/admin/(apwgr)adminAddTask.css";
 
-import Navbar from '../../components/templetes/adminNavBar';
-import Footer from '../../components/templetes/Footer';
-import Sidebar from '../../components/templetes/SideBar';
+import Navbar from '../../../components/templetes/adminNavBar';
+import Footer from '../../../components/templetes/Footer';
+import Sidebar from '../../../components/templetes/SideBar';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

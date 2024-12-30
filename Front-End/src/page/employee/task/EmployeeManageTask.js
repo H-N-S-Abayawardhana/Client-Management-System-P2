@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import "../../css/employee/(apwgr)EmployeeManageTask.css";
+import "../../../css/employee/(apwgr)EmployeeManageTask.css";
 
-import Navbar from '../../components/templetes/empNavBar';
-import Footer from '../../components/templetes/Footer';
-import Sidebar from '../../components/templetes/ESideBar';
+import Navbar from '../../../components/templetes/empNavBar';
+import Footer from '../../../components/templetes/Footer';
+import Sidebar from '../../../components/templetes/ESideBar';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

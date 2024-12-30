@@ -12,11 +12,11 @@ import AdminDashboard from './page/admin/adminDashboardPage';
 import AdminChangePassword from './page/admin/adminChangePassword.js';
 
 //Task - Admin Side
-import AdminManageTask from './page/admin/adminManageTask';
-import AdminAddTask from './page/admin/AdminAddTask';
-import AdminReceivedTask from './page/admin/AdminReceivedTask';
+import AdminManageTask from './page/admin/task/adminManageTask';
+import AdminAddTask from './page/admin/task/AdminAddTask';
+import AdminReceivedTask from './page/admin/task/AdminReceivedTask';
 //Service - Admin Side
-import AdminAddService from './page/admin/AdminAddService.js';
+import AdminAddService from './page/admin/task/AdminAddService.js';
 import AdminProfile from './page/admin/adminProfile.js';
 import EditAdminProfile from './page/admin/editAdminProfile.js';
 import PaymentInformation from './page/admin/payemnt/paymentinformation';
@@ -29,9 +29,9 @@ import CreateInvoice from "./page/admin/invoice/addService";
 //Employee
 import EmployeeDashboard from './page/employee/employeeDashboard';
 //Task - Employee Side
-import EmployeeReceivedTask from './page/employee/EmployeeReceivedTask';
-import EmployeeManageTask from './page/employee/EmployeeManageTask';
-import EmployeeAddTaskProgress from './page/employee/EmployeeAddTaskProgress';
+import EmployeeReceivedTask from './page/employee/task/EmployeeReceivedTask';
+import EmployeeManageTask from './page/employee/task/EmployeeManageTask';
+import EmployeeAddTaskProgress from './page/employee/task/EmployeeAddTaskProgress';
 
 
 //to protect the routes
