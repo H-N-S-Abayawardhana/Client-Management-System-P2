@@ -33,7 +33,7 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign(
             { id: user.AdminID || user.EmployeeID, userType },
             process.env.JWT_SECRET,
-            { expiresIn: '1m' }
+            { expiresIn: '1H' }
         );
 
         // Log the login in SessionLogs
