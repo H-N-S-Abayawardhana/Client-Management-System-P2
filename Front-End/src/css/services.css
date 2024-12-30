@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+.nu-services-container {
+    padding: 100px;
+    text-align: center;
+    background-color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+}
+
+.nu-services-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #24757e;
+    margin-bottom: 20px;
+}
+
+.nu-services-description {
+    font-size: 1rem;
+    padding-top: 15px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 18px;
+    text-align: justify;
+    margin-left: 70px;
+    margin-right: 70px;
+}
+
+.nu-services-boxes {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    padding-top: 20px;
+}
+
+.nu-service-box, .nu-service-box2 {
+    position: relative;
+    background-color: #d5dbdc;
+    border: 1px solid #ddd;
+    border-radius: 0px;
+    padding: 10px;
+    width: 20%;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.nu-service-box2 {
+    background-color: #24757e;
+    color: white;
+}
+
+.nu-service-box:hover, .nu-service-box2:hover {
+    transform: translateY(-5px);
+}
+
+.nu-service-icon {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.nu-service-topic {
+    font-size: 1.2rem;
+    color: #636363;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.nu-service-text {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.nu-service-box2 .nu-service-topic {
+    color: #f9f9f9;
+}
+
+.nu-service-box2 .nu-service-text {
+    color: #f9f9f9;
+}
+
+/* Responsive Design for Tablet and Mobile Screens */
+@media (max-width: 768px) {
+    .nu-services-container {
+        padding: 100px 20px;  /* Keep top/bottom padding, reduce sides */
+    }
+
+    .nu-services-description {
+        font-size: 0.9rem;
+        margin-left: 30px !important;  
+        margin-right: 30px !important;
+    }
+
+    .nu-services-boxes {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .nu-service-box, .nu-service-box2 {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .nu-services-container {
+        padding: 100px 15px;  
+    }
+
+    .nu-services-description {
+        font-size: 0.8rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .nu-services-boxes {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .nu-service-box, .nu-service-box2 {
+        width: 90%;
+        margin-bottom: 30px;
+    }
+
+    .nu-service-topic {
+        font-size: 1.1rem;
+    }
+
+    .nu-service-text {
+        font-size: 0.8rem;
+    }
+}

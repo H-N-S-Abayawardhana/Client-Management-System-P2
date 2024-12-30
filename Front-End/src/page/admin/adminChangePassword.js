@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Footer from '../../components/templetes/Footer';
-import Navbar from '../../components/templetes/abc';
+import Navbar from '../../components/templetes/adminNavBar';
 import '../../css/admin/adminChangePassword.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

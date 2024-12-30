@@ -1,0 +1,148 @@
+/* General Styling */
+.yks-container{
+    padding: 20px;
+    border-radius: 8px;
+    margin: 10px;
+    color: #4c7476;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.yks-container .msa-profile-breadcrumb {
+    font-size: 18px;
+    font-weight: 100;
+    margin-top: 50px;
+    margin-left: 250px;
+    margin-bottom: 8px;
+    font-family: 'Arial', sans-serif;
+}
+/* Style for 'Home' */
+.yks-container .msa-profile-breadcrumb span.home {
+    color: black; /* Black color for Home */
+}
+
+/* Style for 'Contact' */
+.yks-container .msa-profile-breadcrumb span.contact {
+    color: #24757E; /* Green color for Contact */
+}
+.yks-container .yks-head h1{
+    margin-left: 250px;
+    color: #24757E;
+    margin-bottom:15px;
+    max-width: 100%;
+}
+.yks-container .yks-form-container{
+    width: 90%;
+    max-width: 1000px; /* Slightly larger max-width for better visuals */
+    padding:  10px 50px;
+    justify-content: center;
+    align-items: center;
+    background-color: #E9E9E9;
+    margin-left: 370px;
+    border: 1px solid grey;
+    border-radius: 12px;
+}
+.yks-container .yks-btn-groupup{
+    display: flex;
+    gap: 20px;
+    justify-content: left;
+    margin-top: 20px;
+    border-radius: 10px;
+    margin-left: 370px;
+}
+.yks-container .yks-view-btn {
+    color: white;
+    width: 100px;
+    background-color: #24757E;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 3px;
+}
+.yks-container .yks-back-btn{
+    color: white;
+    width: 150px;
+    background-color: #24757E;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 3px;
+}
+.yks-view-btn:hover {
+    background-color: #4e8585;
+}
+.yks-input{
+    background-color: #E9E9E9;
+    margin-bottom: 10px; /* Space between inputs */
+    padding: 10px;
+}
+/* Form Input Row Styling */
+.row.g-3 {
+    gap: 200px; /* Adds spacing between the rows */
+    margin-bottom: 15px; /* Optional for bottom spacing */
+}
+.yks-container .yks-service-table {
+    align-items: center; /* Center-align the table container */
+    padding: 30px;
+    margin-left: 200px;
+    margin-bottom: 10px;
+    max-width: 90%; /* Limit the maximum width */
+}
+
+.yks-container .yks-serve-tbl {
+    width: 80%; /* Make the table width responsive */
+    border-radius: 2px;
+    margin-bottom: 35px;
+    border-collapse: collapse;
+    table-layout: auto; /* Use auto layout for better column size adjustment */
+    /*margin: auto; !* Center the table within the container *!*/
+}
+.yks-container .yks-serve-tbl th,
+.yks-container .yks-serve-tbl td {
+    padding: 8px; /* Add padding for better readability */
+    border: 1px solid #ddd;
+    text-align: center;
+}
+.yks-container .yks-serve-tbl th {
+    background-color: #ababab !important;
+    color: rgb(9, 0, 0);
+    font-weight: bold;
+}
+.yks-serve-tbl tr {
+    color: rgb(9, 0, 0);
+}
+
+.yks-service-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Scrollable table body */
+.yks-serve-tbl tbody {
+    display: block; /* Makes the table body scrollable */
+    max-height: 200px; /* 6 rows x approximately 40px each */
+    overflow-y: auto; /* Enables vertical scrolling */
+    width: 100%; /* Ensures it matches the table's width */
+}
+
+.yks-serve-tbl thead,
+.yks-serve-tbl tbody tr {
+    display: table; /* Ensures headers and rows maintain table layout */
+    width: 100%; /* Matches the table width */
+    table-layout: fixed; /* Ensures consistent column sizing */
+}
+
+/* Hide scrollbar for cleaner look */
+.yks-serve-tbl tbody::-webkit-scrollbar {
+    width: 2px;
+}
+
+.yks-serve-tbl tbody::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
+.yks-serve-tbl tbody::-webkit-scrollbar-thumb:hover {
+    background-color: #888;
+}

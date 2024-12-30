@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+.hmr-edit-admin-page {
+  font-family: 'Poppins', sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.hmr-edit-admin-container {
+  width: 75%;
+  max-width: 700px;
+  margin: 120px auto; 
+  padding: 30px;
+  background-color: #fff;
+  border: 2px solid #d9d9d9; 
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-top:150px;
+}
+/* Back Button Styles */
+.hmr-edit-admin-back-button {
+  position: fixed;
+  font-size: 50px; 
+  top: 120px; 
+  left: 30px; 
+  width: 50px;
+  height: 50px;
+  background-color: #24757e; 
+  color: white; 
+  border: none;
+  border-radius: 50%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 1000; 
+}
+
+.hmr-edit-admin-back-button:hover {
+  background-color: #1a5c63; 
+}
+
+.hmr-edit-admin-back-button:focus {
+  outline: none;
+}
+
+
+.hmr-edit-admin-back-button-icon {
+  font-size: 100px; 
+  font-weight: bold;
+  line-height: 1;
+  margin-top: -2px; 
+  color: inherit; 
+}
+
+
+.hmr-edit-admin-title {
+  text-align: center;
+  font-weight: bold;
+  color: #24757e;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.hmr-edit-admin-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.hmr-edit-admin-form input {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.hmr-update-button {
+  margin-top: 15px;
+  background-color: #24757e;
+  color: white;
+  padding: 12px 20px;
+  font-size: 18px;
+  width: 160px;
+  text-align: center;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.hmr-update-button:hover {
+  background-color: #1b5a61;
+}
+
+.hmr-error-message {
+  color: red;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+
+@media (max-width: 768px) {
+  .hmr-edit-admin-container {
+    border: none; 
+    margin: 100px auto; 
+  }
+  .hmr-edit-admin-back-button {
+    top: 120px; 
+    left: 30px; 
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+  }
+}
