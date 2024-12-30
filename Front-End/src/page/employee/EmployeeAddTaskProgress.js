@@ -22,7 +22,7 @@ const EmployeeAddTaskProgress = () => {
     const [TaskDescription, setTaskDescription] = useState('');
     const [file, setFile] = useState(null);
   
-    const EmployeeID = 5; // manual EmployeeID creation, PLZ change this when the login/authentication process has been implemented
+    const EmployeeID = 5; //make commend this code,this is manualy Hardcoded EmployeeID=5 , PLZ change this when the login/authentication process has been implemented
   
     const handleFormSubmit = async (e) => { // Handle form submission (send task progress data to the server)
       e.preventDefault();
