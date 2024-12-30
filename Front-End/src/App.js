@@ -25,6 +25,8 @@ import EmployeeAddTaskProgress from './page/employee/EmployeeAddTaskProgress';
 
 //to protect the routes
 import ProtectedRoute from './Routes/ProtectedRoute';
+import EmployeeProtectedRoute from './Routes/EmployeeProtectedRoute.js';
+import AdminProtectedRoute from './Routes/AdminProtectedRoute.js';
 
 function App() {
   return (
@@ -35,24 +37,24 @@ function App() {
         <Route path="/login" element={<SigninPage/>} />
         
         {/* Admin-Side Routes */}
-        <Route path="/admin-Dashboard" element={<ProtectedRoute><AdminDashboard/></ProtectedRoute>} />
-        <Route path="/adminChange-password" element={<ProtectedRoute><AdminChangePassword /></ProtectedRoute>} />
+        <Route path="/admin-Dashboard" element={<AdminProtectedRoute><AdminDashboard/></AdminProtectedRoute>} />
+        <Route path="/adminChange-password" element={<AdminProtectedRoute><AdminChangePassword /></AdminProtectedRoute>} />
 
         {/* Task - Routes */}
-        <Route path="/admin-manage-task" element={<ProtectedRoute><AdminManageTask/></ProtectedRoute>}/>
-        <Route path="/admin-add-task" element={<ProtectedRoute><AdminAddTask/></ProtectedRoute>}/>
-        <Route path="/admin-recived-task" element={<ProtectedRoute><AdminReceivedTask/></ProtectedRoute>}/>
+        <Route path="/admin-manage-task" element={<AdminProtectedRoute><AdminManageTask/></AdminProtectedRoute>}/>
+        <Route path="/admin-add-task" element={<AdminProtectedRoute><AdminAddTask/></AdminProtectedRoute>}/>
+        <Route path="/admin-recived-task" element={<AdminProtectedRoute><AdminReceivedTask/></AdminProtectedRoute>}/>
         {/* Service - Routes */}
-        <Route path="/admin-add-service" element={<ProtectedRoute><AdminAddService/></ProtectedRoute>}/>
+        <Route path="/admin-add-service" element={<AdminProtectedRoute><AdminAddService/></AdminProtectedRoute>}/>
 
 
         {/* Employee-Side Routes */}
-        <Route path="/employee-dashboard" element={<EmployeeDashboard/>}/>
+        <Route path="/employee-dashboard" element={<EmployeeProtectedRoute><EmployeeDashboard/></EmployeeProtectedRoute>}/>
 
         {/* Task - Routes */}
-        <Route path="/employee-progress-task" element={<ProtectedRoute><EmployeeAddTaskProgress/></ProtectedRoute>}/>
-        <Route path="/employee-recived-task" element={<ProtectedRoute><EmployeeReceivedTask/></ProtectedRoute>}/>
-        <Route path="/employee-manage-task-prgress" element={<ProtectedRoute><EmployeeManageTask/></ProtectedRoute>}/>
+        <Route path="/employee-progress-task" element={<EmployeeProtectedRoute><EmployeeAddTaskProgress/></EmployeeProtectedRoute>}/>
+        <Route path="/employee-recived-task" element={<EmployeeProtectedRoute><EmployeeReceivedTask/></EmployeeProtectedRoute>}/>
+        <Route path="/employee-manage-task-prgress" element={<EmployeeProtectedRoute><EmployeeManageTask/></EmployeeProtectedRoute>}/>
 
       </Routes>
     </Router>
