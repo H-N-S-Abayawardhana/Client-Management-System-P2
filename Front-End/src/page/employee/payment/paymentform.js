@@ -69,7 +69,7 @@ function PaymentForm() {
             cvc: formData.cvv,
             amount: selectedInvoice.total_cost,
             payment_status: "Completed",
-            payment_date: new Date().toISOString(),
+            payment_date: new Date().toISOString(), // Send date in ISO format
         };
 
         axios
@@ -186,7 +186,7 @@ function PaymentForm() {
 
                         <div className="msa-form-section">
                             <label>CVV*</label>
-                            <text className='msa-txt'>This card is three or four digit numbers printed on back or front of the card</text><br />
+                            <span className='msa-txt'>This card is three or four digit numbers printed on back or front of the card</span><br />
                             <input
                                 type="text"
                                 name="cvv"

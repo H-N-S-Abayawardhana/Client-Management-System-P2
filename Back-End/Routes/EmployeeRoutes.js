@@ -133,48 +133,62 @@ router.get('/employee/task', async (req, res) => {
 // Save payment
 router.post("/payment", (req, res) => {
   const {
-    invoiceID,
-    EmployeeID,
-    card_holder_name,
-    card_number,
-    expiry_date,
-    cvc,
-    amount,
-    payment_status,
-    payment_date
+      invoiceID,
+      EmployeeID,
+      card_holder_name,
+      card_number,
+      expiry_date,
+      cvc,
+      amount,
+      payment_status,
+      payment_date,
   } = req.body;
 
-  const query = `INSERT INTO payment (invoiceID, EmployeeID, card_holder_name, card_number, expiry_date, cvc, amount, payment_status, payment_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-  db.query(query, [
-    invoiceID,
-    EmployeeID,
-    card_holder_name,
-    card_number,
-    expiry_date,
-    cvc,
-    amount,
-    payment_status,
-    payment_date
-  ], (err, result) => {
-    if (err) {
-      console.error("Error inserting payment data:", err.message);
-      return res.status(500).json({
-        message: "Error inserting payment data",
-        error: err.message
-      });
-    }
+  // Format payment_date to MySQL compatible DATETIME format
+  const formattedPaymentDate = new Date(payment_date)
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
 
-    if (result.affectedRows === 0) {
-      console.log(result);
-      return res.status(400).json({ message: "Failed to add payment" });
-    }
+  const query = `
+      INSERT INTO payment (invoiceID, EmployeeID, card_holder_name, card_number, expiry_date, cvc, amount, payment_status, payment_date)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `;
 
-    res.status(201).json({
-      message: "Payment added successfully",
-      data: result
-    });
-  });
+  db.query(
+      query,
+      [
+          invoiceID,
+          EmployeeID,
+          card_holder_name,
+          card_number,
+          expiry_date,
+          cvc,
+          amount,
+          payment_status,
+          formattedPaymentDate, // Use the formatted date
+      ],
+      (err, result) => {
+          if (err) {
+              console.error("Error inserting payment data:", err.message);
+              return res.status(500).json({
+                  message: "Error inserting payment data",
+                  error: err.message,
+              });
+          }
+
+          if (result.affectedRows === 0) {
+              return res.status(400).json({ message: "Failed to add payment" });
+          }
+
+          res.status(201).json({
+              message: "Payment added successfully",
+              data: result,
+          });
+      }
+  );
 });
+
 
 // router.post("/employee/payment", async (req, res) => {
 //   const sql = "INSERT INTO payment (invoiceID, EmployeeID, card_holder_name, card_number, expiry_date, cvc, amount, payment_status, payment_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
