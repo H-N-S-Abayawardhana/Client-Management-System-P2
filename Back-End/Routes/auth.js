@@ -29,14 +29,15 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials.' });
         }
 
-        // Generate JWT
+        // Set expiration time manually
+        const expTime = Math.floor(Date.now() / 1000) + 60 * 60; // 1 hour
         const token = jwt.sign(
-            { id: user.AdminID || user.EmployeeID, userType },
-            process.env.JWT_SECRET,
-            { expiresIn: '1H' }
+            { id: user.AdminID || user.EmployeeID, userType, exp: expTime },
+            process.env.JWT_SECRET
         );
 
-        // Log the login in SessionLogs
+        console.log('Generated Token Exp:', new Date(expTime * 1000));
+
         await db.query(
             `INSERT INTO SessionLogs (UserID, UserType, Token) VALUES (?, ?, ?)`,
             [user.AdminID || user.EmployeeID, userType, token]
@@ -84,8 +85,4 @@ router.post('/logout', async (req, res) => {
     }
 });
 
-
 export default router;
-
-
-

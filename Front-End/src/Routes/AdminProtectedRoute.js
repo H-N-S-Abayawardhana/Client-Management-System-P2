@@ -4,7 +4,7 @@ import {jwtDecode} from 'jwt-decode';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ProtectedRoute = ({ children }) => {
+const AdminProtectedRoute = ({ children }) => {
   useEffect(() => {
     const checkTokenExpiration = () => {
       const token = localStorage.getItem('token');
@@ -19,7 +19,7 @@ const ProtectedRoute = ({ children }) => {
         const decodedToken = jwtDecode(token);
         const currentTime = Date.now() / 1000;
 
-        if (decodedToken.exp < currentTime) {
+        if (decodedToken.exp < currentTime || decodedToken.userType !== 'Admin') {
           handleLogout();
         }
       } catch (error) {
@@ -30,16 +30,11 @@ const ProtectedRoute = ({ children }) => {
 
     const handleLogout = async () => {
       const token = localStorage.getItem('token');
-      
+
       try {
-        toast.info('Session Expired! Redirecting to sign in...', {
+        toast.info('Session Expired or Unauthorized! Redirecting to sign in...', {
           position: "top-center",
           autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
         });
 
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -48,8 +43,8 @@ const ProtectedRoute = ({ children }) => {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+          },
         });
       } catch (error) {
         console.error('Logout error:', error);
@@ -70,28 +65,21 @@ const ProtectedRoute = ({ children }) => {
   }, []);
 
   const token = localStorage.getItem('token');
-  
   if (!token) {
     return <Navigate to="/login" />;
   }
 
+  const decodedToken = jwtDecode(token);
+  if (decodedToken.userType !== 'Admin') {
+    return <Navigate to="/unauthorized" />;
+  }
+
   return (
     <>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+      <ToastContainer autoClose={2000} hideProgressBar pauseOnHover theme="light" />
       {children}
     </>
   );
 };
 
-export default ProtectedRoute;
+export default AdminProtectedRoute;

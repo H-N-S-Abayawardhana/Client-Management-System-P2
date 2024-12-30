@@ -24,7 +24,10 @@ import EmployeeDashboard from './page/employee/employeeDashboard';
 import ForgotPassword from './page/employee/forgotPassword';
 import EmployeeProfile from './page/employee/employeeProfile';
 
+//Protected Routes
 import ProtectedRoute from './Routes/ProtectedRoute';
+import EmployeeProtectedRoute from './Routes/EmployeeProtectedRoute.js';
+import AdminProtectedRoute from './Routes/AdminProtectedRoute.js';
 
 
 
@@ -44,10 +47,10 @@ function App() {
 
 
         {/* Admin-Side Routes */}
-        <Route path="/admin-Dashboard" element={<ProtectedRoute><AdminDashboard/></ProtectedRoute>} />
-        <Route path="/adminChange-password" element={<ProtectedRoute><AdminChangePassword /></ProtectedRoute>} />
-        <Route path="/admin-profile" element={<ProtectedRoute><AdminProfile /></ProtectedRoute>} />
-        <Route path="/edit-admin-profile" element={<ProtectedRoute><EditAdminProfile /></ProtectedRoute>} />
+        <Route path="/admin-Dashboard" element={<AdminProtectedRoute><AdminDashboard/></AdminProtectedRoute>} />
+        <Route path="/adminChange-password" element={<AdminProtectedRoute><AdminChangePassword /></AdminProtectedRoute>} />
+        <Route path="/admin-profile" element={<AdminProtectedRoute><AdminProfile /></AdminProtectedRoute>} />
+        <Route path="/edit-admin-profile" element={<AdminProtectedRoute><EditAdminProfile /></AdminProtectedRoute>} />
         <Route path="/payment" element={<Payment/>} />
         <Route path="/payment-information/:selectedPaymentId" element={<PaymentInformation />} />
         <Route path="/All-invoice" element={<InvoiceTable/>} />
@@ -56,9 +59,9 @@ function App() {
 
 
         {/* Employee-Side Routes */}
-        <Route path="/employee-dashboard" element={<ProtectedRoute><EmployeeDashboard/></ProtectedRoute>}/>
+        <Route path="/employee-dashboard" element={<EmployeeProtectedRoute><EmployeeDashboard/></EmployeeProtectedRoute>}/>
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/employee-profile" element={<ProtectedRoute><EmployeeProfile /></ProtectedRoute>} />
+        <Route path="/employee-profile" element={<EmployeeProtectedRoute><EmployeeProfile /></EmployeeProtectedRoute>} />
 
       </Routes>
     </Router>
