@@ -1,0 +1,331 @@
+/* General Styles */
+
+.msa-paymentform-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    padding: 40px;
+}
+
+.msa-form-section {
+    margin-bottom: 25px;
+}
+
+.msa-form-section label {
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.msa-form-section input[type="text"],
+.msa-form-section input[type="radio"],
+.msa-form-section select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.msa-form-section input[type="text"]:focus,
+.msa-form-section input[type="radio"]:focus,
+.msa-form-section select:focus {
+    border-color: #24757E;
+}
+
+.msa-amount-container {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.msa-amount-container .msa-amount {
+    font-size: 24px;
+    color: #24757E;
+}
+
+.msa-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.msa-cancel-btn,
+.msa-pay-btn {
+    padding: 15px 25px;
+    font-size: 18px;
+    background-color: #1f5d53;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 48%;
+}
+
+.msa-cancel-btn:hover,
+.msa-pay-btn:hover {
+    background-color: #164c43;
+}
+
+.msa-sidebar-toggle {
+    display: none;
+}
+
+.msa-form-wrapper {
+    overflow-y: auto;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+.msa-form-wrapper .msa-profile-breadcrumb {
+    font-size: 18px;
+    font-weight: 100;
+    margin-top: 80px;
+    margin-left: 260px;
+    margin-bottom: 14px;
+    font-family: 'Arial', sans-serif;
+}
+
+.msa-form-wrapper .msa-profile-breadcrumb span.msa-home {
+    color: black;
+}
+
+.msa-form-wrapper .msa-profile-breadcrumb span.msa-contact {
+    color: #24757E;
+}
+
+.msa-paymentform-container {
+    margin: 20px;
+}
+
+.msa-form-wrapper .msa-paymentform-container .msa-head-name {
+    margin-left: 850px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.msa-head-name h1 {
+    color: #24757E;
+    margin-bottom: 25px;
+    max-width: 100%;
+    margin-left:750px;
+}
+
+.msa-paymentform-container {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 50px;
+    margin-left: 600px;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 1024px) {
+    /*footer*/
+    .msa-container3 {
+        width: calc(100% - 230px); /* Adjust width to match sidebar alignment */
+        margin-left: auto;
+        right: 0;
+    }
+}
+
+.msa-paymentform-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.msa-invoice-dropdown {
+    padding: 6px 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+}
+
+.msa-payment-form .msa-form-section {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+.msa-input-field {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.msa-input-field.msa-small {
+    width: 80px;
+}
+
+.msa-expiration {
+    display: flex;
+    justify-content: space-between;
+}
+.msa-txt {
+    font-size: 12px;
+}
+
+.msa-card-type .msa-card-options {
+    display: flex;
+    gap: 135px;
+}
+
+.msa-card-options label {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.msa-card-logo {
+    width: 40px;
+}
+.msa-cvv-logo {
+    margin-left: 10px;
+    width: 30px;
+}
+
+.msa-amount-container {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.msa-amount {
+    color: #333;
+}
+
+.msa-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.msa-cancel-btn,
+.msa-pay-btn {
+    width: 45%;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.msa-cancel-btn {
+    background-color: #b0b0b0;
+    color: #fff;
+}
+
+.msa-pay-btn {
+    background-color: #1e7179;
+    color: #fff;
+}
+
+.msa-pay-btn:hover {
+    background-color: #155b5e;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+    .msa-paymentform-container {
+        max-width: 90%; /* Ensure the form fits within the viewport */
+        margin: 20px auto; /* Center and add vertical margin */
+        padding: 15px;
+    }
+
+    .msa-head-name{
+        margin-top: 100px;
+    }
+
+    .msa-form-wrapper .msa-profile-breadcrumb {
+        display: none; /* Hide breadcrumbs in mobile view */
+    }
+
+    .msa-form-wrapper .msa-paymentform-container .msa-head-name {
+        margin-top: 80px; /* Reduce top margin for better spacing */
+        text-align: center; /* Center-align the heading container */
+    }
+
+    .msa-form-wrapper .msa-paymentform-container .msa-head-name h1 {
+        font-size: 20px; /* Ensure font is readable on mobile */
+        font-weight: bold; /* Enhance visibility */
+        color: #24757E; /* Ensure consistent color */
+        margin-bottom: 15px; /* Add spacing below */
+    }
+
+    .msa-invoice-dropdown {
+        padding: 6px 3px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #444;
+        color: white;
+        cursor: pointer;
+    }
+    .msa-txt {
+        font-size: 10px;
+    }
+    .msa-card-logo {
+        width: 30px;
+    }
+    .msa-cvv-logo {
+        margin-left: 15px;
+        width: 25px;
+    }
+    .msa-card-type .msa-card-options {
+        display: flex;
+        gap: 80px;
+    }
+    .msa-buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+    .msa-cancel-btn,
+    .msa-pay-btn {
+        width: 30%;
+        margin-bottom: 10px;
+    }
+
+    .msa-pay-btn {
+        height: 60%;
+    }
+
+    .msa-cancel-btn:last-child,
+    .msa-pay-btn:last-child {
+        margin-bottom: 0;
+    }
+
+    .msa-sidebar-toggle {
+        display: block;
+    }
+
+    .msa-sidebar-toggle:hover {
+        background-color: #1f5d53;
+    }
+
+    nav-item:last-child {
+        display: none; /* Hides the element */
+      }
+      
+      .nav-item:not(:last-child) {
+        margin-left: 30px !important; /* Add spacing between list items */
+      }
+}
