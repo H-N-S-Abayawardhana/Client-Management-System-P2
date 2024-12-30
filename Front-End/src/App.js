@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 //Main
 import MainPage from './page/mainPage';
 import SigninPage from './page/signinPage';
+import Services from './page/services';
+import Aboutus from './page/aboutUs.js';
+import ContactUs from './page/contactUs.js';
 
 //Admin
 import AdminDashboard from './page/admin/adminDashboardPage';
@@ -32,9 +35,6 @@ import EmployeeAddTaskProgress from './page/employee/EmployeeAddTaskProgress';
 
 
 //to protect the routes
-import ProtectedRoute from './Routes/ProtectedRoute';
-import EmployeeProtectedRoute from './Routes/EmployeeProtectedRoute.js';
-import AdminProtectedRoute from './Routes/AdminProtectedRoute.js';
 import ForgotPassword from './page/employee/forgotPassword';
 import EmployeeProfile from './page/employee/employeeProfile';
 
