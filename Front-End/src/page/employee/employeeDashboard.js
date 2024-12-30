@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/templetes/empNavBar';
 import Footer from '../../components/PagesFooter';
-import Sidebar from '../../components/templetes/SideBar';
+import Sidebar from '../../components/templetes/ESideBar';
 import attendImage from '../../assets/attend-image.png';
 import InfoInvoice from '../../assets/pending-invoice.png';
 import InfoPay from '../../assets/total-pay.png';
