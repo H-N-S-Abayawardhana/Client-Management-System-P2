@@ -23,6 +23,9 @@ import CreateInvoice from "./page/admin/invoice/addService";
 import EmployeeDashboard from './page/employee/employeeDashboard';
 import ForgotPassword from './page/employee/forgotPassword';
 import EmployeeProfile from './page/employee/employeeProfile';
+import ViewPay from './page/employee/payment/emppayment';
+import Paymentform from './page/employee/payment/paymentform';
+import Notification from './page/employee/payment/notification';
 
 //Protected Routes
 import ProtectedRoute from './Routes/ProtectedRoute';
@@ -62,6 +65,9 @@ function App() {
         <Route path="/employee-dashboard" element={<EmployeeProtectedRoute><EmployeeDashboard/></EmployeeProtectedRoute>}/>
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/employee-profile" element={<EmployeeProtectedRoute><EmployeeProfile /></EmployeeProtectedRoute>} />
+        <Route path="/employee-payment" element={<ViewPay/>} />
+        <Route path='/employee-pay' element={<Paymentform/>} />
+        <Route path='/employee-noti' element={<Notification/>} />
 
       </Routes>
     </Router>
