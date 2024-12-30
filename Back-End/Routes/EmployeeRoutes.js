@@ -131,83 +131,83 @@ router.get('/employee/task', async (req, res) => {
 
 
 // Save payment
-// router.post("/payment", (req, res) => {
-//   const {
-//     invoiceID,
-//     EmployeeID,
-//     card_holder_name,
-//     card_number,
-//     expiry_date,
-//     cvc,
-//     amount,
-//     payment_status,
-//     payment_date
-//   } = req.body;
-//
-//   const query = `INSERT INTO payment (invoiceID, EmployeeID, card_holder_name, card_number, expiry_date, cvc, amount, payment_status, payment_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-//   db.query(query, [
-//     invoiceID,
-//     EmployeeID,
-//     card_holder_name,
-//     card_number,
-//     expiry_date,
-//     cvc,
-//     amount,
-//     payment_status,
-//     payment_date
-//   ], (err, result) => {
-//     if (err) {
-//       console.error("Error inserting payment data:", err.message);
-//       return res.status(500).json({
-//         message: "Error inserting payment data",
-//         error: err.message
-//       });
-//     }
-//
-//     if (result.affectedRows === 0) {
-//       console.log(result);
-//       return res.status(400).json({ message: "Failed to add payment" });
-//     }
-//
-//     res.status(201).json({
-//       message: "Payment added successfully",
-//       data: result
-//     });
-//   });
-// });
+router.post("/payment", (req, res) => {
+  const {
+    invoiceID,
+    EmployeeID,
+    card_holder_name,
+    card_number,
+    expiry_date,
+    cvc,
+    amount,
+    payment_status,
+    payment_date
+  } = req.body;
 
-router.post("/payment", async (req, res) => {
-  const sql = "INSERT INTO payment (invoiceID, EmployeeID, card_holder_name, card_number, expiry_date, cvc, amount, payment_status, payment_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-  const values = [
-    req.body.invoiceID,
-    req.body.EmployeeID,
-    req.body.card_holder_name,
-    req.body.card_number,
-    req.body.expiry_date,
-    req.body.cvc,
-    req.body.amount,
-    req.body.payment_status,
-    req.body.payment_date
-  ];
-
-  db.query(sql, values, (err, data) => {
-    console.log(data);
+  const query = `INSERT INTO payment (invoiceID, EmployeeID, card_holder_name, card_number, expiry_date, cvc, amount, payment_status, payment_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  db.query(query, [
+    invoiceID,
+    EmployeeID,
+    card_holder_name,
+    card_number,
+    expiry_date,
+    cvc,
+    amount,
+    payment_status,
+    payment_date
+  ], (err, result) => {
     if (err) {
       console.error("Error inserting payment data:", err.message);
       return res.status(500).json({
-        success: false,
-        message: "Error inserting data into database",
-        details: err.message
+        message: "Error inserting payment data",
+        error: err.message
       });
     }
 
-    return res.status(201).json({
-      success: true,
+    if (result.affectedRows === 0) {
+      console.log(result);
+      return res.status(400).json({ message: "Failed to add payment" });
+    }
+
+    res.status(201).json({
       message: "Payment added successfully",
-      data: data // Sending back the response data
+      data: result
     });
   });
 });
+
+// router.post("/employee/payment", async (req, res) => {
+//   const sql = "INSERT INTO payment (invoiceID, EmployeeID, card_holder_name, card_number, expiry_date, cvc, amount, payment_status, payment_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//   const values = [
+//     req.body.invoiceID,
+//     req.body.EmployeeID,
+//     req.body.card_holder_name,
+//     req.body.card_number,
+//     req.body.expiry_date,
+//     req.body.cvc,
+//     req.body.amount,
+//     req.body.payment_status,
+//     req.body.payment_date
+//   ];
+
+//   db.query(sql, values, (err, data) => {
+//     console.log(data);
+//     if (err) {
+//       console.error("Error inserting payment data:", err.message);
+//       return res.status(500).json({
+//         success: false,
+//         message: "Error inserting data into database",
+//         details: err.message
+//       });
+//     }
+
+//     return res.status(201).json({
+//       success: true,
+//       message: "Payment added successfully",
+//       data: data // Sending back the response data
+//     });
+//   });
+// });
 
 
 //Get all invoice

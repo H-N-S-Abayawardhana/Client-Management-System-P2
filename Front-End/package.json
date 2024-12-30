@@ -19,6 +19,8 @@
     "react-router-dom": "^6.28.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.6",
+    "sweetalert2": "^11.15.3",
+    "sweetalert2-react-content": "^5.1.0",
     "valtio": "^2.1.2",
     "web-vitals": "^2.1.4"
   },
