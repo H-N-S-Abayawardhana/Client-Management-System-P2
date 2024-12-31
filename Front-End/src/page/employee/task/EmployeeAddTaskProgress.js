@@ -55,6 +55,10 @@ const EmployeeAddTaskProgress = () => {
           setTaskID('');
           setTaskDescription('');
           setFile(null);
+
+          //after succussfuly added the new new task porgress it re-directed to main task page
+          navigate('/employee-manage-task-prgress');
+          
         } else {
           alert('Failed to Update the Task Progress.');
         }
