@@ -13,8 +13,6 @@ import employeeRoutes from './Routes/EmployeeRoutes.js';
 import AdminTaskRoutes from './Routes/AdminTaskRoutes.js'; // Import AdminRoutes.
 import EmployeeTaskProgressRoutes from './Routes/EmployeeTaskProgressRoutes.js';
 
-//Service
-import AdminServiceRoutes from './Routes/AdminServiceRoutes.js'
 
 dotenv.config();
 
@@ -36,7 +34,6 @@ app.use('/admin/task', AdminTaskRoutes);
 app.use('/uploads', express.static('uploads'));
 app.use('/employee/task', EmployeeTaskProgressRoutes);
 //Service
-app.use('/admin/service', AdminServiceRoutes)
 
 // Default route
 app.get('/', (req, res) => {

@@ -16,7 +16,6 @@ import AdminManageTask from './page/admin/task/adminManageTask';
 import AdminAddTask from './page/admin/task/AdminAddTask';
 import AdminReceivedTask from './page/admin/task/AdminReceivedTask';
 //Service - Admin Side
-import AdminAddService from './page/admin/task/AdminAddService.js';
 import AdminProfile from './page/admin/adminProfile.js';
 import EditAdminProfile from './page/admin/editAdminProfile.js';
 import PaymentInformation from './page/admin/payemnt/paymentinformation';
@@ -71,7 +70,6 @@ function App() {
         <Route path="/admin-add-task" element={<AdminProtectedRoute><AdminAddTask/></AdminProtectedRoute>}/>
         <Route path="/admin-recived-task" element={<AdminProtectedRoute><AdminReceivedTask/></AdminProtectedRoute>}/>
         {/* Service - Routes */}
-        <Route path="/admin-add-service" element={<AdminProtectedRoute><AdminAddService/></AdminProtectedRoute>}/>
         <Route path="/admin-Dashboard" element={<AdminProtectedRoute><AdminDashboard/></AdminProtectedRoute>} />
         <Route path="/adminChange-password" element={<AdminProtectedRoute><AdminChangePassword /></AdminProtectedRoute>} />
         <Route path="/admin-profile" element={<AdminProtectedRoute><AdminProfile /></AdminProtectedRoute>} />
