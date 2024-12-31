@@ -70,6 +70,7 @@ const EmployeeReceivedTask = () => {
                             <thead>
                                 <tr>
                                     <th>Task ID</th>
+                                    <th>Employee ID</th>
                                     <th>Task Name</th>
                                     <th>Budget Info</th>
                                     <th>Description</th>
@@ -80,6 +81,7 @@ const EmployeeReceivedTask = () => {
                                 {tasks.map((task) => (
                                     <tr key={task.TaskID}>
                                         <td>{task.TaskID}</td>
+                                        <td>{task.EmployeeID}</td>
                                         <td>{task.TaskName}</td>
                                         <td>{task.BudgetInfo}</td>
                                         <td>{task.Description}</td>
