@@ -1,4 +1,3 @@
-//employee manage tasks progress - this ui shows the all the task progress that send by the employee
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -12,6 +11,9 @@ import Sidebar from '../../../components/templetes/ESideBar';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// Get the logged-in employee's ID (EmployeeID)
+import useEmployeeProfile from '../../../Routes/useEmployeeProfile';
+
 const EmployeeManageTask = () => {
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const toggleSidebar = () => {
@@ -21,20 +23,32 @@ const EmployeeManageTask = () => {
     const navigate = useNavigate();
     const [TaskProgress, setTasks] = useState([]);
 
+    // Get the logged-in user EmployeeID
+    const EmployeeID = useEmployeeProfile();
+
     // Fetch tasks from the API
     const fetchTasks = async () => {
+        if (!EmployeeID) {
+            console.error('EmployeeID is missing or not available yet');
+            return;
+        }
+
         try {
-            const response = await axios.get('http://localhost:5000/employee/task/employee-sended-tasks-progress'); //chenge this to proper employee routes
+            const response = await axios.get(`http://localhost:5000/employee/task/employee-sended-tasks-progress/${EmployeeID}`);
             setTasks(response.data);
         } catch (error) {
             console.error('Error fetching tasks:', error);
         }
     };
 
-
     useEffect(() => {
-        fetchTasks();
-    }, []);
+        if (EmployeeID) {
+            fetchTasks();
+            //console.log('emp mange task EmployeeID = ', EmployeeID);
+        }
+    }, [EmployeeID]); // Trigger the effect when EmployeeID changes
+
+    
 
     return (
         <div>
@@ -68,12 +82,13 @@ const EmployeeManageTask = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {TaskProgress.map((TaskProgress) => (
+                            {TaskProgress.map((TaskProgress) => (
                                     <tr key={TaskProgress.TaskProgressID}>
                                         <td>{TaskProgress.TaskID}</td>
                                         <td>{TaskProgress.EmployeeID}</td>
                                         <td>{TaskProgress.TaskName}</td>
                                         <td>{TaskProgress.TaskDescription}</td>
+
                                     </tr>
                                 ))}
                             </tbody>

@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import db from '../utils/db.js'; // Ensure `db` exports pool.promise()
 
-import { getAllTaskProgress, upload, handleTaskProgress, downloadAttachment } from "../controllers/taskProgressControllers.js";
+import { getTaskProgressByEmployeeID,getAllTaskProgress, upload, handleTaskProgress, downloadAttachment } from "../controllers/taskProgressControllers.js";
 
 const router = express.Router();
 
@@ -23,8 +23,9 @@ router.post('/task-progress', upload.single('Attachment'), handleTaskProgress);
 router.get('/task-progress/download/:TaskProgressID', downloadAttachment); // Download attachment
 
 router.get('/admin-recived-tasks-progress', getAllTaskProgress); //show all the task Progress to Admin side
-
-router.get('/employee-sended-tasks-progress', getAllTaskProgress); //show all the task Progress to client side
-
+//get all the task Progression - Employee Side
+//router.get('/employee-sended-tasks-progress', getAllTaskProgress); //show all the task Progress to client side
+// Route to get task progresses for a specific employee
+router.get('/employee-sended-tasks-progress/:EmployeeID', getTaskProgressByEmployeeID);
 
 export default router;
