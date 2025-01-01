@@ -8,6 +8,23 @@
     max-width: 800px;
     padding: 40px;
 }
+.msa-form-wrapper .msa-profile-breadcrumb {
+    font-size: 18px;
+    font-weight: 100;
+    margin-top: 50px;
+    margin-left: 290px;
+    margin-bottom: 14px;
+    font-family: 'Arial', sans-serif;
+}
+/* Style for 'Home' */
+.msa-form-wrapper .msa-profile-breadcrumb span.home {
+    color: black; /* Black color for Home */
+}
+
+/* Style for 'Contact' */
+.msa-form-wrapper .msa-profile-breadcrumb span.contact {
+    color: #24757E; /* Green color for Contact */
+}
 
 .msa-form-section {
     margin-bottom: 25px;
@@ -82,7 +99,7 @@
     overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-.msa-form-wrapper .msa-profile-breadcrumb {
+.msa-form-wrapper .yks-profile-breadcrumb {
     font-size: 18px;
     font-weight: 100;
     margin-top: 80px;
@@ -91,11 +108,11 @@
     font-family: 'Arial', sans-serif;
 }
 
-.msa-form-wrapper .msa-profile-breadcrumb span.msa-home {
+.msa-form-wrapper .yks-profile-breadcrumb span.msa-home {
     color: black;
 }
 
-.msa-form-wrapper .msa-profile-breadcrumb span.msa-contact {
+.msa-form-wrapper .yks-profile-breadcrumb span.msa-contact {
     color: #24757E;
 }
 
@@ -256,7 +273,7 @@ label {
         margin-top: 100px;
     }
 
-    .msa-form-wrapper .msa-profile-breadcrumb {
+    .msa-form-wrapper .yks-profile-breadcrumb {
         display: none; /* Hide breadcrumbs in mobile view */
     }
 
@@ -324,7 +341,7 @@ label {
     nav-item:last-child {
         display: none; /* Hides the element */
       }
-      
+
       .nav-item:not(:last-child) {
         margin-left: 30px !important; /* Add spacing between list items */
       }
