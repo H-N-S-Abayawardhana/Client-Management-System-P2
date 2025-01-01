@@ -483,16 +483,17 @@ router.delete("/invoice/:id", async (req, res) => {
         });
     }
 });
+
 // Save New Invoice
 router.post("/invoice", async (req, res) => {
     const sql = `
-        INSERT INTO invoice (invoiceID, EmployeeID, AccountID, total_cost, invoice_date, description)
+        INSERT INTO invoice (invoiceID, EmployeeID, AcountId, total_cost, invoice_date, description)
         VALUES (?, ?, ?, ?, ?, ?)
     `;
     const values = [
         req.body.invoiceID,
         req.body.EmployeeID,
-        req.body.AccountID, // Fixed typo: Ensure it matches 'AccountID' in your database schema
+        req.body.AcountId, // Fixed typo: Ensure it matches 'AccountID' in your database schema
         req.body.total_cost,
         req.body.invoice_date, // Ensure it matches 'invoice_date' in your database schema
         req.body.description || null, // Optional field; defaults to null if not provided
@@ -509,7 +510,7 @@ router.post("/invoice", async (req, res) => {
             data: {
                 invoiceID: req.body.invoiceID,
                 EmployeeID: req.body.EmployeeID,
-                AccountID: req.body.AccountID,
+                AccountID: req.body.AcountId,
                 total_cost: req.body.total_cost,
                 invoice_date: req.body.invoice_date,
                 description: req.body.description || null,
@@ -529,7 +530,7 @@ router.post("/invoice", async (req, res) => {
 });
 // Save New Service
 router.post("/service", async (req, res) => {
-    console.log(req.body.invoiceID);
+    console.log(req.body.serviceID);
     const sql = "INSERT INTO service (serviceID, invoiceID, service_description, cost) VALUES (?, ?, ?, ?)";
     const values = [
         req.body.serviceID,
@@ -537,7 +538,7 @@ router.post("/service", async (req, res) => {
         req.body.service_description,
         req.body.cost
     ];
-
+    console.log(values);
     db.query(sql, values, (err, data) => {
         if (err) {
             console.error("Error inserting service data:", err.message);
@@ -554,7 +555,8 @@ router.post("/service", async (req, res) => {
             data: data // Sending back the response data
         });
     });
-}); 
+});
+
 
 // Route to view all attendances ...
 router.get('/ViewAllAttendances', async (req, res) => {
