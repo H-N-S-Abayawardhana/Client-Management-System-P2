@@ -125,7 +125,7 @@ tbody::-webkit-scrollbar-thumb:hover {
 }
 
 @media (max-width: 780px) {
-    msa-paymnet-container .msa-profile-breadcrumb {
+    msa-paymnet-container .yks-profile-breadcrumb {
         display: none;
     }
 
@@ -189,7 +189,7 @@ tbody::-webkit-scrollbar-thumb:hover {
 }
 
 @media (max-width: 480px) {
-    msa-paymnet-container .msa-profile-breadcrumb {
+    msa-paymnet-container .yks-profile-breadcrumb {
         display: none;
     }
 
