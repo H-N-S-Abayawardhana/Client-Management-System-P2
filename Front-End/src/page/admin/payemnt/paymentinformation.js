@@ -5,7 +5,6 @@ import Navbar from "../../../components/templetes/MainNav";
 import Sidebar from "../../../components/templetes/SideBar";
 import Footer from "../../../components/templetes/Footer";
 import { jsPDF } from "jspdf"; // Import jsPDF
-// import Footer from "../../components/PagesFooter";
 import html2canvas from "html2canvas"; // Import html2canvas
 
 const PaymentInformation = () => {
