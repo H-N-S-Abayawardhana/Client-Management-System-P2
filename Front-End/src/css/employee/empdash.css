@@ -44,15 +44,17 @@
   grid-area: sidebar;
   background-color: #dbf7f7;
   border-radius: 8px;
-  text-align: left;
   padding: 20px;
   font-size: 1.5rem;
   font-weight: bold;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0);
-  height: 550px;
-  transform: translateX(-50px); 
-  margin-left: 130px; 
-  width: 300px; 
+  height: 650px;
+  transform: translateX(-50px);
+  margin-left: 130px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 /* Video Section */
@@ -95,7 +97,7 @@
 /* Green Card */
 .ae-info-card.green {
   position: relative;
-  background-color: #6d848c;
+  background-color: #6d9da3;
   color: #fff;
   width: 180px;
   height: 120px;
@@ -156,11 +158,12 @@
 
 .ae-vision-title-ae {
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 500;
   color: #254684;
   margin-top: 20px;
-  margin-bottom: 4px;
-  text-align: justify;
+  margin-bottom: 10px;
+  text-align: left;
+  width: 100%;
 }
 
 .ae-mission-vision-text-ae {
@@ -170,6 +173,8 @@
   list-style: none;
   padding-left: 0;
   margin-bottom: 30px;
+  text-align: left;
+  width: 100%;
 }
 
 .ae-service-vision-title-ae {
@@ -183,6 +188,8 @@
 .ae-overview-ae {
   font-weight: 400;
   margin-bottom: 30px;
+  text-align: left;
+  width: 100%;
 }
 
 /* Table Styles */
@@ -199,12 +206,12 @@
   width: 100%;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
-  border: 10px solid #d1f0f2;
+  border: 10px solid#d4eff1;
 }
 
 .ae-task-table th, 
 .ae-task-table td {
-  border: 1px solid #ddd;
+  border: 1px solid #000000;
   padding: 12px;
   text-align: center;
   font-size: 14px;
@@ -212,8 +219,8 @@
 }
 
 .ae-task-table th {
-  background-color: #c6c6c6;
-  color: #393939;
+  background-color: #ffffff !important;
+  color: #000000;
   font-weight: bold;
   font-size: 15px;
 }
@@ -233,7 +240,7 @@
 .ae-task-title {
   font-size: 20px;
   font-weight: bold;
-  color: #525252;
+  color: #5f5d5d;
   text-transform: uppercase;
   text-align: left;
 }
@@ -275,5 +282,6 @@
   .ae-mission-vision-text-ae,
   .ae-overview-ae {
       margin-bottom: 20px;
+      
   }
 }
