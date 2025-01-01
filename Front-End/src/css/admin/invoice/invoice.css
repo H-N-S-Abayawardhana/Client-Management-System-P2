@@ -1,24 +1,24 @@
 /* General Styling */
 .yks-invoice-page {
-    padding: 20px;
+    padding: 13px;
     font-family: Arial, sans-serif;
     color: #333;
   }
-.yks-invoice-page .msa-profile-breadcrumb {
+.yks-invoice-page .yks-profile-breadcrumb {
   font-size: 18px;
   font-weight: 100;
-  margin-top: 16px;
+  margin-top: 1px;
   margin-left: 5px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   font-family: 'Arial', sans-serif;
 }
 /* Style for 'Home' */
-.yks-invoice-page .msa-profile-breadcrumb span.home {
+.yks-invoice-page .yks-profile-breadcrumb span.home {
   color: black; /* Black color for Home */
 }
 
 /* Style for 'Contact' */
-.yks-invoice-page .msa-profile-breadcrumb span.contact {
+.yks-invoice-page .yks-profile-breadcrumb span.contact {
   color: #24757E; /* Green color for Contact */
 }
 .yks-invoice-page .yks-head h1{
