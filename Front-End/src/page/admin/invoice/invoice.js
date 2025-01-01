@@ -124,7 +124,7 @@ const Invoice = () => {
                 <h5>Service Details</h5>
                 <button
                     className="yks-view-btn"
-                    onClick={() => navigate("/Add-Service")}
+                    onClick={() => navigate("/admin-add-service")}
                 >
                   Add Service
                 </button>
