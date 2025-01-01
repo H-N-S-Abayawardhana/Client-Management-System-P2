@@ -25,36 +25,57 @@ const Invoice = () => {
     setFormData({ ...formData, [name]: value });
   };
   const saveInvoice = async () => {
+    if (state.services.length === 0) {
+      toast.error("No services added to the invoice.");
+      return;
+    }
+
     try {
-      // Create the invoice first
+      // Step 1: Create the invoice
       const invoiceResponse = await axios.post("http://localhost:5000/api/admin/invoice", formData);
       const createdInvoice = invoiceResponse.data.data;
+      console.log("Invoice created:", createdInvoice); // Debug log to check the invoice data
+
       if (createdInvoice) {
-        // Now, save all services for this invoice
-        const services = state.services;
-        for (let service of services) {
+        formData.invoiceID = createdInvoice.invoiceID; // Use actual invoice ID
+
+        // Step 2: Save all services for this invoice
+        const servicePromises = state.services.map((service) => {
           const serviceData = {
             serviceID: service.id,
             invoiceID: formData.invoiceID,
             service_description: service.description,
             cost: service.cost,
           };
-          await axios.post("http://localhost:5000/api/admin/service", serviceData);
-        }
+          console.log("Service data:", serviceData); // Debug log to check the service data
+          console.log("Service data:", serviceData.serviceID); // Debug log to check the service data
+          return axios.post("http://localhost:5000/api/admin/service", serviceData);
+        });
+
+        // Step 3: Wait for all service saving to complete
+        await Promise.all(servicePromises);
       }
     } catch (error) {
+      // Enhanced error logging
       console.error("Error creating invoice and saving services:", error);
-      toast.error("Something went wrong..");
+
+      if (error.response) {
+        console.error("Error Response:", error.response);
+        toast.error(`Error: ${error.response.data.message || "Something went wrong"}`);
+      } else {
+        toast.error("Network error or server unreachable");
+      }
     }
-    toast.success("Saved invoiced Successfully");
+    toast.success("Invoice and services saved successfully!");
   };
+
   return (
       <Container
           child={
             <div className="yks-invoice-page">
               {/* Breadcrumb Navigation */}
               <nav>
-                <p className="msa-profile-breadcrumb">
+                <p className="yks-profile-breadcrumb">
                   <span className="home">Home</span> /
                   <span className="home"> Invoice</span> /
                   <span className="contact"> Add Invoices</span>
@@ -94,11 +115,11 @@ const Invoice = () => {
                   </div>
 
                   <div className="yks-form-group">
-                    <label htmlFor="AccountID">Account ID</label>
+                    <label htmlFor="AcountId">Account ID</label>
                     <input
                         type="text"
-                        id="AccountID"
-                        name="AccountID"
+                        id="AcountId"
+                        name="AcountId"
                         className="yks-form-control"
                         value={formData.AcountId}
                         onChange={handleInputChange}
@@ -124,7 +145,7 @@ const Invoice = () => {
                 <h5>Service Details</h5>
                 <button
                     className="yks-view-btn"
-                    onClick={() => navigate("/admin-add-service")}
+                    onClick={() => navigate("/Add-Service")}
                 >
                   Add Service
                 </button>
