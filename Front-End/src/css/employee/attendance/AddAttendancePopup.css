@@ -1,0 +1,145 @@
+form {
+    width: 100%;
+    max-width: 500px; /* Limit the form width on larger screens */
+    margin: 0 auto; /* Center the form */
+    padding: 15px;
+    box-shadow: none; /* Optional: Add a shadow */
+    border-radius: 8px; /* Rounded corners */
+} 
+
+.ekr-close-button-container {
+    position: relative; /* Ensure the close button is relative to the form */
+    width: 100%; /* Make sure it spans the form width */
+    height: 24px; /* Optional: Adjust height */
+    margin-top: 5px; /* Optional: Adjust margin */
+}
+
+/* Style for the close button */
+.ekr-close-button {
+    position: absolute; /* Position the button within its container */
+    top: 0;
+    right: 25px;
+    cursor: pointer; /* Change cursor to pointer for better UX */
+    width: 30px; /* Adjust icon size as needed */
+    height: 30px; /* Adjust icon size as needed */
+} 
+
+.ekr-close-button:hover {
+    background-color: coral;
+} 
+
+.d-flex {
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 10px; /* Add spacing between elements */
+}
+
+label {
+    font-size: 14px;
+    margin-left: 30px;
+    width: 100%; /* Full width for labels on small screens */
+    text-align: left;
+}
+
+input {
+    margin-right: 10px; /* Reduce margin for smaller screens */
+    border-radius: 8px;
+    height: 40px; /* Slightly increased height for better touch experience */
+    width: 100%; /* Ensure inputs take full width in smaller screens */
+    padding: 5px 10px; /* Add padding for better usability */
+    font-size: 14px;
+    flex: 1; /* Allow inputs to grow and take available space */
+}
+
+input::placeholder {
+    color: gray; /* Set the placeholder color */
+    opacity: 1; /* Ensures the color is not translucent */
+    font-size: 14px;
+} 
+
+.date-input::placeholder {
+    font-size: 14px;
+    color: gray;
+}
+
+p {
+    font-size: 12px;
+    padding: 0 10px; /* Adjust padding for smaller screens */
+    color: #f0f0f0; /* Text color for better contrast */
+    text-align: center;
+}
+
+button {
+    background-color: #1c2d4d;
+    border: none;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+} 
+
+button:hover {
+    background-color: #2e456d; /* Slightly darker background on hover */
+}
+
+/* Toast container adjustments */
+.ToastContainer {
+    margin-top: 20px;
+} 
+
+.ekr-custom-toast-container {
+    position: fixed;
+    top: 20px; /* Adjust the distance from the top of the screen */
+    right: 20px; /* Adjust the distance from the right side of the screen */
+    left: auto;
+    bottom: auto;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    label {
+        font-size: 12px; /* Smaller font size for labels */
+        margin-left: 5px; /* Reduce margins for smaller screens */
+    }
+
+    input {
+        font-size: 12px; /* Smaller input text */
+        height: 35px; /* Reduce height for smaller screens */
+    }
+
+    p {
+        font-size: 10px; /* Smaller text for the paragraph */
+        padding: 0 5px; /* Reduce padding on smaller screens */
+    }
+
+    button {
+        font-size: 12px; /* Smaller button text */
+        padding: 10px; /* Adjust button padding */
+    }
+
+    form {
+        padding: 10px; /* Reduce form padding */
+        box-shadow: none; /* Optional: Remove shadow on small screens */
+    }
+}
+
+@media (max-width: 576px) {
+    label {
+        font-size: 11px; /* Further reduction for smaller devices */
+    }
+
+    input {
+        font-size: 11px;
+    }
+
+    p {
+        font-size: 9px;
+    }
+
+    button {
+        font-size: 11px;
+        padding: 8px;
+    }
+}

@@ -8,6 +8,7 @@ import nodemailer from 'nodemailer';
 import authRoutes from './Routes/auth.js';
 import adminRoutes from './Routes/AdminRoutes.js'; 
 import employeeRoutes from './Routes/EmployeeRoutes.js';
+import emailRoutes from './Routes/EmailRoute.js';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/employee', employeeRoutes);
+app.use('/api/email', emailRoutes);
 
 // Default route
 app.get('/', (req, res) => {

@@ -17,7 +17,11 @@ import Payment from './page/admin/payemnt/payment';
 import InvoiceTable from './page/admin/invoice/AllInvoices';
 import Invoice from './page/admin/invoice/invoice';
 import CreateInvoice from "./page/admin/invoice/addService";
-
+import AdminAttendance from './page/admin/attendance/Adminattendence.js';
+import AdminMailBox from './page/admin/mailbox/AdminMailBox.js';
+import RegisterEmployee from './page/admin/employers/RegisterEmployee.js';
+import UpdateEmployee from './page/admin/employers/UpdateEmployee.js';
+import ViewEmployee from './page/admin/employers/ViewEmployees.js';
 
 //Employee
 import EmployeeDashboard from './page/employee/employeeDashboard';
@@ -26,6 +30,8 @@ import EmployeeProfile from './page/employee/employeeProfile';
 import ViewPay from './page/employee/payment/emppayment';
 import Paymentform from './page/employee/payment/paymentform';
 import Notification from './page/employee/payment/notification';
+import EmployeeAttenance from './page/employee/attendance/EmployeeAttendance.js';
+import EmployeeMailBox from './page/employee/mailbox/EmployeeMailBox.js';
 
 //Protected Routes
 import ProtectedRoute from './Routes/ProtectedRoute';
@@ -59,7 +65,11 @@ function App() {
         <Route path="/All-invoice" element={<InvoiceTable/>} />
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/Add-Service" element={<CreateInvoice/>} />
-
+        <Route path="/admin-attendance" element={<AdminAttendance/>} />
+        <Route path="/admin-mailbox" element={<AdminMailBox />} />
+        <Route path="/register-employee" element={<RegisterEmployee />} />
+        <Route path="/update-employee/:id" element={<UpdateEmployee />} />
+        <Route path="/view-employees" element={<ViewEmployee />} />
 
         {/* Employee-Side Routes */}
         <Route path="/employee-dashboard" element={<EmployeeProtectedRoute><EmployeeDashboard/></EmployeeProtectedRoute>}/>
@@ -68,6 +78,8 @@ function App() {
         <Route path="/employee-payment" element={<ViewPay/>} />
         <Route path='/employee-pay' element={<Paymentform/>} />
         <Route path='/employee-noti' element={<Notification/>} />
+        <Route path="/employee-attendance" element={<EmployeeAttenance />} />
+        <Route path="/employee-mailbox" element={<EmployeeMailBox />} />
 
       </Routes>
     </Router>
