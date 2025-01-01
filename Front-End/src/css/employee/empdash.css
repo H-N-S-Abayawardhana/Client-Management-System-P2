@@ -18,7 +18,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f8f8f8;
+  background-color: #ffffff;
   padding: 2px;
   box-sizing: border-box;
   margin-top: 40px;
@@ -48,7 +48,7 @@
   padding: 20px;
   font-size: 1.5rem;
   font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0);
   height: 550px;
   transform: translateX(-50px); 
   margin-left: 130px; 
@@ -59,12 +59,12 @@
 .ae-video-section {
   grid-area: video;
   background-color: #ffffff;
-  border-radius: 8px;
+  border: none;
   text-align: center;
   padding: 20px;
   font-size: 1.8rem;
   font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0);
   height: 50%;
   display: flex;
   gap: 80px;
@@ -85,7 +85,7 @@
   padding: 20px;
   font-size: 1.8rem;
   font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0);
   margin-top: -180px;
   height: 350px;
   transform: translateX(120px);
@@ -100,7 +100,7 @@
   width: 180px;
   height: 120px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -138,7 +138,7 @@
   width: 100px;
   height: 120px;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -191,7 +191,7 @@
   margin: 20px 0;
   overflow-x: auto;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
 
