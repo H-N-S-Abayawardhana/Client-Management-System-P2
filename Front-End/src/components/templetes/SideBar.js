@@ -20,8 +20,6 @@ const Sidebar = () => {
         <li><a href="#task"><img src={task} alt="Attendance" style={{ width: '25px', marginRight: '10px' }}/><span>Task</span></a></li>
         <li><a href="/admin-mailbox"><img src={mail} alt="Attendance" style={{ width: '25px', marginRight: '10px' }}/><span>Mail-Box</span></a></li>
 
-        <li><a href="/admin-manage-task"><img src={task} alt="Attendance" style={{ width: '25px', marginRight: '10px' }}/><span>Task</span></a></li>
-        <li><a href="#mailbox"><img src={mail} alt="Attendance" style={{ width: '25px', marginRight: '10px' }}/><span>Mail-Box</span></a></li>
 
       </ul>
     </div>

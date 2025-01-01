@@ -89,6 +89,29 @@ router.get('/employee/attendCount', async (req, res) => {
     }
 });
 
+//Fetch Tasks
+router.get('/employee/task', async (req, res) => {
+  const query = `
+      SELECT 
+          employee.Name AS EmployeeName, 
+          task.TaskName, 
+          task.Deadline, 
+          task.Budget, 
+          task.Description 
+      FROM task 
+      INNER JOIN employee ON task.EmployeeID = employee.EmployeeID
+  `;
+
+  try {
+      // Use promise-based query
+      const [rows] = await db.query(query); 
+      return res.status(200).json(rows); 
+  } catch (error) {
+      console.error("Database error:", error);
+      return res.status(500).json({ error: "Database error" });
+  }
+});
+
 
 // Fetch invoice count
 router.get('/employee/invoiceCount', async (req, res) => {
