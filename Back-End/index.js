@@ -8,6 +8,7 @@ import nodemailer from 'nodemailer';
 import authRoutes from './Routes/auth.js';
 import adminRoutes from './Routes/AdminRoutes.js'; 
 import employeeRoutes from './Routes/EmployeeRoutes.js';
+import emailRoutes from './Routes/EmailRoute.js';
 
 //Tasks
 import AdminTaskRoutes from './Routes/AdminTaskRoutes.js'; // Import AdminRoutes.
@@ -27,6 +28,7 @@ app.use(bodyParser.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/employee', employeeRoutes);
+app.use('/api/email', emailRoutes);
 
 
 // Task Management Routes

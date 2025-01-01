@@ -1,0 +1,188 @@
+/* General Layout */
+.ekr-sidebar-container {
+    width: 250px; /* Default width for larger screens */
+    background-color: #f8f9fa;
+    flex-shrink: 0; /* Optional: Sidebar background color */
+}
+
+@media (max-width: 768px) {
+    .ekr-sidebar-container {
+        width: 100%; /* Full width for mobile screens */
+        position: fixed; /* Fixed sidebar for smaller screens */
+        z-index: 1000;
+        top: 0;
+        left: 0; /* Place it above other content */
+    }
+} 
+
+/* Ensure the button is above the sidebar */
+.sidebar-toggle {
+    z-index: 1050;
+}
+
+.ekr-content-container {
+    background-color: #ffffff; /* Clean white background */
+    border-radius: 12px; /* Smooth rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    overflow: hidden; /* Ensure content fits neatly */
+} 
+
+.ekr-card-container-height {
+    max-height: 80vh; /* Prevent excessive height, adjust as needed */
+    overflow-y: auto; /* Enable scrolling if content overflows */
+    margin-top: -10px;
+}
+
+.ekr-content-container::-webkit-scrollbar {
+    width: 8px;
+}
+  
+.ekr-content-container::-webkit-scrollbar-thumb {
+    background-color: #24757E;
+    border-radius: 4px;
+}
+  
+.ekr-content-container::-webkit-scrollbar-thumb:hover {
+    background-color: #1f5d6b;
+}
+  
+
+@media (max-width: 768px) {
+    .ekr-content-container {
+        margin-top: 60px; /* Adjust for fixed navbar/sidebar */
+        padding: 10px; /* Reduced padding for smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .ekr-card-container-height {
+        padding: 10px; /* Reduce padding on smaller screens */
+    }
+} 
+
+.ekr-employee-attendance-page-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #24757E;
+    text-align: center;
+} 
+
+@media (max-width: 768px) {
+    .ekr-employee-attendance-page-title {
+        font-size: 18px; /* Slightly smaller on smaller screens */
+    }
+}
+
+.d-flex {
+    display: flex;
+}
+  
+.flex-column {
+    flex-direction: column;
+}
+  
+.flex-grow-1 {
+    flex-grow: 1;
+}
+  
+.ekr-sidebar-container.show-sidebar {
+    transform: translateX(0);
+}
+  
+.ekr-employee-attendance-page-title {
+    font-size: 22px;
+    color: #333;
+}
+  
+/* Mailbox Form */
+.mailbox-container {
+    width: 80%; /* Set width to 80% of the parent container, adjust as needed */
+    max-width: 600px; /* Optional: Set a maximum width for larger screens */
+    margin: 0.5rem auto; /* Center the card with top/bottom spacing */
+    background-color: #f0f0f0; /* Clean white background */
+    border-radius: 16px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ensure no overflow of child elements */
+    display: flex; /* Flexbox layout for content flow */
+    flex-direction: column; /* Stack children vertically */
+    margin-top:-5px;
+} 
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+  
+.mailbox-input,
+.mailbox-textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem; /* Adjust spacing between fields */
+    background-color: white !important;
+} 
+
+.mailbox-textarea {
+    margin-bottom: 40px;
+}
+
+.mailbox-input:focus,
+.mailbox-textarea:focus {
+  background-color: white;
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+.mailbox-textarea {
+    resize: none;
+}
+  
+.mailbox-submit-btn {
+    display: inline-block;
+    background-color: #24757E;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    white-space: nowrap; /* Prevents text wrapping */
+    transition: background-color 0.3s ease; /* Smooth color change on hover */
+}
+  
+.mailbox-submit-btn:hover {
+    background-color: #1b5a64;
+} 
+
+.attachment-container {
+    align-items: center;
+    margin-top: -5px;
+}
+  
+.attachment-label {
+    display: flex;
+    align-items: center;
+}
+  
+.attachment-label .fas.fa-paperclip {
+    color: #6c757d; /* Adjust icon color */
+    font-size: 1rem;
+}
+  
+.file-name {
+    font-size: 0.9rem;
+    color: #6c757d;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; /* Adjust based on your layout */
+}
+  
+.file-input {
+    flex-shrink: 0;
+    margin-left: auto; /* Push file input to the right */
+    cursor: pointer;
+}
