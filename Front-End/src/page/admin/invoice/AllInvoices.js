@@ -68,7 +68,7 @@ const InvoiceTable = () => {
             <Navbar />
             <div className="yks-invoice-container">
                 <nav>
-                    <p className="msa-profile-breadcrumb">
+                    <p className="yks-profile-breadcrumb">
                         <span className="home">Home</span> / <span className="home">Invoice</span> / <span className="contact">All Invoices</span>
                     </p>
                 </nav>
