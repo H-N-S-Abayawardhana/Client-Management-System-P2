@@ -13,6 +13,7 @@ function PaymentForm() {
     const [isPopupVisible, setPopupVisible] = useState(false);
     const [invoices, setInvoices] = useState([]);
     const [selectedInvoice, setSelectedInvoice] = useState(null);
+    const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
         cardType: "",
         cardNumber: "",
@@ -52,9 +53,52 @@ function PaymentForm() {
         setSelectedInvoice(invoice || null);
     };
 
-    const handlePayment = (e) => {
+    // const handlePayment = async (e) => {
+    //     e.preventDefault();
+    //
+    //     // Validate input fields
+    //     if (!selectedInvoice || !formData.cardNumber || !formData.cvv) {
+    //         alert("Please fill in all required fields.");
+    //         return;
+    //     }
+    //
+    //     const paymentData = {
+    //         invoiceID: selectedInvoice.invoiceID,
+    //         EmployeeID: selectedInvoice.EmployeeID,
+    //         card_holder_name: "Test User", // Replace with real user data
+    //         card_number: formData.cardNumber,
+    //         expiry_date: `${formData.expirationYear}-${formData.expirationMonth}-01`,
+    //         cvc: formData.cvv,
+    //         amount: selectedInvoice.total_cost,
+    //         payment_status: "Completed",
+    //         payment_date: new Date().toISOString(),
+    //     };
+    //
+    //     try {
+    //         // API request
+    //         const response = await post(`http://localhost:5000/api/employee/payment`, paymentData);
+    //         if (!response.ok) {
+    //             throw new Error(`Payment failed: ${response.statusText}`);
+    //         }
+    //         const data = await response.json();
+    //         console.log(data);
+    //         console.log(data.data);
+    //         // Handle response
+    //         if (data.data) {
+    //             setPopupVisible(true);
+    //         } else {
+    //             throw new Error("Invoice details not found");
+    //         }
+    //     } catch (err) {
+    //         console.error("Payment error:", err);
+    //         setError(err.message);
+    //         alert(`Payment failed: ${err.message}`);
+    //     }
+    // };
+    const handlePayment = async (e) => {
         e.preventDefault();
 
+        // Validate input fields
         if (!selectedInvoice || !formData.cardNumber || !formData.cvv) {
             alert("Please fill in all required fields.");
             return;
@@ -69,20 +113,31 @@ function PaymentForm() {
             cvc: formData.cvv,
             amount: selectedInvoice.total_cost,
             payment_status: "Completed",
-            payment_date: new Date().toISOString(), // Send date in ISO format
+            payment_date: new Date().toISOString(),
         };
 
-        axios
-            .post("http://localhost:5000/api/employee/payment", paymentData)
-            .then((response) => {
-                console.log(response.data);
-                setPopupVisible(true); // Show the popup
-            })
-            .catch((err) => {
-                console.error("Payment error:", err);
-                alert("Payment failed!");
-            });
+        try {
+            console.log(paymentData);
+            // Correct API request using axios.post
+            const response = await axios.post(
+                "http://localhost:5000/api/employee/payment",
+                paymentData
+            );
+            //const data = await response.json();
+            console.log(response.data);
+            // Handle successful response
+            if (response.status === 200 && response.data?.data) {
+                setPopupVisible(true);
+            } else {
+                throw new Error("Invoice details not found");
+            }
+        } catch (err) {
+            console.error("Payment error:", err);
+            setError(err.message);
+            alert(`Payment failed: ${err.message}`);
+        }
     };
+
 
     return (
         <div>
@@ -186,7 +241,7 @@ function PaymentForm() {
 
                         <div className="msa-form-section">
                             <label>CVV*</label>
-                            <span className='msa-txt'>This card is three or four digit numbers printed on back or front of the card</span><br />
+                            <text className='msa-txt'>This card is three or four digit numbers printed on back or front of the card</text><br />
                             <input
                                 type="text"
                                 name="cvv"
