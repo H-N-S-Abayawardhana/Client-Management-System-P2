@@ -12,7 +12,6 @@ const CreateInvoice = () => {
     const navigate = useNavigate();
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const [newService, setNewService] = useState({
-        service_name: "",
         description: "",
         cost: "",
     });
@@ -26,8 +25,9 @@ const CreateInvoice = () => {
 
     const handleAddService = () => {
         const id = Date.now(); // Generate a unique ID for the service
+        console.log(id);
         serviceState.addService({ id, ...newService });
-        setNewService({ service_name: "", description: "", cost: "" }); // Reset form
+        setNewService({ description: "", cost: "" }); // Reset form
     };
 
     const handleRemoveService = (id) => {
@@ -39,7 +39,7 @@ const CreateInvoice = () => {
             <Navbar />
             <div className="yks-container">
                 <nav>
-                    <p className="msa-profile-breadcrumb">
+                    <p className="yks-profile-breadcrumb">
                         <span className="home">Home</span> /
                         <span className="home"> Invoice</span> /
                         <span className="contact"> Add Invoices</span> /
@@ -99,7 +99,7 @@ const CreateInvoice = () => {
                         className="yks-view-btn"
 
                         onClick={() =>
-                            setNewService({ service_name: "", description: "", cost: "" })
+                            setNewService({description: "", cost: "" })
                         }
                     >
                         Reset
@@ -122,10 +122,10 @@ const CreateInvoice = () => {
                         <tr key={service.id}>
                             <td>{service.id}</td>
                             <td className="text-center">{service.description}</td>
-                            <td className="text-center">${service.cost}</td>
+                            <td className="text-center">Rs.{service.cost}</td>
                             <td>
                                 <button
-                                    className="btn btn-danger btn-sm"
+                                    className="yks-delete-btn"
                                     onClick={() => handleRemoveService(service.id)}
                                 >
                                     Delete
