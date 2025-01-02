@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Container from "../../../components/container/Container";
 import "../../../css/admin/invoice/invoiceTable.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from "../../../components/templetes/MainNav";
+import Navbar from "../../../components/templetes/adminNavBar";
 import Sidebar from "../../../components/templetes/SideBar";
 import Footer from "../../../components/PagesFooter";
 
