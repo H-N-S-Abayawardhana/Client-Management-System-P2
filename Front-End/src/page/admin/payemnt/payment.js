@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import '../../../css/admin/payment/paymentTable.css';
-import Navbar from "../../../components/templetes/MainNav";
+import Navbar from "../../../components/templetes/adminNavBar";
 import Footer from "../../../components/PagesFooter";
 import Sidebar from "../../../components/templetes/SideBar";
 import axios from "axios";
