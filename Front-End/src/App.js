@@ -35,6 +35,9 @@ import EmployeeDashboard from './page/employee/employeeDashboard';
 import EmployeeReceivedTask from './page/employee/task/EmployeeReceivedTask';
 import EmployeeManageTask from './page/employee/task/EmployeeManageTask';
 import EmployeeAddTaskProgress from './page/employee/task/EmployeeAddTaskProgress';
+import EmployeeInvoice from './page/employee/invoice/EmployeeInvoice';
+import InvoiceForm from './page/employee/invoice/invoiceForm';
+
 
 
 //to protect the routes

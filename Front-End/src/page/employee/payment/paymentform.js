@@ -6,7 +6,7 @@ import Footer from "../../../components/templetes/Footer";
 import axios from "axios";
 import "../../../css/employee/payment/payment_method.css";
 import cvvImage from '../../../assets/cvv.png';
-import Notification from "../../../page/employee/payment/notification";
+
 import {toast} from "react-toastify";
 
 function PaymentForm() {
