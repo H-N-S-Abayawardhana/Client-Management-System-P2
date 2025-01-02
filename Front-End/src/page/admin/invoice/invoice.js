@@ -34,7 +34,6 @@ const Invoice = () => {
       // Step 1: Create the invoice
       const invoiceResponse = await axios.post("http://localhost:5000/api/admin/invoice", formData);
       const createdInvoice = invoiceResponse.data.data;
-      console.log("Invoice created:", createdInvoice); // Debug log to check the invoice data
 
       if (createdInvoice) {
         formData.invoiceID = createdInvoice.invoiceID; // Use actual invoice ID
@@ -42,19 +41,18 @@ const Invoice = () => {
         // Step 2: Save all services for this invoice
         const servicePromises = state.services.map((service) => {
           const serviceData = {
-            serviceID: service.id,
             invoiceID: formData.invoiceID,
             service_description: service.description,
             cost: service.cost,
           };
-          console.log("Service data:", serviceData); // Debug log to check the service data
-          console.log("Service data:", serviceData.serviceID); // Debug log to check the service data
           return axios.post("http://localhost:5000/api/admin/service", serviceData);
         });
 
         // Step 3: Wait for all service saving to complete
         await Promise.all(servicePromises);
       }
+
+      toast.success("Invoice and services saved successfully!");
     } catch (error) {
       // Enhanced error logging
       console.error("Error creating invoice and saving services:", error);
@@ -66,7 +64,7 @@ const Invoice = () => {
         toast.error("Network error or server unreachable");
       }
     }
-    toast.success("Invoice and services saved successfully!");
+
   };
 
   return (
