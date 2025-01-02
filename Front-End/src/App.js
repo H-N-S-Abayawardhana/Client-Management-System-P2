@@ -104,7 +104,7 @@ function App() {
         <Route path="/employee-payment" element={<ViewPay/>} />
         <Route path='/employee-pay' element={<Paymentform/>} />
         <Route path='/employee-noti' element={<Notification/>} />
-        <Route path="/employee-attendance" element={<EmployeeAttenance />} />
+        <Route path="/employee-attendance" element={<EmployeeProtectedRoute><EmployeeAttenance /></EmployeeProtectedRoute>} />
         <Route path="/employee-mailbox" element={<EmployeeMailBox />} />
 
       </Routes>

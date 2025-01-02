@@ -213,7 +213,7 @@ function EmployeeAttendance({ userData }) {
                                                         <td>{element.name}</td>
                                                         <td>{formatDateToDMY(new Date(element.date))}</td>
                                                         <td>{element.email}</td>
-                                                        <td>{element.status}</td>
+                                                        <td className="fw-bold">Attendad</td>
                                                     </tr>
                                                 ))
                                             ) : (
