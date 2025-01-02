@@ -20,7 +20,6 @@ const InvoiceTable = () => {
         const date = new Date(dateString);
         return date.toLocaleDateString("en-GB");
     };
-
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
@@ -37,12 +36,11 @@ const InvoiceTable = () => {
                 setLoading(false);
             })
             .catch((err) => {
-                console.error("Error fetching invoices:", err);
                 setError("Failed to fetch invoices.");
                 setLoading(false);
+                toast.error("Error fetching invoices");
             });
     }, []);
-
     // Handle Delete Payment
     const handleDelete = (invoiceID) => {
         if (window.confirm("Are you sure you want to delete this invoice?")) {
@@ -55,7 +53,6 @@ const InvoiceTable = () => {
                     toast.success("Invoice deleted successfully.");
                 })
                 .catch((error) => {
-                    console.error("Error deleting invoice:", error);
                     toast.error("Failed to delete invoice.");
                 });
         }
