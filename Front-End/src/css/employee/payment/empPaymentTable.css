@@ -9,7 +9,7 @@
     overflow-x: hidden;
 }
 
-.yks-profile-breadcrumb {
+.msa-emp-payment-container .msa-profile-breadcrumb {
     font-size: 18px;
     font-weight: 100;
     margin: 50px 0 14px 250px;
@@ -17,28 +17,27 @@
 }
 
 /* Style for breadcrumb items */
-.yks-profile-breadcrumb span.home {
+.msa-emp-payment-container .msa-profile-breadcrumb span.home {
     color: black;
 }
-.yks-profile-breadcrumb span.contact {
+.msa-emp-payment-container .msa-profile-breadcrumb span.contact {
     color: #24757E;
 }
 
 .msa-emppay-container {
-    margin: 20px;
+    margin: 15px;
 }
 
 /* Header styling */
 .msa-emppayment-header {
     display: flex;
-    justify-content: space-between;
+    margin-right: 150px;
     align-items: center;
     margin-bottom: 25px;
 }
 
 .head h1 {
     color: #24757E;
-    margin-bottom: 30px;
     max-width: 100%;
 }
 
