@@ -15,23 +15,28 @@ const CreateInvoice = () => {
         description: "",
         cost: "",
     });
+    const [nextId, setNextId] = useState(1); // Start ID tracking from 1
+
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewService((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleAddService = () => {
-        const id = Date.now(); // Generate a unique ID for the service
-        console.log(id);
+        const id = nextId; // Use the tracked ID
         serviceState.addService({ id, ...newService });
         setNewService({ description: "", cost: "" }); // Reset form
+        setNextId(id + 1); // Increment the ID for the next service
     };
 
     const handleRemoveService = (id) => {
         serviceState.removeService(id);
+        // Optional: Recalculate IDs (if services need renumbering after deletion)
+        setNextId(state.services.length > 0 ? Math.max(...state.services.map(s => s.id)) + 1 : 1);
     };
 
     return (
@@ -97,10 +102,7 @@ const CreateInvoice = () => {
                     <button
                         type="reset"
                         className="yks-view-btn"
-
-                        onClick={() =>
-                            setNewService({description: "", cost: "" })
-                        }
+                        onClick={() => setNewService({ description: "", cost: "" })}
                     >
                         Reset
                     </button>
@@ -109,32 +111,32 @@ const CreateInvoice = () => {
                 {/* Services Table */}
                 <div className="yks-service-table">
                     <table className="yks-serve-tbl">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th className="text-center">Description</th>
-                        <th className="text-center">Cost</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {state.services.map((service) => (
-                        <tr key={service.id}>
-                            <td>{service.id}</td>
-                            <td className="text-center">{service.description}</td>
-                            <td className="text-center">Rs.{service.cost}</td>
-                            <td>
-                                <button
-                                    className="yks-delete-btn"
-                                    onClick={() => handleRemoveService(service.id)}
-                                >
-                                    Delete
-                                </button>
-                            </td>
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th className="text-center">Description</th>
+                            <th className="text-center">Cost</th>
+                            <th>Action</th>
                         </tr>
-                    ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        {state.services.map((service) => (
+                            <tr key={service.id}>
+                                <td>{service.id}</td>
+                                <td className="text-center">{service.description}</td>
+                                <td className="text-center">Rs.{service.cost}</td>
+                                <td>
+                                    <button
+                                        className="yks-delete-btn"
+                                        onClick={() => handleRemoveService(service.id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
                 </div>
 
                 {/* Navigation Button */}
@@ -149,7 +151,7 @@ const CreateInvoice = () => {
             </div>
             <button className="sidebar-toggle" onClick={toggleSidebar}>☰</button>
             <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
-                <Sidebar sidebarVisible={sidebarVisible}/>
+                <Sidebar sidebarVisible={sidebarVisible} />
             </div>
             <div className="container3">
                 <Footer />
@@ -159,6 +161,3 @@ const CreateInvoice = () => {
 };
 
 export default CreateInvoice;
-
-
-
