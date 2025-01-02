@@ -20,19 +20,16 @@ const CreateInvoice = () => {
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewService((prev) => ({ ...prev, [name]: value }));
     };
-
     const handleAddService = () => {
         const id = nextId; // Use the tracked ID
         serviceState.addService({ id, ...newService });
         setNewService({ description: "", cost: "" }); // Reset form
         setNextId(id + 1); // Increment the ID for the next service
     };
-
     const handleRemoveService = (id) => {
         serviceState.removeService(id);
         // Optional: Recalculate IDs (if services need renumbering after deletion)
@@ -143,7 +140,7 @@ const CreateInvoice = () => {
                 <div className="yks-btn-groupup">
                     <button
                         className="yks-back-btn"
-                        onClick={() => navigate("/invoice")}
+                        onClick={() => navigate("/admin-invoice")}
                     >
                         Back to Invoice
                     </button>
