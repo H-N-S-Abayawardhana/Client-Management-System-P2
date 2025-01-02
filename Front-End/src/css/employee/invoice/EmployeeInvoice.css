@@ -1,0 +1,134 @@
+.yks-employee-invoice-page {
+    justify-content: center;
+    align-items: center;
+    padding: 40px 10px;
+    border-radius: 8px;
+    margin: 10px;
+    color: #4c7476;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.yks-employee-invoice-page .yks-profile-breadcrumb {
+    font-size: 18px;
+    font-weight: 100;
+    margin: 40px 0 0 250px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Style for breadcrumb items */
+.yks-profile-breadcrumb span.home {
+    color: black;
+}
+.yks-profile-breadcrumb span.contact {
+    color: #24757E;
+}
+.yks-emp-invoice-container{
+    margin: 20px;
+}
+.yks-head h1 {
+    color: #24757E;
+    margin-bottom: 20px;
+    max-width: 100%;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    width: 20%;
+    padding: 10px;
+    border-radius: 30px;
+    border: 1px solid #ced4da;
+    margin-left: 750px;
+    text-align: right;
+}
+
+.search-icon {
+    position: absolute;
+    right: 145px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.yks-table-container {
+    align-items: center;
+    padding: 20px;
+    margin-left: 250px;
+    max-width: 100%;
+}
+
+.yks-invoice-tbl {
+    width: 90%;
+    border-radius: 2px;
+    border-collapse: collapse;
+    table-layout: auto;
+    margin: auto;
+}
+
+.yks-invoice-tbl th,
+.yks-invoice-tbl td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.yks-invoice-tbl th {
+    background-color: #ababab !important;
+    color: rgb(9, 0, 0);
+    font-weight: bold;
+}
+
+.yks-invoice-tbl tr:hover {
+    background-color: #f1f1f1;
+}
+/* Scrollable table body */
+tbody {
+    display: block;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Scrollbar styling */
+tbody::-webkit-scrollbar {
+    width: 2px;
+}
+tbody::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+tbody::-webkit-scrollbar-thumb:hover {
+    background-color: #888;
+}
+
+
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    .search-bar {
+        margin-right: 700px;
+        width: 200px;
+        text-align: right;
+
+    }
+
+
+    .yks-invoice-tbl th,
+    .yks-invoice-tbl td {
+        font-size: 12px;
+    }
+
+
+}

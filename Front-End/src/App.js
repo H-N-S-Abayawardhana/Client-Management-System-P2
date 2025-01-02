@@ -42,7 +42,6 @@ import ForgotPassword from './page/employee/forgotPassword';
 import EmployeeProfile from './page/employee/employeeProfile';
 import ViewPay from './page/employee/payment/emppayment';
 import Paymentform from './page/employee/payment/paymentform';
-import Notification from './page/employee/payment/notification';
 import EmployeeAttenance from './page/employee/attendance/EmployeeAttendance.js';
 import EmployeeMailBox from './page/employee/mailbox/EmployeeMailBox.js';
 
@@ -80,11 +79,11 @@ function App() {
         <Route path="/adminChange-password" element={<AdminProtectedRoute><AdminChangePassword /></AdminProtectedRoute>} />
         <Route path="/admin-profile" element={<AdminProtectedRoute><AdminProfile /></AdminProtectedRoute>} />
         <Route path="/edit-admin-profile" element={<AdminProtectedRoute><EditAdminProfile /></AdminProtectedRoute>} />
-        <Route path="/payment" element={<Payment/>} />
-        <Route path="/payment-information/:selectedPaymentId" element={<PaymentInformation />} />
-        <Route path="/All-invoice" element={<InvoiceTable/>} />
-        <Route path="/invoice" element={<Invoice />} />
-        <Route path="/Add-Service" element={<CreateInvoice/>} />
+        <Route path="/admin-payment" element={<AdminProtectedRoute><Payment/></AdminProtectedRoute>} />
+        <Route path="/admin-payment-information/:selectedPaymentId" element={<AdminProtectedRoute><PaymentInformation /></AdminProtectedRoute>} />
+        <Route path="/admin-All-invoice" element={<AdminProtectedRoute><InvoiceTable/></AdminProtectedRoute>} />
+        <Route path="/admin-invoice" element={<AdminProtectedRoute><Invoice /></AdminProtectedRoute>} />
+        <Route path="/admin-Add-Service" element={<AdminProtectedRoute><CreateInvoice/></AdminProtectedRoute>} />
         <Route path="/admin-attendance" element={<AdminAttendance/>} />
         <Route path="/admin-mailbox" element={<AdminMailBox />} />
         <Route path="/register-employee" element={<RegisterEmployee />} />
@@ -101,9 +100,10 @@ function App() {
         <Route path="/employee-dashboard" element={<EmployeeProtectedRoute><EmployeeDashboard/></EmployeeProtectedRoute>}/>
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/employee-profile" element={<EmployeeProtectedRoute><EmployeeProfile /></EmployeeProtectedRoute>} />
-        <Route path="/employee-payment" element={<ViewPay/>} />
-        <Route path='/employee-pay' element={<Paymentform/>} />
-        <Route path='/employee-noti' element={<Notification/>} />
+        <Route path="/employee-payment" element={<EmployeeProtectedRoute><ViewPay/></EmployeeProtectedRoute>} />
+        <Route path='/employee-pay' element={<EmployeeProtectedRoute><Paymentform/></EmployeeProtectedRoute>} />
+        <Route path="/employee-invoice" element={<EmployeeProtectedRoute><EmployeeInvoice/></EmployeeProtectedRoute>} />
+        <Route path="/employee-invoice-detail/:selectedInvoiceId" element={<EmployeeProtectedRoute><InvoiceForm /></EmployeeProtectedRoute>} />
         <Route path="/employee-attendance" element={<EmployeeAttenance />} />
         <Route path="/employee-mailbox" element={<EmployeeMailBox />} />
 

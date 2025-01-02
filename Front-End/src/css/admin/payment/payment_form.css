@@ -113,7 +113,7 @@
 
 /* Tablet View (max-width: 780px) */
 @media (max-width: 780px) {
-    .msa-form-container .msa-profile-breadcrumb {
+    .msa-form-container .yks-profile-breadcrumb {
         display: none;
     }
     .msa-form-container .msa-payment-form-container .head-name {
@@ -168,7 +168,7 @@
     .msa-form-container {
         padding: 10px; /* Add padding to avoid touching edges */
     }
-    .msa-form-container-container .msa-profile-breadcrumb {
+    .msa-form-container-container .yks-profile-breadcrumb {
         display: none;
     }
     .msa-form-container .msa-payment-form-container .head-name {

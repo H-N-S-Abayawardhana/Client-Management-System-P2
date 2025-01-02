@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import '../../../css/admin/payment/paymentTable.css';
-import Navbar from "../../../components/templetes/MainNav";
+import Navbar from "../../../components/templetes/adminNavBar";
 import Footer from "../../../components/PagesFooter";
 import Sidebar from "../../../components/templetes/SideBar";
 import axios from "axios";
@@ -20,7 +20,6 @@ const PaymentsTable = () => {
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
-
     // Fetch payments from the API
     useEffect(() => {
         axios
@@ -34,12 +33,11 @@ const PaymentsTable = () => {
                 setLoading(false);
             })
             .catch((err) => {
-                console.error("Error fetching payments:", err);
                 setError("Failed to fetch payments.");
                 setLoading(false);
+                toast.error("Error fetching payments");
             });
     }, []);
-
     // Handle Delete Payment
     const handleDelete = (paymentID) => {
         if (window.confirm("Are you sure you want to delete this payment?")) {
@@ -52,18 +50,16 @@ const PaymentsTable = () => {
                 })
 
                 .catch((error) => {
-                    console.error("Error deleting payment:", error);
+                    toast.error("Error deleting payment");
                 });
         }
         toast.success('Payment deleted successfully.');
     };
-
     // Handle View Button
     const handleView = (invoiceID) => {
-        navigate(`/payment-information/${invoiceID}`); // Navigate to the PaymentInformation page with invoiceID
+        navigate(`/admin-payment-information/${invoiceID}`); // Navigate to the PaymentInformation page with invoiceID
 
     };
-
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString("en-GB");
