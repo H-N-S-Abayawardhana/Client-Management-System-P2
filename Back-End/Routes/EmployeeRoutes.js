@@ -346,45 +346,28 @@ router.get('/attendance/:input', async (req, res) => {
   }
 }); 
 
-// Route to add new attendance record ...
+
+// Add Attendance Route (with async/await)
 router.post('/addAttendance', async (req, res) => {
+  const { name, email, date, employeeID } = req.body;
+
+  if (!name || !email || !date || !employeeID) {
+      return res.status(400).send('Missing required fields.');
+  }
+
   try {
-      const { name, date, email } = req.body;
 
-      const current_date = new Date();
-      const hour = current_date.getHours();
-      const minute = current_date.getMinutes();
-      const second = current_date.getSeconds();
+    // Insert the attendance record
+    const insertQuery = `
+        INSERT INTO Attendance (EmployeeID, Name, Email, Date)
+        VALUES (?, ?, ?, ?)
+    `;
+    await db.query(insertQuery, [employeeID, name, email, date]);
 
-      // Concatenate the `date` with the current time in HH:mm:ss format ...
-      const fullDateTime = `${date} ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`;
-      console.log(name, date, email, hour, minute, second, fullDateTime);
-
-      // check whether the user is already existing ...
-      const sql1 = `SELECT EmployeeID FROM employee WHERE Name = ? AND Email = ?`;
-      const [data] = await db.query(sql1, [name, email]);
-      if(data.length === 0) {
-        return res.json({ message: "Employee not found!"});
-      }
-      
-      console.log(result.length);
-      console.log(result[0]);
-      console.log(result[0].EmployeeID);    
-
-      const EmployeeId = result[0].EmployeeID;
-      console.log("EmployeeId : ", EmployeeId);
-
-      if(hour >= 8 && hour < 17) {
-        // Insert the new attendance record into the database ...
-        const sql2 = `INSERT INTO attendance (EmployeeID, Date) VALUES (?,?)`;
-        await db.query(sql2, [EmployeeId, fullDateTime]);
-        return res.json({ message: "Attendance added successfully!"});
-      } else {
-        return res.json({ message: "You can't mark attendance at this time. It can be done from 8am to 5pm !"});
-      }
-  } catch(error) {
-      console.log(error.message);
-      return res.json({ message: "An error occurred while adding attendance record!"});
+    return res.status(200).send({ message: 'Attendance recorded successfully.' });
+  } catch (err) {
+    console.error('Error occurred:', err);
+    return res.status(500).send('Error recording attendance.');
   }
 });
 
