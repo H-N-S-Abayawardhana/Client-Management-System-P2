@@ -80,11 +80,11 @@ function App() {
         <Route path="/adminChange-password" element={<AdminProtectedRoute><AdminChangePassword /></AdminProtectedRoute>} />
         <Route path="/admin-profile" element={<AdminProtectedRoute><AdminProfile /></AdminProtectedRoute>} />
         <Route path="/edit-admin-profile" element={<AdminProtectedRoute><EditAdminProfile /></AdminProtectedRoute>} />
-        <Route path="/payment" element={<AdminProtectedRoute><Payment/></AdminProtectedRoute>} />
-        <Route path="/payment-information/:selectedPaymentId" element={<AdminProtectedRoute><PaymentInformation /></AdminProtectedRoute>} />
-        <Route path="/All-invoice" element={<AdminProtectedRoute><InvoiceTable/></AdminProtectedRoute>} />
-        <Route path="/invoice" element={<AdminProtectedRoute><Invoice /></AdminProtectedRoute>} />
-        <Route path="/Add-Service" element={<AdminProtectedRoute><CreateInvoice/></AdminProtectedRoute>} />
+        <Route path="/admin-payment" element={<AdminProtectedRoute><Payment/></AdminProtectedRoute>} />
+        <Route path="/admin-payment-information/:selectedPaymentId" element={<AdminProtectedRoute><PaymentInformation /></AdminProtectedRoute>} />
+        <Route path="/admin-All-invoice" element={<AdminProtectedRoute><InvoiceTable/></AdminProtectedRoute>} />
+        <Route path="/admin-invoice" element={<AdminProtectedRoute><Invoice /></AdminProtectedRoute>} />
+        <Route path="/admin-Add-Service" element={<AdminProtectedRoute><CreateInvoice/></AdminProtectedRoute>} />
         <Route path="/admin-attendance" element={<AdminAttendance/>} />
         <Route path="/admin-mailbox" element={<AdminMailBox />} />
         <Route path="/register-employee" element={<RegisterEmployee />} />
