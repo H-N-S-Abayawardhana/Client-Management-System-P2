@@ -42,7 +42,6 @@ import ForgotPassword from './page/employee/forgotPassword';
 import EmployeeProfile from './page/employee/employeeProfile';
 import ViewPay from './page/employee/payment/emppayment';
 import Paymentform from './page/employee/payment/paymentform';
-import Notification from './page/employee/payment/notification';
 import EmployeeAttenance from './page/employee/attendance/EmployeeAttendance.js';
 import EmployeeMailBox from './page/employee/mailbox/EmployeeMailBox.js';
 
@@ -103,7 +102,6 @@ function App() {
         <Route path="/employee-profile" element={<EmployeeProtectedRoute><EmployeeProfile /></EmployeeProtectedRoute>} />
         <Route path="/employee-payment" element={<EmployeeProtectedRoute><ViewPay/></EmployeeProtectedRoute>} />
         <Route path='/employee-pay' element={<EmployeeProtectedRoute><Paymentform/></EmployeeProtectedRoute>} />
-        <Route path='/employee-noti' element={<EmployeeProtectedRoute><Notification/></EmployeeProtectedRoute>} />
         <Route path="/employee-invoice" element={<EmployeeProtectedRoute><EmployeeInvoice/></EmployeeProtectedRoute>} />
         <Route path="/employee-invoice-detail/:selectedInvoiceId" element={<EmployeeProtectedRoute><InvoiceForm /></EmployeeProtectedRoute>} />
         <Route path="/employee-attendance" element={<EmployeeAttenance />} />
