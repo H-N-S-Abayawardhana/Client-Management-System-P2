@@ -529,34 +529,37 @@ router.post("/invoice", async (req, res) => {
     }
 });
 // Save New Service
-router.post("/service", async (req, res) => {
-    console.log(req.body.serviceID);
-    const sql = "INSERT INTO service (serviceID, invoiceID, service_description, cost) VALUES (?, ?, ?, ?)";
-    const values = [
-        req.body.serviceID,
-        req.body.invoiceID,
-        req.body.service_description,
-        req.body.cost
-    ];
-    console.log(values);
-    db.query(sql, values, (err, data) => {
-        if (err) {
-            console.error("Error inserting service data:", err.message);
-            return res.status(500).json({
-                success: false,
-                message: "Error inserting data into database",
-                details: err.message
-            });
-        }
-
-        return res.status(201).json({
-            success: true,
-            message: "Service added successfully",
-            data: data // Sending back the response data
+router.post('/service', async (req, res) => {
+    const { invoiceID, service_description, cost } = req.body;
+    // Validate input fields
+    if ( !invoiceID || !service_description || cost === undefined) {
+        return res.status(400).json({
+            message: 'All required fields must be filled.',
+            missingFields: [
+                !invoiceID && 'invoiceID',
+                !service_description && 'service_description',
+                cost === undefined && 'cost'
+            ].filter(Boolean) // Filters out falsy values
         });
-    });
-});
+    }
 
+    // Insert service into the database
+    const sql = 'INSERT INTO Service ( invoiceID, service_description, cost) VALUES ( ?, ?, ?)';
+    const values = [invoiceID, service_description, cost];
+    try {
+        const [result] = await db.query(sql, values);
+        res.status(200).json({
+            message: 'Service added successfully.',
+            data: result
+        });
+    } catch (err) {
+        console.error('Error adding service:', err);
+        res.status(500).json({
+            message: 'Failed to add service.',
+            error: err.message
+        });
+    }
+});
 
 // Route to view all attendances ...
 router.get('/ViewAllAttendances', async (req, res) => {
