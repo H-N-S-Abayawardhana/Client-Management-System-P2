@@ -33,9 +33,9 @@ const PaymentsTable = () => {
                 setLoading(false);
             })
             .catch((err) => {
-                console.error("Error fetching payments:", err);
                 setError("Failed to fetch payments.");
                 setLoading(false);
+                toast.error("Error fetching payments");
             });
     }, []);
     // Handle Delete Payment
@@ -50,7 +50,7 @@ const PaymentsTable = () => {
                 })
 
                 .catch((error) => {
-                    console.error("Error deleting payment:", error);
+                    toast.error("Error deleting payment");
                 });
         }
         toast.success('Payment deleted successfully.');
