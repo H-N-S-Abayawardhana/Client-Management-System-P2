@@ -17,9 +17,7 @@ const PaymentsTable = () => {
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
-
     const navigate = useNavigate();
-
     // Fetch payments from the API
     useEffect(() => {
         axios
@@ -98,7 +96,6 @@ const PaymentsTable = () => {
                             </table>
                         </div>
                     )}
-
                 </div>
             </div>
 
