@@ -159,7 +159,7 @@ const Invoice = () => {
             <h5>Service Details</h5>
             <button
                 className="yks-view-btn"
-                onClick={() => navigate("/Add-Service")}
+                onClick={() => navigate("/admin-Add-Service")}
             >
               Add Service
             </button>
@@ -180,7 +180,7 @@ const Invoice = () => {
             </button>
             <button
                 className="yks-all-btn"
-                onClick={() => navigate("/All-invoice")}
+                onClick={() => navigate("/admin-All-invoice")}
             >
               All Invoices
             </button>
