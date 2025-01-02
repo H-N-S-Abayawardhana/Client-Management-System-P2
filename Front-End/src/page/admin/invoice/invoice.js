@@ -47,12 +47,12 @@ const Invoice = () => {
           };
           return axios.post("http://localhost:5000/api/admin/service", serviceData);
         });
-
         // Step 3: Wait for all service saving to complete
         await Promise.all(servicePromises);
       }
 
       toast.success("Invoice and services saved successfully!");
+      clearFields();
     } catch (error) {
       // Enhanced error logging
       console.error("Error creating invoice and saving services:", error);
@@ -64,7 +64,19 @@ const Invoice = () => {
         toast.error("Network error or server unreachable");
       }
     }
+  };
 
+  const clearFields = () => {
+    setFormData({
+      invoiceID: "",
+      EmployeeID: "",
+      contact_name: "",
+      AcountId: "",
+      invoice_date: "",
+      total_cost: 0.0, // Reset total cost to 0.0
+      description: "", // Clear description as well
+    });
+    serviceState.services = []; // Clear all services from the state
   };
 
   return (
