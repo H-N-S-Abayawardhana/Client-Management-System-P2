@@ -1,6 +1,5 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Container from "../../../components/container/Container";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -10,12 +9,13 @@ import Navbar from "../../../components/templetes/empNavBar";
 import Sidebar from "../../../components/templetes/ESideBar";
 import Footer from "../../../components/templetes/Footer";
 import html2canvas from "html2canvas";
-import {jsPDF} from "jspdf";
+import { jsPDF } from "jspdf";
 
 function InvoiceForm() {
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const [invoiceDetails, setInvoiceDetails] = useState(null);
     const [employeeDetails, setEmployeeDetails] = useState(null);
+    const [serviceDetails, setServiceDetails] = useState([]); // Initialize as an empty array
     const [error, setError] = useState(null);
     const { selectedInvoiceId } = useParams();
     const navigate = useNavigate();
@@ -57,7 +57,6 @@ function InvoiceForm() {
                     const response = await fetch(`http://localhost:5000/api/employee/emp/${invoiceDetails.EmployeeID}`);
                     if (!response.ok) throw new Error("Failed to fetch employee details");
                     const data = await response.json();
-                    console.log(data.data);
                     if (data?.data) {
                         setEmployeeDetails(data.data);
                     } else {
@@ -71,6 +70,33 @@ function InvoiceForm() {
             fetchEmployeeDetails();
         }
     }, [invoiceDetails]);
+
+    useEffect(() => {
+        if (invoiceDetails?.invoiceID) {
+            console.log(invoiceDetails.invoiceID);
+            const fetchServiceDetails = async () => {
+                try {
+                    // const response = await fetch(`http://localhost:5000/api/admin/service/8`);
+                    const response = await fetch(`http://localhost:5000/api/admin/service/${invoiceDetails.invoiceID}`);
+                    console.log(response);
+                    if (!response.ok) throw new Error("Failed to fetch service details");
+                    const data = await response.json();
+                    console.log(data);
+                    console.log(data.data);
+                    if (data?.data) {
+                        setServiceDetails(data.data); // Ensure serviceDetails is an array
+                    } else {
+                        throw new Error("Service details not found");
+                    }
+                } catch (err) {
+                    setError(err.message);
+                }
+            };
+
+            fetchServiceDetails();
+        }
+    }, [invoiceDetails]);
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString("en-GB");
@@ -89,12 +115,11 @@ function InvoiceForm() {
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
             pdf.addImage(imgData, "PNG", 0, 10, pdfWidth, pdfHeight);
-            pdf.save(`invoice_${invoiceDetails.invoiceID}.pdf`); // Corrected here
+            pdf.save(`invoice_${invoiceDetails.invoiceID}.pdf`);
         } catch (err) {
             console.error("Error generating PDF:", err);
         }
     };
-
 
     return (
         <div>
@@ -126,7 +151,7 @@ function InvoiceForm() {
                                 </button>
                             </header>
 
-                            <div className="card">
+                            <div className="card yks-card">
                                 <div className="card-body" ref={invoiceDetailRef}>
                                     <div className="row">
                                         <div className="col-12">
@@ -183,16 +208,22 @@ function InvoiceForm() {
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {invoiceDetails.services?.map((service, index) => (
-                                                <tr key={index}>
-                                                    <td>{index + 1}</td>
-                                                    <td>{service.name}</td>
-                                                    <td>${service.cost}</td>
+                                            {Array.isArray(serviceDetails) && serviceDetails.length > 0 ? (
+                                                serviceDetails.map((service, index) => (
+                                                    <tr key={index}>
+                                                        <td>{index + 1}</td>
+                                                        <td>{service.service_description}</td>
+                                                        <td>${service.cost}</td>
+                                                    </tr>
+                                                ))
+                                            ) : (
+                                                <tr>
+                                                    <td colSpan="3" className="text-center">No service details available</td>
                                                 </tr>
-                                            ))}
+                                            )}
                                             <tr>
                                                 <td colSpan="2" className="text-end"><strong>Grand Total</strong></td>
-                                                <td><strong>${invoiceDetails.total_cost || "0.00"}</strong></td>
+                                                <td><strong>${invoiceDetails?.total_cost || "0.00"}</strong></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -200,8 +231,8 @@ function InvoiceForm() {
                                 </div>
                                 {/* Report Button */}
                                 <div className="mt-4">
-                                    <button className="btn btn-primary">
-                                        <i className="fas fa-download me-2" onClick={downloadPDF}></i>Report
+                                    <button className="report-btn" onClick={downloadPDF}>
+                                        <i className="fas fa-download me-2"></i>Report
                                     </button>
                                 </div>
                             </div>
