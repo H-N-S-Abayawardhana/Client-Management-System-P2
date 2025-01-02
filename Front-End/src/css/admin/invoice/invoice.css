@@ -1,15 +1,18 @@
 /* General Styling */
 .yks-invoice-page {
-    padding: 13px;
-    font-family: Arial, sans-serif;
-    color: #333;
+  padding: 18px;
+  border-radius: 8px;
+  margin: 10px;
+  color: #4c7476;
+  overflow-y: auto;
+  overflow-x: hidden;
   }
 .yks-invoice-page .yks-profile-breadcrumb {
   font-size: 18px;
   font-weight: 100;
-  margin-top: 1px;
-  margin-left: 5px;
-  margin-bottom: 10px;
+  margin-top: 50px;
+  margin-left: 250px;
+  margin-bottom: 8px;
   font-family: 'Arial', sans-serif;
 }
 /* Style for 'Home' */
@@ -22,45 +25,45 @@
   color: #24757E; /* Green color for Contact */
 }
 .yks-invoice-page .yks-head h1{
-  margin-left: 450px;
   color: #24757E;
   margin-bottom:40px;
   max-width: 100%;
   font-size: 34px;
 }
   /* Invoice Box Styling */
-  .yks-invoice-box {
-    padding: 10px;
+.yks-invoice-page .yks-invoice-box {
     background-color: #f8f9fa;
     margin-bottom: 20px;
-    border-radius: 10px;
     border: 1px solid #ccc;
+    padding:  10px ;
+    justify-content: center;
+    align-items: center;
+    margin-left: 250px;
+    border-radius: 12px;
   }
 
   /* Invoice Form Layout */
-  .yks-invoice-form {
+.yks-invoice-page .yks-invoice-form {
     display: flex;
     justify-content: space-between;
     gap: 25px;
     flex-wrap: wrap; /* Allows wrapping if needed on small screens */
-    margin-bottom: 10px;
-    margin-top: 10px;
-    margin-left: 40px;
-    margin-right: 40px;
-  }
+    margin: 10px 40px 10px 40px;
 
-  .yks-form-group {
+}
+
+.yks-invoice-page .yks-form-group {
     display: flex;
     flex-direction: column;
     flex: 1 1 22%; /* Ensures equal width for form fields */
   }
 
-  .yks-form-group label {
+.yks-invoice-page .yks-form-group label {
     font-weight: bold;
     margin-bottom: 5px;
   }
 
-  .yks-form-control {
+.yks-invoice-page .yks-form-control {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -68,9 +71,14 @@
   }
 
   /* Service Details Styling */
-  h5 {
+  .service-detail-section h5,
+  .total-cost-section h5{
+    margin-left: 280px;
     font-size: 24px;
     color: #000000; /* Change this color to your preference */
+  }
+  .service-detail-section p{
+    margin-left: 280px;
   }
 
   /* Buttons */
@@ -89,20 +97,31 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin: 3px;
+  margin-left: 280px;
 
 }
 .yks-invoice-page .yks-save-btn {
-  width: 190px;
+  width: 150px;
   color: white;
   background-color: #24757E;
   padding: 5px 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin: 3px;
-
+  margin-left: 280px;
 }
-.yks-view-btn:hover {
+
+.yks-invoice-page .yks-all-btn {
+  width: 150px;
+  color: white;
+  background-color: #24757E;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.yks-view-btn:hover,
+.yks-all-btn:hover,
+.yks-save-btn:hover{
   background-color: #4e8585;
 }
