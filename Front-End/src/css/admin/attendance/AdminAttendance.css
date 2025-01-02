@@ -7,9 +7,10 @@
   }
 
   /* Main Content */
-  .main-content {
+  .ekr-main {
     flex-grow: 1;
     padding: 20px;
+    height: 100%;
   }
 
   /* Footer Styling */
@@ -177,7 +178,7 @@
   .card-body {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 350px); 
+    height: 100%;
     overflow: hidden; 
     padding: 2px;
   }
@@ -196,6 +197,10 @@
     overflow: hidden; 
   }
 
+  .ekr-scroll-wrapper {
+    height: 100%;
+  }
+
   /* Scrollable Table */
   .ekr-scrollable-table {
     flex-grow: 1; 
@@ -204,6 +209,8 @@
     margin-top: 10px; 
     background-color: #ffffff;
     border-radius: 5px;
+    max-height: 80vh; /* Adjust to your needs */
+    min-height: 60vh; /* Ensure a minimum height */
   }
 
   /* Table Styles */

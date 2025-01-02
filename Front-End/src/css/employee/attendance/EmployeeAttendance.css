@@ -15,7 +15,7 @@
 } 
 
 /* Ensure the button is above the sidebar */
-.sidebar-toggle {
+.ekr-tog {
     z-index: 1050;
 }
 

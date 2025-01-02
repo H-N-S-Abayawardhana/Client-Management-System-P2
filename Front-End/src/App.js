@@ -88,7 +88,7 @@ function App() {
         <Route path="/admin-attendance" element={<AdminAttendance/>} />
         <Route path="/admin-mailbox" element={<AdminMailBox />} />
         <Route path="/register-employee" element={<RegisterEmployee />} />
-        <Route path="/update-employee/:id" element={<UpdateEmployee />} />
+        <Route path="/update-employee/:EmployeeID" element={<UpdateEmployee />} />
         <Route path="/view-employees" element={<ViewEmployee />} />
 
         {/* Employee-Side Routes */}

@@ -36,7 +36,17 @@ const UpdateEmployee = () => {
         return `${yyyy}-${mm}-${dd}`;
     };
 
-    function handleSubmit(event) {
+    const validateEmail = (email) => {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailRegex.test(email);
+    };
+
+    const validatePhoneNumber = (phoneNumber) => {
+        const phoneRegex = /^(?:0[1-9]\d{1}|\+94[1-9]\d{1})\d{7}$/;
+        return phoneRegex.test(phoneNumber);
+    };
+
+    const handleSubmit = (event) => {
         event.preventDefault(); // Always prevent default at the start ...
 
         // Input validation
@@ -72,6 +82,14 @@ const UpdateEmployee = () => {
             toast.error("Password is required!");
             return;
         }
+        if(!validateEmail(email)) {
+            toast.error("Invalid email address!");
+            return;
+        }
+        if(!validatePhoneNumber(contactNumber)) {
+            toast.error("Invalid contact number!");
+            return;
+        }
 
         // Submit the form data to the API
         axios.post("http://localhost:5000/api/admin/register", {
@@ -100,7 +118,7 @@ const UpdateEmployee = () => {
         <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
             <ToastContainer position="top-right" autoClose={3000} />
             <Navbar />
-            <button className="sidebar-toggle" onClick={toggleSidebar}>
+            <button className="sidebar-toggle waw-tog" onClick={toggleSidebar}>
                 ☰
             </button>
             <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>
@@ -176,7 +194,7 @@ const UpdateEmployee = () => {
                                     {/* Password Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="password">Password</label>
-                                        <div className="password-input-wrapper">
+                                        <div className="waw-password-input-wrapper">
                                             <input
                                                 type={passwordVisible ? "text" : "password"}
                                                 id="password"
@@ -185,7 +203,7 @@ const UpdateEmployee = () => {
                                                 onChange={(e) => setPassword(e.target.value)}
                                             />
                                             <span
-                                                className="password-toggle-btn"
+                                                className="waw-password-toggle-btn"
                                                 onClick={togglePasswordVisibility}
                                             >
                                                 <i className={`fa ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></i>

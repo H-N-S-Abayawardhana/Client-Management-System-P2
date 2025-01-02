@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import Swal from 'sweetalert2';
 import Sidebar from "../../../components/templetes/SideBar";
-import Navbar from "../../../components/templetes/empNavBar";
+import Navbar from "../../../components/templetes/adminNavBar";
 import Footer from "../../../components/PagesFooter";
 import '../../../css/admin/employers/UpdateEmployee.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,8 +21,6 @@ const UpdateEmployee = () => {
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
     const { EmployeeID } = useParams();
     const navigate = useNavigate();
 
@@ -42,109 +40,87 @@ const UpdateEmployee = () => {
     };
 
     const formatToLocalISODate = (date) => {
-        if (!date) return ""; // Handle empty or invalid dates
-        const parsedDate = new Date(date); 
-        if (isNaN(parsedDate.getTime())) return ""; // Return empty string if invalid
-    
-        // Adjust to local timezone and ensure no time offset
-        const offset = parsedDate.getTimezoneOffset();
-        parsedDate.setMinutes(parsedDate.getMinutes() - offset);
-    
+        const parsedDate = new Date(date);
+        if (isNaN(parsedDate.getTime())) return ""; // Handle invalid dates
         return parsedDate.toISOString().split("T")[0];
+        // if (!date) return ""; // Handle empty or invalid dates
+        // const parsedDate = new Date(date); 
+        // if (isNaN(parsedDate.getTime())) return ""; // Return empty string if invalid
+    
+        // // Adjust to local timezone and ensure no time offset
+        // const offset = parsedDate.getTimezoneOffset();
+        // parsedDate.setMinutes(parsedDate.getMinutes() - offset);
+    
+        // return parsedDate.toISOString().split("T")[0];
+    };
+
+    const fetchEmployeeDetails = async () => {
+        console.log(EmployeeID);
+        try {
+            const response = await axios.get(`http://localhost:5000/api/admin/employee/${EmployeeID}`);
+            if (response.data) {
+                console.log(response.data);
+                setEmployeeID(EmployeeID);
+                setName(response.data.data.Name);
+                setDesignation(response.data.data.Designation);
+                setContactNumber(response.data.data.ContactNumber);
+                setAddress(response.data.data.Address);
+                setEmail(response.data.data.Email);
+                setUsername(response.data.data.Username);
+                setPassword(response.data.Password);
+
+                const formattedDate = formatDateToMMDDYYYY(new Date(response.data.data.WorkStartDate));
+                setWorkStartDate(formattedDate);
+            } else {
+                console.log("Employee not found.");
+                toast.error("Employee not found.");
+            }
+        } catch (err) {
+            console.error("Error fetching data:", err.message || err);
+            toast.error("Failed to fetch employee details.");
+        }
     };
 
     useEffect(() => {
-        const fetchEmployeeDetails = async () => {
-            try {
-                const response = await axios.get(`http://localhost:5000/api/admin/employee/${EmployeeID}`);
-                if (response.data) {
-                    console.log(response.data);
-                    setEmployeeID(response.data.EmployeeID);
-                    setName(response.data.Name);
-                    setDesignation(response.data.Designation);
-                    // setWorkStartDate(response.data.WorkStartDate);
-                    setContactNumber(response.data.ContactNumber);
-                    setAddress(response.data.Address);
-                    setEmail(response.data.Email);
-                    setUsername(response.data.Name);
-                    setPassword(response.data.Password);
-
-                    // Set the date format to MM/DD/YYYY format ...
-                    const formattedDate = formatDateToMMDDYYYY(new Date(response.data.WorkStartDate));
-                    setWorkStartDate(formattedDate);
-                } else {
-                    toast.error("Employee not found.");
-                    setError("Employee not found.");
-                }
-            } catch (err) {
-                console.error("Error fetching data:", err.message || err);
-                setError("Failed to fetch employee details.");
-                toast.error("Failed to fetch employee details.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        if (EmployeeID) {
-            fetchEmployeeDetails();
-        }
+        console.log(EmployeeID);
+        if (EmployeeID) fetchEmployeeDetails();
     }, [EmployeeID]); 
 
     const handleSubmit = async (event) => {
-        event.preventDefault(); // Prevent default form submission
-      
+        event.preventDefault(); // Prevent default form submission ...
         Swal.fire({
-          title: 'Confirmation About Update',
-          text: 'Are you sure you want to update this Employee Details?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Update',
-          customClass: {
-            popup: 'smaller-swal-popup',
-            title: 'smaller-swal-title',
-            content: 'smaller-swal-content',
-          },
+            title: 'Confirmation About Update',
+            text: 'Are you sure you want to update this Employee Details?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Update',
+            customClass: {
+              popup: 'smaller-swal-popup',
+              title: 'smaller-swal-title',
+              content: 'smaller-swal-content',
+            },
         }).then(async (result) => {
-          if (result.isConfirmed) {
-            try {
-                // Perform the API request
-                console.log(workStartDate);
-                await axios.put(`http://localhost:5000/api/admin/update/${EmployeeID}`, {
-                    Name: name,
-                    Designation: designation,
-                    WorkStartDate: formatDateToMMDDYYYY(workStartDate),
-                    ContactNumber: contactNumber,
-                    Address: address,
-                    Email: email,
-                    // username,
-                    Password: password,
-                });
-        
-                // Success message
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Employee Updated!',
-                    text: 'The employee details have been successfully updated.',
-                    confirmButtonColor: '#3085d6',
-                });
-      
-            // Navigate to the desired route
-            navigate('/view-employees');
-
-            } catch (err) {
-              console.error("Update error:", err);
-      
-              // Error message
-              Swal.fire({
-                icon: 'error',
-                title: 'Update Failed!',
-                text: 'An error occurred while updating employee details. Please try again.',
-                confirmButtonColor: '#d33',
-              });
+            if (result.isConfirmed) {
+                try {
+                    console.log(workStartDate);
+                    await axios.put(`http://localhost:5000/api/admin/update/${EmployeeID}`, {
+                        Name: name,
+                        Designation: designation,
+                        WorkStartDate: workStartDate,
+                        ContactNumber: contactNumber,
+                        Address: address,
+                        Email: email,
+                        Username: username
+                    }); 
+                    toast.success("Successfully updated employee.");
+                    navigate('/view-employees');
+                } catch (error) {
+                    console.error("Error updating employee:", error);
+                    toast.error("Failed to update employee.");
+                }
             }
-          }
         });
     };
 
@@ -152,7 +128,7 @@ const UpdateEmployee = () => {
         <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
             <ToastContainer position="top-right" autoClose={3000} />
             <Navbar />
-            <button className="sidebar-toggle" onClick={toggleSidebar}>
+            <button className="sidebar-toggle waw-tog" onClick={toggleSidebar}>
                 ☰
             </button>
             <div className={`flex-grow-1 d-flex`}>
@@ -176,23 +152,23 @@ const UpdateEmployee = () => {
                             <h4 className="waw-employee-update-page-title text-center" style={{ color: "#24757E" }}>Employee Update</h4>
                             {/* form */}
                             <div className="waw-form-container">
-                                <form>
+                                <form className='waw-update-form'>
                                     {/* EmployeeID Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="employeeID">EmployeeID</label>
-                                        <input type="text" id="employeeID" className="form-control" placeholder="Enter ID" value={employeeID} required/>
+                                        <input type="text" id="employeeID" className="form-control waw-update-input" placeholder="Enter ID" value={employeeID} required disabled/>
                                     </div>
 
                                     {/* Employee Name Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="employeeName">Employee Name</label>
-                                        <input type="text" id="employeeName" className="form-control" placeholder="Enter Name" value={name} required onChange={(e) => setName(e.target.value)}/>
+                                        <input type="text" id="employeeName" className="form-control waw-update-input" placeholder="Enter Name" value={name} required onChange={(e) => setName(e.target.value)}/>
                                     </div>
 
                                     {/* Designation Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="designation">Designation</label>
-                                        <input type="text" id="designation" className="form-control" placeholder="Enter Designation" value={designation} required onChange={(e) => setDesignation(e.target.value)}/>
+                                        <input type="text" id="designation" className="form-control waw-update-input" placeholder="Enter Designation" value={designation} required onChange={(e) => setDesignation(e.target.value)}/>
                                     </div>
 
                                     {/* Work Starting Date Field */}
@@ -201,7 +177,7 @@ const UpdateEmployee = () => {
                                         <input
                                             type="date"
                                             id="workStartDate"
-                                            className="form-control"
+                                            className="form-control waw-update-input"
                                             placeholder="Enter Date"
                                             value={formatToLocalISODate(workStartDate)} // Format date to YYYY-MM-DD // Convert to YYYY-MM-DD ...
                                             onChange={(e) => setWorkStartDate(e.target.value)}
@@ -236,7 +212,7 @@ const UpdateEmployee = () => {
                                     {/* Password Field */}
                                     {/* <div className="waw-form-row">
                                         <label htmlFor="password">Password</label>
-                                        <div className="password-input-wrapper">
+                                        <div className="ekr-password-input-wrapper">
                                             <input
                                                 type={passwordVisible ? "text" : "password"}
                                                 id="password"
@@ -247,7 +223,7 @@ const UpdateEmployee = () => {
                                                 onChange={(e) => setPassword(e.target.value)}
                                             />
                                             <span
-                                                className="password-toggle-btn"
+                                                className="ekr-password-toggle-btn"
                                                 onClick={togglePasswordVisibility}
                                             >
                                                 <i className={`fa ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></i>

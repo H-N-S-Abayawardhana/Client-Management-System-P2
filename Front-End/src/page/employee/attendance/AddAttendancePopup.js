@@ -96,26 +96,26 @@ const AddAttendancePopup = ({ closePopup, data }) => {
                     <img src={CloseButton} alt='Close' className='ekr-close-button' onClick={closePopup}/>
             </div>
             <h5 className='text-center mb-3 text-white'>Attendance</h5>
-            <form className='align-content-center'  style={{ position: 'relative' }}>
+            <form className='align-content-center ekr-form'  style={{ position: 'relative' }}>
                 <div className='d-flex justify-content-between align-items-start mb-3'>
-                    <label htmlFor='name' className='pt-2 w-25 text-start text-white'>User Name</label>
+                    <label htmlFor='name' className='pt-2 w-25 text-start text-white ekr-form-label'>User Name</label>
                     {/* <input type="text" placeholder='User Name' className='w-75' required onChange={(e) => setName(e.target.value)}/> */}
-                    <input type="text" placeholder='User Name' value={data[0].Name} className='w-75' required onChange={(e) => setName(e.target.value)}/>
+                    <input type="text" placeholder='User Name' className='w-75 ekr-form-input' required onChange={(e) => setName(e.target.value)}/>
                 </div>
                 <div className='d-flex justify-content-between mt-1 align-items-start mb-3'>
-                    <label htmlFor='date-input' className='pt-2 w-25 text-start text-white'>Date</label>
-                    <input id="date-input" type="date" value={date} required className='w-75 date-input' onChange={handleChange}/>
+                    <label htmlFor='date-input' className='pt-2 w-25 text-start text-white ekr-form-label'>Date</label>
+                    <input id="date-input" type="date" value={date} required className='w-75 ekr-date-input ekr-form-input' onChange={handleChange}/>
                 </div>
                 <div className='d-flex justify-content-between mt-1 align-items-start mb-3'>
-                    <label htmlFor='email' className='pt-2 w-25 text-start text-white'>Email</label>
+                    <label htmlFor='email' className='pt-2 w-25 text-start text-white ekr-form-label'>Email</label>
                     {/* <input type="text" placeholder='Email' className='w-75' required onChange={(e) => setEmail(e.target.value)}/> */}
-                    <input type="text" placeholder='Email' className='w-75' value={data[0].Email} required onChange={(e) => setEmail(e.target.value)}/>
+                    <input type="text" placeholder='Email' className='w-75 ekr-form-input' required onChange={(e) => setEmail(e.target.value)}/>
                 </div>
-                <p className='text-center'>
+                <p className='text-center ekr-p'>
                     Attendance recorded! Thank you for visiting our employees today.
                     Your daily visits help us maintain excellent service!
                 </p>
-                <button type='submit' className='text-white text-center align-items-center' onClick={submitData}>
+                <button type='submit' className='text-white text-center align-items-center ekr-submit-button' onClick={submitData}>
                     Confirm Visit
                 </button>
             </form>

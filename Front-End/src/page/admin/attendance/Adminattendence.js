@@ -155,7 +155,7 @@ const AdminAttendance = () => {
       </button>
       <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
         <Sidebar sidebarVisible={sidebarVisible} />
-        <div className="main-content p-4">
+        <div className="main-content p-4 ekr-main">
           <div className="ekr-breadcrumb mb-3 mt-4">
             <h5>
               Home / <span style={{ color: '#24757E' }}>Attendance</span>

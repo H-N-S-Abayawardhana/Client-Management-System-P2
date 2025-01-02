@@ -16,7 +16,7 @@
 } 
 
 /* Ensure the button is above the sidebar */
-.sidebar-toggle {
+.waw-tog {
   z-index: 1050;
 }
 
@@ -73,28 +73,16 @@
   }
 }
 
-.d-flex {
-  display: flex;
-}
-
-.flex-column {
-  flex-direction: column;
-}
-
-.flex-grow-1 {
-  flex-grow: 1;
-}
-
 .waw-sidebar-container.show-sidebar {
   transform: translateX(0);
 }
 
-form {
+.waw-update-form {
   max-width: 600px;
   margin: 0 auto;
 }
 
-input::focus {
+.waw-update-input::focus {
   border-color: #24757E;
 }
 
@@ -161,6 +149,7 @@ input::focus {
 /* Button hover effect */
 .waw-form-row button:hover {
   background-color: #1f5f5a;
+  color: white;
 }
 
 /* Media query for larger screens */
@@ -190,19 +179,19 @@ input::focus {
 } 
 
 /* Wrapper for input and toggle button */
-.password-input-wrapper {
+.waw-password-input-wrapper {
   position: relative;
   width: 100%; /* Ensures it matches the width of other inputs */
 }
 
-.password-input-wrapper input {
+.waw-password-input-wrapper input {
   width: 100%; /* Same width as other input fields */
   padding-right: 40px; /* Space for the toggle button inside the input */
   box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
 /* Toggle button styles */
-.password-toggle-btn {
+.waw-password-toggle-btn {
   position: absolute;
   top: 50%; /* Center the button vertically */
   right: 10px; /* Position button inside the input field */
@@ -213,7 +202,7 @@ input::focus {
 }
 
 /* Wrapper for password input and toggle button */
-.password-input-wrapper {
+.waw-password-input-wrapper {
   position: relative;
   width: 100%; /* Ensures the same width as other input fields */
   max-width: 400px; /* Set a fixed width to match other input fields */
