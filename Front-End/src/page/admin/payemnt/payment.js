@@ -20,7 +20,6 @@ const PaymentsTable = () => {
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
-
     // Fetch payments from the API
     useEffect(() => {
         axios
@@ -39,7 +38,6 @@ const PaymentsTable = () => {
                 setLoading(false);
             });
     }, []);
-
     // Handle Delete Payment
     const handleDelete = (paymentID) => {
         if (window.confirm("Are you sure you want to delete this payment?")) {
@@ -57,13 +55,11 @@ const PaymentsTable = () => {
         }
         toast.success('Payment deleted successfully.');
     };
-
     // Handle View Button
     const handleView = (invoiceID) => {
-        navigate(`/payment-information/${invoiceID}`); // Navigate to the PaymentInformation page with invoiceID
+        navigate(`/admin-payment-information/${invoiceID}`); // Navigate to the PaymentInformation page with invoiceID
 
     };
-
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString("en-GB");
