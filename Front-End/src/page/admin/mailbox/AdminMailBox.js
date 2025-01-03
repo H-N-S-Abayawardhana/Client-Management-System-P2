@@ -119,7 +119,6 @@ const AdminMailBox = () => {
 
                 {/* Content Container */}
                 <div className="km-content-container flex-grow-1 p-4" style={{
-                    height: "100vh",           // Full viewport height
                     overflowY: "auto",         // Enable scrolling for the entire DOM
                     display: "flex",           // Flex layout for content flow
                     flexDirection: "column"    // Stack children vertically
