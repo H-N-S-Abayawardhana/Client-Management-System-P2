@@ -248,8 +248,12 @@ label {
         padding: 15px;
     }
 
-    .msa-head-name{
-        margin-top: 100px;
+    .msa-payment-form-container .msa-head-name h1{
+        padding-top: 80px;
+        margin-bottom: 30px;
+        font-size: calc(1.375rem + 1.5vw);
+        font-weight: bold;
+        margin-left: 150px;
     }
 
     .msa-form-wrapper .yks-profile-breadcrumb {
@@ -259,13 +263,6 @@ label {
     .msa-form-wrapper .msa-paymentform-container .msa-head-name {
         margin-top: 80px; /* Reduce top margin for better spacing */
         text-align: center; /* Center-align the heading container */
-    }
-
-    .msa-form-wrapper .msa-paymentform-container .msa-head-name h1 {
-        font-size: 20px; /* Ensure font is readable on mobile */
-        font-weight: bold; /* Enhance visibility */
-        color: #24757E; /* Ensure consistent color */
-        margin-bottom: 15px; /* Add spacing below */
     }
 
     .msa-invoice-dropdown {
