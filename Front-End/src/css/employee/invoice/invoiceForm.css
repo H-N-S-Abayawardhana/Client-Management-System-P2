@@ -54,9 +54,14 @@
     color: white;
     margin-left: auto;
 }
+
 .yks-card{
+
+/*
+.card{
+
     margin-left: 250px;
-}
+}*/
 
 .table-bordered {
     width: 100%;
@@ -87,6 +92,7 @@
     text-align: right;
 }
 
+
 .report-btn{
     padding: 4px 10px;
     color: white;
@@ -112,6 +118,7 @@
     cursor: pointer;
     margin-left: 35px;
 }
+
 
 .msa-sidebar-toggle {
     position: fixed;

@@ -178,6 +178,129 @@ router.get('/employee/invoice', async (req, res) => {
     });
   }
 });
+//Get all invoice
+router.get('/employee/invoice', async (req, res) => {
+  const sql = 'SELECT * FROM invoice';
+
+  try {
+    // Execute the query and await the result
+    const [data] = await db.query(sql);
+
+    // Respond with the retrieved invoices
+    return res.json({
+      success: true,
+      message: 'Invoices retrieved successfully',
+      data: data, // Return the array of invoices
+    });
+  } catch (err) {
+    console.error('Error executing query:', err.message);
+
+    // Respond with error details
+    return res.status(500).json({
+      success: false,
+      message: 'Database query failed',
+      error: err.message, // Include the error message for debugging
+    });
+  }
+});
+
+// Get Invoice by ID
+router.get("/invoice/:id", async (req, res) => {
+    const sql = "SELECT * FROM invoice WHERE InvoiceID = ?";
+    const InvoiceID = req.params.id;
+
+    try {
+        // Use the promise-based query method
+        const [data] = await db.query(sql, [InvoiceID]);
+
+        // Check if the payment exists
+        if (data.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Invoice not found",
+            });
+        }
+
+        // Return the payment data
+        return res.json({
+            success: true,
+            message: "Invoice retrieved successfully.",
+            data: data[0],  // Return the first matching payment
+        });
+    } catch (err) {
+        console.error("Error fetching invoice:", err.message);
+        return res.status(500).json({
+            success: false,
+            message: "Database query failed",
+        });
+    }
+});
+//Get Employee
+router.get("/emp/:id", async (req, res) => {
+    const sql = "SELECT * FROM employee WHERE EmployeeID = ?";
+    const EmployeeID = req.params.id;
+
+    try {
+        // Use the promise-based query method
+        const [data] = await db.query(sql, [EmployeeID]);
+
+        // Check if the employee exists
+        if (data.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Employee not found",
+            });
+        }
+
+        // Return the employee data
+        return res.json({
+            success: true,
+            message: "Employee retrieved successfully",
+            data: data[0],  // Return the first employee object
+        });
+    } catch (err) {
+        console.error("Error fetching employee:", err.message);
+        return res.status(500).json({
+            success: false,
+            message: "Database query failed",
+            details: err.message,
+        });
+    }
+});
+//Get service
+router.get("/service/:id", async (req, res) => {
+    const sql = "SELECT * FROM Service WHERE invoiceID = ?";
+    const invoiceID = req.params.id;
+
+    try {
+        // Use the promise-based query method
+        const [data] = await db.query(sql, [invoiceID]);
+
+        // Check if the employee exists
+        if (data.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "services not found",
+            });
+        }
+
+        // Return the employee data
+        return res.json({
+            success: true,
+            message: "Service retrieved successfully",
+            data: data[0],  // Return the first service object
+        });
+    } catch (err) {
+        console.error("Error fetching service:", err.message);
+        return res.status(500).json({
+            success: false,
+            message: "Database query failed",
+            details: err.message,
+        });
+    }
+});
+
+
 
 // Route to view all employees ...
 router.get('/ViewAllEmployees', (req, res) => {
@@ -297,10 +420,11 @@ router.get('/attendance/:input', async (req, res) => {
   }
 }); 
 
-// Route to add new attendance record ...
+
+// Add Attendance Route (with async/await)
 router.post('/addAttendance', async (req, res) => {
   try {
-      const { name, date, email } = req.body;
+      const { name, date, email, employeeId } = req.body;
 
       const current_date = new Date();
       const hour = current_date.getHours();
@@ -311,31 +435,17 @@ router.post('/addAttendance', async (req, res) => {
       const fullDateTime = `${date} ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`;
       console.log(name, date, email, hour, minute, second, fullDateTime);
 
-      // check whether the user is already existing ...
-      const sql1 = `SELECT EmployeeID FROM employee WHERE Name = ? AND Email = ?`;
-      const [data] = await db.query(sql1, [name, email]);
-      if(data.length === 0) {
-        return res.json({ message: "Employee not found!"});
-      }
-      
-      console.log(result.length);
-      console.log(result[0]);
-      console.log(result[0].EmployeeID);    
-
-      const EmployeeId = result[0].EmployeeID;
-      console.log("EmployeeId : ", EmployeeId);
-
       if(hour >= 8 && hour < 17) {
         // Insert the new attendance record into the database ...
         const sql2 = `INSERT INTO attendance (EmployeeID, Date) VALUES (?,?)`;
-        await db.query(sql2, [EmployeeId, fullDateTime]);
-        return res.json({ message: "Attendance added successfully!"});
+        await db.query(sql2, [employeeId, fullDateTime]);
+        return res.status(200).json({ message: "Attendance added successfully!"});
       } else {
-        return res.json({ message: "You can't mark attendance at this time. It can be done from 8am to 5pm !"});
+        return res.status(202).json({ message: "You can't mark attendance at this time. It can be done from 8am to 5pm !"});
       }
   } catch(error) {
       console.log(error.message);
-      return res.json({ message: "An error occurred while adding attendance record!"});
+      return res.status(500).json({ message: "An error occurred while adding attendance record!"});
   }
 });
 

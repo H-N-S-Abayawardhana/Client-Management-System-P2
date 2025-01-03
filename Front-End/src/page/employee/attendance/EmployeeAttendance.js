@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {toast, ToastContainer} from 'react-toastify';
 import Sidebar from "../../../components/templetes/ESideBar";
 import Navbar from "../../../components/templetes/empNavBar";
-import Footer from "../../../components/PagesFooter";
+import Footer from '../../../components/templetes/Footer';
 import AddAttendancePopup from "./AddAttendancePopup";
 import circlePlusIcon from "../../../assets/plusIcon.png";
 import searchIcon from "../../../assets/image.png"
@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../../css/employee/attendance/EmployeeAttendance.css";
 import "../../../css/admin/attendance/AdminAttendance.css";
 
-function EmployeeAttendance({ userData }) {
+function EmployeeAttendance() {
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const [data, setData] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
@@ -19,8 +19,6 @@ function EmployeeAttendance({ userData }) {
     const [inputData, setInputData] = useState(null);
     const [openPopup, setOpenPopup] = useState(false);
     const [loggedUser, setLoggeduser] = useState([]);
-
-    const user = 'esuchith@gmail.com';
 
     const formatDateToDMY = (date) => {
         const day = String(date.getDate()).padStart(2, '0');
@@ -33,9 +31,9 @@ function EmployeeAttendance({ userData }) {
         setSidebarVisible(!sidebarVisible);
     }; 
 
-    const getLoggedUserData = async (input) => {
+    const getLoggedUserData = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/employee/viewEmployees/${input}`, {
+            const response = await fetch("http://localhost:5000/api/employee/current/profile", {
                 method: 'GET',
                 headers: {
                     'Content-Type':'application/json',
@@ -43,11 +41,14 @@ function EmployeeAttendance({ userData }) {
             });
             const responseData = await response.json();
             if(!response.ok) {
-                toast.error('Error Occured !');
+                console.log('Error Occured !');
+                return;
             } else {
                 console.log(responseData);
+                console.log(responseData.Name);
                 setLoggeduser(responseData);
                 console.log('success');
+                return;
             }
         } catch (error) {
             console.log(error);
@@ -64,12 +65,14 @@ function EmployeeAttendance({ userData }) {
             })
             const responseData = await response.json();
             if(!response.ok) {
-                toast.error('Error Occured !');
+                console.log('No Attendance Records Found !');
+                return;
             } else {
                 console.log(response);
                 setData(responseData);
                 setAllAttendances(responseData); // Store all data
                 console.log('success');
+                return;
             }
         } catch (error) {
             console.log(error);
@@ -91,6 +94,7 @@ function EmployeeAttendance({ userData }) {
                 //toast.error('Error Occured !');
                 console.log('Error Occured !', responseData);
                 setData([]); // Clear data to show "No matching records found" ...
+                return;
             } else {
                 console.log(response);
                 setData(responseData);
@@ -98,10 +102,12 @@ function EmployeeAttendance({ userData }) {
                 console.log(responseData);
                 if(responseData.length > 0) {
                     console.log('success');
+                    return;
                 } else {
                     console.log('empty');
                     setData([]); // Show "No matching records found" for empty results ...
                     console.log('No matching records found');
+                    return;
                 }
             }
         } catch (error) {
@@ -132,19 +138,14 @@ function EmployeeAttendance({ userData }) {
 
     useEffect(() => {
         viewAllAttendances(); // Fetch all attendances on mount ...
-        // For testing i have added a dummy data , which stored in user variable ...
-        getLoggedUserData(user); // Fetch logged user details ...
-        // getLoggedUserData(userData);
-        // In here all things fixed, when logged user details passed through a prop, 
-        // then we can fetch user / employee data from database using that user 
-        // details which stores in userDate ...
+        getLoggedUserData(); // Fetch logged user details ...
     }, []);
 
     return (
         <div className="d-flex flex-column ekr-attendance-module" style={{ minHeight: "100vh" }}>
             <ToastContainer position="top-right" autoClose={3000} />
             <Navbar />
-            <button className="sidebar-toggle" onClick={toggleSidebar}>
+            <button className="sidebar-toggle ekr-tog" onClick={toggleSidebar}>
                 ☰
             </button>
             <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>

@@ -41,13 +41,13 @@
 }
 .msa-form-container .msa-payment-form-container .head-name h1{
     color: #24757E;
-    margin-bottom:25px;
+    margin-bottom:15px;
     max-width: 100%;
 }
 .msa-form-container .msa-payment-form-container .invoice-card {
     width: 80%;
     max-width: 400px; /* Slightly larger max-width for better visuals */
-    padding:  30px 50px;
+    padding:  20px 50px;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -101,7 +101,7 @@
     margin-top: 15px;
     transition: background-color 0.3s ease;
     width: 10%;
-    margin-left: 830px;
+    margin-left: 800px;
 }
 .download-btn:hover {
     background-color: #1d5d65;
@@ -113,16 +113,18 @@
 
 /* Tablet View (max-width: 780px) */
 @media (max-width: 780px) {
-    .msa-form-container .yks-profile-breadcrumb {
+    .msa-form-container .msa-profile-breadcrumb {
         display: none;
     }
     .msa-form-container .msa-payment-form-container .head-name {
         margin-left: 25px;
     }
-    .msa-form-container .msa-payment-form-container .head-name h2 {
-        font-size: 20px;
-        padding-top:90px ;
-        font-weight: 600;
+    .msa-form-container .msa-payment-form-container .head-name h1 {
+        padding-top: 60px;
+        margin-bottom: 30px;
+        margin-left: 30px;
+        font-size: calc(1.375rem + 1.5vw);
+        font-weight: bold !important;
     }
     .msa-form-container .msa-payment-form-container .invoice-card {
         width: 80%; /* Adjust width for tablets */

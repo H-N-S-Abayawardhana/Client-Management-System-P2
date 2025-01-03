@@ -7,19 +7,22 @@
   }
 
   /* Main Content */
-  .main-content {
+  .ekr-main {
     flex-grow: 1;
     padding: 20px;
+    margin-top: 20px;
+    height: 100%;
   }
 
-  /* Footer Styling */
-  footer {
-    background-color: #f8f9fa; /* Optional background color */
-    border-top: 1px solid #ddd; /* Optional border for separation */
-    padding: 10px; /* Padding for footer content */
-    text-align: center; /* Center align footer text */
+  .ekr-main-content{
+    margin-left: 230px;
   }
 
+  @media (max-width: 768px) {
+    .ekr-main {
+      margin-top: 90px;
+    }
+  }
 
   /* Breadcrumb */
   .ekr-breadcrumb {
@@ -177,7 +180,7 @@
   .card-body {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 350px); 
+    height: 100%;
     overflow: hidden; 
     padding: 2px;
   }
@@ -196,14 +199,19 @@
     overflow: hidden; 
   }
 
+  .ekr-scroll-wrapper {
+    height: 100%;
+  }
+
   /* Scrollable Table */
   .ekr-scrollable-table {
-    flex-grow: 1; 
+    /*flex-grow: 1; */
     overflow-y: auto; 
     overflow-x: auto; 
     margin-top: 10px; 
     background-color: #ffffff;
     border-radius: 5px;
+
   }
 
   /* Table Styles */
@@ -298,7 +306,7 @@
         min-width: 120px; /* Set minimum width to ensure usability */
     }
 
-    .scrollable-table-container {
+    .ekr-scrollable-table-container {
       max-height: 400px; 
       overflow-y: auto; 
       margin-top: 10px;
@@ -325,7 +333,7 @@
     }
   }
   @media (max-width: 768px) {
-    .sidebar-toggle {
+    .ekr-tog {
       position: fixed; 
       top: 10px; 
       left: 360px; 
@@ -341,7 +349,7 @@
 
   /* Hide Page Title on Mobile View */
   @media (max-width: 768px) {
-    h4.ekr-page-title.text-center {
+    .ekr-breadcrumb {
       display: none !important;
     }
   }
@@ -349,16 +357,6 @@
     body {
         padding-top: 20px; 
     }
-  }
-
-  /*
-  .ekr-scroll-wrapper {                   /*table scrol*
-    max-height: 400px;
-    overflow-y: scroll;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-  }
-  */
+  } 
 }
 

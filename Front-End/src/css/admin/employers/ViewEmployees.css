@@ -1,6 +1,5 @@
 .waw-sidebar-container {
-  width: 250px; /* Default width for larger screens */
-  background-color: #f8f9fa;
+  width: 230px; /* Default width for larger screens */
   flex-shrink: 0; /* Optional: Sidebar background color */
 }
 
@@ -15,7 +14,7 @@
 } 
 
 /* Ensure the button is above the sidebar */
-.sidebar-toggle {
+.waw-tog {
   z-index: 1050;
 }
 
@@ -317,18 +316,18 @@
 } 
 
 /* Smaller popup styling */
-.smaller-swal-popup {
+.waw-smaller-swal-popup {
   padding: 1.5rem; /* Reduce padding */
   font-size: 0.9rem; /* Adjust font size */
 }
 
 /* Smaller title styling */
-.smaller-swal-title {
+.waw-smaller-swal-title {
   font-size: 1.2rem; /* Smaller title font size */
 }
 
 /* Smaller content styling */
-.smaller-swal-content {
+.waw-smaller-swal-content {
   font-size: 1rem; /* Reduce the font size of the text */
 } 
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/templetes/empNavBar';
-import Footer from '../../components/PagesFooter';
+import Footer from '../../components/templetes/Footer';
 import Sidebar from '../../components/templetes/ESideBar';
 import attendImage from '../../assets/attend-image.png';
 import InfoInvoice from '../../assets/pending-invoice.png';
@@ -246,7 +246,9 @@ function EmployeeDashboard() {
         </div>
       </div>
      
-      <Footer />
+              <div className="container3">
+                  <Footer />
+              </div>
     </div>
     
   );

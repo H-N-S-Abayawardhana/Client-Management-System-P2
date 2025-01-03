@@ -11,7 +11,7 @@
 .msa-payment-container .msa-profile-breadcrumb {
     font-size: 18px;
     font-weight: 100;
-    margin-top: 50px;
+    margin-top: 40px;
     margin-left: 250px;
     margin-bottom: 14px;
     font-family: 'Arial', sans-serif;
@@ -36,13 +36,12 @@
     }
 }
 
-
-.msa-payment-container .head h1{
+.msa-payment-table-container .head h1{
     color: #24757E;
     margin-bottom:30px;
     max-width: 100%;
 }
-.msa-payment-container .view-btn {
+.msa-payment-table-container .view-btn {
     padding: 1px 10px;
     color: white;
     background-color: #24757E;
@@ -53,7 +52,7 @@
 
 }
 
-.msa-payment-container .delete-btn {
+.msa-payment-table-container .delete-btn {
     padding: 1px 10px;
     color: white;
     background-color: #E46B6B;
@@ -63,31 +62,33 @@
     margin: 3px;
 
 }
-.msa-payment-container .msa-container-table {
+.msa-payment-table-container .msa-container-table {
     align-items: center; /* Center-align the table container */
     padding: 20px;
     margin-left: 250px;
     max-width: 100%; /* Limit the maximum width */
 }
 
-.msa-payment-container .msa-pyment-tbl {
+.msa-payment-table-container .msa-pyment-tbl {
+    margin-top: 15px;
+    margin-left: 60px;
     width: 90%; /* Make the table width responsive */
     border-radius: 2px;
     border-collapse: collapse;
     table-layout: auto; /* Use auto layout for better column size adjustment */
-    margin: auto; /* Center the table within the container */
+    /*margin: auto; !* Center the table within the container *!*/
 }
-th, td {
+.msa-pyment-tbl th, td {
     padding: 8px; /* Add padding for better readability */
     border: 1px solid #ddd;
     text-align: center;
 }
-th {
+.msa-pyment-tbl th {
     background-color: #ababab !important;
     color: rgb(9, 0, 0);
     font-weight: bold;
 }
-tr {
+.msa-pyment-tbl tr {
     color: rgb(9, 0, 0);
 }
 
@@ -97,7 +98,7 @@ tr {
 
 
 /* Scrollable table body */
-tbody {
+.msa-pyment-tbl tbody {
     display: block; /* Makes the table body scrollable */
     max-height: 200px; /* 6 rows x approximately 40px each */
     overflow-y: auto; /* Enables vertical scrolling */
@@ -111,32 +112,59 @@ thead, tbody tr {
 }
 
 /* Hide scrollbar for cleaner look */
-tbody::-webkit-scrollbar {
+.msa-pyment-tbl tbody::-webkit-scrollbar {
     width: 2px;
 }
 
-tbody::-webkit-scrollbar-thumb {
+.msa-pyment-tbl tbody::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 4px;
 }
 
-tbody::-webkit-scrollbar-thumb:hover {
+.msa-pyment-tbl tbody::-webkit-scrollbar-thumb:hover {
     background-color: #888;
 }
 
 @media (max-width: 780px) {
-    msa-paymnet-container .yks-profile-breadcrumb {
+    .msa-payment-container .msa-container-table {
+        align-items: center; /* Center-align the table container */
+        padding: 20px;
+        margin-left: 0px;
+        max-width: 100%; /* Limit the maximum width */
+    }
+
+    .msa-payment-container {
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+
+    .msa-payment-container .msa-pyment-tbl {
+        width: 100%; /* Make the table width responsive */
+        border-radius: 2px;
+        border-collapse: collapse;
+        table-layout: auto; /* Use auto layout for better column size adjustment */
+        margin: auto; /* Center the table within the container */
+    }
+
+    .msa-payment-container .msa-payment-table-container {
+        margin-top: 20px;
+        margin-left: 0%;
+        margin-right: 0%;
+        margin-bottom: 20px;
+    }
+
+    .msa-paymnet-container .msa-profile-breadcrumb {
         display: none;
     }
 
-    msa-paymnet-container .head h1 {
+    .msa-paymnet-container .head h1 {
         padding-top: 60px;
         margin-bottom: 30px;
         font-size: calc(1.375rem + 1.5vw);
         font-weight: bold !important;
     }
 
-    msa-paymnet-container .msa-container-table {
+    .msa-paymnet-container .msa-container-table {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -146,36 +174,36 @@ tbody::-webkit-scrollbar-thumb:hover {
         overflow: auto; /* Add horizontal scroll to the container */
     }
 
-    table {
+    .msa-container-table table {
         width: 100%; /* Allow the table to adjust width based on content */
         border-collapse: collapse;
         overflow: auto; /* Ensure table itself can scroll */
     }
 
-    thead, tbody {
+    .msa-pyment-tbl thead, tbody {
         display: block; /* Allow scrolling within tbody */
     }
 
-    tbody {
+    .msa-pyment-tbl tbody {
         max-height: 400px; /* Fixed height for vertical scrolling */
         overflow-y: auto; /* Enable vertical scrolling */
         overflow-x: hidden; /* Prevent unnecessary horizontal scroll in tbody */
         width: 100%; /* Ensure alignment with the table */
     }
 
-    thead tr {
+    .msa-pyment-tbl thead tr {
         display: table;
         width: 100%;
         table-layout: fixed; /* Ensures column widths align properly */
     }
 
-    tbody tr {
+    .msa-pyment-tbl tbody tr {
         display: table;
         width: 100%;
         table-layout: fixed; /* Aligns rows and columns with headers */
     }
 
-    th, td {
+    .msa-pyment-tbl th, td {
         padding: 5px 2px; /* Smaller padding */
         font-size: 12px; /* Reduce font size */
         text-align: center;
@@ -187,64 +215,71 @@ tbody::-webkit-scrollbar-thumb:hover {
         width: 80%;
     }
 }
-
 @media (max-width: 480px) {
-    msa-paymnet-container .yks-profile-breadcrumb {
-        display: none;
+    .msa-profile-breadcrumb {
+        display: none; /* Hide breadcrumb on small screens */
     }
 
-    msa-paymnet-container .head h1 {
+    .msa-paymnet-container .head h1 {
         margin-top: 50px;
         margin-bottom: 30px;
     }
 
-    msa-paymnet-container .msa-container-table {
-        overflow-x: auto; /* Enable horizontal scroll */
-        overflow-y: hidden; /* Prevent any unnecessary vertical scroll in the container */
-        white-space: nowrap; /* Prevent wrapping inside the table */
+    .msa-paymnet-container .msa-container-table {
+        overflow-x: auto; /* Enable horizontal scrolling */
+        overflow-y: hidden; /* Hide vertical scroll in the container */
+        white-space: nowrap; /* Prevent text wrapping in table cells */
         padding: 8px;
-        margin: 0 auto; /* Center the container */
-        max-width: 100%;
+        margin: 0 auto; /* Center the table container */
+        max-width: 100%; /* Prevent table from overflowing the container */
     }
 
-    table {
-        width: 600px; /* Force the table to exceed screen width */
+    .msa-paymnet-container .msa-container-table table {
+        width: 100%; /* Set table width to 100% of the container */
         border-collapse: collapse; /* Clean up table borders */
     }
 
-    thead, tbody {
-        display: block; /* Allow tbody scrolling */
+    .msa-paymnet-container .msa-container-table thead, .msa-paymnet-container .msa-container-table tbody {
+        display: block; /* Allow scrolling for tbody */
     }
 
-    tbody {
-        max-height: 400px; /* Fixed height for vertical scrolling */
+    .msa-pyment-tbl tbody {
+        max-height: 300px; /* Set a fixed height for vertical scroll */
         overflow-y: auto; /* Enable vertical scrolling */
         width: 100%;
     }
 
-    thead tr {
-        display: table;
-        width: 100%;
-        table-layout: fixed; /* Ensures column widths align properly */
+    .msa-pyment-tbl thead {
+        position: sticky; /* Fix the header at the top */
+        top: 0;
+        background-color: #fff; /* Ensure the header is visible while scrolling */
+        z-index: 1; /* Make sure the header stays on top */
     }
 
-    tbody tr {
-        display: table;
+    .msa-pyment-tbl thead tr {
+        display: table; /* Ensure header row behaves like a table */
         width: 100%;
-        table-layout: fixed; /* Aligns rows and columns with headers */
+        table-layout: fixed; /* Prevent column width adjustment */
     }
 
-    th, td {
+    .msa-pyment-tbl tbody tr {
+        display: table; /* Ensure rows behave like table rows */
+        width: 100%;
+        table-layout: fixed; /* Ensure consistent column width */
+    }
+
+    .msa-pyment-tbl th, .msa-pyment-tbl td {
         padding: 7px 10px;
         font-size: 13px;
         text-align: center;
         border: 1px solid #ddd; /* Optional border for better clarity */
+        word-wrap: break-word; /* Allow word breaking if the text is too long */
     }
 
     .view-btn, .delete-btn {
-        font-size: 15px;
-        padding: 5px;
-        width: auto; /* Keep buttons inline */
+        font-size: 12px;
+        padding: 3px;
+        width: auto; /* Ensure buttons are inline */
     }
 }
 

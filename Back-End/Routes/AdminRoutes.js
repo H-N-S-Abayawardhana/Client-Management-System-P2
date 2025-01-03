@@ -560,38 +560,6 @@ router.post('/service', async (req, res) => {
         });
     }
 });
-//Get service
-router.get("/service/:id", async (req, res) => {
-    const sql = "SELECT * FROM Service WHERE invoiceID = ?";
-    const invoiceID = req.params.id;
-
-    try {
-        // Use the promise-based query method
-        const [data] = await db.query(sql, [invoiceID]);
-
-        // Check if the employee exists
-        if (data.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "services not found",
-            });
-        }
-
-        // Return the employee data
-        return res.json({
-            success: true,
-            message: "Service retrieved successfully",
-            data: data[0],  // Return the first service object
-        });
-    } catch (err) {
-        console.error("Error fetching service:", err.message);
-        return res.status(500).json({
-            success: false,
-            message: "Database query failed",
-            details: err.message,
-        });
-    }
-});
 
 // Route to view all attendances ...
 router.get('/ViewAllAttendances', async (req, res) => {
@@ -816,13 +784,14 @@ router.get("/employee/:EmployeeID", async (req, res) => {
 // Route to register a new employee ...
 router.post("/register", async (req, res) => {
     try {
+        console.log(req.body);
         // Hasing the entered password ... 
         const hashedPassword = await bcrypt.hash(req.body.Password, 10);
         console.log(hashedPassword);
         const sql = "INSERT INTO employee (Name, Address, ContactNumber, Designation, WorkStartDate, Email, Username, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         const values = [ req.body.Name, req.body.Address, req.body.ContactNumber, req.body.Designation, 
-                    req.body.WorkStartDate, req.body.Email, req.body.Username, hashedPassword ];
-
+                    req.body.WorkStartDate, req.body.Email, req.body.UserName, hashedPassword ];
+        console.log(values);
         const result = await db.query(sql, values);
         console.log("Query successful, inserting data:", result);
         return res.status(201).json({ message: "Employee added successfully", data: result });
@@ -859,6 +828,7 @@ router.post("/register", async (req, res) => {
 
 // Route to update an existing employee ...
 router.put('/update/:EmployeeID', async (req, res) => {
+    console.log(req.body);
 //     // Hasing the entered password ... 
 //     const hashedPassword = bcrypt.hashSync(req.body.Password, 10);
 //     console.log(hashedPassword);
@@ -873,6 +843,7 @@ router.put('/update/:EmployeeID', async (req, res) => {
         req.body.Username,
         req.params.EmployeeID
     ];
+    
     try {
         const result = await db.query(sql, values);
         console.log("Query successful, updated data:", result);
@@ -945,6 +916,6 @@ router.delete("/employee/:EmployeeID", async (req, res) => {
 
 //         return res.status(200).json({ message: "Employee deleted successfully" });
 //     });
-// });
+// }); 
 
 export default router;

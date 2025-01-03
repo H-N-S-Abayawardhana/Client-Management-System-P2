@@ -11,7 +11,6 @@ const pool = mysql.createPool({
     port: process.env.DB_PORT || 3308,
 });
 
-
 // Test connection
 pool.getConnection((err, connection) => {
     if (err) {

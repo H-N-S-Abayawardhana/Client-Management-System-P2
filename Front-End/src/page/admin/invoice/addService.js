@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import { useNavigate } from "react-router-dom";
 import { serviceState } from "../../../utils";
 import Navbar from "../../../components/templetes/adminNavBar";
-import Footer from "../../../components/templetes/Footer";
+import Footer from '../../../components/templetes/Footer';
 import Sidebar from "../../../components/templetes/SideBar";
 import '../../../css/admin/invoice/addservice.css';
 
@@ -146,7 +146,7 @@ const CreateInvoice = () => {
                     </button>
                 </div>
             </div>
-            <button className="sidebar-toggle" onClick={toggleSidebar}>☰</button>
+            <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
             <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
                 <Sidebar sidebarVisible={sidebarVisible} />
             </div>

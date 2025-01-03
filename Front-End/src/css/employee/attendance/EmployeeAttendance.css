@@ -1,6 +1,5 @@
 .ekr-sidebar-container {
-    width: 250px; /* Default width for larger screens */
-    background-color: #f8f9fa;
+    width: 230px; /* Default width for larger screens */
     flex-shrink: 0; /* Optional: Sidebar background color */
 }
 
@@ -15,7 +14,7 @@
 } 
 
 /* Ensure the button is above the sidebar */
-.sidebar-toggle {
+.ekr-tog {
     z-index: 1050;
 }
 

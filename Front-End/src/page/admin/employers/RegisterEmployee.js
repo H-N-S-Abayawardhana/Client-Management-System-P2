@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import Sidebar from "../../../components/templetes/SideBar";
 import Navbar from "../../../components/templetes/adminNavBar";
-import Footer from "../../../components/PagesFooter";
+import Footer from '../../../components/templetes/Footer';
 import '../../../css/admin/employers/RegisterEmployee.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -36,7 +36,17 @@ const UpdateEmployee = () => {
         return `${yyyy}-${mm}-${dd}`;
     };
 
-    function handleSubmit(event) {
+    const validateEmail = (email) => {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailRegex.test(email);
+    };
+
+    const validatePhoneNumber = (phoneNumber) => {
+        const phoneRegex = /^(?:0[1-9]\d{1}|\+94[1-9]\d{1})\d{7}$/;
+        return phoneRegex.test(phoneNumber);
+    };
+
+    const handleSubmit = (event) => {
         event.preventDefault(); // Always prevent default at the start ...
 
         // Input validation
@@ -72,6 +82,14 @@ const UpdateEmployee = () => {
             toast.error("Password is required!");
             return;
         }
+        if(!validateEmail(email)) {
+            toast.error("Invalid email address!");
+            return;
+        }
+        if(!validatePhoneNumber(contactNumber)) {
+            toast.error("Invalid contact number!");
+            return;
+        }
 
         // Submit the form data to the API
         axios.post("http://localhost:5000/api/admin/register", {
@@ -100,7 +118,7 @@ const UpdateEmployee = () => {
         <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
             <ToastContainer position="top-right" autoClose={3000} />
             <Navbar />
-            <button className="sidebar-toggle" onClick={toggleSidebar}>
+            <button className="sidebar-toggle waw-tog" onClick={toggleSidebar}>
                 ☰
             </button>
             <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>
@@ -124,7 +142,7 @@ const UpdateEmployee = () => {
                             <h4 className="waw-employee-update-page-title text-center" style={{ color: "#24757E" }}>Register Employee</h4>
                             {/* form */}
                             <div className="waw-form-container">
-                                <form>
+                                <form className='waw-form'>
                                     {/* EmployeeID Field */}
                                     {/* <div className="waw-form-row">
                                         <label htmlFor="employeeID">EmployeeID</label>
@@ -134,58 +152,58 @@ const UpdateEmployee = () => {
                                     {/* Employee Name Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="employeeName">Employee Name</label>
-                                        <input type="text" id="employeeName" className="form-control" placeholder="Enter Name" onChange={(e) => setName(e.target.value)}/>
+                                        <input type="text" id="employeeName" className="form-control mt-2 waw-input" placeholder="Enter Name" onChange={(e) => setName(e.target.value)}/>
                                     </div>
 
                                     {/* Designation Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="designation">Designation</label>
-                                        <input type="text" id="designation" className="form-control" placeholder="Enter Designation" onChange={(e) => setDesignation(e.target.value)}/>
+                                        <input type="text" id="designation" className="form-control waw-input" placeholder="Enter Designation" onChange={(e) => setDesignation(e.target.value)}/>
                                     </div>
 
                                     {/* Work Starting Date Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="workStartDate">Work Starting Date</label>
-                                        <input type="date" id="workStartDate" className="form-control" placeholder="Enter Date" onChange={(e) => setWorkStartDate(e.target.value)}/>
+                                        <input type="date" id="workStartDate" className="form-control waw-input" placeholder="Enter Date" onChange={(e) => setWorkStartDate(e.target.value)}/>
                                     </div>
 
                                     {/* Contact Number Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="contactNumber">Contact Number</label>
-                                        <input type="text" id="contactNumber" className="form-control" placeholder="Enter Contact Number" onChange={(e) => setContactNumber(e.target.value)}/>
+                                        <input type="text" id="contactNumber" className="form-control waw-input" placeholder="Enter Contact Number" onChange={(e) => setContactNumber(e.target.value)}/>
                                     </div>
 
                                     {/* Address Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="address">Address</label>
-                                        <input type="text" id="address" className="form-control" placeholder="Enter Address" onChange={(e) => setAddress(e.target.value)}/>
+                                        <input type="text" id="address" className="form-control waw-input" placeholder="Enter Address" onChange={(e) => setAddress(e.target.value)}/>
                                     </div>
 
                                     {/* Email Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="email">Email</label>
-                                        <input type="text" id="email" className="form-control" placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)}/>
+                                        <input type="text" id="email" className="form-control waw-input" placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)}/>
                                     </div>
 
                                     {/* User Name Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="userName">User Name</label>
-                                        <input type="text" id="userName" className="form-control" placeholder="Enter User Name" onChange={(e) => setUserName(e.target.value)}/>
+                                        <input type="text" id="userName" className="form-control waw-input" placeholder="Enter User Name" onChange={(e) => setUserName(e.target.value)}/>
                                     </div>
 
                                     {/* Password Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="password">Password</label>
-                                        <div className="password-input-wrapper">
+                                        <div className="waw-password-input-wrapper">
                                             <input
                                                 type={passwordVisible ? "text" : "password"}
                                                 id="password"
-                                                className="form-control"
+                                                className="form-control waw-input"
                                                 placeholder="Enter password"
                                                 onChange={(e) => setPassword(e.target.value)}
                                             />
                                             <span
-                                                className="password-toggle-btn"
+                                                className="waw-password-toggle-btn"
                                                 onClick={togglePasswordVisibility}
                                             >
                                                 <i className={`fa ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`}></i>
@@ -203,8 +221,13 @@ const UpdateEmployee = () => {
                     </div>
                 </div>
             </div>
-            {/* Footer */}
-            <Footer />
+            <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
+            <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
+                <Sidebar sidebarVisible={sidebarVisible} />
+            </div>
+            <div className="container3">
+                <Footer />
+            </div>
         </div>
   );
 }
