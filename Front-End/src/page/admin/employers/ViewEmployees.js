@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import Swal from 'sweetalert2';
 import Navbar from '../../../components/templetes/adminNavBar';
-import Footer from '../../../components/PagesFooter';
+import Footer from '../../../components/templetes/Footer';
 import Sidebar from '../../../components/templetes/SideBar';
 import searchIcon from "../../../assets/image.png";
 import '../../../css/admin/employers/ViewEmployees.css';
@@ -199,8 +199,13 @@ function ViewEmployees() {
                     </div>
                 </div>
             </div>
-            {/* Footer */}
-            <Footer />
+            <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
+            <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
+                <Sidebar sidebarVisible={sidebarVisible} />
+            </div>
+            <div className="container3">
+                <Footer />
+            </div>
         </div>    
   );
 }

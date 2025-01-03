@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import '../../../css/admin/payment/paymentTable.css';
 import Navbar from "../../../components/templetes/adminNavBar";
-import Footer from "../../../components/PagesFooter";
+import Footer from '../../../components/templetes/Footer';
 import Sidebar from "../../../components/templetes/SideBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // useNavigate import
@@ -130,9 +130,9 @@ const PaymentsTable = () => {
 
                 </div>
             </div>
-            <button className="sidebar-toggle" onClick={toggleSidebar}>☰</button>
+            <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
             <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
-                <Sidebar sidebarVisible={sidebarVisible}/>
+                <Sidebar sidebarVisible={sidebarVisible} />
             </div>
             <div className="container3">
                 <Footer />

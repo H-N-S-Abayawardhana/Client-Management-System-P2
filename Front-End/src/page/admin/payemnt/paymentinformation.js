@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import '../../../css/admin/payment/payment_form.css';
 import { useParams } from "react-router-dom";
 import Navbar from '../../../components/templetes/adminNavBar';
-import Footer from '../../../components/PagesFooter'
+import Footer from '../../../components/templetes/Footer';
 // import Footer from '../../../components/PagesFooter';
 import Sidebar from '../../../components/templetes/SideBar';
 import { jsPDF } from "jspdf"; // Import jsPDF
@@ -114,59 +114,59 @@ const PaymentInformation = () => {
   if (!paymentDetails || !invoiceDetails || !employeeDetails) return <div>Loading...</div>;
 
   return (
-      <div>
-        <Navbar />
-        <div className="msa-form-container">
-          <p className="msa-profile-breadcrumb">
-            <span className="home">Home</span> / <span className="home">Payment</span> / <span className='contact'>Payment Information</span>
-          </p>
+    <div>
+      <Navbar />
+      <div className="msa-form-container">
+        <p className="msa-profile-breadcrumb">
+          <span className="home">Home</span> / <span className="home">Payment</span> / <span className='contact'>Payment Information</span>
+        </p>
 
-          <div className="msa-payment-form-container">
-            <div className="head-name">
-              <h1 className="payment-heading">Payment Information</h1>
-            </div>
-
-            <div className="invoice-card" ref={invoiceCardRef}>
-              <h3>Invoice #{paymentDetails.invoiceID}</h3>
-              <hr /> {/* New line after the Invoice Title */}
-              <p>
-                <strong>Invoice ID:</strong>
-                <span>#{paymentDetails.invoiceID}</span>
-              </p>
-              <p>
-                <strong>Employer Name:</strong>
-                <span>{employeeDetails?.Name || "N/A"}</span>
-              </p>
-              <p>
-                <strong>Payment Date:</strong>
-                <span>{formatDate(paymentDetails.payment_date || "N/A")}</span>
-              </p>
-              <p>
-                <strong>Invoice Date:</strong>
-                <span>{formatDate(invoiceDetails?.invoice_date || "N/A")}</span>
-              </p>
-              <p>
-                <strong>Description:</strong>
-                <span>{invoiceDetails?.description || "N/A"}</span>
-              </p>
-              <p>
-                <strong>Amount:</strong>
-                <span>{paymentDetails.amount || "N/A"}</span>
-              </p>
-
-            </div>
-            <button className="download-btn" onClick={downloadPDF}>Download</button>
+        <div className="msa-payment-form-container">
+          <div className="head-name">
+            <h1 className="payment-heading">Payment Information</h1>
           </div>
-        </div>
 
-        <button className="sidebar-toggle" onClick={toggleSidebar}>☰</button>
-        <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
-          <Sidebar sidebarVisible={sidebarVisible} />
-        </div>
-        <div className="container3">
-          <Footer />
+          <div className="invoice-card" ref={invoiceCardRef}>
+            <h3>Invoice #{paymentDetails.invoiceID}</h3>
+            <hr /> {/* New line after the Invoice Title */}
+            <p>
+              <strong>Invoice ID:</strong>
+              <span>#{paymentDetails.invoiceID}</span>
+            </p>
+            <p>
+              <strong>Employer Name:</strong>
+              <span>{employeeDetails?.Name || "N/A"}</span>
+            </p>
+            <p>
+              <strong>Payment Date:</strong>
+              <span>{formatDate(paymentDetails.payment_date || "N/A")}</span>
+            </p>
+            <p>
+              <strong>Invoice Date:</strong>
+              <span>{formatDate(invoiceDetails?.invoice_date || "N/A")}</span>
+            </p>
+            <p>
+              <strong>Description:</strong>
+              <span>{invoiceDetails?.description || "N/A"}</span>
+            </p>
+            <p>
+              <strong>Amount:</strong>
+              <span>{paymentDetails.amount || "N/A"}</span>
+            </p>
+
+          </div>
+          <button className="download-btn" onClick={downloadPDF}>Download</button>
         </div>
       </div>
+
+      <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
+      <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
+        <Sidebar sidebarVisible={sidebarVisible} />
+      </div>
+      <div className="container3">
+        <Footer />
+      </div>
+    </div>
   );
 };
 export default PaymentInformation;
