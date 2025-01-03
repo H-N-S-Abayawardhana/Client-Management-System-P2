@@ -94,6 +94,9 @@
     overflow-y: auto;
     width: 100%;
 }
+.yks-invoice-tbl td{
+    color: black;
+}
 
 .thead, tbody tr {
     display: table;
