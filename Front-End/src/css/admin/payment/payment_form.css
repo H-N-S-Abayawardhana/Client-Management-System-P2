@@ -41,13 +41,13 @@
 }
 .msa-form-container .msa-payment-form-container .head-name h1{
     color: #24757E;
-    margin-bottom:25px;
+    margin-bottom:15px;
     max-width: 100%;
 }
 .msa-form-container .msa-payment-form-container .invoice-card {
     width: 80%;
     max-width: 400px; /* Slightly larger max-width for better visuals */
-    padding:  30px 50px;
+    padding:  20px 50px;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -101,7 +101,7 @@
     margin-top: 15px;
     transition: background-color 0.3s ease;
     width: 10%;
-    margin-left: 830px;
+    margin-left: 800px;
 }
 .download-btn:hover {
     background-color: #1d5d65;
