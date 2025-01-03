@@ -98,7 +98,7 @@ function EmployeeDashboard() {
 
   const getData = async () => {
     try {
-      const response = await makeAuthenticatedRequest('http://localhost:5000/api/employee/employee/task');
+      const response = await makeAuthenticatedRequest('http://localhost:5000/employee/task/tasks');
       if (response) {
         const responseData = await response.json();
         setData(responseData);
@@ -227,7 +227,7 @@ function EmployeeDashboard() {
                             <tr key={index}>
                               <td>{task.TaskName}</td>
                               <td>{formatDateToDMY(new Date(task.Deadline))}</td>
-                              <td>{task.Budget}</td>
+                              <td>{task.BudgetInfo}</td>
                               <td>{task.Description}</td>
                             </tr>
                           ))

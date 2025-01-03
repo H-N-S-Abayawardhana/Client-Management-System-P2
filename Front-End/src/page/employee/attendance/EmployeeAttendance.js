@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {toast, ToastContainer} from 'react-toastify';
-import Sidebar from "../../../components/templetes/ESideBar";
-import Navbar from "../../../components/templetes/empNavBar";
 import Footer from '../../../components/templetes/Footer';
+import Sidebar from '../../../components/templetes/ESideBar';
+import Navbar from "../../../components/templetes/empNavBar";
 import AddAttendancePopup from "./AddAttendancePopup";
 import circlePlusIcon from "../../../assets/plusIcon.png";
 import searchIcon from "../../../assets/image.png"
