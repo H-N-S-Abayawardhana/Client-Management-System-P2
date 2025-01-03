@@ -150,7 +150,7 @@ const AdminAttendance = () => {
       <div className="ekr-admin-attendance-container d-flex flex-column" style={{ minHeight: '100vh' }}>
       <ToastContainer position="top-right" autoClose={3000} />
       <Navbar />
-      <button className="sidebar-toggle" onClick={toggleSidebar}>
+      <button className="sidebar-toggle ekr-tog" onClick={toggleSidebar}>
         ☰
       </button>
       <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>

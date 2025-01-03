@@ -129,8 +129,8 @@ const AdminMailBox = () => {
                             <h4 className="km-employee-attendance-page-title text-center" style={{ color: "#24757E" }}>Mail Box</h4>
 
                             <div className="km-mailbox-container">
-                                <form onSubmit={handleSubmit}>
-                                    <h6 className="text-start fw-bold mb-2">Send Email</h6>
+                                <form onSubmit={handleSubmit} className='km-form'>
+                                    <h6 className="text-start fw-bold mb-2 mt-3">Send Email</h6>
 
                                     {/* To Field */}
                                     <input
@@ -154,7 +154,7 @@ const AdminMailBox = () => {
                                         placeholder="Subject"
                                         name="subject"
                                         required
-                                        className="km-mailbox-input form-control mb-2"
+                                        className="km-mailbox-input form-control mb-2 me-2"
                                         style={{
                                             fontSize: "0.875rem", backgroundColor: "#f0f0f0"
                                         }}
@@ -164,8 +164,8 @@ const AdminMailBox = () => {
 
                                     {/* Attachment Field */}
                                     <div className="km-attachment-container">
-                                        <label className="km-attachment-label d-flex align-items-center">
-                                            <i className="fas fa-paperclip me-2"></i>
+                                        <label className="km-attachment-label d-flex align-items-center me-2">
+                                            <i className="fas fa-paperclip me-4"></i>
                                             <span className="km-file-name me-2">{formData?.attachment?.name || "No file selected"}</span>
                                             <input type="file" className="km-file-input" name="attachment" onChange={handleAttachmentChange}/>
                                         </label>
@@ -189,7 +189,7 @@ const AdminMailBox = () => {
                                     ></textarea>
 
                                     {/* Submit Button */}
-                                    <button type="submit" className="km-mailbox-submit-btn">
+                                    <button type="submit" className="km-mailbox-submit-btn mb-3">
                                         Send
                                     </button>
                                 </form>

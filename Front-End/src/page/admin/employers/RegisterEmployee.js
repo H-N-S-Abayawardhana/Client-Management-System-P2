@@ -142,7 +142,7 @@ const UpdateEmployee = () => {
                             <h4 className="waw-employee-update-page-title text-center" style={{ color: "#24757E" }}>Register Employee</h4>
                             {/* form */}
                             <div className="waw-form-container">
-                                <form>
+                                <form className='waw-form'>
                                     {/* EmployeeID Field */}
                                     {/* <div className="waw-form-row">
                                         <label htmlFor="employeeID">EmployeeID</label>
@@ -152,43 +152,43 @@ const UpdateEmployee = () => {
                                     {/* Employee Name Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="employeeName">Employee Name</label>
-                                        <input type="text" id="employeeName" className="form-control" placeholder="Enter Name" onChange={(e) => setName(e.target.value)}/>
+                                        <input type="text" id="employeeName" className="form-control mt-2 waw-input" placeholder="Enter Name" onChange={(e) => setName(e.target.value)}/>
                                     </div>
 
                                     {/* Designation Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="designation">Designation</label>
-                                        <input type="text" id="designation" className="form-control" placeholder="Enter Designation" onChange={(e) => setDesignation(e.target.value)}/>
+                                        <input type="text" id="designation" className="form-control waw-input" placeholder="Enter Designation" onChange={(e) => setDesignation(e.target.value)}/>
                                     </div>
 
                                     {/* Work Starting Date Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="workStartDate">Work Starting Date</label>
-                                        <input type="date" id="workStartDate" className="form-control" placeholder="Enter Date" onChange={(e) => setWorkStartDate(e.target.value)}/>
+                                        <input type="date" id="workStartDate" className="form-control waw-input" placeholder="Enter Date" onChange={(e) => setWorkStartDate(e.target.value)}/>
                                     </div>
 
                                     {/* Contact Number Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="contactNumber">Contact Number</label>
-                                        <input type="text" id="contactNumber" className="form-control" placeholder="Enter Contact Number" onChange={(e) => setContactNumber(e.target.value)}/>
+                                        <input type="text" id="contactNumber" className="form-control waw-input" placeholder="Enter Contact Number" onChange={(e) => setContactNumber(e.target.value)}/>
                                     </div>
 
                                     {/* Address Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="address">Address</label>
-                                        <input type="text" id="address" className="form-control" placeholder="Enter Address" onChange={(e) => setAddress(e.target.value)}/>
+                                        <input type="text" id="address" className="form-control waw-input" placeholder="Enter Address" onChange={(e) => setAddress(e.target.value)}/>
                                     </div>
 
                                     {/* Email Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="email">Email</label>
-                                        <input type="text" id="email" className="form-control" placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)}/>
+                                        <input type="text" id="email" className="form-control waw-input" placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)}/>
                                     </div>
 
                                     {/* User Name Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="userName">User Name</label>
-                                        <input type="text" id="userName" className="form-control" placeholder="Enter User Name" onChange={(e) => setUserName(e.target.value)}/>
+                                        <input type="text" id="userName" className="form-control waw-input" placeholder="Enter User Name" onChange={(e) => setUserName(e.target.value)}/>
                                     </div>
 
                                     {/* Password Field */}
@@ -198,7 +198,7 @@ const UpdateEmployee = () => {
                                             <input
                                                 type={passwordVisible ? "text" : "password"}
                                                 id="password"
-                                                className="form-control"
+                                                className="form-control waw-input"
                                                 placeholder="Enter password"
                                                 onChange={(e) => setPassword(e.target.value)}
                                             />

@@ -13,15 +13,6 @@
     height: 100%;
   }
 
-  /* Footer Styling */
-  footer {
-    background-color: #f8f9fa; /* Optional background color */
-    border-top: 1px solid #ddd; /* Optional border for separation */
-    padding: 10px; /* Padding for footer content */
-    text-align: center; /* Center align footer text */
-  }
-
-
   /* Breadcrumb */
   .ekr-breadcrumb {
     font-size: 14px;
@@ -305,7 +296,7 @@
         min-width: 120px; /* Set minimum width to ensure usability */
     }
 
-    .scrollable-table-container {
+    .ekr-scrollable-table-container {
       max-height: 400px; 
       overflow-y: auto; 
       margin-top: 10px;
@@ -332,7 +323,7 @@
     }
   }
   @media (max-width: 768px) {
-    .sidebar-toggle {
+    .ekr-tog {
       position: fixed; 
       top: 10px; 
       left: 360px; 
@@ -356,16 +347,6 @@
     body {
         padding-top: 20px; 
     }
-  }
-
-  /*
-  .ekr-scroll-wrapper {                   /*table scrol*
-    max-height: 400px;
-    overflow-y: scroll;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-  }
-  */
+  } 
 }
 

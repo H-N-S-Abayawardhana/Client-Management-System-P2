@@ -5,9 +5,7 @@ import '../../../css/employee/attendance/AddAttendancePopup.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AddAttendancePopup = ({ closePopup, data }) => {
-    const [name, setName] = useState('');
     const [date, setDate] = useState('');
-    const [email, setEmail] = useState(''); 
 
     const current_date = new Date();
     const currentHour = current_date.getHours();
@@ -47,21 +45,19 @@ const AddAttendancePopup = ({ closePopup, data }) => {
         setDate(e.target.value); // Update state with selected date
     };
 
-    // const validateEmail = (email) => {
-    //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //     return emailRegex.test(email);
-    // };
-
     const submitData = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
-        console.log(name, date, email);
+        const name = data.Name;
+        const email = data.Email;
+        const employeeId = data.EmployeeID;
+        console.log(name, date, email, employeeId);
         try {
             const response =  await fetch('http://localhost:5000/api/employee/addAttendance', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, date, email })
+                body: JSON.stringify({ name, date, email, employeeId })
             })
             if(!response.ok) {
                 const errorMessage = await response.text();
@@ -79,8 +75,8 @@ const AddAttendancePopup = ({ closePopup, data }) => {
                     console.log(response);
                     console.log(responseData);
                     toast.success('Visit Confirmation Successfull!')
-                    //closePopup(); // Close the popup after successful submission ...
-                    //window.location.reload();
+                    closePopup(); // Close the popup after successful submission ...
+                    window.location.reload();
                 }
             }
         } catch (error) {
@@ -100,7 +96,7 @@ const AddAttendancePopup = ({ closePopup, data }) => {
                 <div className='d-flex justify-content-between align-items-start mb-3'>
                     <label htmlFor='name' className='pt-2 w-25 text-start text-white ekr-form-label'>User Name</label>
                     {/* <input type="text" placeholder='User Name' className='w-75' required onChange={(e) => setName(e.target.value)}/> */}
-                    <input type="text" placeholder='User Name' className='w-75 ekr-form-input' required onChange={(e) => setName(e.target.value)}/>
+                    <input type="text" placeholder='User Name' className='w-75 ekr-form-input' value={data.Name}/>
                 </div>
                 <div className='d-flex justify-content-between mt-1 align-items-start mb-3'>
                     <label htmlFor='date-input' className='pt-2 w-25 text-start text-white ekr-form-label'>Date</label>
@@ -109,7 +105,7 @@ const AddAttendancePopup = ({ closePopup, data }) => {
                 <div className='d-flex justify-content-between mt-1 align-items-start mb-3'>
                     <label htmlFor='email' className='pt-2 w-25 text-start text-white ekr-form-label'>Email</label>
                     {/* <input type="text" placeholder='Email' className='w-75' required onChange={(e) => setEmail(e.target.value)}/> */}
-                    <input type="text" placeholder='Email' className='w-75 ekr-form-input' required onChange={(e) => setEmail(e.target.value)}/>
+                    <input type="text" placeholder='Email' className='w-75 ekr-form-input' value={data.Email} required/>
                 </div>
                 <p className='text-center ekr-p'>
                     Attendance recorded! Thank you for visiting our employees today.

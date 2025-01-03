@@ -73,28 +73,16 @@
   }
 }
 
-.d-flex {
-  display: flex;
-}
-
-.flex-column {
-  flex-direction: column;
-}
-
-.flex-grow-1 {
-  flex-grow: 1;
-}
-
 .waw-sidebar-container.show-sidebar {
   transform: translateX(0);
 }
 
-form {
+.waw-form {
   max-width: 600px;
   margin: 0 auto;
 }
 
-input::focus {
+.waw-input::focus {
   border-color: #24757E;
 }
 

@@ -16,7 +16,7 @@
 } 
 
 /* Ensure the button is above the sidebar */
-.sidebar-toggle {
+.km-tog {
     z-index: 1050;
 }
 

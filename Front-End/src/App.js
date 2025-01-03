@@ -27,7 +27,7 @@ import AdminAttendance from './page/admin/attendance/Adminattendence.js';
 import AdminMailBox from './page/admin/mailbox/AdminMailBox.js';
 import RegisterEmployee from './page/admin/employers/RegisterEmployee.js';
 import UpdateEmployee from './page/admin/employers/UpdateEmployee.js';
-import ViewEmployee from './page/admin/employers/ViewEmployees.js';
+import ViewEmployees from './page/admin/employers/ViewEmployees.js';
 
 //Employee
 import EmployeeDashboard from './page/employee/employeeDashboard';
@@ -85,11 +85,11 @@ function App() {
         <Route path="/All-invoice" element={<InvoiceTable/>} />
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/Add-Service" element={<CreateInvoice/>} />
-        <Route path="/admin-attendance" element={<AdminAttendance/>} />
-        <Route path="/admin-mailbox" element={<AdminMailBox />} />
-        <Route path="/register-employee" element={<RegisterEmployee />} />
-        <Route path="/update-employee/:EmployeeID" element={<UpdateEmployee />} />
-        <Route path="/view-employees" element={<ViewEmployee />} />
+        <Route path="/admin-attendance" element={<AdminProtectedRoute><AdminAttendance/></AdminProtectedRoute>} />
+        <Route path="/admin-mailbox" element={<AdminProtectedRoute><AdminMailBox /></AdminProtectedRoute>} />
+        <Route path="/register-employee" element={<AdminProtectedRoute><RegisterEmployee /></AdminProtectedRoute>} />
+        <Route path="/update-employee/:EmployeeID" element={<AdminProtectedRoute><UpdateEmployee /></AdminProtectedRoute>} />
+        <Route path="/view-employees" element={<AdminProtectedRoute><ViewEmployees /></AdminProtectedRoute>} />
 
         {/* Employee-Side Routes */}
         <Route path="/employee-dashboard" element={<EmployeeProtectedRoute><EmployeeDashboard/></EmployeeProtectedRoute>}/>
@@ -104,8 +104,8 @@ function App() {
         <Route path="/employee-payment" element={<ViewPay/>} />
         <Route path='/employee-pay' element={<Paymentform/>} />
         <Route path='/employee-noti' element={<Notification/>} />
-        <Route path="/employee-attendance" element={<EmployeeAttenance />} />
-        <Route path="/employee-mailbox" element={<EmployeeMailBox />} />
+        <Route path="/employee-attendance" element={<EmployeeProtectedRoute><EmployeeAttenance /></EmployeeProtectedRoute>} />
+        <Route path="/employee-mailbox" element={<EmployeeProtectedRoute><EmployeeMailBox /></EmployeeProtectedRoute>} />
 
       </Routes>
     </Router>

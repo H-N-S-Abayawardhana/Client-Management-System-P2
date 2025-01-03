@@ -156,7 +156,7 @@ const UpdateEmployee = () => {
                                     {/* EmployeeID Field */}
                                     <div className="waw-form-row">
                                         <label htmlFor="employeeID">EmployeeID</label>
-                                        <input type="text" id="employeeID" className="form-control waw-update-input" placeholder="Enter ID" value={employeeID} required disabled/>
+                                        <input type="text" id="employeeID" className="form-control waw-update-input mt-2" placeholder="Enter ID" value={employeeID} required disabled/>
                                     </div>
 
                                     {/* Employee Name Field */}

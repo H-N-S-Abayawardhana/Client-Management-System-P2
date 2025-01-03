@@ -105,7 +105,7 @@ const EmployeeMailBox = () => {
         <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
             <ToastContainer position="top-right" autoClose={3000} />
             <Navbar />
-            <button className="sidebar-toggle" onClick={toggleSidebar}>
+            <button className="sidebar-toggle km-tog" onClick={toggleSidebar}>
                 ☰
             </button>
             <div className={`flex-grow-1 d-flex`}>
@@ -130,7 +130,7 @@ const EmployeeMailBox = () => {
 
                             <div className="km-mailbox-container">
                                 <form onSubmit={handleSubmit} className='km-form'>
-                                    <h6 className="text-start fw-bold mb-2">Send Email</h6>
+                                    <h6 className="text-start fw-bold mb-2 mt-3">Send Email</h6>
 
                                     {/* To Field */}
                                     <input
@@ -189,7 +189,7 @@ const EmployeeMailBox = () => {
                                     ></textarea>
 
                                     {/* Submit Button */}
-                                    <button type="submit" className="km-mailbox-submit-btn">
+                                    <button type="submit" className="km-mailbox-submit-btn mb-3">
                                         Send
                                     </button>
                                 </form>
