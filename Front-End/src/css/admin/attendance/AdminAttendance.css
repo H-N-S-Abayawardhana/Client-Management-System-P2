@@ -1,0 +1,352 @@
+.ekr-admin-attendance-wrapper {
+  /* Main Container */
+  .ekr-admin-attendance-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full height of viewport */
+  }
+
+  /* Main Content */
+  .ekr-main {
+    flex-grow: 1;
+    padding: 20px;
+    height: 100%;
+  }
+
+  /* Breadcrumb */
+  .ekr-breadcrumb {
+    font-size: 14px;
+    color: #6c757d;
+  }
+
+  /* Page Title */
+  .ekr-page-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #24757E;
+    text-align: center;
+  }
+
+  /* Controls Section */
+  .ekr-controls-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    gap: 10px;
+  } 
+
+  .ekr-control-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background-color: #ffffff;
+    border: 1px solid #24757E;
+    color: #24757E;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 50px; /* Rounded corners */
+    cursor: pointer;
+    min-width: 100px; /* Ensure consistent button size */
+    height: 35px;
+  }
+
+  .ekr-control-btn:hover {
+    background-color: #24757E;
+    color: #ffffff;
+  }
+
+  .ekr-search-bar-container {
+    position: relative;
+    max-width: 250px; /* Optional: Adjust width */
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+  }
+
+  .ekr-search-bar {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 50px; /* Rounded corners */
+    padding-right: 40px; /* Space for the icon */
+    font-size: 14px;
+  }
+
+  .ekr-search-bar-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    pointer-events: none;
+    font-size: 18px;
+    color: #6c757d;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  } 
+
+  .ekr-search-icon {
+    width: 25px;
+    height: 25px;
+  } 
+
+  @media (max-width: 768px) {
+    .ekr-controls-section {
+      flex-wrap: nowrap; /* Ensure controls stay in a row */
+    }
+
+    .ekr-search-bar-container {
+      max-width: 50%; /* Adjust width for smaller screens */
+    }
+  } 
+
+  @media (max-width: 406px) {
+    .ekr-controls-section {
+      flex-wrap: nowrap; /* Ensure controls stay in a row */
+      gap: 5px; /* Reduce gap */
+    }
+
+    .ekr-control-btn {
+      min-width: 80px; /* Further reduce button width */
+      height: 30px; /* Reduce height for smaller screens */
+      font-size: 12px; /* Smaller font size */
+    }
+
+    .search-bar-container {
+      max-width: 40%; /* Adjust width for smaller screens */
+    }
+
+    .ekr-search-bar {
+      font-size: 12px; /* Smaller font size for search bar */
+      padding: 6px 8px; /* Adjust padding */
+    }
+  }
+
+  .ekr-reset-btn, .ekr-download-btn {
+    width: 100px; /* Ensure both buttons have the same width */
+    padding: 8px 8px 8px 8px; /* Adjust padding as needed */
+    text-align: center;
+    font-size: 14px;
+    border-radius: 5px; /* Optional for rounded edges */
+  }
+
+  .ekr-reset-btn {
+    background-color: #24757E; /* Light red for Reset button */
+    color: white; /* Darker red for text */
+  } 
+
+  .ekr-reset-btn:hover {
+    background-color: #45919A; /* Light red for Reset button */
+    color: white; /* Darker red for text */
+  }
+
+  .ekr-download-btn {
+    background-color: #24757E; /* Light green for Download button */
+    color: white; /* Darker green for text */
+  } 
+
+  .ekr-download-btn:hover {
+    background-color: #45919A; /* Light red for Reset button */
+    color: white; /* Darker red for text */
+  } 
+
+  /* Card Styling */
+  .card.shadow-sm {
+    height: 100%; 
+    padding: 5px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    box-shadow: none;
+  }
+
+  /* Card Body */
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden; 
+    padding: 2px;
+  }
+
+  .card-body > *:not(:last-child) {
+    margin-bottom: 15px; 
+  }
+
+  /* Table Container */
+  .ekr-table-container {
+    background-color: #ffffff; /* White background for the box */
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    margin-top: 10px;
+    overflow: hidden; 
+  }
+
+  .ekr-scroll-wrapper {
+    height: 100%;
+  }
+
+  /* Scrollable Table */
+  .ekr-scrollable-table {
+    flex-grow: 1; 
+    overflow-y: auto; 
+    overflow-x: auto; 
+    margin-top: 10px; 
+    background-color: #ffffff;
+    border-radius: 5px;
+    max-height: 80vh; /* Adjust to your needs */
+    min-height: 60vh; /* Ensure a minimum height */
+  }
+
+  /* Table Styles */
+  .ekr-attendance-table {
+    width: 100%; 
+    border-collapse: collapse; 
+    border: 1px solid #8c8c8c33; 
+    border-radius: 5px;
+    font-size: 12px;
+  }
+
+  .ekr-attendance-table th,
+  .ekr-attendance-table td {
+    text-align: center; 
+    padding: 12px; 
+    border: 1px solid #ddd; 
+  }
+
+  .ekr-attendance-table th {
+    background-color: #f8f9fa; 
+    color: #000000; 
+    font-weight: bold; 
+  }
+
+  .ekr-attendance-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2; 
+  }
+
+  .ekr-attendance-table tbody tr:hover {
+    background-color: #f1f1f1; 
+  }
+
+  /* Date Picker Container */
+  .ekr-date-picker-container {
+    z-index: 1050; 
+    top: 100%; 
+    left: 0;
+    position: absolute;
+    background-color: #ffffff; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    padding: 6px; 
+    font-size: 14px; 
+  }
+
+  .ekr-control-btn {
+    height: 40px;
+  }
+
+  /* Icons in Buttons */
+  .ekr-control-btn i {
+    margin-bottom: 1px; /* Adjust icon alignment */
+    margin-top: -1px;
+    font-size: 1rem; /* Adjust calendar icon size */
+    vertical-align: middle;
+  }
+
+  .ekr-search-bar-icon-btn i {
+    font-size: 1.2rem; /* Adjust search icon size */
+    vertical-align: middle;
+  } 
+
+  /* Responsive Design for Mobile Devices */
+  @media (max-width: 768px) { 
+
+    .ekr-controls-section {
+        flex-direction: row; 
+        justify-content: flex-start;
+        align-items: center; 
+        gap: 10px; 
+    }
+
+    .ekr-search-bar-container {
+        width: auto; 
+        margin-top: 0; 
+    }
+
+    .ekr-search-bar {
+        width: calc(100% - 40px); 
+        padding-right: 40px; 
+    }
+
+    .ekr-search-bar-icon {
+        position: absolute;
+        right: 10px; 
+        top: 50%; 
+        transform: translateY(-50%); 
+    }
+
+    .ekr-sort-date-container { 
+        min-width: 120px; /* Set minimum width to ensure usability */
+    }
+
+    .ekr-scrollable-table-container {
+      max-height: 400px; 
+      overflow-y: auto; 
+      margin-top: 10px;
+      border: 1px solid #ddd; 
+      border-radius: 5px; 
+  }
+  }
+
+  @media (max-width: 768px) {
+    .ekr-button-row {
+      display: flex;
+      justify-content: space-between; 
+      gap: 10px; 
+    }
+
+    .ekr-reset-btn {
+      order: 1; 
+    }
+
+    .ekr-download-btn {
+      
+      order: 2; 
+      margin-left: auto; 
+    }
+  }
+  @media (max-width: 768px) {
+    .ekr-tog {
+      position: fixed; 
+      top: 10px; 
+      left: 360px; 
+      z-index: 9999; 
+    }
+  }
+  /* Breadcrumb Styling */
+  .ekr-breadcrumb {
+    font-size: 14px;
+    color: #6c757d;
+    margin-top: 20px; /* Add space below navbar */
+  }
+
+  /* Hide Page Title on Mobile View */
+  @media (max-width: 768px) {
+    h4.ekr-page-title.text-center {
+      display: none !important;
+    }
+  }
+  @media (max-width: 768px) {
+    body {
+        padding-top: 20px; 
+    }
+  } 
+}
+

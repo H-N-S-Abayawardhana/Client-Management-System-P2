@@ -1,0 +1,336 @@
+.waw-sidebar-container {
+  width: 250px; /* Default width for larger screens */
+  background-color: #f8f9fa;
+  flex-shrink: 0; /* Optional: Sidebar background color */
+}
+
+@media (max-width: 768px) {
+  .waw-sidebar-container {
+      width: 100%; /* Full width for mobile screens */
+      position: fixed; /* Fixed sidebar for smaller screens */
+      z-index: 1000;
+      top: 0;
+      left: 0; /* Place it above other content */
+  }
+} 
+
+/* Ensure the button is above the sidebar */
+.waw-tog {
+  z-index: 1050;
+}
+
+.waw-content-container {
+  padding: 20px;
+  flex-grow: 1;
+  overflow-y: auto; /* Enables scrolling if content overflows */
+}
+
+@media (max-width: 768px) {
+  .waw-content-container {
+      margin-top: 60px; /* Adjust for fixed navbar/sidebar */
+      padding: 10px; /* Reduced padding for smaller screens */
+  }
+}
+
+.waw-card-container-height {
+  min-height: 430px;
+}
+
+@media (max-width: 768px) {
+  .waw-card-container-height {
+      padding: 10px; /* Reduce padding on smaller screens */
+  }
+}
+
+.waw-employee-view-page-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #24757E;
+  text-align: center;
+} 
+
+@media (max-width: 768px) {
+  .waw-employee-view-page-title {
+      font-size: 18px; /* Slightly smaller on smaller screens */
+  }
+}
+
+.waw-employee-main-container {
+  height: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.waw-employee-button-container {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: nowrap; /* Allow wrapping for smaller screens */
+  justify-content: space-between;
+  gap: 10px; /* Add spacing between buttons */
+  align-items: center;
+} 
+
+@media (max-width: 768px) {
+  .waw-employee-button-container {
+      flex-wrap: nowrap; /* Ensure buttons stay in a row */
+  }
+}
+
+.waw-employee-search-bar-container {
+  position: relative;
+  flex-grow: 1; /* Allow search bar to grow */
+  max-width: 40%;
+  margin-right: 10px; 
+}
+
+.waw-employee-search-bar {
+  margin-top: 7px;
+  border-radius: 50px;
+  width: 100%; /* Full width for smaller screens */
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-right: 10px;
+  font-size: 14px;
+} 
+
+@media (min-width: 768px) {
+  .waw-employee-search-bar-container {
+      max-width: 20%; /* Adjust max width for smaller screens */
+  } 
+}
+
+.waw-employee-search-bar-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 18px;
+  color: #6c757d;
+  border: none;
+  box-shadow: none;
+  margin-top: 2px;
+  background-color: transparent; /* Hides the background color */
+}  
+
+.waw-search-bar-icon {
+  margin-top: 2px;
+  width: 30px;
+  height: 25px;
+} 
+
+@media (max-width: 768px) {
+  .waw-employee-search-bar-icon {
+      margin-left: 25px; /* Adjust icon position for smaller screens */
+      background-color: transparent; /* Hides the background color */
+  }
+} 
+
+@media (max-width: 408px) {
+  .waw-employee-search-bar-container {
+      max-width: 45%; /* Adjust max width for smaller screens */
+  }  
+
+  .waw-search-bar-icon {
+      margin-top: 2px;
+      width: 25px;
+      height: 22px;
+  }
+}
+
+.waw-add-employee-button {
+  background-color: #24757E;
+  border-radius: 8px;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 1px;
+  white-space: nowrap; /* Prevent text wrapping */
+  flex-shrink: 1; /* Allow shrinking */
+  max-width: 35%; /* Adjustable max width */
+  min-width: 120px; /* Prevent button from shrinking too much */
+  justify-content: center; /* Center text and icon */
+}
+
+.waw-add-employee-button:hover {
+  background-color: #45919A;
+}
+
+@media (max-width: 768px) {
+  .waw-add-employee-button {
+      max-width: 33%; /* Adjust max width for smaller screens */
+      padding: 8px 25px 8px 25px; /* Reduce padding for smaller buttons */
+  }
+} 
+
+@media (max-width: 408px) {
+  .waw-add-employee-button {
+      max-width: 45%; /* Adjust max width for smaller screens */
+      padding: 5px 25px 5px 25px; /* Reduce padding for smaller buttons */
+      margin-top: 7px;
+  } 
+}
+
+.waw-employee-table-container {
+  flex-grow: 1;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  margin: 10px;
+  font-size: 12px;
+  border-radius: 10px;
+} 
+
+@media (max-width: 768px) {
+  .waw-employee-table-container {
+      padding: 5px; /* Reduce padding on smaller screens */
+  }
+} 
+
+@media (max-width: 408px) {
+  .waw-employee-table-container {
+      padding: 1px; /* Reduce padding on smaller screens */
+  }
+}
+
+.waw-employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px; /* Adjust font size for readability */
+  border: 1px solid #8c8c8c33;
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.waw-employee-table th,
+.waw-employee-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center; /* Center-align text for all cells */
+}
+
+.waw-employee-table th {
+  background-color: #f8f9fa;
+  color: #000000;
+  font-weight: bold;
+}
+
+.waw-employee-table tbody {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.waw-employee-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.waw-employee-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+@media (max-width: 768px) {
+  .waw-employee-table th,
+  .waw-employee-table td {
+      padding: 8px; /* Reduce padding on smaller screens */
+  }
+}
+
+.w-10 {
+  width: 10% !important;
+} 
+
+.w-5 {
+  width: 5% !important;
+}
+
+.w-9 {
+  width: 9% !important;
+}
+
+.w-x {
+  width: 9.5% !important;
+}
+
+.w-y {
+  width: 8.5% !important;
+}
+
+.w-15 {
+  width: 15%!important;
+}
+
+.w-1 {
+  width: 1% !important;
+}
+
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    position: fixed; 
+    top: 10px; 
+    left: 360px; 
+    z-index: 9999; 
+  }
+} 
+
+.waw-action-buttons {
+  display: flex;
+  gap: 5px; /* Adds space between buttons */
+  align-items: center;
+  height: 100%;
+}
+
+.waw-update-button {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.waw-delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.waw-update-button:hover {
+  background-color: darkgreen;
+}
+
+.waw-delete-button:hover {
+  background-color: darkred;
+} 
+
+/* Smaller popup styling */
+.waw-smaller-swal-popup {
+  padding: 1.5rem; /* Reduce padding */
+  font-size: 0.9rem; /* Adjust font size */
+}
+
+/* Smaller title styling */
+.waw-smaller-swal-title {
+  font-size: 1.2rem; /* Smaller title font size */
+}
+
+/* Smaller content styling */
+.waw-smaller-swal-content {
+  font-size: 1rem; /* Reduce the font size of the text */
+} 
+
+
+

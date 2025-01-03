@@ -1,6 +1,7 @@
 import express from "express";
 import db from "../utils/db.js";
 import authenticateToken from "../middleware/authMiddleware.js";
+import { isDDMMYYYYWithDash, isYYYYMMDD } from "../utils/formatDate.js";
 
 const router = express.Router();
 
@@ -88,6 +89,29 @@ router.get('/employee/attendCount', async (req, res) => {
     }
 });
 
+//Fetch Tasks
+router.get('/employee/task', async (req, res) => {
+  const query = `
+      SELECT 
+          employee.Name AS EmployeeName, 
+          task.TaskName, 
+          task.Deadline, 
+          task.Budget, 
+          task.Description 
+      FROM task 
+      INNER JOIN employee ON task.EmployeeID = employee.EmployeeID
+  `;
+
+  try {
+      // Use promise-based query
+      const [rows] = await db.query(query); 
+      return res.status(200).json(rows); 
+  } catch (error) {
+      console.error("Database error:", error);
+      return res.status(500).json({ error: "Database error" });
+  }
+});
+
 
 // Fetch invoice count
 router.get('/employee/invoiceCount', async (req, res) => {
@@ -108,97 +132,25 @@ router.get('/employee/invoiceCount', async (req, res) => {
 
 
 // Save payment
-router.post("/payment", (req, res) => {
-  const {
-      invoiceID,
-      EmployeeID,
-      card_holder_name,
-      card_number,
-      expiry_date,
-      cvc,
-      amount,
-      payment_status,
-      payment_date,
-  } = req.body;
+router.post("/payment", async (req, res) => {
+    const sql = `INSERT INTO payment (invoiceID, EmployeeID, card_holder_name, card_number, expiry_date, cvc, amount, payment_status, payment_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const {invoiceID,EmployeeID,card_holder_name,card_number,expiry_date,cvc,amount,payment_status,payment_date} = req.body;
+    const values = [invoiceID,EmployeeID,card_holder_name,card_number,expiry_date,cvc,amount,payment_status,payment_date];
+    try {
+        const [result] = await db.query(sql, values);
+        res.status(200).json({
+            message: 'Payment added successfully.',
+            data: result
+        });
+    } catch (err) {
+        console.error('Error adding Payment:', err);
+        res.status(500).json({
+            message: 'Failed to add Payment.',
+            error: err.message
+        });
+    }
 
-  // Format payment_date to MySQL compatible DATETIME format
-  const formattedPaymentDate = new Date(payment_date)
-      .toISOString()
-      .slice(0, 19)
-      .replace("T", " ");
-
-  const query = `
-      INSERT INTO payment (invoiceID, EmployeeID, card_holder_name, card_number, expiry_date, cvc, amount, payment_status, payment_date)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `;
-
-  db.query(
-      query,
-      [
-          invoiceID,
-          EmployeeID,
-          card_holder_name,
-          card_number,
-          expiry_date,
-          cvc,
-          amount,
-          payment_status,
-          formattedPaymentDate, // Use the formatted date
-      ],
-      (err, result) => {
-          if (err) {
-              console.error("Error inserting payment data:", err.message);
-              return res.status(500).json({
-                  message: "Error inserting payment data",
-                  error: err.message,
-              });
-          }
-
-          if (result.affectedRows === 0) {
-              return res.status(400).json({ message: "Failed to add payment" });
-          }
-
-          res.status(201).json({
-              message: "Payment added successfully",
-              data: result,
-          });
-      }
-  );
 });
-
-
-// router.post("/employee/payment", async (req, res) => {
-//   const sql = "INSERT INTO payment (invoiceID, EmployeeID, card_holder_name, card_number, expiry_date, cvc, amount, payment_status, payment_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//   const values = [
-//     req.body.invoiceID,
-//     req.body.EmployeeID,
-//     req.body.card_holder_name,
-//     req.body.card_number,
-//     req.body.expiry_date,
-//     req.body.cvc,
-//     req.body.amount,
-//     req.body.payment_status,
-//     req.body.payment_date
-//   ];
-
-//   db.query(sql, values, (err, data) => {
-//     console.log(data);
-//     if (err) {
-//       console.error("Error inserting payment data:", err.message);
-//       return res.status(500).json({
-//         success: false,
-//         message: "Error inserting data into database",
-//         details: err.message
-//       });
-//     }
-
-//     return res.status(201).json({
-//       success: true,
-//       message: "Payment added successfully",
-//       data: data // Sending back the response data
-//     });
-//   });
-// });
 
 
 //Get all invoice
@@ -227,5 +179,151 @@ router.get('/employee/invoice', async (req, res) => {
   }
 });
 
+// Route to view all employees ...
+router.get('/ViewAllEmployees', (req, res) => {
+  try {
+      const sql = `SELECT * FROM employee`;
+      con.query(sql, (err, data) => {
+          if(err) return res.json(err);
+          return res.json(data);
+      });
+  } catch(error) {
+      console.log(error);
+  }
+});   
+
+// Route to view all attendances ...
+router.get('/ViewAllAttendances', async (req, res) => {
+  try {
+      const sql = `SELECT 
+                      ROW_NUMBER() OVER (ORDER BY employee.EmployeeID) AS RowNumber,
+                      employee.EmployeeID,
+                      employee.name, 
+                      employee.email, 
+                      DATE(attendance.date) AS date,
+                      TIME(attendance.date) AS time, -- Updated to show proper time field
+                      CASE
+                          WHEN HOUR(attendance.date) BETWEEN 8 AND 9 AND MINUTE(attendance.date) BETWEEN 0 AND 59 THEN 'Attended'
+                          WHEN HOUR(attendance.date) BETWEEN 9 AND 17 THEN 'Late Attended'
+                          ELSE 'Not Attended'
+                      END AS status
+                  FROM 
+                      attendance 
+                  INNER JOIN 
+                      employee 
+                  ON 
+                      attendance.EmployeeID = employee.EmployeeID`;
+      
+        const [data] = await db.query(sql);
+        if(data.length === 0) {
+            return res.status(404).json({ message: "No attendances found" });
+        }
+        
+        return res.status(200).json(data);
+  } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: "An error occurred while fetching the attendances" });
+  }
+}); 
+
+// Route to get employee information trough input ...
+router.get('/viewEmployees/:input', async (req, res) => {
+  try {
+        const input = req.params.input;
+        const sql = `SELECT * FROM employee WHERE name = ? OR email = ?`;
+        const [data] = await db.query(sql, [input, input]);
+
+        if(data.length === 0) {
+            return res.status(404).json({ message: "No employee found" });
+        }
+
+        return res.status(200).json(data);
+  } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: "An error occurred while fetching the employee" });
+  }
+});
+
+// Route to search the attendance ...
+router.get('/attendance/:input', async (req, res) => {
+  try {
+      const input = req.params.input;
+      const sql = `SELECT 
+                      ROW_NUMBER() OVER (ORDER BY employee.EmployeeID) AS RowNumber,
+                      employee.EmployeeID,
+                      employee.name, 
+                      employee.email, 
+                      DATE(attendance.date) AS date,
+                      TIME(attendance.date) AS time, -- Added proper time display
+                      CASE
+                          WHEN HOUR(attendance.date) BETWEEN 8 AND 9 AND MINUTE(attendance.date) BETWEEN 0 AND 59 THEN 'Attended'
+                          ELSE 'Not Attended'
+                      END AS status
+                  FROM 
+                      attendance 
+                  INNER JOIN 
+                      employee 
+                  ON 
+                      attendance.EmployeeID = employee.EmployeeID 
+                  WHERE 
+                      (employee.name LIKE CONCAT(?, '%')  -- Matches names starting with the entered text
+                      OR employee.email LIKE CONCAT(?, '%')  -- Matches emails starting with the entered text
+                      OR DATE(attendance.date) LIKE CONCAT(?, '%'))  -- Matches dates starting with the entered text`;
+
+      if (isDDMMYYYYWithDash(input)) {
+            const [day, month, year] = input.split('-');
+            const formattedDate = `${year}-${month}-${day}`;
+            const [data] = await db.query(sql, [formattedDate, formattedDate, formattedDate]);
+            if(data.length === 0) {
+                return res.status(404).json({ message: "No attendance found" });
+            }
+
+            return res.status(200).json(data);
+      } else if (isYYYYMMDD(input)) {
+            const [data] = await db.query(sql, [input, input, input]);
+            if(data.length === 0) {
+                return res.status(404).json({ message: "No attendance found" });
+            }
+            return res.status(200).json(data);
+      } else {
+            const [data] = await db.query(sql, [input, input, input]);
+            if(data.length === 0) {
+                return res.status(404).json({ message: "No attendance found" });
+            }
+            return res.status(200).json(data);
+      }
+  } catch(error) {
+      console.log(error);
+  }
+}); 
+
+
+// Add Attendance Route (with async/await)
+router.post('/addAttendance', async (req, res) => {
+  try {
+      const { name, date, email, employeeId } = req.body;
+
+      const current_date = new Date();
+      const hour = current_date.getHours();
+      const minute = current_date.getMinutes();
+      const second = current_date.getSeconds();
+
+      // Concatenate the `date` with the current time in HH:mm:ss format ...
+      const fullDateTime = `${date} ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`;
+      console.log(name, date, email, hour, minute, second, fullDateTime);
+
+      if(hour >= 8 && hour < 17) {
+        // Insert the new attendance record into the database ...
+        const sql2 = `INSERT INTO attendance (EmployeeID, Date) VALUES (?,?)`;
+        await db.query(sql2, [employeeId, fullDateTime]);
+        return res.status(200).json({ message: "Attendance added successfully!"});
+      } else {
+        return res.status(202).json({ message: "You can't mark attendance at this time. It can be done from 8am to 5pm !"});
+      }
+  } catch(error) {
+      console.log(error.message);
+      return res.status(500).json({ message: "An error occurred while adding attendance record!"});
+  }
+});
 
 export default router;

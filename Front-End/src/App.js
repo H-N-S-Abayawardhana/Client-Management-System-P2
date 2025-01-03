@@ -23,7 +23,11 @@ import Payment from './page/admin/payemnt/payment';
 import InvoiceTable from './page/admin/invoice/AllInvoices';
 import Invoice from './page/admin/invoice/invoice';
 import CreateInvoice from "./page/admin/invoice/addService";
-
+import AdminAttendance from './page/admin/attendance/Adminattendence.js';
+import AdminMailBox from './page/admin/mailbox/AdminMailBox.js';
+import RegisterEmployee from './page/admin/employers/RegisterEmployee.js';
+import UpdateEmployee from './page/admin/employers/UpdateEmployee.js';
+import ViewEmployees from './page/admin/employers/ViewEmployees.js';
 
 //Employee
 import EmployeeDashboard from './page/employee/employeeDashboard';
@@ -31,6 +35,9 @@ import EmployeeDashboard from './page/employee/employeeDashboard';
 import EmployeeReceivedTask from './page/employee/task/EmployeeReceivedTask';
 import EmployeeManageTask from './page/employee/task/EmployeeManageTask';
 import EmployeeAddTaskProgress from './page/employee/task/EmployeeAddTaskProgress';
+import EmployeeInvoice from './page/employee/invoice/EmployeeInvoice';
+import InvoiceForm from './page/employee/invoice/invoiceForm';
+
 
 
 //to protect the routes
@@ -38,7 +45,8 @@ import ForgotPassword from './page/employee/forgotPassword';
 import EmployeeProfile from './page/employee/employeeProfile';
 import ViewPay from './page/employee/payment/emppayment';
 import Paymentform from './page/employee/payment/paymentform';
-import Notification from './page/employee/payment/notification';
+import EmployeeAttenance from './page/employee/attendance/EmployeeAttendance.js';
+import EmployeeMailBox from './page/employee/mailbox/EmployeeMailBox.js';
 
 //Protected Routes
 import ProtectedRoute from './Routes/ProtectedRoute';
@@ -74,12 +82,16 @@ function App() {
         <Route path="/adminChange-password" element={<AdminProtectedRoute><AdminChangePassword /></AdminProtectedRoute>} />
         <Route path="/admin-profile" element={<AdminProtectedRoute><AdminProfile /></AdminProtectedRoute>} />
         <Route path="/edit-admin-profile" element={<AdminProtectedRoute><EditAdminProfile /></AdminProtectedRoute>} />
-        <Route path="/payment" element={<Payment/>} />
-        <Route path="/payment-information/:selectedPaymentId" element={<PaymentInformation />} />
-        <Route path="/All-invoice" element={<InvoiceTable/>} />
-        <Route path="/invoice" element={<Invoice />} />
-        <Route path="/Add-Service" element={<CreateInvoice/>} />
-
+        <Route path="/admin-payment" element={<AdminProtectedRoute><Payment/></AdminProtectedRoute>} />
+        <Route path="/admin-payment-information/:selectedPaymentId" element={<AdminProtectedRoute><PaymentInformation /></AdminProtectedRoute>} />
+        <Route path="/admin-All-invoice" element={<AdminProtectedRoute><InvoiceTable/></AdminProtectedRoute>} />
+        <Route path="/admin-invoice" element={<AdminProtectedRoute><Invoice /></AdminProtectedRoute>} />
+        <Route path="/admin-Add-Service" element={<AdminProtectedRoute><CreateInvoice/></AdminProtectedRoute>} />
+        <Route path="/admin-attendance" element={<AdminProtectedRoute><AdminAttendance/></AdminProtectedRoute>} />
+        <Route path="/admin-mailbox" element={<AdminProtectedRoute><AdminMailBox /></AdminProtectedRoute>} />
+        <Route path="/register-employee" element={<AdminProtectedRoute><RegisterEmployee /></AdminProtectedRoute>} />
+        <Route path="/update-employee/:EmployeeID" element={<AdminProtectedRoute><UpdateEmployee /></AdminProtectedRoute>} />
+        <Route path="/view-employees" element={<AdminProtectedRoute><ViewEmployees /></AdminProtectedRoute>} />
 
         {/* Employee-Side Routes */}
         <Route path="/employee-dashboard" element={<EmployeeProtectedRoute><EmployeeDashboard/></EmployeeProtectedRoute>}/>
@@ -91,9 +103,12 @@ function App() {
         <Route path="/employee-dashboard" element={<EmployeeProtectedRoute><EmployeeDashboard/></EmployeeProtectedRoute>}/>
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/employee-profile" element={<EmployeeProtectedRoute><EmployeeProfile /></EmployeeProtectedRoute>} />
-        <Route path="/employee-payment" element={<ViewPay/>} />
-        <Route path='/employee-pay' element={<Paymentform/>} />
-        <Route path='/employee-noti' element={<Notification/>} />
+        <Route path="/employee-payment" element={<EmployeeProtectedRoute><ViewPay/></EmployeeProtectedRoute>} />
+        <Route path='/employee-pay' element={<EmployeeProtectedRoute><Paymentform/></EmployeeProtectedRoute>} />
+        <Route path="/employee-invoice" element={<EmployeeProtectedRoute><EmployeeInvoice/></EmployeeProtectedRoute>} />
+        <Route path="/employee-invoice-detail/:selectedInvoiceId" element={<EmployeeProtectedRoute><InvoiceForm /></EmployeeProtectedRoute>} />
+        <Route path="/employee-attendance" element={<EmployeeProtectedRoute><EmployeeAttenance /></EmployeeProtectedRoute>} />
+        <Route path="/employee-mailbox" element={<EmployeeProtectedRoute><EmployeeMailBox /></EmployeeProtectedRoute>} />
 
       </Routes>
     </Router>

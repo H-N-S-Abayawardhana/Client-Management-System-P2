@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
-import Container from "../../../components/container/Container";
 import "../../../css/admin/invoice/invoiceTable.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from "../../../components/templetes/MainNav";
+import Navbar from "../../../components/templetes/adminNavBar";
 import Sidebar from "../../../components/templetes/SideBar";
 import Footer from "../../../components/PagesFooter";
 
@@ -22,7 +20,6 @@ const InvoiceTable = () => {
         const date = new Date(dateString);
         return date.toLocaleDateString("en-GB");
     };
-
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
@@ -39,12 +36,11 @@ const InvoiceTable = () => {
                 setLoading(false);
             })
             .catch((err) => {
-                console.error("Error fetching invoices:", err);
                 setError("Failed to fetch invoices.");
                 setLoading(false);
+                toast.error("Error fetching invoices");
             });
     }, []);
-
     // Handle Delete Payment
     const handleDelete = (invoiceID) => {
         if (window.confirm("Are you sure you want to delete this invoice?")) {
@@ -57,7 +53,6 @@ const InvoiceTable = () => {
                     toast.success("Invoice deleted successfully.");
                 })
                 .catch((error) => {
-                    console.error("Error deleting invoice:", error);
                     toast.error("Failed to delete invoice.");
                 });
         }
@@ -68,7 +63,7 @@ const InvoiceTable = () => {
             <Navbar />
             <div className="yks-invoice-container">
                 <nav>
-                    <p className="msa-profile-breadcrumb">
+                    <p className="yks-profile-breadcrumb">
                         <span className="home">Home</span> / <span className="home">Invoice</span> / <span className="contact">All Invoices</span>
                     </p>
                 </nav>

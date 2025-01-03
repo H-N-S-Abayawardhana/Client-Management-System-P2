@@ -1,6 +1,9 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
+import PDFDocument from 'pdfkit';
+import fs from 'fs';
 import authenticateToken from '../middleware/authMiddleware.js';
+import { formatDateToDMY } from "../utils/formatDate.js";
 import db from '../utils/db.js';
 import con from '../utils/db.js'; // Assuming 'con' is your MySQL connection instance
 
@@ -480,16 +483,17 @@ router.delete("/invoice/:id", async (req, res) => {
         });
     }
 });
+
 // Save New Invoice
 router.post("/invoice", async (req, res) => {
     const sql = `
-        INSERT INTO invoice (invoiceID, EmployeeID, AccountID, total_cost, invoice_date, description)
+        INSERT INTO invoice (invoiceID, EmployeeID, AcountId, total_cost, invoice_date, description)
         VALUES (?, ?, ?, ?, ?, ?)
     `;
     const values = [
         req.body.invoiceID,
         req.body.EmployeeID,
-        req.body.AccountID, // Fixed typo: Ensure it matches 'AccountID' in your database schema
+        req.body.AcountId, // Fixed typo: Ensure it matches 'AccountID' in your database schema
         req.body.total_cost,
         req.body.invoice_date, // Ensure it matches 'invoice_date' in your database schema
         req.body.description || null, // Optional field; defaults to null if not provided
@@ -506,7 +510,7 @@ router.post("/invoice", async (req, res) => {
             data: {
                 invoiceID: req.body.invoiceID,
                 EmployeeID: req.body.EmployeeID,
-                AccountID: req.body.AccountID,
+                AccountID: req.body.AcountId,
                 total_cost: req.body.total_cost,
                 invoice_date: req.body.invoice_date,
                 description: req.body.description || null,
@@ -525,32 +529,425 @@ router.post("/invoice", async (req, res) => {
     }
 });
 // Save New Service
-router.post("/service", async (req, res) => {
-    console.log(req.body.invoiceID);
-    const sql = "INSERT INTO service (serviceID, invoiceID, service_description, cost) VALUES (?, ?, ?, ?)";
-    const values = [
-        req.body.serviceID,
-        req.body.invoiceID,
-        req.body.service_description,
-        req.body.cost
-    ];
+router.post('/service', async (req, res) => {
+    const { invoiceID, service_description, cost } = req.body;
+    // Validate input fields
+    if ( !invoiceID || !service_description || cost === undefined) {
+        return res.status(400).json({
+            message: 'All required fields must be filled.',
+            missingFields: [
+                !invoiceID && 'invoiceID',
+                !service_description && 'service_description',
+                cost === undefined && 'cost'
+            ].filter(Boolean) // Filters out falsy values
+        });
+    }
 
-    db.query(sql, values, (err, data) => {
-        if (err) {
-            console.error("Error inserting service data:", err.message);
-            return res.status(500).json({
+    // Insert service into the database
+    const sql = 'INSERT INTO Service ( invoiceID, service_description, cost) VALUES ( ?, ?, ?)';
+    const values = [invoiceID, service_description, cost];
+    try {
+        const [result] = await db.query(sql, values);
+        res.status(200).json({
+            message: 'Service added successfully.',
+            data: result
+        });
+    } catch (err) {
+        console.error('Error adding service:', err);
+        res.status(500).json({
+            message: 'Failed to add service.',
+            error: err.message
+        });
+    }
+});
+//Get service
+router.get("/service/:id", async (req, res) => {
+    const sql = "SELECT * FROM Service WHERE invoiceID = ?";
+    const invoiceID = req.params.id;
+
+    try {
+        // Use the promise-based query method
+        const [data] = await db.query(sql, [invoiceID]);
+
+        // Check if the employee exists
+        if (data.length === 0) {
+            return res.status(404).json({
                 success: false,
-                message: "Error inserting data into database",
-                details: err.message
+                message: "services not found",
             });
         }
 
-        return res.status(201).json({
+        // Return the employee data
+        return res.json({
             success: true,
-            message: "Service added successfully",
-            data: data // Sending back the response data
+            message: "Service retrieved successfully",
+            data: data[0],  // Return the first service object
         });
-    });
+    } catch (err) {
+        console.error("Error fetching service:", err.message);
+        return res.status(500).json({
+            success: false,
+            message: "Database query failed",
+            details: err.message,
+        });
+    }
 });
+
+// Route to view all attendances ...
+router.get('/ViewAllAttendances', async (req, res) => {
+    try {
+        // const sql = `SELECT * FROM attendance INNER JOIN employee ON attendance.EmployeeID = employee.EmployeeID`;
+        const sql = `SELECT 
+                        LPAD(ROW_NUMBER() OVER (ORDER BY employee.EmployeeID), 2, '0') AS RowNumber,
+                        employee.EmployeeID,
+                        employee.name, 
+                        employee.email, 
+                        DATE(attendance.date) AS date,
+                        CASE
+                            WHEN HOUR(attendance.date) BETWEEN 8 AND 9 AND MINUTE(attendance.date) BETWEEN 0 AND 59 THEN 'Attended'
+                            WHEN HOUR(attendance.date) BETWEEN 9 AND 17 AND MINUTE(attendance.date) BETWEEN 0 AND 59 THEN 'Late Attended'
+                            ELSE 'Not Attended'
+                        END AS status
+                    FROM 
+                        attendance 
+                    INNER JOIN 
+                        employee 
+                    ON 
+                        attendance.EmployeeID = employee.EmployeeID`;
+
+        const [data] = await db.query(sql);
+        if(data.length === 0) {
+            return res.status(404).json({ message: "No attendances found" });
+        }
+
+        return res.status(200).json(data);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "An error occurred while fetching attendances" });
+    }
+});
+
+// Route to search the attendance ...
+router.get('/attendance/:date', async (req, res) => {
+    try {
+        const date = req.params.date;
+        const sql = `SELECT * FROM attendance INNER JOIN employee ON attendance.EmployeeID = employee.EmployeeID 
+                WHERE DATE(attendance.date) = ?`;
+        const [data] = await db.query(sql, [date]);
+
+        if (data.length === 0) {
+            return res.status(404).json({ message: "Employee not found" });
+        }
+
+        return res.status(200).json(data);  // Return a single employee object
+    } catch (error) {
+        console.error("Error fetching employee:", error.message);
+        return res.status(500).json({ error: "Database query failed" });
+    }
+});  
+
+// Route to sort attendances according to entered date ...
+// router.get('/sortAttendance/:date', (req, res) => {
+//     try {
+//         const date = req.params.date;
+//         const sql1 = `SELECT attendance.*, employee.*
+//             FROM attendance 
+//             INNER JOIN employee ON attendance.EmployeeID = employee.EmployeeID
+//             WHERE DATE(attendance.Date) = ?`;
+        
+//         const sql2 = `SELECT attendance.*, employee.*
+//             FROM attendance 
+//             INNER JOIN employee ON attendance.EmployeeID = employee.EmployeeID
+//             WHERE DATE(attendance.Date) != ? 
+//             ORDER BY 3 DESC`;
+
+//         con.query(sql1, [date], (err, data1) => {
+//             if(err) return res.json(err);
+//             // return res.json(data);
+//             console.log(data1);
+//             con.query(sql2, [date], (err, data2) => {
+//                 if (err) return res.json(err);
+//                 // console.log(data2);
+//                 // Combine results from both queries
+//                 const combinedResults = [...data1, ...data2];
+//                 // console.log(combinedResults);
+//                 return res.json(combinedResults);
+//             });
+//         });
+//     } catch(error) {
+//         console.log(error);
+//     }
+// }); 
+
+// Route to reset data in the table and database ...
+router.get('/resetData', async (req, res) => {
+    try {
+        const result = await db.query(`DELETE FROM attendance`);
+        return res.status(200).json({ message: 'Data reset successfully', data: result });
+    } catch(error) {
+        console.log(error);
+        return res.status(500).json({ message: 'An error occurred while resetting data' });
+    }
+}); 
+
+// Route to generate a pdf file ... Not Completed ...
+router.get('/generatePDF', async (req, res) => {
+    // console.log(req);
+    try {
+        const sql = `SELECT 
+                    LPAD(ROW_NUMBER() OVER (ORDER BY employee.EmployeeID), 2, '0') AS RowNumber,
+                    employee.name, 
+                    employee.email, 
+                    DATE(attendance.date) AS date,
+                    CASE
+                        WHEN HOUR(attendance.date) BETWEEN 8 AND 9 AND MINUTE(attendance.date) BETWEEN 0 AND 59 THEN 'Attended'
+                        ELSE 'Not Attended'
+                    END AS status
+                FROM 
+                    attendance 
+                INNER JOIN 
+                    employee 
+                ON 
+                    attendance.EmployeeID = employee.EmployeeID`;
+        // Await the query result
+        const [result] = await db.query(sql);
+        const doc = new PDFDocument();
+        const fileName = `Attendance report-${Date.now()}.pdf`;
+        const filePath = `./${fileName}`;
+
+        // Pipe the PDF to a file ...
+        const stream = fs.createWriteStream(filePath);
+        doc.pipe(stream);
+
+        // Add Title ...
+        doc.font('Helvetica-Bold').fontSize(20).text(`Employee Attendance Report - ${formatDateToDMY(new Date(Date.now()))}`, { align: 'center' });
+        doc.moveDown();
+
+        if (result.length === 0) {
+            doc.font('Helvetica-Bold').fontSize(18).fillColor('#000000').text('No attendance records found.', { align: 'center' });
+        } else {
+            // Define the table structure ...
+            const tableHeaders = ['No.', 'Name', 'Date', 'Email', 'Status'];
+            const columnWidths = [50, 130, 100, 130, 100]; // Custom column widths
+            const tableRows = result.map(item => [
+                item.RowNumber,
+                item.name,
+                formatDateToDMY(new Date(item.date)),
+                item.email,
+                item.status
+            ]);
+
+            // Calculate initial X position for each column ...
+            const startX = 50; // Starting point on X-axis ...
+            let currentX;
+
+            // Draw table headers with styling ...
+            let y = 100;
+            currentX = startX;
+            tableHeaders.forEach((header, i) => {
+                // Draw the header border ...
+                doc.rect(currentX, y, columnWidths[i], 20).stroke();
+                doc.font('Helvetica-Bold').fontSize(12).fillColor('#000000').text(header, currentX + 5, y + 5, { width: columnWidths[i], align: 'center' });
+                currentX += columnWidths[i]; // Move to the next column ...
+            });
+            y += 20;
+
+            // Draw table rows with borders ...
+            tableRows.forEach(row => {
+                currentX = startX; // Reset to start of row ...
+                row.forEach((cell, i) => {
+                    // Draw the cell border
+                    doc.rect(currentX, y, columnWidths[i], 20).stroke();
+
+                    // Apply different styles for each column if needed ...
+                    const cellTextColor = i === 4 && cell === 'Attended' ? '#27AE60' : i === 4 && cell === 'Not Attended' ? '#E74C3C' : '#000000';
+                    doc.fontSize(10).fillColor(cellTextColor).text(cell.toString(), currentX + 5, y + 5, { width: columnWidths[i], align: 'center' });
+                        currentX += columnWidths[i]; // Move to the next column ...
+                    });
+                    y += 20; // Move to the next row ...
+                });
+            } 
+            
+            // Finalize the document and send response ...
+            doc.end();
+            stream.on('finish', () => {
+                res.download(filePath, fileName, (error) => {
+                    if (error) console.error(error);
+                    fs.unlinkSync(filePath); // Clean up the file after download ...
+                });
+            });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'An error occurred while generating PDF' });
+    }
+}); 
+
+// Route to get all the employees ...
+router.get("/employees", async (req, res) => {
+    try {
+        const [data] = await db.query("SELECT * FROM employee");
+        console.log("Query successful, sending data:", data);
+        return res.json(data);
+    } catch (err) {
+        console.error("Error executing query:", err.message);
+        return res.status(500).json({ error: "Database query failed" });
+    }
+});
+
+// Route to get an employee by ID ...
+router.get("/employee/:EmployeeID", async (req, res) => {
+    try {
+        const sql = "SELECT * FROM employee WHERE EmployeeID = ?";
+        const { EmployeeID } = req.params;  // Destructure to get EmployeeID from the request params
+        const [data] = await db.query(sql, [EmployeeID]);
+
+        if (data.length === 0) {
+            return res.status(404).json({ message: "Employee not found" });
+        }
+
+        return res.status(200).json(data);  // Return a single employee object
+    } catch (err) {
+        console.error("Error fetching employee:", err.message);
+        return res.status(500).json({ error: "Database query failed" });
+    }
+});
+
+// Route to register a new employee ...
+router.post("/register", async (req, res) => {
+    try {
+        console.log(req.body);
+        // Hasing the entered password ... 
+        const hashedPassword = await bcrypt.hash(req.body.Password, 10);
+        console.log(hashedPassword);
+        const sql = "INSERT INTO employee (Name, Address, ContactNumber, Designation, WorkStartDate, Email, Username, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        const values = [ req.body.Name, req.body.Address, req.body.ContactNumber, req.body.Designation, 
+                    req.body.WorkStartDate, req.body.Email, req.body.UserName, hashedPassword ];
+        console.log(values);
+        const result = await db.query(sql, values);
+        console.log("Query successful, inserting data:", result);
+        return res.status(201).json({ message: "Employee added successfully", data: result });
+    } catch (error) {
+        console.error("Error inserting data:", error.message);
+        return res.status(500).json({ error: "Error inserting data into database", details: error.message });
+    }
+});
+
+// router.post("/register", (req, res) => {
+//     // Hasing the entered password ... 
+//     const hashedPassword = bcrypt.hashSync(req.body.Password, 10);
+//     console.log(hashedPassword);
+//     const sql = "INSERT INTO employee (Name, Address, ContactNumber, Designation, WorkStartDate, Email, Password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+//     const values = [
+//         req.body.Name,
+//         req.body.Address,
+//         req.body.ContactNumber,
+//         req.body.Designation,
+//         req.body.WorkStartDate,
+//         req.body.Email,
+//         // req.body.Username,
+//         hashedPassword
+//     ];
+
+//     con.query(sql, values, (err, data) => {
+//         if (err) {
+//             console.error("Error inserting data:", err.message);
+//             return res.status(500).json({ error: "Error inserting data into database", details: err.message });
+//         }
+//         return res.status(201).json({ message: "Employee added successfully", data });
+//     });
+// }); 
+
+// Route to update an existing employee ...
+router.put('/update/:EmployeeID', async (req, res) => {
+    console.log(req.body);
+//     // Hasing the entered password ... 
+//     const hashedPassword = bcrypt.hashSync(req.body.Password, 10);
+//     console.log(hashedPassword);
+    const sql = "UPDATE employee SET Name = ?, Address = ?, ContactNumber = ?, Designation = ?, WorkStartDate = ?, Email = ?, Username = ? WHERE EmployeeID = ?";
+    const values = [
+        req.body.Name,
+        req.body.Address,
+        req.body.ContactNumber,
+        req.body.Designation,
+        req.body.WorkStartDate,
+        req.body.Email,
+        req.body.Username,
+        req.params.EmployeeID
+    ];
+    
+    try {
+        const result = await db.query(sql, values);
+        console.log("Query successful, updated data:", result);
+        return res.status(201).json({ message: "Employee updated successfully", data: result });
+    } catch (error) {
+        console.error("Error updating data:", error.message);
+        return res.status(500).json({ error: "Error updating data", details: error.message });
+    }
+});
+
+// router.put("/update/:EmployeeID", (req, res) => {
+//     console.log(req.body);
+//     // Hasing the entered password ... 
+//     const hashedPassword = bcrypt.hashSync(req.body.Password, 10);
+//     console.log(hashedPassword);
+//     const sql = "UPDATE employee SET Name = ?, Address = ?, ContactNumber = ?, Designation = ?, Workstartdate = ?, Email = ?, Password = ? WHERE EmployeeID = ?";
+//     const values = [
+//         req.body.Name,
+//         req.body.Address,
+//         req.body.ContactNumber,
+//         req.body.Designation,
+//         req.body.Workstartdate,
+//         req.body.Email,
+//         // req.body.Username,
+//         hashedPassword
+//     ];
+
+//     const EmployeeID = req.params.EmployeeID;
+
+//     con.query(sql, [...values, EmployeeID], (err, data) => {
+//         if (err) {
+//             console.error("Error updating data:", err.message);
+//             return res.status(500).json({ error: "Error updating data", details: err.message });
+//         }
+//         return res.status(200).json({ message: "Employee updated successfully", data });
+//     });
+// });
+
+// Route to delete an employee ...
+router.delete("/employee/:EmployeeID", async (req, res) => {
+    const sql = "DELETE FROM employee WHERE EmployeeID = ?";
+    const EmployeeID = req.params.EmployeeID;
+
+    try {
+        const result = await db.query(sql, [EmployeeID]);
+        console.log("Query successful, deleted data:", result);
+        return res.status(200).json({ message: "Employee deleted successfully" });
+    } catch(error) {
+        console.error("Error deleting data:", error.message);
+        return res.status(500).json({ error: "Error deleting data", details: error.message });
+    }
+});
+
+// router.delete("/employee/:EmployeeID", (req, res) => {
+//     const sql = "DELETE FROM employee WHERE EmployeeID = ?";
+//     const EmployeeID = req.params.EmployeeID;
+
+//     con.query(sql, [EmployeeID], (err, result) => {
+//         if (err) {
+//             console.error("Error deleting employee:", err.message);
+//             return res.status(500).json({
+//                 error: "Error deleting employee from database",
+//                 details: err.message
+//             });
+//         }
+
+//         if (result.affectedRows === 0) {
+//             return res.status(404).json({ message: "Employee not found" });
+//         }
+
+//         return res.status(200).json({ message: "Employee deleted successfully" });
+//     });
+// }); 
 
 export default router;
