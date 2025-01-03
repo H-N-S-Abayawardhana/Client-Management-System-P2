@@ -3,7 +3,6 @@
     align-items: center;
     padding: 40px 10px;
     border-radius: 8px;
-    margin: 10px;
     color: #4c7476;
     overflow-y: auto;
     overflow-x: hidden;
@@ -28,19 +27,19 @@
 }
 .yks-head h1 {
     color: #24757E;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     max-width: 100%;
 }
 
-.search-container {
+.yks-emp-invoice-container .search-container {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-.search-bar {
+.yks-emp-invoice-container .search-container .search-bar {
     width: 20%;
     padding: 10px;
     border-radius: 30px;
@@ -49,9 +48,9 @@
     text-align: right;
 }
 
-.search-icon {
+.yks-emp-invoice-container .search-container .search-icon {
     position: absolute;
-    right: 145px;
+    right: 220px;
     top: 50%;
     transform: translateY(-50%);
 }
