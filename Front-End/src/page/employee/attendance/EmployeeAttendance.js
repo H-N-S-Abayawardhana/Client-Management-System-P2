@@ -199,7 +199,7 @@ function EmployeeAttendance() {
                                     <table className="table table-bordered ekr-employee-attendance-table">
                                         <thead className="thead-light">
                                             <tr className="text-center">
-                                                <th>No</th>
+                                                <th className="ekr-w-10">No</th>
                                                 <th>Employee Name</th>
                                                 <th>Date</th>
                                                 <th>Email</th>
@@ -210,7 +210,7 @@ function EmployeeAttendance() {
                                             {data.length > 0 ? (
                                                 data.map((element, index) => (
                                                     <tr key={element.id} className="w-100">
-                                                        <td>{String(element.RowNumber).padStart(2, "0")}</td>
+                                                        <td className="ekr-w-10">{String(element.RowNumber).padStart(2, "0")}</td>
                                                         <td>{element.name}</td>
                                                         <td>{formatDateToDMY(new Date(element.date))}</td>
                                                         <td>{element.email}</td>

@@ -97,10 +97,13 @@ const UpdateEmployee = () => {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Update',
             customClass: {
-              popup: 'smaller-swal-popup',
-              title: 'smaller-swal-title',
-              content: 'smaller-swal-content',
+              popup: 'waw-smaller-swal-popup',
+              title: 'waw-smaller-swal-title',
+              content: 'waw-smaller-swal-content',
             },
+            width: '80%',
+            padding: '20px',
+            grow: 'fullscreen',
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
@@ -241,10 +244,10 @@ const UpdateEmployee = () => {
                     </div>
                 </div>
             </div>
-            <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
+            {/* <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
             <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
                 <Sidebar sidebarVisible={sidebarVisible} />
-            </div>
+            </div> */}
             <div className="container3">
                 <Footer />
             </div>

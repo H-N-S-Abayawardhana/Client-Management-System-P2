@@ -358,5 +358,65 @@
         padding-top: 20px; 
     }
   } 
+} 
+
+/* Smaller popup styling */
+.ekr-smaller-swal-popup {
+  padding: 1.5rem; /* Reduce padding */
+  font-size: 0.9rem; /* Adjust font size */
+  max-width: 450px;
+  max-height: 350px;
+  border-radius: 8px;
+  font-size: 16px;
+  top: 30% !important;
 }
 
+/* Smaller title styling */
+.ekr-smaller-swal-title {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Smaller content styling */
+.ekr-smaller-swal-content {
+  font-size: 14px;
+  text-align: center;
+  padding: 10px;
+}  
+
+/* For mobile screen sizes */
+@media (max-width: 768px) {
+  /* Make the popup a little smaller for mobile screens */
+  .ekr-smaller-swal-popup {
+    width: 90% !important; /* Make it full width on mobile */
+    left: 5% !important; /* Adjust positioning */
+    top: 15% !important; /* Reduce gap from the top */
+    padding: 15px;
+  }
+
+  .ekr-smaller-swal-title {
+    font-size: 16px;
+  }
+
+  .ekr-smaller-swal-content {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ekr-smaller-swal-popup {
+    width: 95% !important; /* Make it wider on very small screens */
+    left: 2.5% !important; /* Adjust to center */
+    top: 15% !important; /* Less gap from the top */
+    padding: 10px;
+  }
+
+  .ekr-smaller-swal-title {
+    font-size: 14px;
+  }
+
+  .ekr-smaller-swal-content {
+    font-size: 10px;
+  }
+}

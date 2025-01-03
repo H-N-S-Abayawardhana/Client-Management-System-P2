@@ -51,6 +51,9 @@ function ViewEmployees() {
         title: 'waw-smaller-swal-title',
         content: 'waw-smaller-swal-content',
       },
+      width: '80%', // Make sure the popup is responsive
+      padding: '20px',
+      grow: 'fullscreen', // Make the popup grow full screen on mobile
     }).then(async (result) => {
         if (result.isConfirmed) {
             // Perform the actiontry {
@@ -98,8 +101,7 @@ function ViewEmployees() {
       data.Designation.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (data.ContactNumber && data.ContactNumber.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||  // Ensure it's a string before calling toLowerCase
       data.Address.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.Email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.Username.toLowerCase().includes(searchTerm.toLowerCase())
+      data.Email.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
   
@@ -199,7 +201,6 @@ function ViewEmployees() {
                     </div>
                 </div>
             </div>
-
             <div className="container3">
                 <Footer />
             </div>
