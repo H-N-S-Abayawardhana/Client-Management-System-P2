@@ -73,7 +73,7 @@ function EmployeeInvoice() {
           <div className="yks-emp-invoice-container">
 
             <div className="yks-head">
-              <h1 className="text-center">Invoices</h1>
+              <h1>Invoices</h1>
             </div>
 
             {/* Search Bar */}
