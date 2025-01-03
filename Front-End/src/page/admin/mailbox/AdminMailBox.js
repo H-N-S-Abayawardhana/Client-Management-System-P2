@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from "../../../components/templetes/SideBar";
 import Navbar from "../../../components/templetes/adminNavBar";
 import Footer from "../../../components/PagesFooter";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../../css/MailBox.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AdminMailBox = () => {
     const [sidebarVisible, setSidebarVisible] = useState(false);
@@ -14,6 +15,8 @@ const AdminMailBox = () => {
         message: "",
         attachment: null,
     });
+
+    const [isLoading, setIsLoading] = useState(false);
     
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -31,15 +34,8 @@ const AdminMailBox = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         
-        // const emailData = {
-        //   to: formData.to,
-        //   subject: formData.subject,
-        //   message: formData.message,
-        //   // attachment: formData.attachment? formData.attachment : null,
-        // };
-
-        // Prepare FormData for attachment
         const formDataToSend = new FormData();
         formDataToSend.append("to", formData.to);
         formDataToSend.append("subject", formData.subject);
@@ -49,61 +45,69 @@ const AdminMailBox = () => {
         }
     
         try {
-            const response = await fetch('http://localhost:5000/api/emailService/send-email', {
+            const response = await fetch('http://localhost:5000/api/email/send-email', {
                 method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData), 
-                credentials: 'include', // Include credentials ...
+                body: formDataToSend,
+                credentials: 'include',
             });
     
             if (response.ok) {
-                toast.success('Email sent successfully!');
-                setFormData({ to: '', subject: '', message: '', attachment: null }); // Reset form ...
+                toast.success('🚀 Email sent successfully!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                setFormData({ to: '', subject: '', message: '', attachment: null }); // Reset form
             } else {
                 const errorData = await response.json();
-                toast.error(`Failed to send email: ${errorData.message}`);
+                toast.error(`❌ Failed to send email: ${errorData.message}`, {
+                    position: "top-right",
+                    autoClose: 4000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             }
         } catch (error) {
             console.error('Error submitting form:', error);
-            toast.error('Failed to send email.', error);
+            toast.error('❌ Network error: Failed to send email', {
+                position: "top-right",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        } finally {
+            setIsLoading(false);
         }
     }; 
 
-    //   const handleSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     const formData = new FormData();
-    //     formData.append('to', formData.to);
-    //     formData.append('subject', formData.subject);
-    //     formData.append('message', formData.message);
-    //     if (formData.attachment) {
-    //         formData.append('attachment', formData.attachment);
-    //     }
-
-    //     try {
-    //         const response = await fetch('http://localhost:8800/emailService/send-email', {
-    //             method: 'POST',
-    //             body: formData, // FormData handles content type
-    //         });
-
-    //         if (response.ok) {
-    //             alert('Email sent successfully!');
-    //             setFormData({ to: '', subject: '', message: '', attachment: null }); // Reset form
-    //         } else {
-    //             const errorData = await response.json();
-    //             alert(`Failed to send email: ${errorData.message}`);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error submitting form:', error);
-    //         alert('Failed to send email.');
-    //     }
-    // };
-
     return (
         <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
-            <ToastContainer position="top-right" autoClose={3000} />
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                limit={3}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <Navbar />
             <button className="sidebar-toggle" onClick={toggleSidebar}>
                 ☰
@@ -132,7 +136,6 @@ const AdminMailBox = () => {
                                 <form onSubmit={handleSubmit} className='km-form'>
                                     <h6 className="text-start fw-bold mb-2 mt-3">Send Email</h6>
 
-                                    {/* To Field */}
                                     <input
                                         type="email"
                                         id="to"
@@ -141,13 +144,13 @@ const AdminMailBox = () => {
                                         required
                                         className="km-mailbox-input form-control mb-2" // Use Bootstrap's form-control for consistent styling
                                         style={{
-                                            fontSize: "0.875rem", backgroundColor: "#f0f0f0"
+                                            fontSize: "0.875rem",
+                                            backgroundColor: "#f0f0f0"
                                         }}
                                         value={formData.to}
                                         onChange={handleChange}
                                     />
 
-                                    {/* Subject Field */}
                                     <input
                                         type="text"
                                         id="subject"
@@ -156,7 +159,8 @@ const AdminMailBox = () => {
                                         required
                                         className="km-mailbox-input form-control mb-2 me-2"
                                         style={{
-                                            fontSize: "0.875rem", backgroundColor: "#f0f0f0"
+                                            fontSize: "0.875rem",
+                                            backgroundColor: "#f0f0f0"
                                         }}
                                         value={formData.subject}
                                         onChange={handleChange}
@@ -171,7 +175,6 @@ const AdminMailBox = () => {
                                         </label>
                                     </div>
 
-                                    {/* Message Field */}
                                     <textarea
                                         id="message"
                                         name="message"
@@ -180,9 +183,9 @@ const AdminMailBox = () => {
                                         required
                                         className="km-mailbox-textarea form-control mb-2"
                                         style={{
-                                            fontSize: "0.875rem",  // Smaller text size
-                                            backgroundColor: "#f0f0f0", // Unified background color
-                                            resize: "none" // Optional: prevent resizing
+                                            fontSize: "0.875rem",
+                                            backgroundColor: "#f0f0f0",
+                                            resize: "none"
                                         }}
                                         value={formData.message}
                                         onChange={handleChange}
@@ -198,7 +201,6 @@ const AdminMailBox = () => {
                     </div>
                 </div>
             </div>
-            {/* Footer */}
             <Footer />
         </div>
     );

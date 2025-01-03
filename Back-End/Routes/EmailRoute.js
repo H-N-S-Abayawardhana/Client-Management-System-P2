@@ -1,137 +1,150 @@
 import express from 'express';
 import nodemailer from 'nodemailer';
-import 'dotenv/config'
+import 'dotenv/config';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 
 const router = express.Router();
 
-// Multer configuration for handling attachments
-const upload = multer({ dest: "uploads/" });
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        // Create uploads directory if it doesn't exist
+        const dir = 'uploads';
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir);
+        }
+        cb(null, dir);
+    },
+    filename: (req, file, cb) => {
+        // Create unique filename
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+const upload = multer({ 
+    storage: storage,
+    limits: {
+        fileSize: 5 * 1024 * 1024 // 5MB limit
+    },
+    fileFilter: (req, file, cb) => {
+        // Allow only certain file types
+        const allowedTypes = [
+            'application/pdf',
+            'image/jpeg',
+            'image/png',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        ];
+        if (allowedTypes.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Invalid file type. Only PDF, JPEG, PNG, and DOC/DOCX files are allowed.'));
+        }
+    }
+});
 
 // Email sending route
 router.post("/send-email", upload.single("attachment"), async (req, res) => {
     const { to, subject, message } = req.body;
     const attachment = req.file;
 
-    // Configure the transporter
+    // Create transporter using environment variables
     const transporter = nodemailer.createTransport({
-        service: "gmail", // Use Gmail service
-        host: "smtp.gmail.com", // Use SMTP server
-        port: 587, // Use 465 for secure: true .. Can use 587 ...
-        secure: false,
+        service: "gmail",
         auth: {
-            user: process.env.FROM_EMAIL, // Use environment variables
-            pass: process.env.PASSWORD, // App-specific password for Gmail
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
         },
         tls: {
             rejectUnauthorized: false,
         },
     });
 
-    // console.log('Email:', process.env.FROM_EMAIL);
-    // console.log('Password:', process.env.PASSWORD);
-    // console.log('Password:', process.env.PASSWORD ? 'Loaded' : 'Not Loaded');
-
-    // Email options
-    const mailOptions = {
-        from: process.env.FROM_EMAIL, // Sender's email
-        to,
-        subject,
-        text: message,
-        attachments: attachment
-            ? [
-                  {
-                      filename: attachment.originalname,
-                      path: path.resolve(attachment.path),
-                      contentType: 'attachment/pdf',
-                  },
-              ]
-            : [],
-    };
-
-    console.log(mailOptions);
-
     try {
-        // Send the email
-        await transporter.sendMail(mailOptions);
-
-        // Cleanup uploaded file if it exists
-        if (attachment) {
-            fs.unlinkSync(attachment.path); // Deletes the uploaded file after use
+        // Validate email inputs
+        if (!to || !subject || !message) {
+            throw new Error('Missing required fields: to, subject, and message are required');
         }
 
-        res.status(200).json({ success: true, message: "Email sent successfully" });
-    } catch (error) {
-        console.error("Error sending email:", error);
+        // Configure email options
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to,
+            subject,
+            text: message,
+            attachments: attachment
+                ? [{
+                    filename: attachment.originalname,
+                    path: attachment.path,
+                    contentType: attachment.mimetype,
+                }]
+                : [],
+        };
 
-        // Cleanup uploaded file if it exists
-        if (attachment) {
+        // Send email
+        await transporter.sendMail(mailOptions);
+
+        // Clean up attachment file if it exists
+        if (attachment && fs.existsSync(attachment.path)) {
             fs.unlinkSync(attachment.path);
         }
 
-        res.status(500).json({ success: false, message: "Failed to send email", error });
+        // Send success response
+        res.status(200).json({ 
+            success: true, 
+            message: "Email sent successfully" 
+        });
+
+    } catch (error) {
+        console.error("Error sending email:", error);
+
+        // Clean up attachment file if it exists
+        if (attachment && fs.existsSync(attachment.path)) {
+            fs.unlinkSync(attachment.path);
+        }
+
+        // Send appropriate error response
+        if (error.message.includes('Missing required fields')) {
+            res.status(400).json({
+                success: false,
+                message: error.message
+            });
+        } else if (error.code === 'EAUTH') {
+            res.status(401).json({
+                success: false,
+                message: "Email authentication failed. Please check your credentials."
+            });
+        } else {
+            res.status(500).json({
+                success: false,
+                message: "Failed to send email",
+                error: error.message
+            });
+        }
+    }
+});
+
+// Test route to verify email configuration
+router.get("/test-config", (req, res) => {
+    try {
+        const emailConfig = {
+            service: "gmail",
+            user: process.env.EMAIL_USER ? "configured" : "missing",
+            pass: process.env.EMAIL_PASS ? "configured" : "missing"
+        };
+        res.json({
+            status: "Email configuration test",
+            config: emailConfig
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            message: "Failed to test email configuration",
+            error: error.message
+        });
     }
 });
 
 export default router;
-
-// router.post('/send-email', upload.single("attachment"), async (req, res) => {
-//     const { to, subject, message } = req.body;
-//     const attachment = req.file;
-
-//     // Configure the transporter
-//     const transporter = nodemailer.createTransport({
-//         //service: 'gmail', // or use another service like Outlook, Yahoo, etc.
-//         host: 'smtp.gmail.com', // e.g., smtp.gmail.com
-//         port: 465, // Use 587 for STARTTLS or 465 for SSL
-//         secure: true, // Use SSL
-//         auth: {
-//             user: 'esuchith@gmail.com',
-//             pass: '+1234SSe'
-//             // user: process.env.FROM_EMAIL,
-//             // pass: process.env.PASSWORD
-//         },
-//         tls: {
-//             rejectUnauthorized: false, // Accept self-signed certificates
-//         },
-//         debug: true, // Enable debugging
-//     });
-
-//     // Email options
-//     const mailOptions = {
-//         from: 'esuchith@gmail.com',
-//         to,
-//         subject,
-//         text: message,
-//         attachments: attachment
-//                 ? [
-//                       {
-//                           filename: attachment.originalname,
-//                           path: path.resolve(attachment.path),
-//                       },
-//                   ]
-//                 : [],
-//     };
-
-//     // // Handle attachment if it exists
-//     // if (attachment) {
-//     //     mailOptions.attachments = [{ path: attachment }]; // Adjust this as needed for file paths
-//     // }
-
-
-//     try {
-//         await transporter.sendMail(mailOptions);
-//         // Cleanup uploaded file if any
-//         if (attachment) {
-//             fs.unlinkSync(attachment.path);
-//         }
-//         res.status(200).json({ success: true, message: 'Email sent successfully' });
-//     } catch (error) {
-//         console.error('Error sending email:', error);
-//         res.status(500).send({ success: false, message: 'Failed to send email' });
-//         console.log(error);
-//     }
-// });
-

@@ -17,9 +17,7 @@ const PaymentsTable = () => {
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
-
     const navigate = useNavigate();
-
     // Fetch payments from the API
     useEffect(() => {
         axios
@@ -43,7 +41,10 @@ const PaymentsTable = () => {
     const handleView = () => {
         navigate(`/employee-pay`); // Navigate to the PaymentInformation page with invoiceID
     };
-
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString("en-GB");
+    };
     return (
         <div>
             <Navbar />
@@ -85,7 +86,7 @@ const PaymentsTable = () => {
                                         <td>{invoice.EmployeeID}</td>
                                         <td>{invoice.AcountId}</td>
                                         <td>{invoice.description}</td>
-                                        <td>{invoice.invoice_date}</td>
+                                        <td>{formatDate(invoice.invoice_date)}</td>
                                         <td>
                                             <button className="msa-view-btn" onClick={() => handleView()}>View</button>
                                         </td>
@@ -95,7 +96,6 @@ const PaymentsTable = () => {
                             </table>
                         </div>
                     )}
-
                 </div>
             </div>
 

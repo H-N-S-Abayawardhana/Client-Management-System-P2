@@ -6,18 +6,31 @@ const serviceState = proxy({
 
   // Reactive getter for total cost
   get totalCost() {
-    return this.services.reduce(
-      (sum, service) => sum + parseFloat(service.cost || 0),
-      0
-    );
+    return this.services.reduce((sum, service) => {
+      const cost = parseFloat(service.cost);
+      if (isNaN(cost)) {
+        console.warn(`Invalid cost for service: ${service.cost}`);
+        return sum;
+      }
+      return sum + cost;
+    }, 0);
   },
 
   // Methods to manage services
   addService(service) {
+    if (!service.description || !service.cost) {
+      console.warn("Invalid service data. Description and cost are required.");
+      return;
+    }
     this.services.push(service);
   },
-  removeService(serviceId) {
-    this.services = this.services.filter((service) => service.id !== serviceId);
+
+  removeService(index) {
+    if (index < 0 || index >= this.services.length) {
+      console.warn(`Invalid service index: ${index}`);
+      return;
+    }
+    this.services.splice(index, 1);
   },
 });
 

@@ -483,16 +483,17 @@ router.delete("/invoice/:id", async (req, res) => {
         });
     }
 });
+
 // Save New Invoice
 router.post("/invoice", async (req, res) => {
     const sql = `
-        INSERT INTO invoice (invoiceID, EmployeeID, AccountID, total_cost, invoice_date, description)
+        INSERT INTO invoice (invoiceID, EmployeeID, AcountId, total_cost, invoice_date, description)
         VALUES (?, ?, ?, ?, ?, ?)
     `;
     const values = [
         req.body.invoiceID,
         req.body.EmployeeID,
-        req.body.AccountID, // Fixed typo: Ensure it matches 'AccountID' in your database schema
+        req.body.AcountId, // Fixed typo: Ensure it matches 'AccountID' in your database schema
         req.body.total_cost,
         req.body.invoice_date, // Ensure it matches 'invoice_date' in your database schema
         req.body.description || null, // Optional field; defaults to null if not provided
@@ -509,7 +510,7 @@ router.post("/invoice", async (req, res) => {
             data: {
                 invoiceID: req.body.invoiceID,
                 EmployeeID: req.body.EmployeeID,
-                AccountID: req.body.AccountID,
+                AccountID: req.body.AcountId,
                 total_cost: req.body.total_cost,
                 invoice_date: req.body.invoice_date,
                 description: req.body.description || null,
@@ -528,33 +529,69 @@ router.post("/invoice", async (req, res) => {
     }
 });
 // Save New Service
-router.post("/service", async (req, res) => {
-    console.log(req.body.invoiceID);
-    const sql = "INSERT INTO service (serviceID, invoiceID, service_description, cost) VALUES (?, ?, ?, ?)";
-    const values = [
-        req.body.serviceID,
-        req.body.invoiceID,
-        req.body.service_description,
-        req.body.cost
-    ];
+router.post('/service', async (req, res) => {
+    const { invoiceID, service_description, cost } = req.body;
+    // Validate input fields
+    if ( !invoiceID || !service_description || cost === undefined) {
+        return res.status(400).json({
+            message: 'All required fields must be filled.',
+            missingFields: [
+                !invoiceID && 'invoiceID',
+                !service_description && 'service_description',
+                cost === undefined && 'cost'
+            ].filter(Boolean) // Filters out falsy values
+        });
+    }
 
-    db.query(sql, values, (err, data) => {
-        if (err) {
-            console.error("Error inserting service data:", err.message);
-            return res.status(500).json({
+    // Insert service into the database
+    const sql = 'INSERT INTO Service ( invoiceID, service_description, cost) VALUES ( ?, ?, ?)';
+    const values = [invoiceID, service_description, cost];
+    try {
+        const [result] = await db.query(sql, values);
+        res.status(200).json({
+            message: 'Service added successfully.',
+            data: result
+        });
+    } catch (err) {
+        console.error('Error adding service:', err);
+        res.status(500).json({
+            message: 'Failed to add service.',
+            error: err.message
+        });
+    }
+});
+//Get service
+router.get("/service/:id", async (req, res) => {
+    const sql = "SELECT * FROM Service WHERE invoiceID = ?";
+    const invoiceID = req.params.id;
+
+    try {
+        // Use the promise-based query method
+        const [data] = await db.query(sql, [invoiceID]);
+
+        // Check if the employee exists
+        if (data.length === 0) {
+            return res.status(404).json({
                 success: false,
-                message: "Error inserting data into database",
-                details: err.message
+                message: "services not found",
             });
         }
 
-        return res.status(201).json({
+        // Return the employee data
+        return res.json({
             success: true,
-            message: "Service added successfully",
-            data: data // Sending back the response data
+            message: "Service retrieved successfully",
+            data: data[0],  // Return the first service object
         });
-    });
-}); 
+    } catch (err) {
+        console.error("Error fetching service:", err.message);
+        return res.status(500).json({
+            success: false,
+            message: "Database query failed",
+            details: err.message,
+        });
+    }
+});
 
 // Route to view all attendances ...
 router.get('/ViewAllAttendances', async (req, res) => {
