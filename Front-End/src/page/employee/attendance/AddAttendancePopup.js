@@ -66,9 +66,10 @@ const AddAttendancePopup = ({ closePopup, data }) => {
             } else {
                 const responseData = await response.json();
                 console.log(responseData);
-                if(currentHour < 8 || currentHour > 17 || currentMinute > 60) {
+                console.log(currentHour, currentMinute);
+                if((currentHour >= 8) || (currentHour < 17)) {
                     console.log('Time Error');
-                    toast.error('Attendance can only be added between 8:00 AM and 5:00 PM, The working hours!');
+                    toast.error('Cannot add attendance');
                     closePopup();
                 } else {
                     console.log('No Error');

@@ -437,8 +437,8 @@ router.post('/addAttendance', async (req, res) => {
 
       if(hour >= 8 && hour < 17) {
         // Insert the new attendance record into the database ...
-        const sql2 = `INSERT INTO attendance (EmployeeID, Date) VALUES (?,?)`;
-        await db.query(sql2, [employeeId, fullDateTime]);
+        const sql2 = `INSERT INTO attendance (EmployeeID, Name, Email, Date) VALUES (?, ?, ?, ?)`;
+        await db.query(sql2, [employeeId, name, email, fullDateTime]);
         return res.status(200).json({ message: "Attendance added successfully!"});
       } else {
         return res.status(202).json({ message: "You can't mark attendance at this time. It can be done from 8am to 5pm !"});

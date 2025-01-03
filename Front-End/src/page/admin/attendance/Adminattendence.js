@@ -104,6 +104,14 @@ const AdminAttendance = () => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Update',
+      customClass: {
+        popup: 'ekr-smaller-swal-popup',
+        title: 'ekr-smaller-swal-title',
+        content: 'ekr-smaller-swal-content',
+      },
+      width: '80%',
+      padding: '20px',
+      grow: 'fullscreen',
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -123,23 +131,39 @@ const AdminAttendance = () => {
           } else {
             toast.error('Error resetting attendance data.');
             // Error message
-            Swal.fire({
-              icon: 'error',
-              title: 'Reset Failed!',
-              text: 'An error occurred while reset attendance details. Please try again.',
-              confirmButtonColor: '#d33',
-            });
+            // Swal.fire({
+            //   icon: 'error',
+            //   title: 'Reset Failed!',
+            //   text: 'An error occurred while reset attendance details. Please try again.',
+            //   confirmButtonColor: '#d33',
+            //   customClass: {
+            //     popup: 'smaller-swal-popup',
+            //     title: 'smaller-swal-title',
+            //     content: 'smaller-swal-content',
+            //   },
+            //   width: '80%',
+            //   padding: '20px',
+            //   grow: 'fullscreen',
+            // });
           }
         } catch (error) {
           console.error('Error resetting attendance data:', error);
           toast.error('Error resetting attendance data.');
           // Error message
-          Swal.fire({
-            icon: 'error',
-            title: 'Reset Failed!',
-            text: 'An error occurred while reset attendance details. Please try again.',
-            confirmButtonColor: '#d33',
-          });
+          // Swal.fire({
+          //   icon: 'error',
+          //   title: 'Reset Failed!',
+          //   text: 'An error occurred while reset attendance details. Please try again.',
+          //   confirmButtonColor: '#d33',
+          //   customClass: {
+          //     popup: 'smaller-swal-popup',
+          //     title: 'smaller-swal-title',
+          //     content: 'smaller-swal-content',
+          //   },
+          //   width: '80%',
+          //   padding: '20px',
+          //   grow: 'fullscreen',
+          // });
         }
       }
     });
