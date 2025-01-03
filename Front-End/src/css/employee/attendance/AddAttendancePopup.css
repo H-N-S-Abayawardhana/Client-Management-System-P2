@@ -28,7 +28,7 @@
     background-color: coral;
 } 
 
-.d-flex {
+.align-content-center .d-flex {
     flex-wrap: wrap; /* Allow wrapping on smaller screens */
     gap: 10px; /* Add spacing between elements */
 }
