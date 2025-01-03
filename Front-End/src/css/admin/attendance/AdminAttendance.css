@@ -14,6 +14,10 @@
     height: 100%;
   }
 
+  .ekr-main-content{
+    margin-left: 230px;
+  }
+
   @media (max-width: 768px) {
     .ekr-main {
       margin-top: 90px;

@@ -6,7 +6,8 @@
   color: #4c7476;
   overflow-y: auto;
   overflow-x: hidden;
-  }
+}
+
 .yks-invoice-page .yks-profile-breadcrumb {
   font-size: 18px;
   font-weight: 100;
@@ -15,80 +16,92 @@
   margin-bottom: 8px;
   font-family: 'Arial', sans-serif;
 }
+
 /* Style for 'Home' */
 .yks-invoice-page .yks-profile-breadcrumb span.home {
-  color: black; /* Black color for Home */
+  color: black;
+  /* Black color for Home */
 }
 
 /* Style for 'Contact' */
 .yks-invoice-page .yks-profile-breadcrumb span.contact {
-  color: #24757E; /* Green color for Contact */
-}
-.yks-invoice-page .yks-head h1{
   color: #24757E;
-  margin-bottom:40px;
+  /* Green color for Contact */
+}
+
+.yks-invoice-page .yks-head h1 {
+  color: #24757E;
+  margin-bottom: 40px;
   max-width: 100%;
   font-size: 34px;
 }
-  /* Invoice Box Styling */
-.yks-invoice-page .yks-invoice-box {
-    background-color: #f8f9fa;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    padding:  10px ;
-    justify-content: center;
-    align-items: center;
-    margin-left: 250px;
-    border-radius: 12px;
-  }
 
-  /* Invoice Form Layout */
+/* Invoice Box Styling */
+.yks-invoice-page .yks-invoice-box {
+  background-color: #f8f9fa;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-left: 250px;
+  border-radius: 12px;
+}
+
+
+
+/* Invoice Form Layout */
 .yks-invoice-page .yks-invoice-form {
-    display: flex;
-    justify-content: space-between;
-    gap: 25px;
-    flex-wrap: wrap; /* Allows wrapping if needed on small screens */
-    margin: 10px 40px 10px 40px;
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  flex-wrap: wrap;
+  /* Allows wrapping if needed on small screens */
+  margin: 10px 40px 10px 40px;
 
 }
 
 .yks-invoice-page .yks-form-group {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 22%; /* Ensures equal width for form fields */
-  }
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 22%;
+  /* Ensures equal width for form fields */
+}
 
 .yks-invoice-page .yks-form-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
+  font-weight: bold;
+  margin-bottom: 5px;
+}
 
 .yks-invoice-page .yks-form-control {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f9fa;
-  }
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+}
 
-  /* Service Details Styling */
-  .service-detail-section h5,
-  .total-cost-section h5{
-    margin-left: 280px;
-    font-size: 24px;
-    color: #000000; /* Change this color to your preference */
-  }
-  .service-detail-section p{
-    margin-left: 280px;
-  }
+/* Service Details Styling */
+.service-detail-section h5,
+.total-cost-section h5 {
+  margin-left: 280px;
+  font-size: 24px;
+  color: #000000;
+  /* Change this color to your preference */
+}
 
-  /* Buttons */
-  .yks-button-group {
-    display: flex;
-    gap: 20px;
-    justify-content: left;
-    margin-top: 20px;
-    border-radius: 10px;
-  }
+.service-detail-section p {
+  margin-left: 280px;
+}
+
+/* Buttons */
+.yks-button-group {
+  display: flex;
+  gap: 20px;
+  justify-content: left;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
 .yks-invoice-page .yks-view-btn {
   width: 150px;
   color: white;
@@ -100,6 +113,7 @@
   margin-left: 280px;
 
 }
+
 .yks-invoice-page .yks-save-btn {
   width: 150px;
   color: white;
@@ -120,8 +134,39 @@
   border-radius: 4px;
   cursor: pointer;
 }
+
 .yks-view-btn:hover,
 .yks-all-btn:hover,
-.yks-save-btn:hover{
+.yks-save-btn:hover {
   background-color: #4e8585;
+}
+
+@media (max-width: 768px) {
+  .yks-invoice-page .yks-invoice-box {
+    margin-left: 0%;
+  }
+
+  .yks-head .text-center {
+    margin-left: 7%;
+  }
+
+
+  .service-detail-section h5,
+  .total-cost-section h5 {
+    margin-left: 7%;
+    font-size: 24px;
+
+  }
+
+  .yks-invoice-page .yks-view-btn {
+    margin-left: 7%;
+  }
+  
+  .yks-invoice-page .yks-save-btn {
+    margin-left: 7%;
+  }
+
+  .service-detail-section p {
+    margin-left: 7%;
+  }
 }
