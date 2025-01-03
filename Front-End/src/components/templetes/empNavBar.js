@@ -2,9 +2,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import arrow from '../../assets/arrow.png';
 import logo from '../../assets/logo.png';
 import user from '../../assets/user.png';
+import logoutIcon from '../../assets/logout.png';
 
 export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -16,45 +18,54 @@ export default function Navbar() {
   };
 
   const handleLogout = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        console.log('No token found, redirecting to login');
-        navigate('/login');
-        return;
+    const result = await Swal.fire({
+      imageUrl: logoutIcon,
+      imageWidth: 50,
+      imageHeight: 50,
+      title: 'Do you want to logout?',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      confirmButtonColor: '#24757e',
+      cancelButtonColor: '#D3D3D3',
+      reverseButtons: true,
+      customClass: {
+        popup: 'rounded-popup'
       }
+    });
 
-      // Make the logout request
-      const response = await fetch('http://localhost:5000/api/auth/logout', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+    if (result.isConfirmed) {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          navigate('/login');
+          return;
         }
-      });
 
-      // Clear local storage regardless of response
-      localStorage.clear();
+        const response = await fetch('http://localhost:5000/api/auth/logout', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
 
-      if (response.ok) {
-        console.log('Logout successful');
-        navigate('/login');
-      } else {
-        const errorData = await response.json();
-        console.error('Logout failed:', errorData.message);
-        setLogoutError(errorData.message);
-        // Still redirect to login even if the server request fails
+        localStorage.clear();
+
+        if (response.ok) {
+          navigate('/login');
+        } else {
+          const errorData = await response.json();
+          setLogoutError(errorData.message);
+          navigate('/login');
+        }
+      } catch (error) {
+        localStorage.clear();
         navigate('/login');
       }
-    } catch (error) {
-      console.error('Error during logout:', error);
-      // Clear storage and redirect even if there's an error
-      localStorage.clear();
-      navigate('/login');
     }
   };
 
-  // Close dropdown when clicking outside
   React.useEffect(() => {
     const handleClickOutside = (event) => {
       if (showDropdown && !event.target.closest('.nav-item.dropdown')) {
@@ -72,7 +83,6 @@ export default function Navbar() {
     <div>
       <nav className="navbar navbar-expand-lg fixed-top" style={{ backgroundColor: '#24757e', color: '#ffffff' }}>
         <div className="container-fluid">
-          {/* Logo and Branding */}
           <div className="d-flex align-items-center flex-wrap flex-lg-nowrap w-100">
             <div className="d-flex align-items-center flex-grow-1">
               <img
@@ -86,7 +96,6 @@ export default function Navbar() {
               </span>
             </div>
 
-            {/* Navigation Links */}
             <ul className="navbar-nav d-flex flex-row justify-content-center justify-content-lg-end w-auto mt-2 mt-lg-0">
               <li className="nav-item me-3">
                 <a className="nav-link text-white" href="/aboutus">About Us</a>
@@ -98,7 +107,6 @@ export default function Navbar() {
                 <a className="nav-link text-white" href="/contactus">Contact Us</a>
               </li>
 
-              {/* Profile Dropdown */}
               <li className="nav-item dropdown">
                 <button
                   className="nav-link d-flex align-items-center text-white bg-transparent border-0"
@@ -116,7 +124,6 @@ export default function Navbar() {
                   />
                 </button>
 
-                {/* Dropdown Menu */}
                 {showDropdown && (
                   <ul className="dropdown-menu dropdown-menu-end show"
                     style={{
@@ -147,7 +154,27 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Error Alert */}
+      <style>
+        {`
+          .rounded-popup {
+            border-radius: 15px !important;
+          }
+          .swal2-popup {
+            width: 300px !important;
+          }
+          .swal2-title {
+            font-size: 18px !important;
+          }
+          .swal2-confirm, .swal2-cancel {
+            padding: 8px 20px !important;
+            font-size: 14px !important;
+          }
+          .swal2-cancel {
+            color: #333 !important;
+          }
+        `}
+      </style>
+
       {logoutError && (
         <div className="alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-5" role="alert">
           {logoutError}

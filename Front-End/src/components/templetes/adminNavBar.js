@@ -2,46 +2,67 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Bootstrap JS for dropdowns
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // For navigation
+import Swal from 'sweetalert2';
 import arrow from '../../assets/arrow.png';
 import logo from '../../assets/logo.png';
 import user from '../../assets/user.png';
+import logoutIcon from '../../assets/logout.png';
 
 export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [logoutError, setLogoutError] = useState(null);
   const navigate = useNavigate(); // Use navigate for redirection
 
   const toggleNavbar = () => {
     setShowDropdown(!showDropdown);
   };
 
-  // Logout function
+  // Logout function with SweetAlert
   const handleLogout = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login'); // Redirect if no token is present
-      return;
-    }
+    const result = await Swal.fire({
+      imageUrl: logoutIcon,
+      imageWidth: 50,
+      imageHeight: 50,
+      title: 'Do you want to logout?',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      confirmButtonColor: '#24757e',
+      cancelButtonColor: '#D3D3D3',
+      reverseButtons: true,
+      customClass: {
+        popup: 'rounded-popup',
+      },
+    });
 
-    try {
-      // Call the backend API to logout
-      const response = await fetch('http://localhost:5000/api/auth/logout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Pass the JWT token
-        },
-      });
+    if (result.isConfirmed) {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          navigate('/login');
+          return;
+        }
 
-      if (response.ok) {
-        // Clear token and redirect to login page
-        localStorage.removeItem('token');
-        navigate('/login');
-      } else {
-        const data = await response.json();
-        console.error('Logout failed:', data.message);
+        const response = await fetch('http://localhost:5000/api/auth/logout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // Pass the JWT token
+          },
+        });
+
+        localStorage.clear();
+
+        if (response.ok) {
+          navigate('/login');
+        } else {
+          const data = await response.json();
+          setLogoutError(data.message);
+        }
+      } catch (error) {
+        console.error('Error during logout:', error);
+        setLogoutError('An unexpected error occurred.');
       }
-    } catch (error) {
-      console.error('Error during logout:', error);
     }
   };
 
@@ -60,7 +81,6 @@ export default function Navbar() {
                 alt="Logo"
                 style={{ width: '40px', height: '40px' }}
                 className="me-2"
-                href="/login"
               />
               <span
                 className="text-white fs-6 fs-md-4"
@@ -106,11 +126,7 @@ export default function Navbar() {
                       marginRight: '5px',
                     }}
                   />
-                  <img
-                    src={arrow}
-                    alt="arrow"
-                    style={{ width: '15px' }}
-                  />
+                  <img src={arrow} alt="arrow" style={{ width: '15px' }} />
                 </a>
 
                 {/* Dropdown Menu */}
@@ -136,13 +152,13 @@ export default function Navbar() {
                     </li>
                     <li>
                       <button
-                        className="dropdown-item"
+                        className="dropdown-item text-danger"
                         onClick={handleLogout}
                         style={{
                           border: 'none',
                           background: 'none',
                           padding: 0,
-                          marginLeft: '18px', 
+                          marginLeft: '18px',
                         }}
                       >
                         Log out
@@ -155,6 +171,36 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+
+      <style>
+        {`
+          .rounded-popup {
+            border-radius: 15px !important;
+          }
+          .swal2-popup {
+            width: 300px !important;
+          }
+          .swal2-title {
+            font-size: 18px !important;
+          }
+          .swal2-confirm, .swal2-cancel {
+            padding: 8px 20px !important;
+            font-size: 14px !important;
+          }
+          .swal2-cancel {
+            color: #333 !important;
+          }
+        `}
+      </style>
+
+      {logoutError && (
+        <div
+          className="alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-5"
+          role="alert"
+        >
+          {logoutError}
+        </div>
+      )}
     </div>
   );
 }
