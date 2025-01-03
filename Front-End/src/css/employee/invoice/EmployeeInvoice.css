@@ -163,6 +163,19 @@ tbody::-webkit-scrollbar-thumb:hover {
         display: block;
     }
 
+    .yks-invoice-tbl tbody {
+        max-height: 400px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    .yks-invoice-tbl thead tr,
+    tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
 
     .yks-head .text-center{
         margin-left: 0%;
@@ -188,6 +201,7 @@ tbody::-webkit-scrollbar-thumb:hover {
         font-size: 12px;
         text-align: center;
     }
+
 
 
     .yks-table-container {
