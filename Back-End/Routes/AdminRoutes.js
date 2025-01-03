@@ -816,13 +816,14 @@ router.get("/employee/:EmployeeID", async (req, res) => {
 // Route to register a new employee ...
 router.post("/register", async (req, res) => {
     try {
+        console.log(req.body);
         // Hasing the entered password ... 
         const hashedPassword = await bcrypt.hash(req.body.Password, 10);
         console.log(hashedPassword);
         const sql = "INSERT INTO employee (Name, Address, ContactNumber, Designation, WorkStartDate, Email, Username, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         const values = [ req.body.Name, req.body.Address, req.body.ContactNumber, req.body.Designation, 
-                    req.body.WorkStartDate, req.body.Email, req.body.Username, hashedPassword ];
-
+                    req.body.WorkStartDate, req.body.Email, req.body.UserName, hashedPassword ];
+        console.log(values);
         const result = await db.query(sql, values);
         console.log("Query successful, inserting data:", result);
         return res.status(201).json({ message: "Employee added successfully", data: result });
@@ -859,6 +860,7 @@ router.post("/register", async (req, res) => {
 
 // Route to update an existing employee ...
 router.put('/update/:EmployeeID', async (req, res) => {
+    console.log(req.body);
 //     // Hasing the entered password ... 
 //     const hashedPassword = bcrypt.hashSync(req.body.Password, 10);
 //     console.log(hashedPassword);
@@ -873,6 +875,7 @@ router.put('/update/:EmployeeID', async (req, res) => {
         req.body.Username,
         req.params.EmployeeID
     ];
+    
     try {
         const result = await db.query(sql, values);
         console.log("Query successful, updated data:", result);
@@ -945,6 +948,6 @@ router.delete("/employee/:EmployeeID", async (req, res) => {
 
 //         return res.status(200).json({ message: "Employee deleted successfully" });
 //     });
-// });
+// }); 
 
 export default router;

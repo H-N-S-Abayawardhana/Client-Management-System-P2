@@ -150,12 +150,12 @@ const AdminAttendance = () => {
       <div className="ekr-admin-attendance-container d-flex flex-column" style={{ minHeight: '100vh' }}>
       <ToastContainer position="top-right" autoClose={3000} />
       <Navbar />
-      <button className="sidebar-toggle" onClick={toggleSidebar}>
+      <button className="sidebar-toggle ekr-tog" onClick={toggleSidebar}>
         ☰
       </button>
       <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
         <Sidebar sidebarVisible={sidebarVisible} />
-        <div className="main-content p-4">
+        <div className="main-content p-4 ekr-main">
           <div className="ekr-breadcrumb mb-3 mt-4">
             <h5>
               Home / <span style={{ color: '#24757E' }}>Attendance</span>
@@ -231,7 +231,7 @@ const AdminAttendance = () => {
                           <td>{entry.name}</td>
                           <td>{formatDate(entry.date)}</td>
                           <td>{entry.email}</td>
-                          <td className="fw-bold">{entry.status}</td>
+                          <td className="fw-bold">Attendad</td>
                         </tr>
                       ))}
                       {filteredData.length === 0 && (

@@ -113,27 +113,28 @@ const AdminMailBox = () => {
                 ☰
             </button>
             <div className={`flex-grow-1 d-flex`}>
-                <div className={`ekr-sidebar-container ${sidebarVisible ? 'show-sidebar' : ''}`} style={{ flexShrink: 0 }}>
+                <div className={`km-sidebar-container ${sidebarVisible ? 'show-sidebar' : ''}`} style={{ flexShrink: 0 }}>
                     <Sidebar sidebarVisible={sidebarVisible} />
                 </div>
 
-                <div className="ekr-content-container flex-grow-1 p-4" style={{
-                    height: "100vh",
-                    overflowY: "auto",
-                    display: "flex",
-                    flexDirection: "column"
+                {/* Content Container */}
+                <div className="km-content-container flex-grow-1 p-4" style={{
+                    height: "100vh",           // Full viewport height
+                    overflowY: "auto",         // Enable scrolling for the entire DOM
+                    display: "flex",           // Flex layout for content flow
+                    flexDirection: "column"    // Stack children vertically
                 }}>
                     <h5 className="mt-5">
                         Home / <span style={{ color: "#24757E" }}>Mail-Box</span>
                     </h5>
 
-                    <div className="card ekr-card-container-height border-0">
+                    <div className="card km-card-container-height border-0">
                         <div className="card-body">
-                            <h4 className="ekr-employee-attendance-page-title text-center" style={{ color: "#24757E" }}>Admin Mail Box</h4>
+                            <h4 className="km-employee-attendance-page-title text-center" style={{ color: "#24757E" }}>Mail Box</h4>
 
-                            <div className="mailbox-container">
-                                <form onSubmit={handleSubmit}>
-                                    <h6 className="text-start fw-bold mb-2">Send Email</h6>
+                            <div className="km-mailbox-container">
+                                <form onSubmit={handleSubmit} className='km-form'>
+                                    <h6 className="text-start fw-bold mb-2 mt-3">Send Email</h6>
 
                                     <input
                                         type="email"
@@ -141,7 +142,7 @@ const AdminMailBox = () => {
                                         name="to"
                                         placeholder="To:"
                                         required
-                                        className="mailbox-input form-control mb-2"
+                                        className="km-mailbox-input form-control mb-2" // Use Bootstrap's form-control for consistent styling
                                         style={{
                                             fontSize: "0.875rem",
                                             backgroundColor: "#f0f0f0"
@@ -156,7 +157,7 @@ const AdminMailBox = () => {
                                         placeholder="Subject"
                                         name="subject"
                                         required
-                                        className="mailbox-input form-control mb-2"
+                                        className="km-mailbox-input form-control mb-2 me-2"
                                         style={{
                                             fontSize: "0.875rem",
                                             backgroundColor: "#f0f0f0"
@@ -165,18 +166,12 @@ const AdminMailBox = () => {
                                         onChange={handleChange}
                                     />
 
-                                    <div className="attachment-container">
-                                        <label className="attachment-label d-flex align-items-center">
-                                            <i className="fas fa-paperclip me-2"></i>
-                                            <span className="file-name me-2">
-                                                {formData?.attachment?.name || "No file selected"}
-                                            </span>
-                                            <input 
-                                                type="file"
-                                                className="file-input"
-                                                name="attachment"
-                                                onChange={handleAttachmentChange}
-                                            />
+                                    {/* Attachment Field */}
+                                    <div className="km-attachment-container">
+                                        <label className="km-attachment-label d-flex align-items-center me-2">
+                                            <i className="fas fa-paperclip me-4"></i>
+                                            <span className="km-file-name me-2">{formData?.attachment?.name || "No file selected"}</span>
+                                            <input type="file" className="km-file-input" name="attachment" onChange={handleAttachmentChange}/>
                                         </label>
                                     </div>
 
@@ -186,7 +181,7 @@ const AdminMailBox = () => {
                                         placeholder="Type message"
                                         rows="5"
                                         required
-                                        className="mailbox-textarea form-control mb-2"
+                                        className="km-mailbox-textarea form-control mb-2"
                                         style={{
                                             fontSize: "0.875rem",
                                             backgroundColor: "#f0f0f0",
@@ -196,12 +191,9 @@ const AdminMailBox = () => {
                                         onChange={handleChange}
                                     ></textarea>
 
-                                    <button 
-                                        type="submit" 
-                                        className="mailbox-submit-btn"
-                                        disabled={isLoading}
-                                    >
-                                        {isLoading ? 'Sending...' : 'Send'}
+                                    {/* Submit Button */}
+                                    <button type="submit" className="km-mailbox-submit-btn mb-3">
+                                        Send
                                     </button>
                                 </form>
                             </div>

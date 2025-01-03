@@ -297,10 +297,11 @@ router.get('/attendance/:input', async (req, res) => {
   }
 }); 
 
-// Route to add new attendance record ...
+
+// Add Attendance Route (with async/await)
 router.post('/addAttendance', async (req, res) => {
   try {
-      const { name, date, email } = req.body;
+      const { name, date, email, employeeId } = req.body;
 
       const current_date = new Date();
       const hour = current_date.getHours();
@@ -311,31 +312,17 @@ router.post('/addAttendance', async (req, res) => {
       const fullDateTime = `${date} ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`;
       console.log(name, date, email, hour, minute, second, fullDateTime);
 
-      // check whether the user is already existing ...
-      const sql1 = `SELECT EmployeeID FROM employee WHERE Name = ? AND Email = ?`;
-      const [data] = await db.query(sql1, [name, email]);
-      if(data.length === 0) {
-        return res.json({ message: "Employee not found!"});
-      }
-      
-      console.log(result.length);
-      console.log(result[0]);
-      console.log(result[0].EmployeeID);    
-
-      const EmployeeId = result[0].EmployeeID;
-      console.log("EmployeeId : ", EmployeeId);
-
       if(hour >= 8 && hour < 17) {
         // Insert the new attendance record into the database ...
         const sql2 = `INSERT INTO attendance (EmployeeID, Date) VALUES (?,?)`;
-        await db.query(sql2, [EmployeeId, fullDateTime]);
-        return res.json({ message: "Attendance added successfully!"});
+        await db.query(sql2, [employeeId, fullDateTime]);
+        return res.status(200).json({ message: "Attendance added successfully!"});
       } else {
-        return res.json({ message: "You can't mark attendance at this time. It can be done from 8am to 5pm !"});
+        return res.status(202).json({ message: "You can't mark attendance at this time. It can be done from 8am to 5pm !"});
       }
   } catch(error) {
       console.log(error.message);
-      return res.json({ message: "An error occurred while adding attendance record!"});
+      return res.status(500).json({ message: "An error occurred while adding attendance record!"});
   }
 });
 

@@ -47,9 +47,9 @@ function ViewEmployees() {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Delete',
       customClass: {
-        popup: 'smaller-swal-popup', // Add a custom class for styling
-        title: 'smaller-swal-title',
-        content: 'smaller-swal-content',
+        popup: 'waw-smaller-swal-popup', // Add a custom class for styling ...
+        title: 'waw-smaller-swal-title',
+        content: 'waw-smaller-swal-content',
       },
     }).then(async (result) => {
         if (result.isConfirmed) {
@@ -108,7 +108,7 @@ function ViewEmployees() {
           <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
             <ToastContainer position="top-right" autoClose={3000} />
             <Navbar />
-            <button className="sidebar-toggle" onClick={toggleSidebar}>
+            <button className="sidebar-toggle waw-tog" onClick={toggleSidebar}>
                 ☰
             </button>
             <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>
@@ -170,7 +170,7 @@ function ViewEmployees() {
                                           <td className="text-center">{data.ContactNumber || "N/A"}</td>
                                           <td className="text-center">{data.Address || "N/A"}</td>
                                           <td className="text-center">{data.Email || "N/A"}</td>
-                                          <td className="text-center">{data.Name || "N/A"}</td>
+                                          <td className="text-center">{data.Username || "N/A"}</td>
                                           {/* <td>{data.Password || "N/A"}</td> */}
                                           <td className="waw-action-buttons text-center align-items-center">
                                             {/* <a href={`/update/${data.EmployeeID}`}>
