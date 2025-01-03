@@ -7,7 +7,7 @@ import { serviceState } from "../../../utils";
 import {toast} from "react-toastify";
 import Navbar from "../../../components/templetes/adminNavBar";
 import Sidebar from "../../../components/templetes/SideBar";
-import Footer from "../../../components/PagesFooter";
+import Footer from "../../../components/templetes/Footer";
 
 const Invoice = () => {
   const navigate = useNavigate();
