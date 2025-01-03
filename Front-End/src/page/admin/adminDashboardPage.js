@@ -28,93 +28,95 @@ function AdminDashboard() {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${year}-${month}-${day}`;
-    };
+  };
 
   const getAttendCount = async () => {
-    try{
-        const response = await fetch('http://localhost:5000/api/admin/admin/attendCount')
-        const responseData = await response.json()
-        if(!response.ok){
-          console.log("error")
-        }
-        else{
-           console.log(responseData)
-          const count = responseData.toString().padStart(2, '0');
-          console.log(count)
-         
-          setAttendCount(count)
-          
-        }
+    try {
+      const response = await fetch('http://localhost:5000/api/admin/admin/attendCount')
+      const responseData = await response.json()
+      if (!response.ok) {
+        console.log("error")
+      }
+      else {
+        console.log(responseData)
+        const count = responseData.toString().padStart(2, '0');
+        console.log(count)
+        setAttendCount(count)
+      }
     }
-    catch(error){
-         console.log(error)
+    catch (error) {
+      console.log(error)
     }
   };
 
   const getEmpCount = async () => {
-    try{
-        const response = await fetch('http://localhost:5000/api/admin/admin/empCount')
-        const responseData = await response.json()
-        if(!response.ok){
-          console.log("error")
-        }
-        else{
-          console.log(responseData)
-          const count = responseData.toString().padStart(2, '0');
-          setEmpCount(count)
-        }
+    try {
+      const response = await fetch('http://localhost:5000/api/admin/admin/empCount')
+      const responseData = await response.json()
+      if (!response.ok) {
+        console.log("error")
+      }
+      else {
+        console.log(responseData)
+        const count = responseData.toString().padStart(2, '0');
+        setEmpCount(count)
+      }
     }
-    catch(error){
-         console.log(error)
+    catch (error) {
+      console.log(error)
     }
   };
 
   const getInvoiceCount = async () => {
-    try{
-        const response = await fetch('http://localhost:5000/api/admin/admin/invoiceCount')
-        const responseData = await response.json()
-        if(!response.ok){
-          console.log("error")
-        }
-        else{
-          console.log(responseData)
-          const count = responseData.toString().padStart(2, '0');
-          setInvoiceCount(count)
-        }
+    try {
+      const response = await fetch('http://localhost:5000/api/admin/admin/invoiceCount')
+      const responseData = await response.json()
+      if (!response.ok) {
+        console.log("error")
+      }
+      else {
+        console.log(responseData)
+        const count = responseData.toString().padStart(2, '0');
+        setInvoiceCount(count)
+      }
     }
-    catch(error){
-         console.log(error)
+    catch (error) {
+      console.log(error)
     }
   };
 
   const getData = async () => {
-    try{
+    try {
       const response = await fetch('http://localhost:5000/api/admin/admin/received')
       const responseData = await response.json()
-      if(!response.ok){
+      if (!response.ok) {
         console.log("error")
       }
-      else{
+      else {
         console.log(responseData)
         setData(responseData)
       }
-  }
-  catch(error){
-       console.log(error)
-  }
+    }
+    catch (error) {
+      console.log(error)
+    }
   }
 
-   useEffect(() => {
-   getAttendCount()
-   getEmpCount()
-   getInvoiceCount()
-   getData()
-    }, []);
-
+  useEffect(() => {
+    getAttendCount()
+    getEmpCount()
+    getInvoiceCount()
+    getData()
+  }, []);
 
   return (
     <div className="ae-d-flex flex-column" style={{ minHeight: '100vh' }}>
       <Navbar />
+      <div className="ae-breadcrumb">
+        <span className="ae-breadcrumb-item">Home</span>
+        <span className="ae-breadcrumb-separator">/</span>
+        <span className="ae-breadcrumb-item">Dashboard</span>
+      </div>
       <button className="ae-sidebar-toggle" onClick={toggleSidebar}>☰</button>
 
       <div className={`ae-flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
@@ -123,40 +125,35 @@ function AdminDashboard() {
         <div className="ae-main-content">
           <div className="ae-grid-container">
             <div className="ae-video-section">
+              <div className="ae-info-card green">
+                <div className="ae-info-header-content">
+                  <img src={attendImage} alt="Attend" style={{ marginLeft: '60px', height: '35px', width: '35px' }} />
+                  <div className="ae-info-header">Today <br />Attendance</div>
+                </div>
+                <div className="ae-info-value-box">
+                  <div className="ae-info-value gray">{attendance}</div>
+                </div>
+              </div>
 
               <div className="ae-info-card green">
-                            <div className="ae-info-header-content">
-                            <img src={attendImage} alt="Attend" style={{ marginLeft: '60px', height:'35px', width:'35px' }}/>
-                              <div className="ae-info-header">Today <br />Attendance</div>
-                              </div>
-                              <div className="ae-info-value-box">
-                                <div className="ae-info-value gray">{attendance }</div>
-                              </div>
-                            </div>
-              
-              
-                            <div className="ae-info-card green">
-                            <div className="ae-info-header-content">
-                            <img src={InfoInvoice} alt="InfoInvoice" style={{ marginLeft: '60px', height:'30px', width:'30px' }}/>
-                              <div className="ae-info-header">Total <br />Employees</div>
-                              </div>
-                              <div className="ae-info-value-box">
-                                <div className="ae-info-value gray">{employee }</div>
-                              </div>
-                            </div>
-              
-              
-              
-                            <div className="ae-info-card green">
-                             <div className="ae-info-header-content">
-                            <img src={InfoPay} alt="InfoPay" style={{ marginLeft: '60px', height:'40px', width:'40px' }}/>
-                              <div className="ae-info-header">Pending <br />Invoices</div>
-                              </div>
-                              <div className="ae-info-value-box">
-                                <div className="ae-info-value gray">{invoice }</div>
-                              </div>
-                            </div>
+                <div className="ae-info-header-content">
+                  <img src={InfoInvoice} alt="InfoInvoice" style={{ marginLeft: '60px', height: '30px', width: '30px' }} />
+                  <div className="ae-info-header">Total <br />Employees</div>
+                </div>
+                <div className="ae-info-value-box">
+                  <div className="ae-info-value gray">{employee}</div>
+                </div>
+              </div>
 
+              <div className="ae-info-card green">
+                <div className="ae-info-header-content">
+                  <img src={InfoPay} alt="InfoPay" style={{ marginLeft: '60px', height: '40px', width: '40px' }} />
+                  <div className="ae-info-header">Pending <br />Invoices</div>
+                </div>
+                <div className="ae-info-value-box">
+                  <div className="ae-info-value gray">{invoice}</div>
+                </div>
+              </div>
             </div>
 
             <div className="ae-sidebar-section">

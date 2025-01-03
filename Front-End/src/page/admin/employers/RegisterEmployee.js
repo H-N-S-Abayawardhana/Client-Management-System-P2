@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import Sidebar from "../../../components/templetes/SideBar";
 import Navbar from "../../../components/templetes/adminNavBar";
-import Footer from "../../../components/PagesFooter";
+import Footer from '../../../components/templetes/Footer';
 import '../../../css/admin/employers/RegisterEmployee.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -221,8 +221,13 @@ const UpdateEmployee = () => {
                     </div>
                 </div>
             </div>
-            {/* Footer */}
-            <Footer />
+            <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
+            <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
+                <Sidebar sidebarVisible={sidebarVisible} />
+            </div>
+            <div className="container3">
+                <Footer />
+            </div>
         </div>
   );
 }
