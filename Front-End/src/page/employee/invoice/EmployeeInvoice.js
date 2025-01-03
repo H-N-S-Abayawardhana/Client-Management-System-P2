@@ -7,7 +7,11 @@ import "../../../css/employee/invoice/EmployeeInvoice.css";
 import axios from "axios";
 import Navbar from "../../../components/templetes/empNavBar";
 import Sidebar from "../../../components/templetes/ESideBar";
+
 import Footer from '../../../components/templetes/Footer';
+
+import Footer from "../../../components/templetes/Footer";
+
 
 function EmployeeInvoice() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -65,7 +69,7 @@ function EmployeeInvoice() {
       <div>
         <Navbar />
         <div className="yks-employee-invoice-page">
-          <nav className="yks-breadcrumb" aria-label="breadcrumb">
+          <nav>
             <p className="yks-profile-breadcrumb">
               <span className="home">Home</span> / <span className="contact">Invoices</span>
             </p>
@@ -73,7 +77,7 @@ function EmployeeInvoice() {
           <div className="yks-emp-invoice-container">
 
             <div className="yks-head">
-              <h1 className="text-center">Invoices</h1>
+              <h1>Invoices</h1>
             </div>
 
             {/* Search Bar */}

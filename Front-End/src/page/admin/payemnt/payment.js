@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import '../../../css/admin/payment/paymentTable.css';
 import Navbar from "../../../components/templetes/adminNavBar";
 import Footer from '../../../components/templetes/Footer';
+import Footer from "../../../components/templetes/Footer";
 import Sidebar from "../../../components/templetes/SideBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // useNavigate import

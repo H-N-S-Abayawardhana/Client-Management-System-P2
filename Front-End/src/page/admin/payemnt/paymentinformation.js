@@ -3,6 +3,7 @@ import '../../../css/admin/payment/payment_form.css';
 import { useParams } from "react-router-dom";
 import Navbar from '../../../components/templetes/adminNavBar';
 import Footer from '../../../components/templetes/Footer';
+import Footer from '../../../components/templetes/Footer'
 // import Footer from '../../../components/PagesFooter';
 import Sidebar from '../../../components/templetes/SideBar';
 import { jsPDF } from "jspdf"; // Import jsPDF

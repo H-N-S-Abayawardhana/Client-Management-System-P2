@@ -113,16 +113,18 @@
 
 /* Tablet View (max-width: 780px) */
 @media (max-width: 780px) {
-    .msa-form-container .yks-profile-breadcrumb {
+    .msa-form-container .msa-profile-breadcrumb {
         display: none;
     }
     .msa-form-container .msa-payment-form-container .head-name {
         margin-left: 25px;
     }
-    .msa-form-container .msa-payment-form-container .head-name h2 {
-        font-size: 20px;
-        padding-top:90px ;
-        font-weight: 600;
+    .msa-form-container .msa-payment-form-container .head-name h1 {
+        padding-top: 60px;
+        margin-bottom: 30px;
+        margin-left: 30px;
+        font-size: calc(1.375rem + 1.5vw);
+        font-weight: bold !important;
     }
     .msa-form-container .msa-payment-form-container .invoice-card {
         width: 80%; /* Adjust width for tablets */
