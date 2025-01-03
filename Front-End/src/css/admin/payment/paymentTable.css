@@ -125,7 +125,6 @@ thead, tbody tr {
 }
 
 @media (max-width: 780px) {
-
     .msa-payment-container .msa-container-table {
         align-items: center; /* Center-align the table container */
         padding: 20px;
@@ -154,9 +153,6 @@ thead, tbody tr {
     }
 
     msa-paymnet-container .msa-profile-breadcrumb {
-
-    msa-paymnet-container .yks-profile-breadcrumb {
-
         display: none;
     }
 
@@ -220,7 +216,7 @@ thead, tbody tr {
 }
 
 @media (max-width: 480px) {
-    msa-paymnet-container .yks-profile-breadcrumb {
+    msa-paymnet-container .msa-profile-breadcrumb {
         display: none;
     }
 
@@ -279,4 +275,3 @@ thead, tbody tr {
     }
 }
 
-}
