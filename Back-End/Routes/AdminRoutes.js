@@ -560,38 +560,6 @@ router.post('/service', async (req, res) => {
         });
     }
 });
-//Get service
-router.get("/service/:id", async (req, res) => {
-    const sql = "SELECT * FROM Service WHERE invoiceID = ?";
-    const invoiceID = req.params.id;
-
-    try {
-        // Use the promise-based query method
-        const [data] = await db.query(sql, [invoiceID]);
-
-        // Check if the employee exists
-        if (data.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "services not found",
-            });
-        }
-
-        // Return the employee data
-        return res.json({
-            success: true,
-            message: "Service retrieved successfully",
-            data: data[0],  // Return the first service object
-        });
-    } catch (err) {
-        console.error("Error fetching service:", err.message);
-        return res.status(500).json({
-            success: false,
-            message: "Database query failed",
-            details: err.message,
-        });
-    }
-});
 
 // Route to view all attendances ...
 router.get('/ViewAllAttendances', async (req, res) => {
