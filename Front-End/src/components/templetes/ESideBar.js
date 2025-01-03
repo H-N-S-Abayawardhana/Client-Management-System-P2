@@ -11,6 +11,7 @@ const Sidebar = ({ sidebarVisible }) => {
     <div className={`sidebar ${sidebarVisible ? 'show-sidebar' : ''}`}>
       <h2>Dashboard</h2>
       <ul>
+        <li><a href="/employee-dashboard"><img src={attendence} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} /><span>Dashboard</span></a></li>
         <li><a href="/employee-attendance"><img src={attendence} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} /> Attendance</a></li>
         <li><a href="/employee-invoice"><img src={invoice} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} /> Invoice</a></li>
         <li><a href="/employee-payment"><img src={payment} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} /> Payment</a></li>
