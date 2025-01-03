@@ -4,7 +4,6 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "../../../css/employee/invoice/invoiceForm.css";
-import axios from "axios";
 import Navbar from "../../../components/templetes/empNavBar";
 import Sidebar from "../../../components/templetes/ESideBar";
 import Footer from "../../../components/templetes/Footer";
@@ -136,15 +135,8 @@ function InvoiceForm() {
                         <h1>Invoice</h1>
                     </div>
 
-                    {error && <div className="alert alert-danger">{error}</div>}
-                    {!invoiceDetails && !error && (
-                        <div className="spinner-border text-primary" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </div>
-                    )}
-
                     {invoiceDetails && (
-                        <div>
+                        <div className='yks-invoice-detail'>
                             <header className="yks-empinvoice-header">
                                 <button className="yks-empinvoice-btn" onClick={() => navigate('/employee-pay')}>
                                     Make Payment
