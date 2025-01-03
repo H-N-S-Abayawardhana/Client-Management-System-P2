@@ -155,3 +155,92 @@
 .yks-serve-tbl tbody::-webkit-scrollbar-thumb:hover {
     background-color: #888;
 }
+
+@media (max-width: 780px) {
+    .yks-container .yks-profile-breadcrumb {
+        display: none;
+    }
+
+    .yks-container .yks-head h1 {
+        padding-top: 100px;
+        margin-bottom: 30px;
+        margin-left: 10px; /* Adjusted for better alignment */
+        font-size: calc(1.375rem + 1.5vw);
+        font-weight: bold !important;
+    }
+
+    .yks-container .yks-form-container {
+        margin: 10px; /* Unified margin for consistency */
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .row.g-3 {
+        gap: 10px;
+        margin-bottom: 5px;
+    }
+
+    .yks-container .yks-btn-groupup {
+        margin-left: 10px;
+        display: flex;
+        flex-wrap: wrap; /* Ensure buttons adjust properly on smaller screens */
+    }
+
+    .yks-input {
+        background-color: #E9E9E9;
+        border-color: white;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+
+    .yks-service-table {
+        padding: 10px; /* Adjusted for proper spacing */
+        margin: 0 auto; /* Center the table on the screen */
+        max-width: 100%; /* Ensure table fits the screen width */
+        overflow-x: auto; /* Horizontal scrolling for smaller devices */
+    }
+
+    .yks-serve-tbl {
+        width: 100%; /* Ensure table takes full width */
+        border-collapse: collapse;
+    }
+
+    .yks-serve-tbl thead,
+    .yks-serve-tbl tbody {
+        display: block;
+    }
+
+    .yks-serve-tbl tbody {
+        max-height: 300px; /* Adjusted height for smaller screens */
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    .yks-serve-tbl thead tr,
+    .yks-serve-tbl tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .yks-serve-tbl th,
+    .yks-serve-tbl td {
+        padding: 12px 8px; /* Reduced padding for compact view */
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .yks-serve-tbl tbody::-webkit-scrollbar {
+        width: 4px; /* Narrow scrollbar for better aesthetics */
+    }
+
+    .yks-serve-tbl tbody::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 4px;
+    }
+
+    .yks-serve-tbl tbody::-webkit-scrollbar-thumb:hover {
+        background-color: #888;
+    }
+}
