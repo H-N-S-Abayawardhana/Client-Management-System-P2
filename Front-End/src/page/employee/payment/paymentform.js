@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../../components/templetes/empNavBar";
 import Sidebar from "../../../components/templetes/ESideBar";
-import Footer from "../../../components/templetes/Footer";
+import Footer from "../../../components/PagesFooter";
 import axios from "axios";
 import "../../../css/employee/payment/payment_method.css";
 import cvvImage from '../../../assets/cvv.png';
