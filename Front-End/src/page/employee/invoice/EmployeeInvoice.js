@@ -7,7 +7,11 @@ import "../../../css/employee/invoice/EmployeeInvoice.css";
 import axios from "axios";
 import Navbar from "../../../components/templetes/empNavBar";
 import Sidebar from "../../../components/templetes/ESideBar";
+
+import Footer from '../../../components/templetes/Footer';
+
 import Footer from "../../../components/templetes/Footer";
+
 
 function EmployeeInvoice() {
   const [searchTerm, setSearchTerm] = useState("");

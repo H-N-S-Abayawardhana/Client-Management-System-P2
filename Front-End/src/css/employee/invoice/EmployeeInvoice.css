@@ -89,14 +89,14 @@
     background-color: #f1f1f1;
 }
 /* Scrollable table body */
-tbody {
+.yks-invoice-tbl tbody {
     display: block;
     max-height: 200px;
     overflow-y: auto;
     width: 100%;
 }
 
-thead, tbody tr {
+.thead, tbody tr {
     display: table;
     width: 100%;
     table-layout: fixed;
@@ -163,6 +163,10 @@ tbody::-webkit-scrollbar-thumb:hover {
         display: block;
     }
 
+
+    .yks-head .text-center{
+        margin-left: 0%;
+
     .yks-invoice-tbl tbody {
         max-height: 400px;
         overflow-y: auto;
@@ -175,6 +179,7 @@ tbody::-webkit-scrollbar-thumb:hover {
         display: table;
         width: 100%;
         table-layout: fixed;
+
     }
 
     .yks-invoice-tbl th,
@@ -182,6 +187,26 @@ tbody::-webkit-scrollbar-thumb:hover {
         padding: 15px 12px;
         font-size: 12px;
         text-align: center;
+    }
+
+
+    .yks-table-container {
+        align-items: center;
+        padding: 0px;
+        margin-left: 0px;
+        max-width: 100%;
+        margin-bottom: 60px;
+        margin-top: 20px;
+    }
+
+    .yks-emp-invoice-container{
+        margin: 0px;
+    }
+    .yks-employee-invoice-page {
+        margin: 0px;
+    }
+    .yks-invoice-tbl {
+        width: auto;
     }
 
 }

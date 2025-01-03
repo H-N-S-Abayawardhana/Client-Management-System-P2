@@ -6,7 +6,11 @@ import "../../../css/admin/invoice/invoiceTable.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "../../../components/templetes/adminNavBar";
 import Sidebar from "../../../components/templetes/SideBar";
+
+import Footer from '../../../components/templetes/Footer';
+
 import Footer from "../../../components/templetes/Footer";
+
 
 const InvoiceTable = () => {
     const [invoices, setInvoices] = useState([]);
@@ -82,39 +86,39 @@ const InvoiceTable = () => {
                         <div className="yks-container-table">
                             <table className="yks-serve-tbl">
                                 <thead>
-                                <tr>
-                                    <th>Invoice ID</th>
-                                    <th>Employee ID</th>
-                                    <th>Account ID</th>
-                                    <th>
-                                        <div className="header-split">
-                                            <span>Invoice</span>
-                                            <br />
-                                            <span>Date</span>
-                                        </div>
-                                    </th>
-                                    <th>Amount</th>
-                                    <th>Actions</th>
-                                </tr>
+                                    <tr>
+                                        <th>Invoice ID</th>
+                                        <th>Employee ID</th>
+                                        <th>Account ID</th>
+                                        <th>
+                                            <div className="header-split">
+                                                <span>Invoice</span>
+                                                <br />
+                                                <span>Date</span>
+                                            </div>
+                                        </th>
+                                        <th>Amount</th>
+                                        <th>Actions</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                {invoices.map((invoice) => (
-                                    <tr key={invoice.invoiceID}>
-                                        <td>{invoice.invoiceID}</td>
-                                        <td>{invoice.EmployeeID}</td>
-                                        <td>{invoice.AcountId}</td>
-                                        <td>{formatDate(invoice.invoice_date)}</td>
-                                        <td>{invoice.total_cost}</td>
-                                        <td>
-                                            <button
-                                                className="yks-delete-btn"
-                                                onClick={() => handleDelete(invoice.invoiceID)}
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
+                                    {invoices.map((invoice) => (
+                                        <tr key={invoice.invoiceID}>
+                                            <td>{invoice.invoiceID}</td>
+                                            <td>{invoice.EmployeeID}</td>
+                                            <td>{invoice.AcountId}</td>
+                                            <td>{formatDate(invoice.invoice_date)}</td>
+                                            <td>{invoice.total_cost}</td>
+                                            <td>
+                                                <button
+                                                    className="yks-delete-btn"
+                                                    onClick={() => handleDelete(invoice.invoiceID)}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
@@ -123,9 +127,9 @@ const InvoiceTable = () => {
 
                 </div>
             </div>
-            <button className="sidebar-toggle" onClick={toggleSidebar}>☰</button>
+            <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
             <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
-                <Sidebar sidebarVisible={sidebarVisible}/>
+                <Sidebar sidebarVisible={sidebarVisible} />
             </div>
             <div className="container3">
                 <Footer />
