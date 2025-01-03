@@ -12,10 +12,10 @@ const Sidebar = ({ sidebarVisible }) => {
       <h2>Dashboard</h2>
       <ul>
         <li><a href="/employee-attendance"><img src={attendence} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} /> Attendance</a></li>
-        <li><a href="#invoice"><img src={invoice} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} /> Invoice</a></li>
-        <li><a href="/employee-payment"><img src={payment} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} /> Payment</a></li>
-        <li><a href="/employee-manage-task-prgress"><img src={task} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} /> Task</a></li>
-        <li><a href="/employee-mailbox"><img src={mail} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} /> Mail-Box</a></li>
+        <li><a href="#invoice"><img src={invoice} alt="Invoice" style={{ width: '20px', marginRight: '14px' }} /> Invoice</a></li>
+        <li><a href="/employee-payment"><img src={payment} alt="Payment" style={{ width: '20px', marginRight: '14px' }} /> Payment</a></li>
+        <li><a href="/employee-manage-task-prgress"><img src={task} alt="Task" style={{ width: '20px', marginRight: '14px' }} /> Task</a></li>
+        <li><a href="/employee-mailbox"><img src={mail} alt="Mailbox" style={{ width: '20px', marginRight: '14px' }} /> Mail-Box</a></li>
       </ul>
     </div>
   );
