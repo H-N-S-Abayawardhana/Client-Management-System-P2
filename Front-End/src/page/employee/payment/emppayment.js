@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../../components/templetes/empNavBar';
-import Footer from '../../../components/PagesFooter';
+import Footer from '../../../components/templetes/Footer';
 import Sidebar from '../../../components/templetes/ESideBar';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
