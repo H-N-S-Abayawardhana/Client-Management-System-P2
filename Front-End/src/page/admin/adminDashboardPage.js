@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/templetes/adminNavBar';
 import Footer from '../../components/templetes/Footer';
 import Sidebar from '../../components/templetes/SideBar';
@@ -12,6 +13,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../../css/admin/admindash.css';
 
 function AdminDashboard() {
+  const navigate = useNavigate();
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [receivedTasks, setReceivedTasks] = useState([]); // State for received tasks
   const [attendance, setAttendCount] = useState([]);
@@ -29,26 +31,42 @@ function AdminDashboard() {
     const year = date.getFullYear();
     return `${year}-${month}-${day}`;
   };
-
-  const getAttendCount = async () => {
+  const makeAuthenticatedRequest = async (url) => {
+    const token = localStorage.getItem('token');
     try {
-      const response = await fetch('http://localhost:5000/api/admin/admin/attendCount')
-      const responseData = await response.json()
-      if (!response.ok) {
-        console.log("error")
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.status === 401 || response.status === 403) {
+        // Token expired or invalid
+        localStorage.removeItem('token');
+        navigate('/login');
+        return null;
       }
-      else {
-        console.log(responseData)
-        const count = responseData.toString().padStart(2, '0');
-        console.log(count)
-        setAttendCount(count)
-      }
-    }
-    catch (error) {
-      console.log(error)
+
+      return response;
+    } catch (error) {
+      console.error('Request error:', error);
+      return null;
     }
   };
 
+  const getAttendCount = async () => {
+    try {
+      const response = await makeAuthenticatedRequest('http://localhost:5000/api/admin/admin/attendCount')
+      if (response) {
+        const responseData = await response.json();
+        const count = responseData.toString().padStart(2, '0');
+        setAttendCount(count);
+      }
+    } catch (error) {
+      console.error('Attendance count error:', error);
+    }
+  };
+      
   const getEmpCount = async () => {
     try {
       const response = await fetch('http://localhost:5000/api/admin/admin/empCount')

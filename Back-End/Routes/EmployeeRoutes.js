@@ -69,20 +69,15 @@ router.get('/employee/empCount', async (req, res) => {
   }
 });
 
-// Fetch attendance count
 router.get('/employee/attendCount', async (req, res) => {
     try {
         const currentDate = new Date().toISOString().split('T')[0];
-        console.log(currentDate);
+        
+        // Modified query to compare only date portions
+        const query = "SELECT COUNT(AttendanceID) AS attendCount FROM attendance WHERE DATE(Date) = ?";
+        const [data] = await db.query(query, [currentDate]);
 
-        const query = "SELECT COUNT(AttendanceID) AS attendCount FROM attendance WHERE Date = ?";
-        const [data] = await db.query(query, [currentDate]); 
-
-        if (data[0].attendCount > 0) {
-            return res.status(200).json(data[0].attendCount);
-        } else {
-            return res.json(0);
-        }
+        return res.status(200).json(data[0].attendCount || 0);
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'An error occurred while fetching the attendance count.' });

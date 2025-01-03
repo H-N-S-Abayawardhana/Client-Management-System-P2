@@ -110,16 +110,12 @@ router.get('/admin/received', async (req, res) => {
 router.get('/admin/attendCount', async (req, res) => {
     try {
         const currentDate = new Date().toISOString().split('T')[0];
-        console.log(currentDate);
+        
+        // Modified query to compare only date portions
+        const query = "SELECT COUNT(AttendanceID) AS attendCount FROM attendance WHERE DATE(Date) = ?";
+        const [data] = await con.query(query, [currentDate]);
 
-        const query = "SELECT COUNT(AttendanceID) AS attendCount FROM attendance WHERE Date = ?";
-        const [data] = await con.query(query, [currentDate]); // Use await for the promise-based query
-
-        if (data[0].attendCount > 0) {
-            return res.status(200).json(data[0].attendCount);
-        } else {
-            return res.json(0);
-        }
+        return res.status(200).json(data[0].attendCount || 0);
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'An error occurred while fetching the attendance count.' });
