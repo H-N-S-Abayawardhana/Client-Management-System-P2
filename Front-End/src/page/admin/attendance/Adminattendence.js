@@ -228,7 +228,7 @@ const AdminAttendance = () => {
                             <td>{entry.name}</td>
                             <td>{formatDate(entry.date)}</td>
                             <td>{entry.email}</td>
-                            <td className="fw-bold">Attendad</td>
+                            <td className="fw-bold">{entry.status}</td>
                           </tr>
                         ))}
                         {filteredData.length === 0 && (

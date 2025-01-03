@@ -13,11 +13,11 @@ const Sidebar = () => {
       <h2>Dashboard</h2>
       <ul>
         <li><a href="admin-attendance"><img src={attendence} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} /><span>Attendance</span></a></li>
-        <li><a href="/admin-invoice"><img src={invoice} alt="Attendance" style={{ width: '25px', marginRight: '10px' }}/><span>Invoice</span></a></li>
-        <li><a href="/view-employees"><img src={employee} alt="Attendance" style={{ width: '25px', marginRight: '10px',boxShadow: 'none' }}/><span>Employers</span></a></li>
-        <li><a href="/admin-payment"><img src={payment} alt="Attendance" style={{ width: '25px', marginRight: '10px' }}/><span>Payment</span></a></li>
-        <li><a href="/admin-manage-task"><img src={task} alt="Attendance" style={{ width: '25px', marginRight: '10px' }}/><span>Task</span></a></li>
-        <li><a href="/admin-mailbox"><img src={mail} alt="Attendance" style={{ width: '25px', marginRight: '10px' }}/><span>Mail-Box</span></a></li>
+        <li><a href="/admin-invoice"><img src={invoice} alt="Invoice" style={{ width: '25px', marginRight: '10px' }}/><span>Invoice</span></a></li>
+        <li><a href="/view-employees"><img src={employee} alt="employees" style={{ width: '25px', marginRight: '10px',boxShadow: 'none' }}/><span>Employers</span></a></li>
+        <li><a href="/admin-payment"><img src={payment} alt="Payment" style={{ width: '25px', marginRight: '10px' }}/><span>Payment</span></a></li>
+        <li><a href="/admin-manage-task"><img src={task} alt="Task" style={{ width: '25px', marginRight: '10px' }}/><span>Task</span></a></li>
+        <li><a href="/admin-mailbox"><img src={mail} alt="Mailbox" style={{ width: '25px', marginRight: '10px' }}/><span>Mail-Box</span></a></li>
       </ul>
     </div>
   );

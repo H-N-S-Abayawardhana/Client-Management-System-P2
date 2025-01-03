@@ -50,32 +50,30 @@ const AdminMailBox = () => {
                 body: formDataToSend,
                 credentials: 'include',
             });
+            console.log(response);
+            console.log(response.status);
     
-            if (response.ok) {
-                toast.success('🚀 Email sent successfully!', {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
-                setFormData({ to: '', subject: '', message: '', attachment: null }); // Reset form
-            } else {
+            if (!response.ok) {
                 const errorData = await response.json();
-                toast.error(`❌ Failed to send email: ${errorData.message}`, {
-                    position: "top-right",
-                    autoClose: 4000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
+                console.log(`Failed: ${errorData.message || 'Unknown error'}`);
+                return;
             }
+        
+            const data = await response.json(); // Parse response JSON
+            console.log('Server Response:', data);
+            toast.success('🚀 Email sent successfully!', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        
+            setFormData({ to: '', subject: '', message: '', attachment: null }); // Reset form
+            return;
         } catch (error) {
             console.error('Error submitting form:', error);
             toast.error('❌ Network error: Failed to send email', {
@@ -132,7 +130,7 @@ const AdminMailBox = () => {
                             <h4 className="km-employee-attendance-page-title text-center" style={{ color: "#24757E" }}>Mail Box</h4>
 
                             <div className="km-mailbox-container">
-                                <form onSubmit={handleSubmit} className='km-form'>
+                                <form className='km-form'>
                                     <h6 className="text-start fw-bold mb-2 mt-3">Send Email</h6>
 
                                     <input
@@ -191,8 +189,12 @@ const AdminMailBox = () => {
                                     ></textarea>
 
                                     {/* Submit Button */}
-                                    <button type="submit" className="km-mailbox-submit-btn mb-3">
-                                        Send
+                                    <button type="submit" className="km-mailbox-submit-btn mb-3" disabled={isLoading} onClick={handleSubmit}>
+                                        {isLoading ? (
+                                            <span className="km-spinner"></span> // Spinner
+                                            ) : (
+                                            'Send'
+                                        )}
                                     </button>
                                 </form>
                             </div>
