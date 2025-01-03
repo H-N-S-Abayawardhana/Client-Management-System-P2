@@ -369,7 +369,8 @@ router.get('/attendance/:input', async (req, res) => {
   }
 }); 
 
-// Route to add new attendance record ...
+
+// Add Attendance Route (with async/await)
 router.post('/addAttendance', async (req, res) => {
   try {
       const { name, date, email, employeeId } = req.body;
