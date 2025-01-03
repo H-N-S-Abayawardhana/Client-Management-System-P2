@@ -1,23 +1,34 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // Bootstrap JS for dropdowns
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // For navigation
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import arrow from '../../assets/arrow.png';
 import logo from '../../assets/logo.png';
 import user from '../../assets/user.png';
 import logoutIcon from '../../assets/logout.png';
+import menuIcon from '../../assets/menu.png';
+import attendence from '../../assets/attendence.png';
+import invoice from '../../assets/invoice.png';
+import employee from '../../assets/employee.png';
+import payment from '../../assets/payment.png';
+import task from '../../assets/task.png';
+import mail from '../../assets/mail.png';
 
 export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [logoutError, setLogoutError] = useState(null);
-  const navigate = useNavigate(); // Use navigate for redirection
+  const [showSidebar, setShowSidebar] = useState(false);
+  const navigate = useNavigate();
 
   const toggleNavbar = () => {
     setShowDropdown(!showDropdown);
   };
 
-  // Logout function with SweetAlert
+  const toggleSidebar = () => {
+    setShowSidebar(!showSidebar);
+  };
+
   const handleLogout = async () => {
     const result = await Swal.fire({
       imageUrl: logoutIcon,
@@ -47,7 +58,7 @@ export default function Navbar() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`, // Pass the JWT token
+            Authorization: `Bearer ${token}`,
           },
         });
 
@@ -73,7 +84,6 @@ export default function Navbar() {
         style={{ backgroundColor: '#24757e', color: '#ffffff' }}
       >
         <div className="container-fluid">
-          {/* Logo and Branding */}
           <div className="d-flex align-items-center flex-wrap flex-lg-nowrap w-100">
             <div className="d-flex align-items-center flex-grow-1">
               <img
@@ -82,17 +92,14 @@ export default function Navbar() {
                 style={{ width: '40px', height: '40px' }}
                 className="me-2"
               />
-              <span
-                className="text-white fs-6 fs-md-4"
-                style={{ lineHeight: '1.2' }}
-              >
+              <span className="text-white fs-6 fs-md-4" style={{ lineHeight: '1.2' }}>
                 GAMAGE RECRUITERS
               </span>
             </div>
 
-            {/* Navigation Links */}
             <ul
               className="navbar-nav d-flex flex-row justify-content-center justify-content-lg-end w-auto mt-2 mt-lg-0"
+              style={{ display: showSidebar ? 'none' : 'flex' }}
             >
               <li className="nav-item me-3">
                 <a className="nav-link text-white" href="/aboutus">
@@ -109,8 +116,6 @@ export default function Navbar() {
                   Contact Us
                 </a>
               </li>
-
-              {/* Profile Dropdown */}
               <li className="nav-item dropdown">
                 <a
                   className="nav-link d-flex align-items-center text-white"
@@ -129,7 +134,6 @@ export default function Navbar() {
                   <img src={arrow} alt="arrow" style={{ width: '15px' }} />
                 </a>
 
-                {/* Dropdown Menu */}
                 {showDropdown && (
                   <ul
                     className="dropdown-menu dropdown-menu-end show"
@@ -168,9 +172,101 @@ export default function Navbar() {
                 )}
               </li>
             </ul>
+
+            {/* Menu Icon for Mobile */}
+            <img
+              src={menuIcon}
+              alt="Menu"
+              className="d-lg-none"
+              onClick={toggleSidebar}
+              style={{
+                width: '30px',
+                height: '30px',
+                position: 'absolute',
+                top: '10px',
+                right: '20px', // Moved slightly to the left
+                cursor: 'pointer',
+              }}
+            />
           </div>
         </div>
       </nav>
+
+      {/* Sidebar */}
+      {showSidebar && (
+        <div
+          className="sidebar bg-light position-fixed top-0 start-0 h-100"
+          style={{ width: '250px', zIndex: 1050 }}
+        >
+          <button
+            className="btn-close mt-2 ms-3"
+            onClick={toggleSidebar}
+            aria-label="Close"
+          ></button>
+          <ul className="list-group mt-4">
+            <li className="list-group-item">
+              <a href="/admin-profile">My Profile</a>
+            </li>
+            <li className="list-group-item">
+              <a href="/admin-dashboard">
+                <img src={attendence} alt="Dashboard" style={{ width: '20px', marginRight: '14px' }} />
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li className="list-group-item">
+              <a href="/admin-attendance">
+                <img src={attendence} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} />
+                <span>Attendance</span>
+              </a>
+            </li>
+            <li className="list-group-item">
+              <a href="/admin-invoice">
+                <img src={invoice} alt="Invoice" style={{ width: '25px', marginRight: '10px' }} />
+                <span>Invoice</span>
+              </a>
+            </li>
+            <li className="list-group-item">
+              <a href="/view-employees">
+                <img src={employee} alt="Employees" style={{ width: '25px', marginRight: '10px' }} />
+                <span>Employers</span>
+              </a>
+            </li>
+            <li className="list-group-item">
+              <a href="/admin-payment">
+                <img src={payment} alt="Payment" style={{ width: '25px', marginRight: '10px' }} />
+                <span>Payment</span>
+              </a>
+            </li>
+            <li className="list-group-item">
+              <a href="/admin-manage-task">
+                <img src={task} alt="Task" style={{ width: '25px', marginRight: '10px' }} />
+                <span>Task</span>
+              </a>
+            </li>
+            <li className="list-group-item">
+              <a href="/admin-mailbox">
+                <img src={mail} alt="Mailbox" style={{ width: '25px', marginRight: '10px' }} />
+                <span>Mail-Box</span>
+              </a>
+            </li>
+            <li className="list-group-item">
+              <a href="/adminChange-password">Change Password</a>
+            </li>
+            <li className="list-group-item text-danger">
+              <button
+                onClick={handleLogout}
+                style={{
+                  border: 'none',
+                  background: 'none',
+                  padding: 0,
+                }}
+              >
+                Log out
+              </button>
+            </li>
+          </ul>
+        </div>
+      )}
 
       <style>
         {`
