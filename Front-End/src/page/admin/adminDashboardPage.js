@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/templetes/adminNavBar';
-import Footer from '../../components/PagesFooter';
+import Footer from '../../components/templetes/Footer';
 import Sidebar from '../../components/templetes/SideBar';
 import attendImage from '../../assets/attend-image.png';
 import InfoInvoice from '../../assets/pending-invoice.png';
@@ -216,7 +216,9 @@ function AdminDashboard() {
         </div>
       </div>
 
-      <Footer />
+                  <div className="container3">
+                      <Footer />
+                  </div>
     </div>
   );
 }
