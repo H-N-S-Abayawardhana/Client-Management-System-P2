@@ -3,11 +3,7 @@ import { useSnapshot } from "valtio";
 import { useNavigate } from "react-router-dom";
 import { serviceState } from "../../../utils";
 import Navbar from "../../../components/templetes/adminNavBar";
-
 import Footer from '../../../components/templetes/Footer';
-
-import Footer from "../../../components/templetes/Footer";
-
 import Sidebar from "../../../components/templetes/SideBar";
 import '../../../css/admin/invoice/addservice.css';
 

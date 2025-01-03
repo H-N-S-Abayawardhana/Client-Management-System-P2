@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import Navbar from "../../../components/templetes/adminNavBar";
 import Sidebar from "../../../components/templetes/SideBar";
 import Footer from '../../../components/templetes/Footer';
-import Footer from "../../../components/templetes/Footer";
+
 
 const Invoice = () => {
   const navigate = useNavigate();
@@ -213,6 +213,8 @@ const Invoice = () => {
       <div className="container3">
         <Footer />
       </div>
+    </div>
+    </div>
     </div>
   );
 };

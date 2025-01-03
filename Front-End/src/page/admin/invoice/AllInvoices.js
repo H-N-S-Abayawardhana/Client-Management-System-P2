@@ -9,7 +9,6 @@ import Sidebar from "../../../components/templetes/SideBar";
 
 import Footer from '../../../components/templetes/Footer';
 
-import Footer from "../../../components/templetes/Footer";
 
 
 const InvoiceTable = () => {

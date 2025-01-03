@@ -10,7 +10,6 @@ import Sidebar from "../../../components/templetes/ESideBar";
 
 import Footer from '../../../components/templetes/Footer';
 
-import Footer from "../../../components/templetes/Footer";
 
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
