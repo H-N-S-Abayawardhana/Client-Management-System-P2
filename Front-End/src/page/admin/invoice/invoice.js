@@ -9,6 +9,7 @@ import Navbar from "../../../components/templetes/adminNavBar";
 import Sidebar from "../../../components/templetes/SideBar";
 import Footer from '../../../components/templetes/Footer';
 
+
 const Invoice = () => {
   const navigate = useNavigate();
   const state = useSnapshot(serviceState);
@@ -86,6 +87,7 @@ const Invoice = () => {
   };
 
   return (
+
     <div>
       <Navbar />
       <div className="yks-invoice-page">
@@ -101,6 +103,23 @@ const Invoice = () => {
         <div className="yks-head">
           <h1 className="text-center">Add Invoice Details</h1>
         </div>
+
+      <div>
+        <Navbar />
+        <div className="yks-invoice-page">
+          {/* Breadcrumb Navigation */}
+          <nav>
+            <p className="yks-profile-breadcrumb">
+              <span className="home">Home</span> /
+              <span className="home"> Invoice</span> /
+              <span className="contact"> Add Invoices</span>
+            </p>
+          </nav>
+          {/* Page Title */}
+          <div className="yks-head">
+            <h1 >Add Invoice Details</h1>
+          </div>
+
 
         {/* Invoice Form Section */}
         <div className="yks-invoice-box">
@@ -194,6 +213,8 @@ const Invoice = () => {
       <div className="container3">
         <Footer />
       </div>
+    </div>
+    </div>
     </div>
   );
 };

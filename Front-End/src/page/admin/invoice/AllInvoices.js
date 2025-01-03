@@ -6,7 +6,10 @@ import "../../../css/admin/invoice/invoiceTable.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "../../../components/templetes/adminNavBar";
 import Sidebar from "../../../components/templetes/SideBar";
+
 import Footer from '../../../components/templetes/Footer';
+
+
 
 const InvoiceTable = () => {
     const [invoices, setInvoices] = useState([]);
@@ -69,7 +72,7 @@ const InvoiceTable = () => {
                 </nav>
                 <div className="yks-invoice-table-container">
                     <div className="yks-head">
-                        <h1 className="text-center">All Invoice Details</h1>
+                        <h1>All Invoice Details</h1>
                     </div>
 
 

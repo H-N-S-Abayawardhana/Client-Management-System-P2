@@ -141,6 +141,7 @@
   background-color: #4e8585;
 }
 
+
 @media (max-width: 768px) {
   .yks-invoice-page .yks-invoice-box {
     margin-left: 0%;
@@ -170,3 +171,32 @@
     margin-left: 7%;
   }
 }
+
+
+@media (max-width: 780px) {
+    .yks-invoice-page .yks-profile-breadcrumb {
+        display: none;
+    }
+    .yks-invoice-page .yks-head h1 {
+        padding-top: 80px;
+        margin-bottom: 30px;
+        margin-left: 90px;
+        font-size: calc(1.375rem + 1.5vw);
+        font-weight: bold !important;
+    }
+    .yks-invoice-page .yks-invoice-box{
+        margin-left: 10px;
+    }
+    .service-detail-section h5,
+    .total-cost-section h5{
+        margin-left: 10px;
+    }
+    .service-detail-section p{
+        margin-left: 10px;
+    }
+    .yks-invoice-page .yks-view-btn ,
+    .yks-invoice-page .yks-save-btn{
+        margin-left: 10px;
+    }
+}
+

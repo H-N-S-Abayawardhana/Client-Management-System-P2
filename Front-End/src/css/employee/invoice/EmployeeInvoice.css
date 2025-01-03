@@ -3,7 +3,6 @@
     align-items: center;
     padding: 40px 10px;
     border-radius: 8px;
-    margin: 10px;
     color: #4c7476;
     overflow-y: auto;
     overflow-x: hidden;
@@ -26,21 +25,21 @@
 .yks-emp-invoice-container{
     margin: 20px;
 }
-.yks-head h1 {
+.yks-emp-invoice-container .yks-head h1 {
     color: #24757E;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     max-width: 100%;
 }
 
-.search-container {
+.yks-emp-invoice-container .search-container {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-.search-bar {
+.yks-emp-invoice-container .search-container .search-bar {
     width: 20%;
     padding: 10px;
     border-radius: 30px;
@@ -49,9 +48,9 @@
     text-align: right;
 }
 
-.search-icon {
+.yks-emp-invoice-container .search-container .search-icon {
     position: absolute;
-    right: 145px;
+    right: 210px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -83,7 +82,9 @@
     color: rgb(9, 0, 0);
     font-weight: bold;
 }
-
+.yks-invoice-tbl tr{
+    color: rgb(9, 0, 0);
+}
 .yks-invoice-tbl tr:hover {
     background-color: #f1f1f1;
 }
@@ -120,21 +121,77 @@ tbody::-webkit-scrollbar-thumb:hover {
 
 /* Mobile-specific styles */
 @media (max-width: 768px) {
-    .search-bar {
-        margin-right: 700px;
+    .yks-employee-invoice-page .yks-profile-breadcrumb{
+        display: none;
+    }
+    .yks-emp-invoice-container{
+        max-width: 90%; /* Ensure the form fits within the viewport */
+        margin: 20px auto; /* Center and add vertical margin */
+        padding: 15px;
+    }
+    .yks-emp-invoice-container .yks-head h1{
+        padding-top: 80px;
+        margin-bottom: 30px;
+        font-size: calc(1.375rem + 1.5vw);
+        font-weight: bold;
+        margin-left: 150px;
+    }
+    .yks-emp-invoice-container .search-container .search-bar{
         width: 200px;
         text-align: right;
-
+        margin-right: 550px;
     }
+    .yks-emp-invoice-container .search-container .search-icon{
+        display: none;
+    }
+    .yks-table-container {
+        align-items: center;
+        padding: 20px;
+        margin: 0px;
+        max-width: 100%;
+    }
+    .yks-emp-invoice-container {
+        align-items: center;
+        padding: 3px;
+        max-width: 100%;
+    }
+    .yks-invoice-tbl table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow: auto;
+    }
+
+    .yks-invoice-tbl thead,
+    tbody {
+        display: block;
+    }
+
 
     .yks-head .text-center{
         margin-left: 0%;
+
+    .yks-invoice-tbl tbody {
+        max-height: 400px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    .yks-invoice-tbl thead tr,
+    tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+
     }
 
     .yks-invoice-tbl th,
-    .yks-invoice-tbl td {
+    td {
+        padding: 15px 12px;
         font-size: 12px;
+        text-align: center;
     }
+
 
     .yks-table-container {
         align-items: center;
@@ -154,4 +211,6 @@ tbody::-webkit-scrollbar-thumb:hover {
     .yks-invoice-tbl {
         width: auto;
     }
+
+}
 }
