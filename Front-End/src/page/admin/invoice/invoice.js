@@ -99,7 +99,7 @@ const Invoice = () => {
           </nav>
           {/* Page Title */}
           <div className="yks-head">
-            <h1 className="text-center">Add Invoice Details</h1>
+            <h1 >Add Invoice Details</h1>
           </div>
 
           {/* Invoice Form Section */}
