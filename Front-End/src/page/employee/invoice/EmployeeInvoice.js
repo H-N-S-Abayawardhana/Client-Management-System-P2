@@ -65,7 +65,7 @@ function EmployeeInvoice() {
       <div>
         <Navbar />
         <div className="yks-employee-invoice-page">
-          <nav className="yks-breadcrumb" aria-label="breadcrumb">
+          <nav>
             <p className="yks-profile-breadcrumb">
               <span className="home">Home</span> / <span className="contact">Invoices</span>
             </p>
