@@ -28,7 +28,7 @@ const ContactUs = () => {
     setResponseMessage({ text: '', type: '' });
 
     try {
-      const response = await axios.post('http://localhost:5000/api/sendMail', formData);
+      const response = await axios.post('http://localhost:5000/api/contact/sendMail', formData);
       
       if (response.status === 200) {
         setResponseMessage({ 

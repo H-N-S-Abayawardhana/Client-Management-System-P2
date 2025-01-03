@@ -139,13 +139,6 @@ function InvoiceForm() {
                         <h1>Invoice</h1>
                     </div>
 
-                    {error && <div className="alert alert-danger">{error}</div>}
-                    {!invoiceDetails && !error && (
-                        <div className="spinner-border text-primary" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </div>
-                    )}
-
                     {invoiceDetails && (
                         <div>
                             <header className="yks-empinvoice-header">
