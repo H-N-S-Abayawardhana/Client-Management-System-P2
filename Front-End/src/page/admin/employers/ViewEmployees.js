@@ -199,10 +199,7 @@ function ViewEmployees() {
                     </div>
                 </div>
             </div>
-            <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
-            <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
-                <Sidebar sidebarVisible={sidebarVisible} />
-            </div>
+
             <div className="container3">
                 <Footer />
             </div>
