@@ -116,7 +116,7 @@ const UpdateEmployee = () => {
 
     return (
         <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
-            <ToastContainer position="top-right" autoClose={3000} />
+            <ToastContainer className='mt-5 waw-custom-toast-container'/>
             <Navbar />
             <button className="sidebar-toggle waw-tog" onClick={toggleSidebar}>
                 ☰

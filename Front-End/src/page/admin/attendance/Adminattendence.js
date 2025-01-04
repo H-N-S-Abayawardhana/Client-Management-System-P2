@@ -172,7 +172,7 @@ const AdminAttendance = () => {
   return (
     <div className="ekr-admin-attendance-wrapper">
       <div className="ekr-admin-attendance-container d-flex flex-column" style={{ minHeight: '100vh' }}>
-        <ToastContainer position="top-right" autoClose={3000} />
+        <ToastContainer className='mt-5 ekr-custom-toast-container'/>
         <Navbar />
 
         <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>

@@ -337,10 +337,6 @@ router.get("/employee/:email", async (req, res) => {
     }
 });
 
-
-
-
-
 // Route to view all employees ...
 router.get('/ViewAllEmployees', (req, res) => {
     try {
@@ -474,13 +470,22 @@ router.post('/addAttendance', async (req, res) => {
         const fullDateTime = `${date} ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`;
         console.log(name, date, email, hour, minute, second, fullDateTime);
 
-        if(hour >= 8 && hour < 17) {
-            // Insert the new attendance record into the database ...
-            const sql2 = `INSERT INTO attendance (EmployeeID, Name, Email, Date) VALUES (?, ?, ?, ?)`;
-            await db.query(sql2, [employeeId, name, email, fullDateTime]);
-            return res.status(200).json({ message: "Attendance added successfully!"});
+        // First check if the employee already added attendane for the relevant date ...
+        const sql1 = "SELECT COUNT(*) AS count FROM attendance WHERE Date = ? AND Name = ? AND Email = ?";
+        const result = await db.query(sql1, [current_date, name, email]);
+        console.log("Count:", result[0][0].count);
+        const count = result[0][0].count;
+        if(count === 1) {
+            return res.status(401).json({ message: "Attendance already added for the employee!" });
         } else {
-            return res.status(202).json({ message: "You can't mark attendance at this time. It can be done from 8am to 5pm !"});
+            if(hour >= 8 && hour < 17) {
+                // Insert the new attendance record into the database ...
+                const sql2 = `INSERT INTO attendance (EmployeeID, Name, Email, Date) VALUES (?, ?, ?, ?)`;
+                await db.query(sql2, [employeeId, name, email, fullDateTime]);
+                return res.status(200).json({ message: "Attendance added successfully!"});
+            } else {
+                return res.status(401).json({ message: "You can't mark attendance at this time. It can be done from 8am to 5pm !"});
+            }
         }
     } catch(error) {
         console.log(error.message);
