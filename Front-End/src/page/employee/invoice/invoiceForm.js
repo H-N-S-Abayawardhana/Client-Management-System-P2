@@ -7,9 +7,7 @@ import "../../../css/employee/invoice/invoiceForm.css";
 import axios from "axios";
 import Navbar from "../../../components/templetes/empNavBar";
 import Sidebar from "../../../components/templetes/ESideBar";
-
-import Footer from '../../../components/templetes/Footer';
-
+import Footer from "../../../components/templetes/Footer";
 
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
@@ -18,13 +16,12 @@ function InvoiceForm() {
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const [invoiceDetails, setInvoiceDetails] = useState(null);
     const [employeeDetails, setEmployeeDetails] = useState(null);
-    const [serviceDetails, setServiceDetails] = useState([]); // Initialize as an empty array
+    const [serviceDetails, setServiceDetails] = useState([]);
     const [error, setError] = useState(null);
     const { selectedInvoiceId } = useParams();
     const navigate = useNavigate();
     const invoiceDetailRef = useRef(null);
 
-    // Toggle Sidebar
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
@@ -76,20 +73,15 @@ function InvoiceForm() {
 
     useEffect(() => {
         if (invoiceDetails?.invoiceID) {
-            console.log(invoiceDetails.invoiceID);
             const fetchServiceDetails = async () => {
                 try {
-                    // const response = await fetch(`http://localhost:5000/api/admin/service/8`);
-                    const response = await fetch(`http://localhost:5000/api/admin/service/${invoiceDetails.invoiceID}`);
-                    console.log(response);
+                    const response = await fetch(`http://localhost:5000/api/employee/service/${invoiceDetails.invoiceID}`);
                     if (!response.ok) throw new Error("Failed to fetch service details");
                     const data = await response.json();
-                    console.log(data);
-                    console.log(data.data);
                     if (data?.data) {
-                        setServiceDetails(data.data); // Ensure serviceDetails is an array
+                        setServiceDetails(data.data);
                     } else {
-                        throw new Error("Service details not found");
+                        setServiceDetails([]); // In case there are no service details
                     }
                 } catch (err) {
                     setError(err.message);
@@ -155,7 +147,6 @@ function InvoiceForm() {
                                         </div>
                                     </div>
 
-                                    {/* Client Details */}
                                     <div className="table-responsive">
                                         <table className="table table-bordered">
                                             <thead className="bg-light">
@@ -190,7 +181,6 @@ function InvoiceForm() {
                                         </table>
                                     </div>
 
-                                    {/* Service Details */}
                                     <div className="table-responsive">
                                         <table className="table table-bordered">
                                             <thead className="bg-light">
@@ -209,7 +199,7 @@ function InvoiceForm() {
                                                     <tr key={index}>
                                                         <td>{index + 1}</td>
                                                         <td>{service.service_description}</td>
-                                                        <td>${service.cost}</td>
+                                                        <td>${service.Cost}</td>
                                                     </tr>
                                                 ))
                                             ) : (
@@ -225,7 +215,6 @@ function InvoiceForm() {
                                         </table>
                                     </div>
                                 </div>
-                                {/* Report Button */}
                                 <div className="mt-4">
                                     <button className="report-btn" onClick={downloadPDF}>
                                         <i className="fas fa-download me-2"></i>Report
@@ -234,6 +223,8 @@ function InvoiceForm() {
                             </div>
                         </div>
                     )}
+
+                    {error && <div className="error-message">{error}</div>}
                 </div>
             </div>
 

@@ -20,6 +20,7 @@ const Invoice = () => {
     AcountId: "",
     invoice_date: "",
     total_cost: state.totalCost,
+    status : "unpaid",
     description: state.services.map((s) => s.description).join(", "), // Optional description aggregation
   });
   const toggleSidebar = () => {
@@ -80,6 +81,7 @@ const Invoice = () => {
       AcountId: "",
       invoice_date: "",
       total_cost: 0.0, // Reset total cost to 0.0
+      status : "unpaid",
       description: "", // Clear description as well
     });
     serviceState.services = []; // Clear all services from the state
