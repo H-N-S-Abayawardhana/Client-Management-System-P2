@@ -23,26 +23,43 @@ const EmployeeProfile = () => {
   }, []);
 
   useEffect(() => {
-   // Updated to use the new endpoint
-   fetch('http://localhost:5000/api/employee/current/profile')
-   .then((response) => {
-     if (!response.ok) {
-       if (response.status === 401) {
-         // Handle unauthorized access - redirect to login
-         navigate('/login');
-         throw new Error("No active session");
-       }
-       throw new Error("Failed to fetch user data");
-     }
-     return response.json();
-   })
-   .then((data) => {
-     setEmployee(data);
-   })
-   .catch((error) => {
-     console.error("Error fetching employee data:", error);
-     setError("Error fetching employee data");
-   });
+    const fetchEmployeeData = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const email = localStorage.getItem("email");
+            const userType = localStorage.getItem("type");
+
+            if (!token || !email || !userType) {
+                navigate("/login");
+                throw new Error("Missing authentication data");
+            }
+
+            if (userType !== "Employee") {
+                navigate("/login");
+                throw new Error("Unauthorized access");
+            }
+
+            const response = await fetch(`http://localhost:5000/api/employee/employee/profile/${email}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch employee data");
+            }
+
+            const data = await response.json();
+            setEmployee(data);
+        } catch (error) {
+            console.error("Error fetching employee data:", error);
+            setError("Error fetching employee data");
+        }
+    };
+
+    fetchEmployeeData();
 }, [navigate]);
 
   

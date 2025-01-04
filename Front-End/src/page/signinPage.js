@@ -52,9 +52,9 @@ function Signin() {
                 toast.success(data.message);
 
                 // Save token to local storage
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('email' ,email);
-                localStorage.setItem('type' , selectedValue);
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("email", email);
+                localStorage.setItem("type", selectedValue);
 
                 // Redirect based on user type
                 if (selectedValue === 'Admin') {

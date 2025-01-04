@@ -9,79 +9,42 @@ import con from '../utils/db.js'; // Assuming 'con' is your MySQL connection ins
 
 const router = express.Router();
 
-// Admin Change Password
-router.post('/change-password', authenticateToken, async (req, res) => {
-    const { oldPassword, newPassword } = req.body;
 
+router.get("/admin/profile/:email", async (req, res) => {
     try {
-        if (req.user.userType !== 'Admin') {
-            return res.status(403).json({ message: 'Access denied.' });
+        const { email } = req.params;
+        console.log("Email received:", email); // Log 1
+        
+        const [admins] = await db.query(
+            `SELECT 
+                Name,
+                Email,
+                ContactNumber,
+                Username,
+                RegistrationDate,
+                AdminID
+             FROM admin
+             WHERE Email = ?`,
+            [email]
+        );
+
+        console.log("Database result:", admins); // Log 2
+        console.log("First admin:", admins[0]); // Log 3
+
+        if (!admins.length) {
+            return res.status(404).json({ message: "Admin not found" });
         }
 
-        const [rows] = await db.query('SELECT Password FROM Admin WHERE AdminID = ?', [req.user.id]);
-        if (rows.length === 0) {
-            return res.status(404).json({ message: 'Admin not found.' });
-        }
-
-        const admin = rows[0];
-        const isPasswordValid = await bcrypt.compare(oldPassword, admin.Password);
-
-        if (!isPasswordValid) {
-            return res.status(401).json({ message: 'Old password is incorrect.' });
-        }
-
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-        await db.query('UPDATE Admin SET Password = ? WHERE AdminID = ?', [hashedPassword, req.user.id]);
-
-        res.status(200).json({ message: 'Password updated successfully.' });
+        console.log("Data being sent:", admins[0]); // Log 4
+        res.json(admins[0]);
     } catch (err) {
-        console.error('Error changing password:', err);
-        res.status(500).json({ message: 'Internal server error.' });
+        console.error("Database error:", err);
+        res.status(500).json({ message: "Database error" });
     }
 });
-
-// Route for update current admin's profile
-router.put("/current/update", async (req, res) => {
-    try {
-      // Get the current admin's ID from active session
-      const [sessions] = await db.query(`
-        SELECT UserID
-        FROM sessionlogs 
-        WHERE LogoutTime IS NULL 
-        AND UserType = 'Admin'
-        ORDER BY LoginTime DESC 
-        LIMIT 1
-      `);
-
-      if (!sessions.length) {
-        return res.status(401).json({ message: "No active admin session found" });
-      }
-
-      const adminID = sessions[0].UserID;
-      const { AdminName, UserName, Email, ContactNumber, RegistrationDate } = req.body;
-
-      // Update the admin's data
-      const [result] = await db.query(`
-        UPDATE Admin 
-        SET Name = ?,
-            Username = ?,
-            Email = ?,
-            ContactNumber = ?,
-            RegistrationDate = ?
-        WHERE AdminID = ?
-      `, [AdminName, UserName, Email, ContactNumber, RegistrationDate, adminID]);
-
-      if (result.affectedRows === 0) {
-        return res.status(404).json({ message: "Admin not found" });
-      }
-
-      res.json({ message: "Admin profile updated successfully" });
-
-    } catch (err) {
-      console.error("Database error:", err);
-      res.status(500).json({ message: "Error updating admin data", error: err.message });
-    }
-  });
+  
+  
+  
 
 
 // Fetch received tasks
@@ -157,48 +120,7 @@ router.get('/admin/invoiceCount', async (req, res) => {
 });
 
 
-//Route to get current admin profile
-router.get("/current/profile", async (req, res) => {
-    try {
-      // Get the most recent active session
-      const [sessions] = await db.query(`
-        SELECT UserID, UserType 
-        FROM sessionlogs 
-        WHERE LogoutTime IS NULL 
-        AND UserType = 'Admin'
-        ORDER BY LoginTime DESC 
-        LIMIT 1
-      `);
 
-      if (!sessions.length) {
-        return res.status(401).json({ message: "No active admin session found" });
-      }
-
-      const { UserID } = sessions[0];
-
-      const [admins] = await db.query(`
-        SELECT 
-          Name AS AdminName, 
-          Username AS UserName, 
-          Email,
-          ContactNumber, 
-          RegistrationDate
-        FROM Admin
-        WHERE AdminID = ?`,
-        [UserID]
-      );
-
-      if (!admins.length) {
-        return res.status(404).json({ message: "Admin not found" });
-      }
-
-      res.json(admins[0]);
-
-    } catch (err) {
-      console.error("Database error:", err);
-      res.status(500).json({ message: "Database error" });
-    }
-  });
 
 // Fetch received tasks
 router.get('/received', (req, res) => {

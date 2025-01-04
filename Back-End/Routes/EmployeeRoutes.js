@@ -5,55 +5,36 @@ import { isDDMMYYYYWithDash, isYYYYMMDD } from "../utils/formatDate.js";
 
 const router = express.Router();
 
-// New route to get current user data
-router.get("/current/profile", async (req, res) => {
+router.get("/employee/profile/:email", async (req, res) => {
     try {
-        // Get the most recent active session (no logout time)
-        const [sessions] = await db.query(`
-            SELECT UserID, UserType
-            FROM sessionlogs
-            WHERE LogoutTime IS NULL
-            ORDER BY LoginTime DESC
-                LIMIT 1
-        `);
+        const { email } = req.params;
+        
+        // Fetch employee data using email
+        const [employees] = await db.query(
+            `SELECT 
+                Name,
+                Designation,
+                Email,
+                ContactNumber,
+                Address,
+                WorkStartDate,
+                EmployeeID
+             FROM employee
+             WHERE Email = ?`,
+            [email]
+        );
 
-        if (!sessions.length) {
-            return res.status(401).json({ message: "No active session found" });
+        if (!employees.length) {
+            return res.status(404).json({ message: "Employee not found" });
         }
 
-        const { UserID, UserType } = sessions[0];
-
-        // If user is an employee, query employee table
-        if (UserType === 'Employee') {
-            const [employees] = await db.query(`
-                        SELECT
-                            Name,
-                            Designation,
-                            Email,
-                            ContactNumber,
-                            Address,
-                            WorkStartDate,
-                            EmployeeID
-                        FROM Employee
-                        WHERE EmployeeID = ?`,
-                [UserID]
-            );
-
-            if (!employees.length) {
-                return res.status(404).json({ message: "Employee not found" });
-            }
-
-            res.json(employees[0]);
-        } else {
-            // Handle admin case if needed
-            return res.status(400).json({ message: "Invalid user type for this endpoint" });
-        }
-
+        res.json(employees[0]);
     } catch (err) {
         console.error("Database error:", err);
         res.status(500).json({ message: "Database error" });
     }
 });
+
 
 //Fetch Employee Count
 router.get('/employee/empCount', async (req, res) => {
