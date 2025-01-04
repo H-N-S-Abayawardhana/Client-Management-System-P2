@@ -93,7 +93,9 @@ export default function Navbar() {
                 className="me-2"
               />
               <span className="text-white fs-6 fs-md-4" style={{ lineHeight: '1.2' }}>
-                GAMAGE RECRUITERS
+              <a href="/" style={{ textDecoration: "none", color: "white" }}>
+                      GAMAGE RECRUITERS
+              </a>
               </span>
             </div>
 

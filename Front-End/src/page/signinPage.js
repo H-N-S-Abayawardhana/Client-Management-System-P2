@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/signin.css';
 import Navbar from '../components/templetes/MainNav';
 import Footer from '../components/templetes/Footer';
@@ -14,11 +14,25 @@ function Signin() {
     const [selectedValue, setSelectedValue] = useState('');
     const navigate = useNavigate(); // for navigation
 
+    useEffect(() => {
+        // Check if the user is already logged in
+        const token = localStorage.getItem('token');
+        const userType = localStorage.getItem('type');
+
+        if (token) {
+            // Redirect based on the user type
+            if (userType === 'Admin') {
+                navigate('/admin-dashboard');
+            } else if (userType === 'Employee') {
+                navigate('/employee-dashboard');
+            }
+        }
+    }, [navigate]);
+
     const handleChange = (e) => {
         setSelectedValue(e.target.value);
     };
 
-    
     // Handle sign-in form submission
     const handleSignIn = async (e) => {
         e.preventDefault();
