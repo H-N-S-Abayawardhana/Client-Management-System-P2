@@ -9,7 +9,7 @@ import con from '../utils/db.js'; // Assuming 'con' is your MySQL connection ins
 
 const router = express.Router();
 
-
+// NEW DATA FETCHING METHOD OF CURRENT LOGGED ADMIN USING LOCALHOST
 router.get("/admin/profile/:email", async (req, res) => {
     try {
         const { email } = req.params;

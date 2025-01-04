@@ -5,6 +5,8 @@ import { isDDMMYYYYWithDash, isYYYYMMDD } from "../utils/formatDate.js";
 
 const router = express.Router();
 
+
+// NEW DATA FETCHING METHOD OF CURRENT LOGGED EMPLOYEE USING LOCALHOST
 router.get("/employee/profile/:email", async (req, res) => {
     try {
         const { email } = req.params;
