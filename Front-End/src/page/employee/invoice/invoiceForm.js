@@ -80,7 +80,7 @@ function InvoiceForm() {
             const fetchServiceDetails = async () => {
                 try {
                     // const response = await fetch(`http://localhost:5000/api/admin/service/8`);
-                    const response = await fetch(`http://localhost:5000/api/admin/service/${invoiceDetails.invoiceID}`);
+                   const response = await fetch(`http://localhost:5000/api/employee/service/${invoiceDetails.invoiceID}`);
                     console.log(response);
                     if (!response.ok) throw new Error("Failed to fetch service details");
                     const data = await response.json();
