@@ -133,8 +133,12 @@
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .ae-breadcrumb {
-    margin-left: 20px;
+    margin-left: 0px;  /* Remove any left margin */
     padding: 10px;
+    position: relative;
+    top: 100px;  /* Move breadcrumb down */
+    left: 10px; /* Move breadcrumb more to the left */
+    z-index: 2; /* Ensure the breadcrumb is on top if there are overlapping elements */
   }
 
   .ae-grid-container {
