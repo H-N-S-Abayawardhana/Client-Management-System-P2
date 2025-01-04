@@ -105,7 +105,7 @@ function AdminDashboard() {
 
   const getData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/admin/admin/received')
+      const response = await fetch('http://localhost:5000/employee/task/admin-recived-tasks-progress')
       const responseData = await response.json()
       if (!response.ok) {
         console.log("error")
@@ -202,22 +202,21 @@ function AdminDashboard() {
                   <table className="ae-task-table">
                     <thead>
                       <tr>
-                        <th>Employee Name</th>
-                        <th>Company</th>
+                        <th>Task ID</th>
+                        <th>Employee ID</th>
                         <th>Task Name</th>
-                        <th>Deadline</th>
-                        <th>Budget</th>
+                        <th>Description</th>                                       
                       </tr>
                     </thead>
                     <tbody>
                       {data.length > 0 ? (
                         data.map((task, index) => (
                           <tr key={index}>
-                            <td>{task.Employee_name}</td>
-                            <td>{task.Company}</td>
-                            <td>{task.Task_name}</td>
-                            <td>{formatDateToDMY(new Date(task.Deadline))}</td>
-                            <td>{task.Budget}</td>
+                            <td>{task.TaskID}</td>
+                            <td>{task.EmployeeID}</td>
+                            <td>{task.TaskName}</td>
+                            <td>{task.TaskDescription}</td>
+                            
                           </tr>
                         ))
                       ) : (
