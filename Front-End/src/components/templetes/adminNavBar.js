@@ -9,17 +9,17 @@ import user from '../../assets/user.png';
 import logoutIcon from '../../assets/logout.png';
 import menuIcon from '../../assets/menu.png';
 import attendence from '../../assets/attendence.png';
+import dashboard from '../../assets/dashboard.png';
 import invoice from '../../assets/invoice.png';
 import employee from '../../assets/employee.png';
 import payment from '../../assets/payment.png';
 import task from '../../assets/task.png';
 import mail from '../../assets/mail.png';
-import user2 from '../../assets/user2.png';
+import user2 from '../../assets/myprofile.png';
 import logout2 from '../../assets/logout2.png';
-import changepswd from '../../assets/changepswd.png';
+import changepswd from '../../assets/cpswd.png';
 
 export default function Navbar() {
-  // ... all the existing state and functions remain the same ...
   const [showDropdown, setShowDropdown] = useState(false);
   const [logoutError, setLogoutError] = useState(null);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -83,12 +83,10 @@ export default function Navbar() {
 
   return (
     <div>
-      {/* ... existing navbar code remains the same ... */}
       <nav
         className="navbar navbar-expand-lg fixed-top"
         style={{ backgroundColor: '#24757e', color: '#ffffff' }}
       >
-        {/* ... navbar content remains the same ... */}
         <div className="container-fluid">
           <div className="d-flex align-items-center flex-wrap flex-lg-nowrap w-100">
             <div className="d-flex align-items-center flex-grow-1">
@@ -153,26 +151,30 @@ export default function Navbar() {
                     }}
                   >
                     <li>
-                      <a className="dropdown-item" href="/admin-profile">
+                      <a className="dropdown-item d-flex align-items-center" href="/admin-profile">
+                        <img src={user2} alt="Profile" style={{ width: '20px', marginRight: '14px' }} />
                         My Profile
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="/adminChange-password">
+                      <a className="dropdown-item d-flex align-items-center" href="/adminChange-password">
+                        <img src={changepswd} alt="Change Password" style={{ width: '20px', marginRight: '14px' }} />
                         Change Password
                       </a>
                     </li>
                     <li>
                       <button
-                        className="dropdown-item text-danger"
+                        className="dropdown-item d-flex align-items-center text-danger"
                         onClick={handleLogout}
                         style={{
                           border: 'none',
-                          background: 'none',
-                          padding: 0,
-                          marginLeft: '18px',
+                          width: '100%',
+                          textAlign: 'left',
+                          padding: '8px 20px',
+                          background: 'none'
                         }}
                       >
+                        <img src={logout2} alt="Logout" style={{ width: '20px', marginRight: '14px' }} />
                         Log out
                       </button>
                     </li>
@@ -200,7 +202,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Updated Sidebar with scrolling and reduced spacing */}
+      {/* Sidebar */}
       {showSidebar && (
         <div
           className="sidebar bg-light position-fixed top-0 start-0 h-100 overflow-auto"
@@ -220,7 +222,7 @@ export default function Navbar() {
             </li>
             <li className="list-group-item py-2">
               <a href="/admin-dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={attendence} alt="Dashboard" style={{ width: '20px', marginRight: '14px' }} />
+                <img src={dashboard} alt="Dashboard" style={{ width: '20px', marginRight: '14px' }} />
                 <span>Dashboard</span>
               </a>
             </li>
