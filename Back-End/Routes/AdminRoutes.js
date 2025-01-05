@@ -73,6 +73,44 @@ router.get("/admin/profile/:email", async (req, res) => {
         res.status(500).json({ message: "Database error" });
     }
 });
+
+router.put("/current/update", async (req, res) => {
+    try {
+      const token = req.headers.authorization?.split(' ')[1];
+      if (!token) {
+        return res.status(401).json({ message: "No token provided" });
+      }
+  
+      const {
+        Name,
+        Username,
+        Email,
+        ContactNumber,
+        RegistrationDate,
+        AdminID
+      } = req.body;
+  
+      const [result] = await db.query(
+        `UPDATE admin 
+         SET Name = ?, 
+             Username = ?, 
+             Email = ?, 
+             ContactNumber = ?,
+             RegistrationDate = ?
+         WHERE AdminID = ?`,
+        [Name, Username, Email, ContactNumber, RegistrationDate, AdminID]
+      );
+  
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ message: "Admin not found" });
+      }
+  
+      res.json({ message: "Admin updated successfully" });
+    } catch (err) {
+      console.error("Update error:", err);
+      res.status(500).json({ message: "Error updating admin" });
+    }
+  });
   
   
   
