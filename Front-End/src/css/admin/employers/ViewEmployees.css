@@ -187,6 +187,7 @@
   margin: 10px;
   font-size: 12px;
   border-radius: 10px;
+  overflow-x: auto; /* Enable horizontal scrolling */
 } 
 
 @media (max-width: 768px) {
@@ -208,6 +209,7 @@
   border: 1px solid #8c8c8c33;
   border-radius: 10px;
   overflow-x: auto;
+  min-width: 900px; /* Set a minimum width to prevent shrinking too much */
 }
 
 .waw-employee-table th,
@@ -240,6 +242,16 @@
   .waw-employee-table th,
   .waw-employee-table td {
       padding: 8px; /* Reduce padding on smaller screens */
+  }
+}
+
+@media (max-width: 510px) {
+  .waw-add-employee-button {
+      font-size: 12px;
+  }
+
+  .waw-employee-search-bar {
+      font-size: 12px;
   }
 }
 
@@ -319,17 +331,81 @@
 .waw-smaller-swal-popup {
   padding: 1.5rem; /* Reduce padding */
   font-size: 0.9rem; /* Adjust font size */
+  max-width: 450px;
+  max-height: 350px;
+  border-radius: 8px;
+  font-size: 16px;
+  top: 30% !important;
 }
 
 /* Smaller title styling */
 .waw-smaller-swal-title {
-  font-size: 1.2rem; /* Smaller title font size */
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
 }
 
 /* Smaller content styling */
 .waw-smaller-swal-content {
-  font-size: 1rem; /* Reduce the font size of the text */
+  font-size: 14px;
+  text-align: center;
+  padding: 10px;
+}  
+
+/* For mobile screen sizes */
+@media (max-width: 768px) {
+  /* Make the popup a little smaller for mobile screens */
+  .waw-smaller-swal-popup {
+    width: 90% !important; /* Make it full width on mobile */
+    left: 5% !important; /* Adjust positioning */
+    top: 15% !important; /* Reduce gap from the top */
+    padding: 15px;
+  }
+
+  .waw-smaller-swal-title {
+    font-size: 16px;
+  }
+
+  .waw-smaller-swal-content {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .waw-smaller-swal-popup {
+    width: 95% !important; /* Make it wider on very small screens */
+    left: 2.5% !important; /* Adjust to center */
+    top: 15% !important; /* Less gap from the top */
+    padding: 10px;
+  }
+
+  .waw-smaller-swal-title {
+    font-size: 14px;
+  }
+
+  .waw-smaller-swal-content {
+    font-size: 10px;
+  }
 } 
+
+.waw-custom-toast-container {
+  position: fixed;
+  top: 20px; /* Adjust the distance from the top of the screen */
+  right: 20px; /* Adjust the distance from the right side of the screen */
+  left: auto;
+  bottom: auto;
+}
+
+@media (max-width: 768px) {
+  .waw-custom-toast-container {
+      top: 60px; /* Adjust the distance from the top of the screen */
+      right: 10px; /* Adjust the distance from the right side of the screen */
+  }
+}
+
+
+
+
 
 
 

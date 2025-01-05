@@ -33,7 +33,7 @@ function EmployeeAttendance() {
 
     const getLoggedUserData = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/employee/current/profile", {
+            const response = await fetch(`http://localhost:5000/api/employee/employee/profile/${localStorage.email}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type':'application/json',
@@ -64,6 +64,7 @@ function EmployeeAttendance() {
                 }
             })
             const responseData = await response.json();
+            console.log(responseData);
             if(!response.ok) {
                 console.log('No Attendance Records Found !');
                 return;
@@ -143,11 +144,9 @@ function EmployeeAttendance() {
 
     return (
         <div className="d-flex flex-column ekr-attendance-module" style={{ minHeight: "100vh" }}>
-            <ToastContainer position="top-right" autoClose={3000} />
+            <ToastContainer position="top-right" autoClose={3000} className="ekr-toast-container" />
             <Navbar />
-            <button className="sidebar-toggle ekr-tog" onClick={toggleSidebar}>
-                ☰
-            </button>
+            
             <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>
                 {/* Sidebar */}
                 <div
@@ -199,7 +198,7 @@ function EmployeeAttendance() {
                                     <table className="table table-bordered ekr-employee-attendance-table">
                                         <thead className="thead-light">
                                             <tr className="text-center">
-                                                <th>No</th>
+                                                <th className="ekr-w-10">No</th>
                                                 <th>Employee Name</th>
                                                 <th>Date</th>
                                                 <th>Email</th>
@@ -210,7 +209,7 @@ function EmployeeAttendance() {
                                             {data.length > 0 ? (
                                                 data.map((element, index) => (
                                                     <tr key={element.id} className="w-100">
-                                                        <td>{String(element.RowNumber).padStart(2, "0")}</td>
+                                                        <td className="ekr-w-10">{String(element.RowNumber).padStart(2, "0")}</td>
                                                         <td>{element.name}</td>
                                                         <td>{formatDateToDMY(new Date(element.date))}</td>
                                                         <td>{element.email}</td>

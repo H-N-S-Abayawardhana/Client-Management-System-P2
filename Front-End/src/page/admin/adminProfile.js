@@ -17,27 +17,44 @@ const AdminProfile = () => {
   };
 
   useEffect(() => {
-    // Updated to use the new endpoint
-    fetch('http://localhost:5000/api/admin/current/profile')
-      .then((response) => {
-        if (!response.ok) {
-          if (response.status === 401) {
-            // Handle unauthorized access - redirect to login
-            navigate('/login');
-            throw new Error("No active session");
-          }
-          throw new Error("Failed to fetch admin data");
+    const fetchAdminData = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const email = localStorage.getItem("email");
+            const userType = localStorage.getItem("type");
+
+            if (!token || !email || !userType) {
+                navigate("/login");
+                throw new Error("Missing authentication data");
+            }
+
+            if (userType !== "Admin") {
+                navigate("/login");
+                throw new Error("Unauthorized access");
+            }
+
+            const response = await fetch(`http://localhost:5000/api/admin/admin/profile/${email}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch admin data");
+            }
+
+            const data = await response.json();
+            setAdmin(data);
+        } catch (error) {
+            console.error("Error fetching admin data:", error);
+            setError("Error fetching admin data");
         }
-        return response.json();
-      })
-      .then((data) => {
-        setAdmin(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching admin data:", error);
-        setError("Error fetching admin data");
-      });
-  }, [navigate]);
+    };
+
+    fetchAdminData();
+}, [navigate]);
 
   if (!admin) {
     return (
@@ -68,7 +85,7 @@ const AdminProfile = () => {
             className="hmr-admin-profile-avatar"
           />
           <div className="hmr-admin-profile-info">
-            <h3 className="hmr-admin-profile-name">{admin.AdminName}</h3>
+            <h3 className="hmr-admin-profile-name">{admin.Name}</h3>
             <p className="hmr-admin-profile-role">Gamage Recruiters - Admin</p>
           </div>
           <button
@@ -84,11 +101,11 @@ const AdminProfile = () => {
           <div className="hmr-details-row">
             <div className="hmr-details-item">
               <h4>Admin Name</h4>
-              <p>{admin.AdminName}</p>
+              <p>{admin.Name}</p>
             </div>
             <div className="hmr-details-item">
               <h4>User Name</h4>
-              <p>{admin.UserName}</p>
+              <p>{admin.Username}</p>
             </div>
           </div>
           <div className="hmr-details-row">

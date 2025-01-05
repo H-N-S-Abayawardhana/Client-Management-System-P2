@@ -51,6 +51,9 @@ function ViewEmployees() {
         title: 'waw-smaller-swal-title',
         content: 'waw-smaller-swal-content',
       },
+      width: '80%', // Make sure the popup is responsive
+      padding: '20px',
+      grow: 'fullscreen', // Make the popup grow full screen on mobile
     }).then(async (result) => {
         if (result.isConfirmed) {
             // Perform the actiontry {
@@ -98,19 +101,16 @@ function ViewEmployees() {
       data.Designation.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (data.ContactNumber && data.ContactNumber.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||  // Ensure it's a string before calling toLowerCase
       data.Address.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.Email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      data.Username.toLowerCase().includes(searchTerm.toLowerCase())
+      data.Email.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });
   
 
   return (
           <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
-            <ToastContainer position="top-right" autoClose={3000} />
+            <ToastContainer className='mt-5 waw-custom-toast-container'/>
             <Navbar />
-            <button className="sidebar-toggle waw-tog" onClick={toggleSidebar}>
-                ☰
-            </button>
+
             <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>
                 <div className={`waw-sidebar-container ${sidebarVisible ? 'show-sidebar' : ''}`} style={{ flexShrink: 0 }}>
                     <Sidebar sidebarVisible={sidebarVisible} />
@@ -199,7 +199,6 @@ function ViewEmployees() {
                     </div>
                 </div>
             </div>
-
             <div className="container3">
                 <Footer />
             </div>

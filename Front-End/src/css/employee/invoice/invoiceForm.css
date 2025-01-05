@@ -54,14 +54,9 @@
     color: white;
     margin-left: auto;
 }
-
-
-
-/*
-.card{
-
+.yks-card{
     margin-left: 250px;
-}*/
+}
 
 .table-bordered {
     width: 100%;
@@ -92,7 +87,6 @@
     text-align: right;
 }
 
-
 .report-btn{
     padding: 4px 10px;
     color: white;
@@ -118,7 +112,6 @@
     cursor: pointer;
     margin-left: 35px;
 }
-
 
 .msa-sidebar-toggle {
     position: fixed;
@@ -153,12 +146,12 @@
         font-weight: bold;
         margin-left: 40px;
     }
+
     .yks-empinvoice-btn{
         width: 135px;
-        margin-left: 210px;
+        margin-left: 230px;
     }
     .yks-card{
         margin-left: 10px;
-        /*width: 90%;*/
     }
 }

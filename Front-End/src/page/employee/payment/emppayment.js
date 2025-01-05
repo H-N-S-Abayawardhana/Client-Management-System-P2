@@ -1,50 +1,86 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Navbar from '../../../components/templetes/empNavBar';
-import Footer from '../../../components/templetes/Footer';
-import Sidebar from '../../../components/templetes/ESideBar';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
-import '../../../css/employee/payment/empPaymentTable.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../../../components/templetes/empNavBar";
+import Footer from "../../../components/templetes/Footer";
+import Sidebar from "../../../components/templetes/ESideBar";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../../../css/employee/payment/empPaymentTable.css";
 
 const PaymentsTable = () => {
-    const [invoices, setInvoices] = useState([]);
+    const [payments, setPayments] = useState([]);
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [employee, setEmployee] = useState(null);
+
+    const navigate = useNavigate();
 
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
-    const navigate = useNavigate();
-    // Fetch payments from the API
+
+    // Fetch employee details
     useEffect(() => {
-        axios
-            .get("http://localhost:5000/api/admin/invoice")
-            .then((response) => {
-                if (Array.isArray(response.data.data)) {
-                    setInvoices(response.data.data);
-                } else {
-                    setError("Invalid response format. Expected an array.");
+        const email = localStorage.getItem("email");
+        if (email) {
+            const fetchEmployeeDetails = async () => {
+                try {
+                    const response = await fetch(`http://localhost:5000/api/employee/employee/${email}`);
+                    if (!response.ok) throw new Error("Failed to fetch employee details");
+                    const data = await response.json();
+                    if (data?.data) {
+                        setEmployee(data.data);
+                    } else {
+                        throw new Error("Employee details not found");
+                    }
+                } catch (err) {
+                    console.error("Error fetching employee details:", err);
+                    setError(err.message);
                 }
-                setLoading(false);
-            })
-            .catch((err) => {
-                console.error("Error fetching invoices:", err);
-                setError("Failed to fetch invoices.");
-                setLoading(false);
-            });
+            };
+
+            fetchEmployeeDetails();
+        }
     }, []);
 
-    // Handle View Button
+    // Fetch payment details based on employee ID
+    useEffect(() => {
+        if (!employee?.EmployeeID) return;
+
+        const fetchPaymentDetails = async () => {
+            try {
+                const response = await fetch(
+                    `http://localhost:5000/api/employee/employee/payment/${employee.EmployeeID}`
+                );
+                if (!response.ok) throw new Error("Failed to fetch payment details");
+                const data = await response.json();
+
+                if (Array.isArray(data?.data)) {
+                    setPayments(data.data);
+                } else {
+                    throw new Error("Invalid payment data format");
+                }
+            } catch (err) {
+                console.error("Error fetching payments:", err);
+                setError(err.message);
+            } finally {
+                setLoading(false); // Stop loading spinner
+            }
+        };
+
+        fetchPaymentDetails();
+    }, [employee?.EmployeeID]);
+
     const handleView = () => {
-        navigate(`/employee-pay`); // Navigate to the PaymentInformation page with invoiceID
+        navigate(`/employee-pay`);
     };
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString("en-GB");
     };
+
     return (
         <div>
             <Navbar />
@@ -55,52 +91,50 @@ const PaymentsTable = () => {
                     </p>
                 </nav>
                 <div className="msa-emppay-container">
-                    <div className='head'>
+                    <div className="head">
                         <h1 className="text-center">My Payments</h1>
                     </div>
 
                     <header className="msa-emppayment-header">
-                        <button className="msa-emppay-btn" onClick={() => navigate('/employee-pay')}>Make Payment</button>
+                        <button className="msa-emppay-btn" onClick={() => navigate("/employee-pay")}>
+                            Make Payment
+                        </button>
                     </header>
 
                     {loading && <p>Loading payments...</p>}
                     {error && <p style={{ color: "red" }}>{error}</p>}
 
-                    {!loading && !error && (
-                        <div className='msa-table-wrapper'>
+                    {!loading && !error && payments.length > 0 && (
+                        <div className="msa-table-wrapper">
                             <table className="msa-emppayment-table">
                                 <thead>
                                 <tr>
+                                    <th>Payment ID</th>
                                     <th>Invoice ID</th>
-                                    <th>Employee ID</th>
-                                    <th>Account Number</th>
-                                    <th>Description</th>
-                                    <th>Invoice Date</th>
-                                    <th>Actions</th>
+                                    <th>Amount</th>
+                                    <th>Payment Date</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {invoices.map((invoice) => (
-                                    <tr key={invoice.invoiceID}>
-                                        <td>{invoice.invoiceID}</td>
-                                        <td>{invoice.EmployeeID}</td>
-                                        <td>{invoice.AcountId}</td>
-                                        <td>{invoice.description}</td>
-                                        <td>{formatDate(invoice.invoice_date)}</td>
-                                        <td>
-                                            <button className="msa-view-btn" onClick={() => handleView()}>View</button>
-                                        </td>
+                                {payments.map((payment) => (
+                                    <tr key={payment.paymentID}>
+                                        <td>{payment.paymentID}</td>
+                                        <td>{payment.invoiceID}</td>
+                                        <td>{payment.amount}</td>
+                                        <td>{formatDate(payment.payment_date)}</td>
                                     </tr>
                                 ))}
                                 </tbody>
                             </table>
                         </div>
                     )}
+
+                    {!loading && !error && payments.length === 0 && <p>No payment records found.</p>}
                 </div>
             </div>
 
-            <button className="msa-sidebar-toggle" onClick={toggleSidebar}>☰</button>
-            <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
+            
+            <div className={`flex-grow-1 d-flex ${sidebarVisible ? "show-sidebar" : ""}`}>
                 <Sidebar sidebarVisible={sidebarVisible} />
             </div>
             <div className="msa-container3">

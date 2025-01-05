@@ -8,8 +8,8 @@ const AddAttendancePopup = ({ closePopup, data }) => {
     const [date, setDate] = useState('');
 
     const current_date = new Date();
-    const currentHour = current_date.getHours();
-    const currentMinute = current_date.getMinutes();
+    // const currentHour = current_date.getHours();
+    // const currentMinute = current_date.getMinutes();
 
     useEffect(() => {
         // Get the current date in the Sri Lankan timezone
@@ -41,10 +41,6 @@ const AddAttendancePopup = ({ closePopup, data }) => {
         console.log("Sri Lankan Time:", currentHour, currentMinute);
     }, []); 
 
-    const handleChange = (e) => {
-        setDate(e.target.value); // Update state with selected date
-    };
-
     const submitData = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
         const name = data.Name;
@@ -61,23 +57,31 @@ const AddAttendancePopup = ({ closePopup, data }) => {
             })
             if(!response.ok) {
                 const errorMessage = await response.text();
-                toast.error(`Error Occurred: ${errorMessage || 'Unknown error'}`);
+                toast.error(`${errorMessage || 'Unknown error'}`);
                 return;
             } else {
-                const responseData = await response.json();
-                console.log(responseData);
-                if(currentHour < 8 || currentHour > 17 || currentMinute > 60) {
-                    console.log('Time Error');
-                    toast.error('Attendance can only be added between 8:00 AM and 5:00 PM, The working hours!');
-                    closePopup();
-                } else {
-                    console.log('No Error');
-                    console.log(response);
-                    console.log(responseData);
-                    toast.success('Visit Confirmation Successfull!')
-                    closePopup(); // Close the popup after successful submission ...
-                    window.location.reload();
-                }
+                console.log('No Error');
+                console.log(response);
+                toast.success('Visit Confirmation Successfull!');
+                closePopup(); // Close the popup after successful submission ...
+                window.location.reload(); // Reload the page to show the added attendance data ...
+                return;
+                // // This part is not important. Added for the sake of the process ...
+                // const responseData = await response.json();
+                // console.log(responseData);
+                // console.log(currentHour, currentMinute);
+                // if((currentHour >= 8) || (currentHour < 17)) {
+                //     console.log('Time Error');
+                //     toast.error('Cannot add attendance');
+                //     closePopup();
+                // } else {
+                //     console.log('No Error');
+                //     console.log(response);
+                //     console.log(responseData);
+                //     toast.success('Visit Confirmation Successfull!')
+                //     closePopup(); // Close the popup after successful submission ...
+                //     window.location.reload();
+                // }
             }
         } catch (error) {
             console.log(error);
@@ -100,7 +104,7 @@ const AddAttendancePopup = ({ closePopup, data }) => {
                 </div>
                 <div className='d-flex justify-content-between mt-1 align-items-start mb-3'>
                     <label htmlFor='date-input' className='pt-2 w-25 text-start text-white ekr-form-label'>Date</label>
-                    <input id="date-input" type="date" value={date} required className='w-75 ekr-date-input ekr-form-input' onChange={handleChange}/>
+                    <input id="date-input" type="date" value={date} required className='w-75 ekr-date-input ekr-form-input'/>
                 </div>
                 <div className='d-flex justify-content-between mt-1 align-items-start mb-3'>
                     <label htmlFor='email' className='pt-2 w-25 text-start text-white ekr-form-label'>Email</label>

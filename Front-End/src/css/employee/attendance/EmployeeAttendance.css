@@ -136,7 +136,7 @@
         margin-top: 2px;
         width: 25px;
         height: 22px;
-    }
+    } 
 }
  
 .ekr-add-attendance-button {
@@ -174,10 +174,9 @@
     }
 } 
 
-@media (max-width: 408px) {
+@media (max-width: 500px) {
     .ekr-add-attendance-button {
-        max-width: 45%; /* Adjust max width for smaller screens */
-        padding: 5px 25px 5px 25px; /* Reduce padding for smaller buttons */
+        max-width: 43%; /* Adjust max width for smaller screens */
         margin-top: 7px;
     } 
 
@@ -185,6 +184,21 @@
         width: 24px;
         height: 24px;
     }
+
+    .ekr-add-attendance-button {
+        font-size: 13px; /* Adjust font size for smaller screens */
+    } 
+
+    .ekr-employee-search-bar-container {
+        max-width: 45%; /* Adjust max width for smaller screens */
+        font-size: 12px;
+    }  
+
+    .ekr-search-bar-icon {
+        margin-top: 2px;
+        width: 25px;
+        height: 22px;
+    } 
 }
 
 .ekr-employee-attendance-table-container {
@@ -195,11 +209,18 @@
     margin: 10px;
     font-size: 12px;
     border-radius: 10px;
+    overflow-x: auto; /* Allow horizontal scrolling when necessary */
 } 
 
 @media (max-width: 768px) {
     .ekr-employee-attendance-table-container {
-        padding: 5px; /* Reduce padding on smaller screens */
+        padding: 1px; /* Reduce padding on smaller screens */
+    } 
+
+    .ekr-employee-attendance-table th,
+    .ekr-employee-attendance-table td {
+        padding: 6px; /* Reduce padding on very small screens */
+        font-size: 9px; /* Smaller font size for very small screens */
     }
 } 
 
@@ -215,6 +236,7 @@
     font-size: 12px; /* Adjust font size for readability */
     border: 1px solid #8c8c8c33;
     border-radius: 10px;
+    overflow-x: auto;
 }
 
 .ekr-employee-attendance-table th,
@@ -239,9 +261,19 @@
 }
 
 @media (max-width: 768px) {
+    .ekr-employee-attendance-table-container {
+        padding: 5px; /* Reduce padding on smaller screens */
+        overflow-x: auto; /* Ensure horizontal scroll when necessary */
+    }
+
+    .ekr-employee-attendance-table {
+        width: 100%; /* Ensure the table takes full width */
+    }
+
     .ekr-employee-attendance-table th,
     .ekr-employee-attendance-table td {
         padding: 8px; /* Reduce padding on smaller screens */
+        font-size: 10px; /* Adjust font size for smaller screens */
     }
 }
 
@@ -267,35 +299,37 @@
     max-width: 90%;
     text-align: center;
     z-index: 1001; /* Ensure it appears above the overlay */
+    position: relative; /* Default position to center the popup */
 } 
 
-@media (max-width: 768px) {
+@media (max-width: 1054px) {
     .ekr-popup-content {
-        padding: auto;
-    }
-    .ekr-popup-content {
-        width: 90%; /* Adjust popup width for mobile */
         padding: 15px; /* Reduce padding */
+        width: 80%; /* Reduce the width */
+        bottom: 45%; /* Make the popup appear closer to the top */
+        top: -30%;
     }
-} 
+}  
 
-.ekr-w-20 {
-    width: 20% !important;
+/* For even smaller screens (like mobile) */
+@media (max-width: 480px) {
+    .ekr-popup-content {
+        padding: 10px; /* Further reduce padding */
+        width: 90%; /* Make the popup wider for mobile screens */
+        bottom: 45%; /* Make the popup appear closer to the top */
+    }
 }
+
+.ekr-w-10 {
+    width: 10% !important;
+}
+
 @media (max-width: 768px) {
-    .sidebar-toggle {
+    .ekr-tog {
       position: fixed; 
       top: 10px; 
       left: 360px; 
       z-index: 9999; 
     }
-} 
-
-/* Footer Styling */
-footer {
-    background-color: #f8f9fa; /* Optional background color */
-    border-top: 1px solid #ddd; /* Optional border for separation */
-    padding: 10px; /* Padding for footer content */
-    text-align: center; /* Center align footer text */
-  }
+}  
   

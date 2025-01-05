@@ -139,6 +139,11 @@ function EmployeeDashboard() {
   return (
     <div className="ae-d-flex flex-column" style={{ minHeight: '100vh' }}>
       <Navbar />
+      <div className="ae-breadcrumb">
+        <span className="ae-breadcrumb-item">Home</span>
+        <span className="ae-breadcrumb-separator">/</span>
+        <span className="ae-breadcrumb-item">Dashboard</span>
+      </div>
       <button className="ae-sidebar-toggle" onClick={toggleSidebar}>☰</button>
 
       <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>

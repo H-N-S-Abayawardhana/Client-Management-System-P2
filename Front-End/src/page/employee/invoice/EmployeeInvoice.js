@@ -15,6 +15,7 @@ function EmployeeInvoice() {
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [employee, setEmployee] = useState(null);
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
   const navigate = useNavigate();
@@ -23,6 +24,58 @@ function EmployeeInvoice() {
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
+  // Fetch employee details
+  useEffect(() => {
+    const email = localStorage.getItem("email");
+    if (email) {
+      const fetchEmployeeDetails = async () => {
+        try {
+          const response = await fetch(`http://localhost:5000/api/employee/employee/${email}`);
+          if (!response.ok) throw new Error("Failed to fetch employee details");
+          const data = await response.json();
+          if (data?.data) {
+            setEmployee(data.data);
+          } else {
+            throw new Error("Employee details not found");
+          }
+        } catch (err) {
+          console.error("Error fetching employee details:", err);
+          setError(err.message);
+        }
+      };
+
+      fetchEmployeeDetails();
+    }
+  }, []);
+
+  // Fetch invoice details based on employee ID
+  useEffect(() => {
+    if (!employee?.EmployeeID) return;
+
+    const fetchInvoiceDetails = async () => {
+      try {
+        const response = await fetch(
+            `http://localhost:5000/api/employee/employee/invoice/${employee.EmployeeID}`
+        );
+        if (!response.ok) throw new Error("Failed to fetch payment details");
+        const data = await response.json();
+
+        if (Array.isArray(data?.data)) {
+          setInvoices(data.data);
+        } else {
+          throw new Error("Invalid payment data format");
+        }
+      } catch (err) {
+        console.error("Error fetching payments:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false); // Stop loading spinner
+      }
+    };
+
+    fetchInvoiceDetails();
+  }, [employee?.EmployeeID]);
+
 
   // Fetch invoices from the API
   useEffect(() => {
@@ -100,7 +153,6 @@ function EmployeeInvoice() {
                     <thead>
                     <tr>
                       <th>Invoice ID</th>
-                      <th>Employee ID</th>
                       <th>Account ID</th>
                       <th>
                         <div className="header-split">
@@ -110,6 +162,7 @@ function EmployeeInvoice() {
                         </div>
                       </th>
                       <th>Amount</th>
+                      <th>Status</th>
                       <th>Actions</th>
                     </tr>
                     </thead>
@@ -117,10 +170,10 @@ function EmployeeInvoice() {
                     {filteredInvoices.map((invoice) => (
                         <tr key={invoice.invoiceID}>
                           <td>{invoice.invoiceID}</td>
-                          <td>{invoice.EmployeeID}</td>
                           <td>{invoice.AcountId}</td>
                           <td>{formatDate(invoice.invoice_date)}</td>
                           <td>{invoice.total_cost}</td>
+                          <td>{invoice.status}</td>
                           <td>
                             <button
                                 className="msa-view-btn"
@@ -138,7 +191,7 @@ function EmployeeInvoice() {
 
           </div>
         </div>
-        <button className="msa-sidebar-toggle" onClick={toggleSidebar}>☰</button>
+        
         <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
           <Sidebar sidebarVisible={sidebarVisible} />
         </div>

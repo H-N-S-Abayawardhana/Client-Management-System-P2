@@ -40,49 +40,43 @@ router.post('/change-password', authenticateToken, async (req, res) => {
     }
 });
 
-// Route for update current admin's profile
-router.put("/current/update", async (req, res) => {
+// NEW DATA FETCHING METHOD OF CURRENT LOGGED ADMIN USING LOCALHOST
+router.get("/admin/profile/:email", async (req, res) => {
     try {
-      // Get the current admin's ID from active session
-      const [sessions] = await db.query(`
-        SELECT UserID
-        FROM sessionlogs 
-        WHERE LogoutTime IS NULL 
-        AND UserType = 'Admin'
-        ORDER BY LoginTime DESC 
-        LIMIT 1
-      `);
-  
-      if (!sessions.length) {
-        return res.status(401).json({ message: "No active admin session found" });
-      }
-  
-      const adminID = sessions[0].UserID;
-      const { AdminName, UserName, Email, ContactNumber, RegistrationDate } = req.body;
-  
-      // Update the admin's data
-      const [result] = await db.query(`
-        UPDATE Admin 
-        SET Name = ?,
-            Username = ?,
-            Email = ?,
-            ContactNumber = ?,
-            RegistrationDate = ?
-        WHERE AdminID = ?
-      `, [AdminName, UserName, Email, ContactNumber, RegistrationDate, adminID]);
-  
-      if (result.affectedRows === 0) {
-        return res.status(404).json({ message: "Admin not found" });
-      }
-  
-      res.json({ message: "Admin profile updated successfully" });
-  
+        const { email } = req.params;
+        console.log("Email received:", email); // Log 1
+        
+        const [admins] = await db.query(
+            `SELECT 
+                Name,
+                Email,
+                ContactNumber,
+                Username,
+                RegistrationDate,
+                AdminID
+             FROM admin
+             WHERE Email = ?`,
+            [email]
+        );
+
+        console.log("Database result:", admins); // Log 2
+        console.log("First admin:", admins[0]); // Log 3
+
+        if (!admins.length) {
+            return res.status(404).json({ message: "Admin not found" });
+        }
+
+        console.log("Data being sent:", admins[0]); // Log 4
+        res.json(admins[0]);
     } catch (err) {
-      console.error("Database error:", err);
-      res.status(500).json({ message: "Error updating admin data", error: err.message });
+        console.error("Database error:", err);
+        res.status(500).json({ message: "Database error" });
     }
-  });
+});
   
+  
+  
+
 
 // Fetch received tasks
 router.get('/admin/received', async (req, res) => {
@@ -95,7 +89,7 @@ router.get('/admin/received', async (req, res) => {
                 Deadline, 
                 Budget 
             FROM received_task`;
-        
+
         const [data] = await con.query(query); // Use the promise-based query method
 
         return res.status(200).json(data);
@@ -110,16 +104,12 @@ router.get('/admin/received', async (req, res) => {
 router.get('/admin/attendCount', async (req, res) => {
     try {
         const currentDate = new Date().toISOString().split('T')[0];
-        console.log(currentDate);
 
-        const query = "SELECT COUNT(AttendanceID) AS attendCount FROM attendance WHERE Date = ?";
-        const [data] = await con.query(query, [currentDate]); // Use await for the promise-based query
+        // Modified query to compare only date portions
+        const query = "SELECT COUNT(AttendanceID) AS attendCount FROM attendance WHERE DATE(Date) = ?";
+        const [data] = await con.query(query, [currentDate]);
 
-        if (data[0].attendCount > 0) {
-            return res.status(200).json(data[0].attendCount);
-        } else {
-            return res.json(0);
-        }
+        return res.status(200).json(data[0].attendCount || 0);
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'An error occurred while fetching the attendance count.' });
@@ -161,52 +151,7 @@ router.get('/admin/invoiceCount', async (req, res) => {
 });
 
 
-//Route to get current admin profile
-router.get("/current/profile", async (req, res) => {
-    try {
-      // Get the most recent active session
-      const [sessions] = await db.query(`
-        SELECT UserID, UserType 
-        FROM sessionlogs 
-        WHERE LogoutTime IS NULL 
-        AND UserType = 'Admin'
-        ORDER BY LoginTime DESC 
-        LIMIT 1
-      `);
-  
-      if (!sessions.length) {
-        return res.status(401).json({ message: "No active admin session found" });
-      }
-  
-      const { UserID } = sessions[0];
-  
-      const [admins] = await db.query(`
-        SELECT 
-          Name AS AdminName, 
-          Username AS UserName, 
-          Email,
-          ContactNumber, 
-          RegistrationDate
-        FROM Admin
-        WHERE AdminID = ?`,
-        [UserID]
-      );
-  
-      if (!admins.length) {
-        return res.status(404).json({ message: "Admin not found" });
-      }
-  
-      res.json(admins[0]);
-  
-    } catch (err) {
-      console.error("Database error:", err);
-      res.status(500).json({ message: "Database error" });
-    }
-  });
 
-
-  
-  
 
 // Fetch received tasks
 router.get('/received', (req, res) => {
@@ -326,6 +271,7 @@ router.get("/payment/:id", async (req, res) => {
         });
     }
 });
+
 //Delete payment
 router.delete("/payment/:id", async (req, res) => {
     const sql = "DELETE FROM payment WHERE paymentID = ?";
@@ -487,8 +433,8 @@ router.delete("/invoice/:id", async (req, res) => {
 // Save New Invoice
 router.post("/invoice", async (req, res) => {
     const sql = `
-        INSERT INTO invoice (invoiceID, EmployeeID, AcountId, total_cost, invoice_date, description)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO invoice (invoiceID, EmployeeID, AcountId, total_cost, invoice_date, description,status)
+        VALUES (?, ?, ?, ?, ?, ?,?)
     `;
     const values = [
         req.body.invoiceID,
@@ -497,6 +443,7 @@ router.post("/invoice", async (req, res) => {
         req.body.total_cost,
         req.body.invoice_date, // Ensure it matches 'invoice_date' in your database schema
         req.body.description || null, // Optional field; defaults to null if not provided
+        req.body.status,
     ];
 
     try {
@@ -514,6 +461,7 @@ router.post("/invoice", async (req, res) => {
                 total_cost: req.body.total_cost,
                 invoice_date: req.body.invoice_date,
                 description: req.body.description || null,
+                status: req.body.status,
                 insertId: result.insertId, // Include the auto-generated ID if applicable
             },
         });
@@ -612,40 +560,7 @@ router.get('/attendance/:date', async (req, res) => {
         console.error("Error fetching employee:", error.message);
         return res.status(500).json({ error: "Database query failed" });
     }
-});  
-
-// Route to sort attendances according to entered date ...
-// router.get('/sortAttendance/:date', (req, res) => {
-//     try {
-//         const date = req.params.date;
-//         const sql1 = `SELECT attendance.*, employee.*
-//             FROM attendance 
-//             INNER JOIN employee ON attendance.EmployeeID = employee.EmployeeID
-//             WHERE DATE(attendance.Date) = ?`;
-        
-//         const sql2 = `SELECT attendance.*, employee.*
-//             FROM attendance 
-//             INNER JOIN employee ON attendance.EmployeeID = employee.EmployeeID
-//             WHERE DATE(attendance.Date) != ? 
-//             ORDER BY 3 DESC`;
-
-//         con.query(sql1, [date], (err, data1) => {
-//             if(err) return res.json(err);
-//             // return res.json(data);
-//             console.log(data1);
-//             con.query(sql2, [date], (err, data2) => {
-//                 if (err) return res.json(err);
-//                 // console.log(data2);
-//                 // Combine results from both queries
-//                 const combinedResults = [...data1, ...data2];
-//                 // console.log(combinedResults);
-//                 return res.json(combinedResults);
-//             });
-//         });
-//     } catch(error) {
-//         console.log(error);
-//     }
-// }); 
+});
 
 // Route to reset data in the table and database ...
 router.get('/resetData', async (req, res) => {
@@ -656,7 +571,7 @@ router.get('/resetData', async (req, res) => {
         console.log(error);
         return res.status(500).json({ message: 'An error occurred while resetting data' });
     }
-}); 
+});
 
 // Route to generate a pdf file ... Not Completed ...
 router.get('/generatePDF', async (req, res) => {
@@ -734,8 +649,8 @@ router.get('/generatePDF', async (req, res) => {
                     });
                     y += 20; // Move to the next row ...
                 });
-            } 
-            
+            }
+
             // Finalize the document and send response ...
             doc.end();
             stream.on('finish', () => {
@@ -749,14 +664,19 @@ router.get('/generatePDF', async (req, res) => {
         console.log(error);
         return res.status(500).json({ message: 'An error occurred while generating PDF' });
     }
-}); 
+});
 
 // Route to get all the employees ...
 router.get("/employees", async (req, res) => {
     try {
         const [data] = await db.query("SELECT * FROM employee");
+
+        if (data.length === 0) {
+            return res.status(404).json({ message: "Employee not found" });
+        }
+        
         console.log("Query successful, sending data:", data);
-        return res.json(data);
+        return res.status(200).json(data);
     } catch (err) {
         console.error("Error executing query:", err.message);
         return res.status(500).json({ error: "Database query failed" });
@@ -785,11 +705,11 @@ router.get("/employee/:EmployeeID", async (req, res) => {
 router.post("/register", async (req, res) => {
     try {
         console.log(req.body);
-        // Hasing the entered password ... 
+        // Hasing the entered password ...
         const hashedPassword = await bcrypt.hash(req.body.Password, 10);
         console.log(hashedPassword);
         const sql = "INSERT INTO employee (Name, Address, ContactNumber, Designation, WorkStartDate, Email, Username, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        const values = [ req.body.Name, req.body.Address, req.body.ContactNumber, req.body.Designation, 
+        const values = [ req.body.Name, req.body.Address, req.body.ContactNumber, req.body.Designation,
                     req.body.WorkStartDate, req.body.Email, req.body.UserName, hashedPassword ];
         console.log(values);
         const result = await db.query(sql, values);
@@ -801,37 +721,9 @@ router.post("/register", async (req, res) => {
     }
 });
 
-// router.post("/register", (req, res) => {
-//     // Hasing the entered password ... 
-//     const hashedPassword = bcrypt.hashSync(req.body.Password, 10);
-//     console.log(hashedPassword);
-//     const sql = "INSERT INTO employee (Name, Address, ContactNumber, Designation, WorkStartDate, Email, Password) VALUES (?, ?, ?, ?, ?, ?, ?)";
-//     const values = [
-//         req.body.Name,
-//         req.body.Address,
-//         req.body.ContactNumber,
-//         req.body.Designation,
-//         req.body.WorkStartDate,
-//         req.body.Email,
-//         // req.body.Username,
-//         hashedPassword
-//     ];
-
-//     con.query(sql, values, (err, data) => {
-//         if (err) {
-//             console.error("Error inserting data:", err.message);
-//             return res.status(500).json({ error: "Error inserting data into database", details: err.message });
-//         }
-//         return res.status(201).json({ message: "Employee added successfully", data });
-//     });
-// }); 
-
 // Route to update an existing employee ...
 router.put('/update/:EmployeeID', async (req, res) => {
     console.log(req.body);
-//     // Hasing the entered password ... 
-//     const hashedPassword = bcrypt.hashSync(req.body.Password, 10);
-//     console.log(hashedPassword);
     const sql = "UPDATE employee SET Name = ?, Address = ?, ContactNumber = ?, Designation = ?, WorkStartDate = ?, Email = ?, Username = ? WHERE EmployeeID = ?";
     const values = [
         req.body.Name,
@@ -843,44 +735,16 @@ router.put('/update/:EmployeeID', async (req, res) => {
         req.body.Username,
         req.params.EmployeeID
     ];
-    
+
     try {
         const result = await db.query(sql, values);
         console.log("Query successful, updated data:", result);
-        return res.status(201).json({ message: "Employee updated successfully", data: result });
+        return res.status(200).json({ message: "Employee updated successfully", data: result });
     } catch (error) {
         console.error("Error updating data:", error.message);
         return res.status(500).json({ error: "Error updating data", details: error.message });
     }
 });
-
-// router.put("/update/:EmployeeID", (req, res) => {
-//     console.log(req.body);
-//     // Hasing the entered password ... 
-//     const hashedPassword = bcrypt.hashSync(req.body.Password, 10);
-//     console.log(hashedPassword);
-//     const sql = "UPDATE employee SET Name = ?, Address = ?, ContactNumber = ?, Designation = ?, Workstartdate = ?, Email = ?, Password = ? WHERE EmployeeID = ?";
-//     const values = [
-//         req.body.Name,
-//         req.body.Address,
-//         req.body.ContactNumber,
-//         req.body.Designation,
-//         req.body.Workstartdate,
-//         req.body.Email,
-//         // req.body.Username,
-//         hashedPassword
-//     ];
-
-//     const EmployeeID = req.params.EmployeeID;
-
-//     con.query(sql, [...values, EmployeeID], (err, data) => {
-//         if (err) {
-//             console.error("Error updating data:", err.message);
-//             return res.status(500).json({ error: "Error updating data", details: err.message });
-//         }
-//         return res.status(200).json({ message: "Employee updated successfully", data });
-//     });
-// });
 
 // Route to delete an employee ...
 router.delete("/employee/:EmployeeID", async (req, res) => {
@@ -897,25 +761,5 @@ router.delete("/employee/:EmployeeID", async (req, res) => {
     }
 });
 
-// router.delete("/employee/:EmployeeID", (req, res) => {
-//     const sql = "DELETE FROM employee WHERE EmployeeID = ?";
-//     const EmployeeID = req.params.EmployeeID;
-
-//     con.query(sql, [EmployeeID], (err, result) => {
-//         if (err) {
-//             console.error("Error deleting employee:", err.message);
-//             return res.status(500).json({
-//                 error: "Error deleting employee from database",
-//                 details: err.message
-//             });
-//         }
-
-//         if (result.affectedRows === 0) {
-//             return res.status(404).json({ message: "Employee not found" });
-//         }
-
-//         return res.status(200).json({ message: "Employee deleted successfully" });
-//     });
-// }); 
 
 export default router;

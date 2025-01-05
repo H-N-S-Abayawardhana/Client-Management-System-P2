@@ -97,10 +97,13 @@ const UpdateEmployee = () => {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Update',
             customClass: {
-              popup: 'smaller-swal-popup',
-              title: 'smaller-swal-title',
-              content: 'smaller-swal-content',
+              popup: 'waw-smaller-swal-popup',
+              title: 'waw-smaller-swal-title',
+              content: 'waw-smaller-swal-content',
             },
+            width: '80%',
+            padding: '20px',
+            grow: 'fullscreen',
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
@@ -126,11 +129,9 @@ const UpdateEmployee = () => {
 
     return (
         <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
-            <ToastContainer position="top-right" autoClose={3000} />
+            <ToastContainer className='mt-5 waw-custom-toast-container'/>
             <Navbar />
-            <button className="sidebar-toggle waw-tog" onClick={toggleSidebar}>
-                ☰
-            </button>
+            
             <div className={`flex-grow-1 d-flex`}>
                 <div className={`waw-sidebar-container ${sidebarVisible ? 'show-sidebar' : ''}`} style={{ flexShrink: 0 }}>
                     <Sidebar sidebarVisible={sidebarVisible} />
@@ -241,10 +242,10 @@ const UpdateEmployee = () => {
                     </div>
                 </div>
             </div>
-            <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
+            {/* <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
             <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
                 <Sidebar sidebarVisible={sidebarVisible} />
-            </div>
+            </div> */}
             <div className="container3">
                 <Footer />
             </div>

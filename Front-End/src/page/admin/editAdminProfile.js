@@ -8,8 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const EditAdminProfile = () => {
   const [admin, setAdmin] = useState({
-    AdminName: "",
-    UserName: "",
+    Name: "",
+    Username: "",
     Email: "",
     ContactNumber: "",
     RegistrationDate: "",
@@ -19,34 +19,44 @@ const EditAdminProfile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/admin/current/profile')
-      .then((response) => {
-        if (!response.ok) {
-          if (response.status === 401) {
-            toast.error("Session expired. Please login again.");
-            navigate('/login');
-            throw new Error("No active session");
-          }
-          throw new Error("Failed to fetch admin data");
+    const fetchAdminData = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const email = localStorage.getItem("email");
+            const userType = localStorage.getItem("type");
+
+            if (!token || !email || !userType) {
+                navigate("/login");
+                throw new Error("Missing authentication data");
+            }
+
+            if (userType !== "Admin") {
+                navigate("/login");
+                throw new Error("Unauthorized access");
+            }
+
+            const response = await fetch(`http://localhost:5000/api/admin/admin/profile/${email}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch admin data");
+            }
+
+            const data = await response.json();
+            setAdmin(data);
+        } catch (error) {
+            console.error("Error fetching admin data:", error);
+            setError("Error fetching admin data");
         }
-        return response.json();
-      })
-      .then((data) => {
-        if (data.RegistrationDate) {
-          const date = new Date(data.RegistrationDate);
-          data.RegistrationDate = formatDateToDDMMYYYY(date);
-        } else {
-          const currentDate = new Date();
-          data.RegistrationDate = formatDateToDDMMYYYY(currentDate);
-        }
-        setAdmin(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setError("Error fetching admin data");
-        toast.error("Failed to load admin data. Please try again later.");
-      });
-  }, [navigate]);
+    };
+
+    fetchAdminData();
+}, [navigate]);
 
   const formatDateToDDMMYYYY = (date) => {
     const day = String(date.getDate()).padStart(2, "0");
@@ -130,7 +140,7 @@ const EditAdminProfile = () => {
             type="text"
             name="AdminName"
             placeholder="Admin Name"
-            value={admin.AdminName}
+            value={admin.Name}
             onChange={handleChange}
             required
           />
@@ -139,7 +149,7 @@ const EditAdminProfile = () => {
             type="text"
             name="UserName"
             placeholder="User Name"
-            value={admin.UserName}
+            value={admin.Username}
             onChange={handleChange}
             required
           />

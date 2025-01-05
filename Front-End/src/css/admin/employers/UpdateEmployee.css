@@ -209,7 +209,7 @@
 }
 
 /* Password input field styles */
-.password-input-wrapper input {
+.waw-password-input-wrapper input {
   width: 340px; /* Match the wrapper's width */
   padding-right: 40px; /* Space for the toggle button inside the input */
   padding-left: 10px; /* Optional: Add some padding on the left for uniformity */
@@ -221,7 +221,7 @@
 }
 
 /* Password toggle button styles */
-.password-toggle-btn {
+.waw-password-toggle-btn {
   position: absolute;
   top: 50%; /* Center vertically */
   right: 10px; /* Position button inside the input field */
@@ -236,19 +236,79 @@
 }
 
 /* Smaller popup styling */
-.smaller-swal-popup {
+.waw-smaller-swal-popup {
   padding: 1.5rem; /* Reduce padding */
   font-size: 0.9rem; /* Adjust font size */
+  max-width: 450px;
+  max-height: 350px;
+  border-radius: 8px;
+  font-size: 16px;
+  top: 20% !important;
 }
 
 /* Smaller title styling */
-.smaller-swal-title {
-  font-size: 1.2rem; /* Smaller title font size */
+.waw-smaller-swal-title {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
 }
 
 /* Smaller content styling */
-.smaller-swal-content {
-  font-size: 1rem; /* Reduce the font size of the text */
+.waw-smaller-swal-content {
+  font-size: 14px;
+  text-align: center;
+  padding: 10px;
+}  
+
+/* For mobile screen sizes */
+@media (max-width: 768px) {
+  /* Make the popup a little smaller for mobile screens */
+  .waw-smaller-swal-popup {
+    width: 90% !important; /* Make it full width on mobile */
+    left: 5% !important; /* Adjust positioning */
+    top: 15% !important; /* Reduce gap from the top */
+    padding: 15px;
+  }
+
+  .waw-smaller-swal-title {
+    font-size: 16px;
+  }
+
+  .waw-smaller-swal-content {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .waw-smaller-swal-popup {
+    width: 95% !important; /* Make it wider on very small screens */
+    left: 2.5% !important; /* Adjust to center */
+    top: 15% !important; /* Less gap from the top */
+    padding: 10px;
+  }
+
+  .waw-smaller-swal-title {
+    font-size: 14px;
+  }
+
+  .waw-smaller-swal-content {
+    font-size: 10px;
+  }
+} 
+
+.waw-custom-toast-container {
+  position: fixed;
+  top: 20px; /* Adjust the distance from the top of the screen */
+  right: 20px; /* Adjust the distance from the right side of the screen */
+  left: auto;
+  bottom: auto;
+}
+
+@media (max-width: 768px) {
+  .waw-custom-toast-container {
+      top: 60px; /* Adjust the distance from the top of the screen */
+      right: 10px; /* Adjust the distance from the right side of the screen */
+  }
 }
 
 

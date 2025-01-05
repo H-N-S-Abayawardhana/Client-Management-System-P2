@@ -104,6 +104,14 @@ const AdminAttendance = () => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Update',
+      customClass: {
+        popup: 'ekr-smaller-swal-popup',
+        title: 'ekr-smaller-swal-title',
+        content: 'ekr-smaller-swal-content',
+      },
+      width: '80%',
+      padding: '20px',
+      grow: 'fullscreen',
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -123,23 +131,39 @@ const AdminAttendance = () => {
           } else {
             toast.error('Error resetting attendance data.');
             // Error message
-            Swal.fire({
-              icon: 'error',
-              title: 'Reset Failed!',
-              text: 'An error occurred while reset attendance details. Please try again.',
-              confirmButtonColor: '#d33',
-            });
+            // Swal.fire({
+            //   icon: 'error',
+            //   title: 'Reset Failed!',
+            //   text: 'An error occurred while reset attendance details. Please try again.',
+            //   confirmButtonColor: '#d33',
+            //   customClass: {
+            //     popup: 'smaller-swal-popup',
+            //     title: 'smaller-swal-title',
+            //     content: 'smaller-swal-content',
+            //   },
+            //   width: '80%',
+            //   padding: '20px',
+            //   grow: 'fullscreen',
+            // });
           }
         } catch (error) {
           console.error('Error resetting attendance data:', error);
           toast.error('Error resetting attendance data.');
           // Error message
-          Swal.fire({
-            icon: 'error',
-            title: 'Reset Failed!',
-            text: 'An error occurred while reset attendance details. Please try again.',
-            confirmButtonColor: '#d33',
-          });
+          // Swal.fire({
+          //   icon: 'error',
+          //   title: 'Reset Failed!',
+          //   text: 'An error occurred while reset attendance details. Please try again.',
+          //   confirmButtonColor: '#d33',
+          //   customClass: {
+          //     popup: 'smaller-swal-popup',
+          //     title: 'smaller-swal-title',
+          //     content: 'smaller-swal-content',
+          //   },
+          //   width: '80%',
+          //   padding: '20px',
+          //   grow: 'fullscreen',
+          // });
         }
       }
     });
@@ -148,7 +172,7 @@ const AdminAttendance = () => {
   return (
     <div className="ekr-admin-attendance-wrapper">
       <div className="ekr-admin-attendance-container d-flex flex-column" style={{ minHeight: '100vh' }}>
-        <ToastContainer position="top-right" autoClose={3000} />
+        <ToastContainer className='mt-5 ekr-custom-toast-container'/>
         <Navbar />
 
         <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
@@ -246,7 +270,7 @@ const AdminAttendance = () => {
             </div>
           </div>
         </div>
-        <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
+        
         <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
           <Sidebar sidebarVisible={sidebarVisible} />
         </div>

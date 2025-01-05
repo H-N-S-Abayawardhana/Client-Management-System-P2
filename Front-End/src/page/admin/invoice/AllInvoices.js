@@ -97,6 +97,7 @@ const InvoiceTable = () => {
                                             </div>
                                         </th>
                                         <th>Amount</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -108,6 +109,7 @@ const InvoiceTable = () => {
                                             <td>{invoice.AcountId}</td>
                                             <td>{formatDate(invoice.invoice_date)}</td>
                                             <td>{invoice.total_cost}</td>
+                                            <td>{invoice.status}</td>
                                             <td>
                                                 <button
                                                     className="yks-delete-btn"
@@ -126,7 +128,7 @@ const InvoiceTable = () => {
 
                 </div>
             </div>
-            <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
+            
             <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
                 <Sidebar sidebarVisible={sidebarVisible} />
             </div>
