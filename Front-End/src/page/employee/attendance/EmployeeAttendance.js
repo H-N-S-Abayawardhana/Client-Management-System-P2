@@ -64,6 +64,7 @@ function EmployeeAttendance() {
                 }
             })
             const responseData = await response.json();
+            console.log(responseData);
             if(!response.ok) {
                 console.log('No Attendance Records Found !');
                 return;
