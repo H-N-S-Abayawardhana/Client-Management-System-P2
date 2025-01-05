@@ -108,7 +108,7 @@ function ViewEmployees() {
 
   return (
           <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
-            <ToastContainer position="top-right" autoClose={3000} />
+            <ToastContainer className='mt-5 waw-custom-toast-container'/>
             <Navbar />
 
             <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>

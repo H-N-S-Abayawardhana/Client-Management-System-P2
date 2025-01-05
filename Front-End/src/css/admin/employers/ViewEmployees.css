@@ -386,6 +386,21 @@
   .waw-smaller-swal-content {
     font-size: 10px;
   }
+} 
+
+.waw-custom-toast-container {
+  position: fixed;
+  top: 20px; /* Adjust the distance from the top of the screen */
+  right: 20px; /* Adjust the distance from the right side of the screen */
+  left: auto;
+  bottom: auto;
+}
+
+@media (max-width: 768px) {
+  .waw-custom-toast-container {
+      top: 60px; /* Adjust the distance from the top of the screen */
+      right: 10px; /* Adjust the distance from the right side of the screen */
+  }
 }
 
 

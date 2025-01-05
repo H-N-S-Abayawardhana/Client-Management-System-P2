@@ -174,10 +174,9 @@
     }
 } 
 
-@media (max-width: 408px) {
+@media (max-width: 500px) {
     .ekr-add-attendance-button {
-        max-width: 45%; /* Adjust max width for smaller screens */
-        padding: 5px 25px 5px 25px; /* Reduce padding for smaller buttons */
+        max-width: 43%; /* Adjust max width for smaller screens */
         margin-top: 7px;
     } 
 
@@ -187,8 +186,19 @@
     }
 
     .ekr-add-attendance-button {
-        font-size: 12px; /* Adjust font size for smaller screens */
-    }
+        font-size: 13px; /* Adjust font size for smaller screens */
+    } 
+
+    .ekr-employee-search-bar-container {
+        max-width: 45%; /* Adjust max width for smaller screens */
+        font-size: 12px;
+    }  
+
+    .ekr-search-bar-icon {
+        margin-top: 2px;
+        width: 25px;
+        height: 22px;
+    } 
 }
 
 .ekr-employee-attendance-table-container {
@@ -315,11 +325,11 @@
 }
 
 @media (max-width: 768px) {
-    .sidebar-toggle {
+    .ekr-tog {
       position: fixed; 
       top: 10px; 
       left: 360px; 
       z-index: 9999; 
     }
-} 
+}  
   

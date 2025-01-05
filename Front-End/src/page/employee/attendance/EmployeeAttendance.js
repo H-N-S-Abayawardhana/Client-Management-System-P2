@@ -33,7 +33,7 @@ function EmployeeAttendance() {
 
     const getLoggedUserData = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/employee/current/profile", {
+            const response = await fetch(`http://localhost:5000/api/employee/employee/profile/${localStorage.email}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type':'application/json',
@@ -64,6 +64,7 @@ function EmployeeAttendance() {
                 }
             })
             const responseData = await response.json();
+            console.log(responseData);
             if(!response.ok) {
                 console.log('No Attendance Records Found !');
                 return;
@@ -143,7 +144,7 @@ function EmployeeAttendance() {
 
     return (
         <div className="d-flex flex-column ekr-attendance-module" style={{ minHeight: "100vh" }}>
-            <ToastContainer position="top-right" autoClose={3000} />
+            <ToastContainer position="top-right" autoClose={3000} className="ekr-toast-container" />
             <Navbar />
             
             <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>

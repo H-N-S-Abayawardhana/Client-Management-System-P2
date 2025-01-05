@@ -97,6 +97,13 @@
     bottom: auto;
 }
 
+@media (max-width: 768px) {
+    .ekr-custom-toast-container {
+        top: 60px; /* Adjust the distance from the top of the screen */
+        right: 10px; /* Adjust the distance from the right side of the screen */
+    }
+}
+
 /* Media Queries */
 @media (max-width: 768px) {
     .ekr-form-label {
