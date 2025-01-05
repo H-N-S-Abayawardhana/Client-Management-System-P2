@@ -69,10 +69,7 @@ function App() {
         <Route path="/contactus" element={<ContactUs/>} />
 
 
-        {/* Admin-Side Routes */}
-        <Route path="/admin-Dashboard" element={<AdminProtectedRoute><AdminDashboard/></AdminProtectedRoute>} />
-        <Route path="/adminChange-password" element={<AdminProtectedRoute><AdminChangePassword /></AdminProtectedRoute>} />
-
+ 
         {/* Task - Routes */}
         <Route path="/admin-manage-task" element={<AdminProtectedRoute><AdminManageTask/></AdminProtectedRoute>}/>
         <Route path="/admin-add-task" element={<AdminProtectedRoute><AdminAddTask/></AdminProtectedRoute>}/>

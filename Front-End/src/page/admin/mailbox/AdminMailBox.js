@@ -107,9 +107,7 @@ const AdminMailBox = () => {
                 theme="light"
             />
             <Navbar />
-            <button className="sidebar-toggle" onClick={toggleSidebar}>
-                ☰
-            </button>
+
             <div className={`flex-grow-1 d-flex`}>
                 <div className={`km-sidebar-container ${sidebarVisible ? 'show-sidebar' : ''}`} style={{ flexShrink: 0 }}>
                     <Sidebar sidebarVisible={sidebarVisible} />
@@ -202,7 +200,7 @@ const AdminMailBox = () => {
                     </div>
                 </div>
             </div>
-            <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
+
             <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
                 <Sidebar sidebarVisible={sidebarVisible} />
             </div>

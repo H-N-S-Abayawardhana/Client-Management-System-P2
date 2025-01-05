@@ -116,7 +116,7 @@ export default function AdminReceivedTask() {
 
       </div>
 
-      <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
+      
       <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
         <Sidebar sidebarVisible={sidebarVisible} />
       </div>

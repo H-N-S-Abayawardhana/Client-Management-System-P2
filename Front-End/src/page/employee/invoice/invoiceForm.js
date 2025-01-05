@@ -228,7 +228,7 @@ function InvoiceForm() {
                 </div>
             </div>
 
-            <button className="msa-sidebar-toggle" onClick={toggleSidebar}>☰</button>
+            
             <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
                 <Sidebar sidebarVisible={sidebarVisible} />
             </div>

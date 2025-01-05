@@ -118,9 +118,7 @@ const UpdateEmployee = () => {
         <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
             <ToastContainer position="top-right" autoClose={3000} />
             <Navbar />
-            <button className="sidebar-toggle waw-tog" onClick={toggleSidebar}>
-                ☰
-            </button>
+
             <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>
                 <div className={`waw-sidebar-container ${sidebarVisible ? 'show-sidebar' : ''}`} style={{ flexShrink: 0 }}>
                     <Sidebar sidebarVisible={sidebarVisible} />
@@ -221,7 +219,7 @@ const UpdateEmployee = () => {
                     </div>
                 </div>
             </div>
-            <button className="apwgr-sidebar-toggle" onClick={toggleSidebar}>☰</button>
+            
             <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
                 <Sidebar sidebarVisible={sidebarVisible} />
             </div>

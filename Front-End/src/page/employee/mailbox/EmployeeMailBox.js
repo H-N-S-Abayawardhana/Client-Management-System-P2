@@ -83,9 +83,7 @@ const EmployeeMailBox = () => {
         <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
             <ToastContainer position="top-right" autoClose={3000} />
             <Navbar />
-            <button className="sidebar-toggle km-tog" onClick={toggleSidebar}>
-                ☰
-            </button>
+            
             <div className={`flex-grow-1 d-flex`}>
                 <div className={`km-sidebar-container ${sidebarVisible ? 'show-sidebar' : ''}`} style={{ flexShrink: 0 }}>
                     <Sidebar sidebarVisible={sidebarVisible} />

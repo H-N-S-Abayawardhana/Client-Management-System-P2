@@ -145,9 +145,7 @@ function EmployeeAttendance() {
         <div className="d-flex flex-column ekr-attendance-module" style={{ minHeight: "100vh" }}>
             <ToastContainer position="top-right" autoClose={3000} />
             <Navbar />
-            <button className="sidebar-toggle ekr-tog" onClick={toggleSidebar}>
-                ☰
-            </button>
+            
             <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>
                 {/* Sidebar */}
                 <div
