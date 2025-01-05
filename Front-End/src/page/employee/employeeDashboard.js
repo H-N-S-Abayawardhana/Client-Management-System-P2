@@ -148,45 +148,45 @@ function EmployeeDashboard() {
 
       <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
         <Sidebar sidebarVisible={sidebarVisible} />
-       
+
 
         <div className="ae-main-content">
           <div className="ae-grid-container">
             <div className="ae-video-section">
 
               <div className="ae-info-card green">
-              <div className="ae-info-header-content">
-              <img src={attendImage} alt="Attend" style={{ marginLeft: '60px', height:'35px', width:'35px' }}/>
-                <div className="ae-info-header">Today <br />Attendance</div>
+                <div className="ae-info-header-content">
+                  <img src={attendImage} alt="Attend" style={{ marginLeft: '60px', height: '35px', width: '35px' }} />
+                  <div className="ae-info-header">Today <br />Attendance</div>
                 </div>
                 <div className="ae-info-value-box">
-                <div className="ae-info-value gray">{attendance }</div>
+                  <div className="ae-info-value gray">{attendance}</div>
                 </div>
               </div>
 
 
               <div className="ae-info-card green">
-              <div className="ae-info-header-content">
-              <img src={InfoInvoice} alt="InfoInvoice" style={{ marginLeft: '60px', height:'30px', width:'30px' }}/>
-                <div className="ae-info-header">Total <br/> Employees</div>
+                <div className="ae-info-header-content">
+                  <img src={InfoInvoice} alt="InfoInvoice" style={{ marginLeft: '60px', height: '30px', width: '30px' }} />
+                  <div className="ae-info-header">Total <br /> Employees</div>
                 </div>
                 <div className="ae-info-value-box">
-                  <div className="ae-info-value gray"> {employee }</div>
+                  <div className="ae-info-value gray"> {employee}</div>
                 </div>
               </div>
 
 
 
               <div className="ae-info-card green">
-               <div className="ae-info-header-content">
-              <img src={InfoPay} alt="InfoPay" style={{ marginLeft: '60px', height:'40px', width:'40px' }}/>
-                <div className="ae-info-header">Pending <br />Invoices</div>
+                <div className="ae-info-header-content">
+                  <img src={InfoPay} alt="InfoPay" style={{ marginLeft: '60px', height: '40px', width: '40px' }} />
+                  <div className="ae-info-header">Pending <br />Invoices</div>
                 </div>
                 <div className="ae-info-value-box">
-                  <div className="ae-info-value gray">{invoice }</div>
+                  <div className="ae-info-value gray">{invoice}</div>
                 </div>
               </div>
-              
+
             </div>
 
 
@@ -215,47 +215,47 @@ function EmployeeDashboard() {
               <div className="ae-my-tasks">
                 <p className="ae-task-title">My Tasks</p>
 
-                
-                  <div className="ae-table-container">
-                    <table className="ae-task-table">
-                      <thead>
-                        <tr>
-                          <th>Task Name</th>
-                          <th>Deadline</th>
-                          <th>Budget</th>
-                          <th>Description</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {data.length > 0 ? (
-                          data.map((task, index) => (
-                            <tr key={index}>
-                              <td>{task.TaskName}</td>
-                              <td>{formatDateToDMY(new Date(task.Deadline))}</td>
-                              <td>{task.BudgetInfo}</td>
-                              <td>{task.Description}</td>
-                            </tr>
-                          ))
-                        ) : (
-                          <tr>
-                            <td colSpan="4">No tasks found</td>
+
+                <div className="ae-table-container">
+                  <table className="ae-task-table">
+                    <thead>
+                      <tr>
+                        <th>Task Name</th>
+                        <th>Deadline</th>
+                        <th>Budget</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.length > 0 ? (
+                        data.map((task, index) => (
+                          <tr key={index}>
+                            <td>{task.TaskName}</td>
+                            <td>{formatDateToDMY(new Date(task.Deadline))}</td>
+                            <td>{task.BudgetInfo}</td>
+                            <td>{task.Description}</td>
                           </tr>
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-               
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="4">No tasks found</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
-     
-              <div className="container3">
-                  <Footer />
-              </div>
+
+      <div className="container3">
+        <Footer />
+      </div>
     </div>
-    
+
   );
 }
 
