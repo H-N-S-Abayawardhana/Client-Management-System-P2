@@ -14,7 +14,7 @@
 /* Breadcrumb Styles */
 .ae-breadcrumb {
   position: absolute;
-  top: 80px;  /* Adjust this value to position it correctly below your navbar */
+  top: 80px;
   left: 250px;
   font-size: 18px;
   color: #666;
@@ -39,11 +39,12 @@
 .ae-main-content {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   background-color: #f8f8f8;
   padding: 2px;
   box-sizing: border-box;
   margin-top: 20px;
+  min-height: calc(100vh - 200px);
 }
 
 /* Grid Layout */
@@ -57,8 +58,10 @@
   gap: 20px;
   width: 100%;
   max-width: 1500px;
-  height: 80vh;
+  height: auto;
+  min-height: 90vh;
   padding-left: 150px;
+  padding-bottom: 50px;
 }
 
 /* Sidebar Section */
@@ -71,111 +74,14 @@
   font-size: 1.5rem;
   font-weight: bold;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  height: 550px;
+  height: auto;
+  min-height: 650px;
   transform: translateX(-50px);
   margin-left: 130px;
   width: 300px;
 }
 
-/* Video Section */
-.ae-video-section {
-  grid-area: video;
-  background-color: #ffffff;
-  border-radius: 8px;
-  text-align: center;
-  padding: 20px;
-  font-size: 1.8rem;
-  font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  height: 50%;
-  display: flex;
-  gap: 80px;
-  justify-content: flex-start;
-  align-items: center;
-  transform: translateX(120px);
-  margin-right: 60px;
-  width: 850px;
-  padding-right: 40px;
-}
-
-/* Dynamic Content Section */
-.ae-content-section {
-  grid-area: content;
-  background-color: #ffffff;
-  border-radius: 8px;
-  text-align: center;
-  padding: 20px;
-  font-size: 1.8rem;
-  font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-top: -180px;
-  height: 350px;
-  transform: translateX(120px);
-  width: 850px;
-}
-
-/* Green Card */
-.ae-info-card.green {
-  position: relative;
-  background-color: #6d848c;
-  color: #fff;
-  width: 180px;
-  height: 120px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 1rem;
-  font-weight: bold;
-  z-index: 1;
-  margin-right: 20px;
-  gap: 30px;
-}
-
-/* Icons inside Green Card */
-.ae-info-header {
-  display: flex;
-  flex-direction: column;
-  justify-items: left;
-  text-align: left;
-  color: #212121;
-  font-size: 1rem;
-  letter-spacing: 1px;
-  transform: translateX(-28px);
-}
-
-/* Gray Box */
-.ae-info-value-box {
-  position: absolute;
-  top: 50%;
-  right: -90px;
-  transform: translateY(-50%);
-  background-color: #e0e0e0;
-  color: #333;
-  font-size: 1.8rem;
-  font-weight: bold;
-  width: 100px;
-  height: 120px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2;
-  margin-right: 5px;
-}
-
-/* Sidebar Content Styles */
-.ae-sidebar-section p {
-  font-size: 14px;
-  margin-bottom: 5px;
-  color: #666;
-  font-weight: 100;
-}
-
+/* Overview and Vision Sections */
 .ae-vision-title-ae {
   font-size: 20px;
   font-weight: 400;
@@ -185,79 +91,43 @@
   text-align: justify;
 }
 
+.ae-vision-title-ae h3 {
+  margin-bottom: 15px;
+}
+
 .ae-mission-vision-text-ae {
   font-size: 14px;
   line-height: 1.5;
   color: #666;
   list-style: none;
   padding-left: 0;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
-.ae-service-vision-title-ae {
+/* Service list specific styling */
+.ae-mission-vision-text-ae li {
+  margin-bottom: 10px;
+  padding-left: 15px;
+  position: relative;
+}
+
+.ae-mission-vision-text-ae li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #254684;
+}
+
+/* Received Tasks Section */
+.received-tasks {
   margin-top: 30px;
 }
 
-.ae-mission-vision-text-ae li {
-  margin-bottom: 5px;
-}
-
-.ae-overview-ae {
-  font-weight: 400;
-  margin-bottom: 30px;
-}
-
-/* Table Styles */
-.ae-table-container {
+/* Footer Container */
+.container3 {
+  margin-top: auto;
   width: 100%;
-  margin: 20px 0;
-  overflow-x: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-}
-
-.ae-task-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: Arial, sans-serif;
-  border: 10px solid #d1f0f2;
-}
-
-.ae-task-table th,
-.ae-task-table td {
-  border: 1px solid #ddd;
-  padding: 12px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 200;
-}
-
-.ae-task-table th {
-  background-color: #c6c6c6;
-  color: #393939;
-  font-weight: bold;
-  font-size: 15px;
-}
-
-.ae-task-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.ae-task-table tbody tr:hover {
-  background-color: #f1f1f1;
-}
-
-.ae-task-table tbody tr td:empty {
-  background-color: #f4f4f4;
-}
-
-.ae-task-title {
-  font-size: 20px;
-  font-weight: bold;
-  color: #525252;
-  text-transform: uppercase;
-  text-align: left;
+  padding-top: 30px;
 }
 
 /* Mobile Responsiveness */
@@ -276,6 +146,7 @@
     margin-top: 50px;
     padding-left: 0;
     max-width: 100%;
+    min-height: auto;
   }
 
   .ae-video-section,
@@ -293,14 +164,20 @@
     padding-right: 20px;
   }
 
-  .ae-sidebar-section,
-  .ae-video-section,
-  .ae-content-section {
-    height: auto;
+  /* Add significant space after Our Services section */
+  .ae-vision-title-ae:last-of-type {
+    margin-bottom: 150px !important;  /* Large margin after "Our Services" */
+    padding-bottom: 20px;
   }
 
-  .ae-mission-vision-text-ae,
-  .ae-overview-ae {
-    margin-bottom: 20px;
+  /* Add space before Received Tasks */
+  .received-tasks {
+    margin-top: 150px !important;  /* Large margin before the table */
+    padding-top: 20px;
+    border-top: 1px solid #eee;  /* Optional visual separator */
+  }
+
+  .container3 {
+    margin-top: 30px;
   }
 }
