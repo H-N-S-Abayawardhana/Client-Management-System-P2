@@ -24,6 +24,7 @@
     border-radius: 8px;
     margin: 20px;
     margin-left: 250px;
+    min-height: 500px;
   }
   
   .apwgr-tasks-container {

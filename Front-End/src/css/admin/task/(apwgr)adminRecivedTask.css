@@ -1,7 +1,9 @@
 body, html {
   overflow-x: hidden; /* Prevents horizontal scrolling */
 }
-
+.admin-recive-task-prog-container{
+  min-height: 500px;
+}
  .apwgr-container1 {
 
     padding: 20px;
