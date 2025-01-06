@@ -307,7 +307,7 @@
         padding: 15px; /* Reduce padding */
         width: 80%; /* Reduce the width */
         bottom: 45%; /* Make the popup appear closer to the top */
-        top: -30%;
+        top: 5%;
     }
 }  
 
@@ -317,6 +317,7 @@
         padding: 10px; /* Further reduce padding */
         width: 90%; /* Make the popup wider for mobile screens */
         bottom: 45%; /* Make the popup appear closer to the top */
+        top: 5%;
     }
 }
 

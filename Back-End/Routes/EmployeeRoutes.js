@@ -374,13 +374,13 @@ router.get('/ViewAllAttendances', async (req, res) => {
 
         const [data] = await db.query(sql);
         if(data.length === 0) {
-            return res.status(404).json({ message: "No attendances found" });
+            return res.status(404).send("No attendances found");
         }
 
         return res.status(200).json(data);
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ error: "An error occurred while fetching the attendances" });
+        return res.status(500).send("An error occurred while fetching the attendances");
     }
 });
 
@@ -392,13 +392,13 @@ router.get('/viewEmployees/:input', async (req, res) => {
         const [data] = await db.query(sql, [input, input]);
 
         if(data.length === 0) {
-            return res.status(404).json({ message: "No employee found" });
+            return res.status(404).send("No employee found");
         }
 
         return res.status(200).json(data);
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: "An error occurred while fetching the employee" });
+        return res.status(500).send("An error occurred while fetching the employee");
     }
 });
 
@@ -433,20 +433,20 @@ router.get('/attendance/:input', async (req, res) => {
             const formattedDate = `${year}-${month}-${day}`;
             const [data] = await db.query(sql, [formattedDate, formattedDate, formattedDate]);
             if(data.length === 0) {
-                return res.status(404).json({ message: "No attendance found" });
+                return res.status(404).send("No attendance found");
             }
 
             return res.status(200).json(data);
         } else if (isYYYYMMDD(input)) {
             const [data] = await db.query(sql, [input, input, input]);
             if(data.length === 0) {
-                return res.status(404).json({ message: "No attendance found" });
+                return res.status(404).send("No attendance found");
             }
             return res.status(200).json(data);
         } else {
             const [data] = await db.query(sql, [input, input, input]);
             if(data.length === 0) {
-                return res.status(404).json({ message: "No attendance found" });
+                return res.status(404).send("No attendance found");
             }
             return res.status(200).json(data);
         }
@@ -476,20 +476,20 @@ router.post('/addAttendance', async (req, res) => {
         console.log("Count:", result[0][0].count);
         const count = result[0][0].count;
         if(count === 1) {
-            return res.status(401).json({ message: "Attendance already added for the employee for today!" });
+            return res.status(401).send("Attendance already added for the employee for today!");
         } else {
             if(hour >= 8 && hour < 17) {
                 // Insert the new attendance record into the database ...
                 const sql2 = `INSERT INTO attendance (EmployeeID, Name, Email, Date) VALUES (?, ?, ?, ?)`;
                 await db.query(sql2, [employeeId, name, email, fullDateTime]);
-                return res.status(200).json({ message: "Attendance added successfully!"});
+                return res.status(200).send("Attendance added successfully!");
             } else {
-                return res.status(401).json({ message: "You can't mark attendance at this time. It can be done from 8am to 5pm !"});
+                return res.status(401).send("You can't mark attendance at this time. It can be done from 8am to 5pm !");
             }
         }
     } catch(error) {
         console.log(error.message);
-        return res.status(500).json({ message: "An error occurred while adding attendance record!"});
+        return res.status(500).send("An error occurred while adding attendance record!");
     }
 });
 
