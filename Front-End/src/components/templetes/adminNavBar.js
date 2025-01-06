@@ -206,7 +206,11 @@ export default function Navbar() {
       {showSidebar && (
         <div
           className="sidebar bg-light position-fixed top-0 start-0 h-100 overflow-auto"
-          style={{ width: '250px', zIndex: 1050 }}
+          style={{ 
+            width: '250px', 
+            zIndex: 1050,
+            backgroundColor: '#b9c2c1' 
+          }}
         >
           <button
             className="btn-close mt-2 ms-3"
@@ -214,74 +218,26 @@ export default function Navbar() {
             aria-label="Close"
           ></button>
           <ul className="list-group mt-2">
-            <li className="list-group-item py-2">
-              <a href="/admin-profile" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={user2} alt="Profile" style={{ width: '25px', marginRight: '10px' }} />
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/admin-dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={dashboard} alt="Dashboard" style={{ width: '20px', marginRight: '14px' }} />
-                <span>Dashboard</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/admin-attendance" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={attendence} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} />
-                <span>Attendance</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/admin-invoice" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={invoice} alt="Invoice" style={{ width: '25px', marginRight: '10px' }} />
-                <span>Invoice</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/view-employees" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={employee} alt="Employees" style={{ width: '25px', marginRight: '10px' }} />
-                <span>Employers</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/admin-payment" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={payment} alt="Payment" style={{ width: '25px', marginRight: '10px' }} />
-                <span>Payment</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/admin-manage-task" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={task} alt="Task" style={{ width: '25px', marginRight: '10px' }} />
-                <span>Task</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/admin-mailbox" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={mail} alt="Mailbox" style={{ width: '25px', marginRight: '10px' }} />
-                <span>Mail-Box</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/adminChange-password" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={changepswd} alt="Change Password" style={{ width: '25px', marginRight: '10px' }} />
-                <span>Change Password</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <button
-                onClick={handleLogout}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  border: 'none',
-                  background: 'none',
-                  padding: 0,
-                  color: '#dc3545',
-                  width: '100%',
-                  textAlign: 'left'
-                }}
-              >
+            {[
+              { href: '/admin-profile', icon: user2, text: 'My Profile' },
+              { href: '/admin-dashboard', icon: dashboard, text: 'Dashboard' },
+              { href: '/admin-attendance', icon: attendence, text: 'Attendance' },
+              { href: '/admin-invoice', icon: invoice, text: 'Invoice' },
+              { href: '/view-employees', icon: employee, text: 'Employers' },
+              { href: '/admin-payment', icon: payment, text: 'Payment' },
+              { href: '/admin-manage-task', icon: task, text: 'Task' },
+              { href: '/admin-mailbox', icon: mail, text: 'Mail-Box' },
+              { href: '/adminChange-password', icon: changepswd, text: 'Change Password' }
+            ].map((item, index) => (
+              <li key={index} className="sidebar-item">
+                <a href={item.href} className="sidebar-link">
+                  <img src={item.icon} alt={item.text} style={{ width: '25px', marginRight: '10px' }} />
+                  <span>{item.text}</span>
+                </a>
+              </li>
+            ))}
+            <li className="sidebar-item">
+              <button onClick={handleLogout} className="sidebar-link logout-btn">
                 <img src={logout2} alt="Logout" style={{ width: '25px', marginRight: '15px' }} />
                 <span>Log out</span>
               </button>
@@ -308,12 +264,35 @@ export default function Navbar() {
           .swal2-cancel {
             color: #333 !important;
           }
-          .list-group-item a, .list-group-item button {
-            text-decoration: none;
-            color: inherit;
-          }
-          .list-group-item {
-            border-radius: 0 !important;
+          @media (max-width: 991px) {
+            .sidebar {
+              background-color: #b9c2c1 !important;
+            }
+            .sidebar-item {
+              border: none !important;
+              margin-top: 10px !important;
+              padding: 0 !important;
+              background-color: #b9c2c1 !important;
+            }
+            .sidebar-link {
+              display: flex;
+              align-items: center;
+              text-decoration: none;
+              color: #1c5d5f !important;
+              padding: 8px 15px;
+              background-color: #b9c2c1;
+              width: 100%;
+              border: none;
+            }
+            .logout-btn {
+              background: none;
+              border: none;
+              width: 100%;
+              text-align: left;
+              padding: 8px 15px;
+              color: #1c5d5f !important;
+              margin-left:8px;
+            }
           }
         `}
       </style>
