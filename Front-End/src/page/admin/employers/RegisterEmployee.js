@@ -82,14 +82,14 @@ const UpdateEmployee = () => {
             toast.error("Password is required!");
             return;
         }
-        if(!validateEmail(email)) {
-            toast.error("Invalid email address!");
-            return;
-        }
-        if(!validatePhoneNumber(contactNumber)) {
-            toast.error("Invalid contact number!");
-            return;
-        }
+        // if(!validateEmail(email)) {
+        //     toast.error("Invalid email address!");
+        //     return;
+        // }
+        // if(!validatePhoneNumber(contactNumber)) {
+        //     toast.error("Invalid contact number!");
+        //     return;
+        // }
 
         // Submit the form data to the API
         axios.post("http://localhost:5000/api/admin/register", {

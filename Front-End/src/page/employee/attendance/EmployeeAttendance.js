@@ -194,11 +194,11 @@ function EmployeeAttendance() {
                                     </button>
                                 </div>
                                 {/* Table */}
-                                <div className="ekr-employee-attendance-table-container mt-1">
+                                <div className="ekr-employee-attendance-table-container mt-1" style={{ overflowX: 'auto', maxWidth: '100%' }}>
                                     <table className="table table-bordered ekr-employee-attendance-table">
                                         <thead className="thead-light">
                                             <tr className="text-center">
-                                                <th className="ekr-w-10">No</th>
+                                                <th className="ekr-w-15">No</th>
                                                 <th>Employee Name</th>
                                                 <th>Date</th>
                                                 <th>Email</th>
@@ -209,7 +209,7 @@ function EmployeeAttendance() {
                                             {data.length > 0 ? (
                                                 data.map((element, index) => (
                                                     <tr key={element.id} className="w-100">
-                                                        <td className="ekr-w-10">{String(element.RowNumber).padStart(2, "0")}</td>
+                                                        <td className="ekr-w-15">{String(element.RowNumber).padStart(2, "0")}</td>
                                                         <td>{element.name}</td>
                                                         <td>{formatDateToDMY(new Date(element.date))}</td>
                                                         <td>{element.email}</td>

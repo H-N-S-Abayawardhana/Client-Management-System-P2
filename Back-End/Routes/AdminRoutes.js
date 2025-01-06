@@ -571,13 +571,13 @@ router.get('/ViewAllAttendances', async (req, res) => {
 
         const [data] = await db.query(sql);
         if(data.length === 0) {
-            return res.status(404).json({ message: "No attendances found" });
+            return res.status(404).send("No attendances found");
         }
 
         return res.status(200).json(data);
     } catch (err) {
         console.log(err);
-        return res.status(500).json({ message: "An error occurred while fetching attendances" });
+        return res.status(500).send("An error occurred while fetching attendances");
     }
 });
 
@@ -590,13 +590,13 @@ router.get('/attendance/:date', async (req, res) => {
         const [data] = await db.query(sql, [date]);
 
         if (data.length === 0) {
-            return res.status(404).json({ message: "Employee not found" });
+            return res.status(404).send("Employee not found");
         }
 
         return res.status(200).json(data);  // Return a single employee object
     } catch (error) {
         console.error("Error fetching employee:", error.message);
-        return res.status(500).json({ error: "Database query failed" });
+        return res.status(500).send(error.message);
     }
 });
 
@@ -607,7 +607,7 @@ router.get('/resetData', async (req, res) => {
         return res.status(200).json({ message: 'Data reset successfully', data: result });
     } catch(error) {
         console.log(error);
-        return res.status(500).json({ message: 'An error occurred while resetting data' });
+        return res.status(500).send('An error occurred while resetting data');
     }
 });
 
@@ -700,7 +700,7 @@ router.get('/generatePDF', async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ message: 'An error occurred while generating PDF' });
+        return res.status(500).send('An error occurred while generating PDF');
     }
 });
 
@@ -710,14 +710,14 @@ router.get("/employees", async (req, res) => {
         const [data] = await db.query("SELECT * FROM employee");
 
         if (data.length === 0) {
-            return res.status(404).json({ message: "Employee not found" });
+            return res.status(404).send("Employee not found");
         }
         
         console.log("Query successful, sending data:", data);
         return res.status(200).json(data);
     } catch (err) {
         console.error("Error executing query:", err.message);
-        return res.status(500).json({ error: "Database query failed" });
+        return res.status(500).send(err.message);
     }
 });
 
@@ -729,13 +729,13 @@ router.get("/employee/:EmployeeID", async (req, res) => {
         const [data] = await db.query(sql, [EmployeeID]);
 
         if (data.length === 0) {
-            return res.status(404).json({ message: "Employee not found" });
+            return res.status(404).send("Employee not found");
         }
 
         return res.status(200).json(data);  // Return a single employee object
     } catch (err) {
         console.error("Error fetching employee:", err.message);
-        return res.status(500).json({ error: "Database query failed" });
+        return res.status(500).send(err.message);
     }
 });
 
@@ -755,7 +755,7 @@ router.post("/register", async (req, res) => {
         return res.status(201).json({ message: "Employee added successfully", data: result });
     } catch (error) {
         console.error("Error inserting data:", error.message);
-        return res.status(500).json({ error: "Error inserting data into database", details: error.message });
+        return res.status(500).send("Error inserting data into database", error.message);
     }
 });
 
@@ -780,7 +780,7 @@ router.put('/update/:EmployeeID', async (req, res) => {
         return res.status(200).json({ message: "Employee updated successfully", data: result });
     } catch (error) {
         console.error("Error updating data:", error.message);
-        return res.status(500).json({ error: "Error updating data", details: error.message });
+        return res.status(500).send("Error updating data", error.message);
     }
 });
 
@@ -792,10 +792,10 @@ router.delete("/employee/:EmployeeID", async (req, res) => {
     try {
         const result = await db.query(sql, [EmployeeID]);
         console.log("Query successful, deleted data:", result);
-        return res.status(200).json({ message: "Employee deleted successfully" });
+        return res.status(200).send("Employee deleted successfully");
     } catch(error) {
         console.error("Error deleting data:", error.message);
-        return res.status(500).json({ error: "Error deleting data", details: error.message });
+        return res.status(500).send("Error deleting data", error.message);
     }
 });
 
