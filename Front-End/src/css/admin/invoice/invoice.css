@@ -20,20 +20,19 @@
 /* Style for 'Home' */
 .yks-invoice-page .yks-profile-breadcrumb span.home {
   color: black;
-  /* Black color for Home */
 }
 
 /* Style for 'Contact' */
 .yks-invoice-page .yks-profile-breadcrumb span.contact {
   color: #24757E;
-  /* Green color for Contact */
 }
 
 .yks-invoice-page .yks-head h1 {
-  color: #24757E;
-  margin-bottom: 40px;
-  max-width: 100%;
-  font-size: 34px;
+    color: #24757E;
+    margin-bottom: 40px;
+     max-width: 100%;
+    font-size: 34px;
+    margin-left: 750px;
 }
 
 /* Invoice Box Styling */
@@ -162,7 +161,7 @@
   .yks-invoice-page .yks-view-btn {
     margin-left: 7%;
   }
-  
+
   .yks-invoice-page .yks-save-btn {
     margin-left: 7%;
   }
