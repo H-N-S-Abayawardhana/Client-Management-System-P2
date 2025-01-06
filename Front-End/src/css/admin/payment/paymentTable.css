@@ -1,285 +1,173 @@
-.msa-payment-container {
-    justify-content: center;
-    align-items: center;
-    padding: 40px 10px;
-    border-radius: 8px;
-    margin: 10px;
-    color: #4c7476;
-    overflow-y: auto;
-    overflow-x: hidden;
+.msa-admin-payment-container{
+    min-height: 100vh;
 }
-.msa-payment-container .msa-profile-breadcrumb {
-    font-size: 18px;
-    font-weight: 100;
-    margin-top: 40px;
-    margin-left: 250px;
-    margin-bottom: 14px;
-    font-family: 'Arial', sans-serif;
-}
-/* Style for 'Home' */
-.msa-payment-container .msa-profile-breadcrumb span.home {
-    color: black; /* Black color for Home */
+.msa-admin-payment-container .msa-sidebar-container {
+    width: 230px; /* Default width for larger screens */
+    flex-shrink: 0; /* Optional: Sidebar background color */
 }
 
-/* Style for 'Contact' */
-.msa-payment-container .msa-profile-breadcrumb span.contact {
-    color: #24757E; /* Green color for Contact */
-}
-
-.msa-payment-container .msa-payment-table-container {
-    margin: 20px;
-}
-
-@media (min-width: 992px) {
-    .head {
-        margin-left: 150px; /* Customize as needed */
+@media (max-width: 768px) {
+    .msa-admin-payment-container .msa-sidebar-container {
+        width: 100%; /* Full width for mobile screens */
+        position: fixed; /* Fixed sidebar for smaller screens */
+        z-index: 1000;
+        top: 0;
+        left: 0; /* Place it above other content */
     }
 }
 
-.msa-payment-table-container .head h1{
+
+.msa-admin-payment-container .msa-content-container {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    .msa-admin-payment-container .msa-content-container {
+        margin-top: 60px; /* Adjust for fixed navbar/sidebar */
+        padding: 10px; /* Reduced padding for smaller screens */
+    }
+}
+
+.msa-admin-payment-container .msa-content-container .msa-profile-breadcrumb {
+    font-size: 18px;
+    font-weight: 100;
+    margin: 50px 0 0 50px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Style for breadcrumb items */
+.msa-admin-payment-container .msa-content-container span.home {
+    color: black;
+}
+.msa-admin-payment-container .msa-content-container span.contact {
     color: #24757E;
-    margin-bottom:30px;
+}
+.msa-admin-payment-container .msa-card-container-height {
+    min-height: 430px;
+}
+
+@media (max-width: 768px) {
+    .msa-admin-payment-container .msa-card-container-height {
+        padding: 10px; /* Reduce padding on smaller screens */
+    }
+}
+.msa-admin-payment-container .msa-head h1 {
     max-width: 100%;
-}
-.msa-payment-table-container .view-btn {
-    padding: 1px 10px;
-    color: white;
-    background-color: #24757E;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 3px;
-
+    color: #24757E;
 }
 
-.msa-payment-table-container .delete-btn {
-    padding: 1px 10px;
+.msa-admin-payment-container .msa-admin-payment-table-container {
+    flex-grow: 1;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #ffffff;
+    margin: 10px;
+    font-size: 12px;
+    border-radius: 10px;
+    overflow-x: auto; /* Allow horizontal scrolling when necessary */
+}
+.msa-admin-payment-container .msa-admin-payment-table .msa-delete-btn {
+    padding: 4px 10px;
     color: white;
     background-color: #E46B6B;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     margin: 3px;
+}
+.msa-admin-payment-container .msa-admin-payment-table .msa-view-btn {
+    padding: 4px 10px;
+    color: white;
+    background-color: #24757E;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 3px;
+}
+@media (max-width: 768px) {
+    .msa-admin-payment-container .msa-admin-payment-table-container {
+        padding: 1px; /* Reduce padding on smaller screens */
+    }
+
+    .msa-admin-payment-container .yks-admin-invoice-table th,
+    .msa-admin-payment-container .yks-admin-invoice-table td {
+        padding: 6px; /* Reduce padding on very small screens */
+        font-size: 9px; /* Smaller font size for very small screens */
+    }
+}
+
+@media (max-width: 408px) {
+    .msa-admin-payment-container .msa-admin-payment-table-container {
+        padding: 1px; /* Reduce padding on smaller screens */
+    }
+    .msa-admin-payment-container .msa-admin-payment-table .msa-delete-btn {
+        padding: 3px 4px;
+        font-size: 8px;
+    }
+    .msa-admin-payment-container .msa-admin-payment-table .msa-view-btn{
+        padding: 3px 4px;
+        font-size: 8px;
+    }
+
 
 }
-.msa-payment-table-container .msa-container-table {
-    align-items: center; /* Center-align the table container */
-    padding: 20px;
-    margin-left: 250px;
-    max-width: 100%; /* Limit the maximum width */
-}
 
-.msa-payment-table-container .msa-pyment-tbl {
-    margin-top: 15px;
-    margin-left: 60px;
-    width: 90%; /* Make the table width responsive */
-    border-radius: 2px;
+.msa-admin-payment-container .msa-admin-payment-table {
+    width: 100%;
     border-collapse: collapse;
-    table-layout: auto; /* Use auto layout for better column size adjustment */
-    /*margin: auto; !* Center the table within the container *!*/
+    font-size: 16px; /* Adjust font size for readability */
+    border: 1px solid #8c8c8c33;
+    border-radius: 10px;
+    overflow-x: auto;
 }
-.msa-pyment-tbl th, td {
-    padding: 8px; /* Add padding for better readability */
+
+.msa-admin-payment-container .msa-admin-payment-table th,
+.msa-admin-payment-container .msa-admin-payment-table td {
     border: 1px solid #ddd;
-    text-align: center;
+    text-align: center; /* Center-align text for all cells */
 }
-.msa-pyment-tbl th {
-    background-color: #ababab !important;
-    color: rgb(9, 0, 0);
+
+.msa-admin-payment-container .msa-admin-payment-table th {
+    background-color: #f8f9fa;
+    color: #000000;
     font-weight: bold;
 }
-.msa-pyment-tbl tr {
-    color: rgb(9, 0, 0);
+
+.msa-admin-payment-container .msa-admin-payment-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
-.msa-container-table tr:hover {
+.msa-admin-payment-container .msa-admin-payment-table tbody tr:hover {
     background-color: #f1f1f1;
 }
 
+@media (max-width: 768px) {
+    .msa-admin-payment-container .msa-admin-payment-table-container {
+        padding: 5px; /* Reduce padding on smaller screens */
+        overflow-x: auto; /* Ensure horizontal scroll when necessary */
+    }
 
-/* Scrollable table body */
-.msa-pyment-tbl tbody {
-    display: block; /* Makes the table body scrollable */
-    max-height: 200px; /* 6 rows x approximately 40px each */
-    overflow-y: auto; /* Enables vertical scrolling */
-    width: 100%; /* Ensures it matches the table's width */
+    .msa-admin-payment-container .msa-admin-payment-table {
+        width: 100%; /* Ensure the table takes full width */
+    }
+
+    .msa-admin-payment-container .msa-admin-payment-table th,
+    .msa-admin-payment-container .msa-admin-payment-table td {
+        padding: 8px; /* Reduce padding on smaller screens */
+        font-size: 10px; /* Adjust font size for smaller screens */
+    }
 }
 
-thead, tbody tr {
-    display: table; /* Ensures headers and rows maintain table layout */
-    width: 100%; /* Matches the table width */
-    table-layout: fixed; /* Ensures consistent column sizing */
-}
-
-/* Hide scrollbar for cleaner look */
-.msa-pyment-tbl tbody::-webkit-scrollbar {
+/* Scrollbar styling */
+tbody::-webkit-scrollbar {
     width: 2px;
 }
-
-.msa-pyment-tbl tbody::-webkit-scrollbar-thumb {
+tbody::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 4px;
 }
-
-.msa-pyment-tbl tbody::-webkit-scrollbar-thumb:hover {
+tbody::-webkit-scrollbar-thumb:hover {
     background-color: #888;
-}
-
-@media (max-width: 780px) {
-    .msa-payment-container .msa-container-table {
-        align-items: center; /* Center-align the table container */
-        padding: 20px;
-        margin-left: 0px;
-        max-width: 100%; /* Limit the maximum width */
-    }
-
-    .msa-payment-container {
-        margin-left: 0%;
-        margin-right: 0%;
-    }
-
-    .msa-payment-container .msa-pyment-tbl {
-        width: 100%; /* Make the table width responsive */
-        border-radius: 2px;
-        border-collapse: collapse;
-        table-layout: auto; /* Use auto layout for better column size adjustment */
-        margin: auto; /* Center the table within the container */
-    }
-
-    .msa-payment-container .msa-payment-table-container {
-        margin-top: 20px;
-        margin-left: 0%;
-        margin-right: 0%;
-        margin-bottom: 20px;
-    }
-
-    .msa-paymnet-container .msa-profile-breadcrumb {
-        display: none;
-    }
-
-    .msa-paymnet-container .head h1 {
-        padding-top: 60px;
-        margin-bottom: 30px;
-        font-size: calc(1.375rem + 1.5vw);
-        font-weight: bold !important;
-    }
-
-    .msa-paymnet-container .msa-container-table {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 5px;
-        margin-left: 0;
-        max-width: 100%;
-        overflow: auto; /* Add horizontal scroll to the container */
-    }
-
-    .msa-container-table table {
-        width: 100%; /* Allow the table to adjust width based on content */
-        border-collapse: collapse;
-        overflow: auto; /* Ensure table itself can scroll */
-    }
-
-    .msa-pyment-tbl thead, tbody {
-        display: block; /* Allow scrolling within tbody */
-    }
-
-    .msa-pyment-tbl tbody {
-        max-height: 400px; /* Fixed height for vertical scrolling */
-        overflow-y: auto; /* Enable vertical scrolling */
-        overflow-x: hidden; /* Prevent unnecessary horizontal scroll in tbody */
-        width: 100%; /* Ensure alignment with the table */
-    }
-
-    .msa-pyment-tbl thead tr {
-        display: table;
-        width: 100%;
-        table-layout: fixed; /* Ensures column widths align properly */
-    }
-
-    .msa-pyment-tbl tbody tr {
-        display: table;
-        width: 100%;
-        table-layout: fixed; /* Aligns rows and columns with headers */
-    }
-
-    .msa-pyment-tbl th, td {
-        padding: 5px 2px; /* Smaller padding */
-        font-size: 12px; /* Reduce font size */
-        text-align: center;
-    }
-
-    .view-btn, .delete-btn {
-        font-size: 10px;
-        padding: 3px 5px;
-        width: 80%;
-    }
-}
-@media (max-width: 480px) {
-    .msa-profile-breadcrumb {
-        display: none; /* Hide breadcrumb on small screens */
-    }
-
-    .msa-paymnet-container .head h1 {
-        margin-top: 50px;
-        margin-bottom: 30px;
-    }
-
-    .msa-paymnet-container .msa-container-table {
-        overflow-x: auto; /* Enable horizontal scrolling */
-        overflow-y: hidden; /* Hide vertical scroll in the container */
-        white-space: nowrap; /* Prevent text wrapping in table cells */
-        padding: 8px;
-        margin: 0 auto; /* Center the table container */
-        max-width: 100%; /* Prevent table from overflowing the container */
-    }
-
-    .msa-paymnet-container .msa-container-table table {
-        width: 100%; /* Set table width to 100% of the container */
-        border-collapse: collapse; /* Clean up table borders */
-    }
-
-    .msa-paymnet-container .msa-container-table thead, .msa-paymnet-container .msa-container-table tbody {
-        display: block; /* Allow scrolling for tbody */
-    }
-
-    .msa-pyment-tbl tbody {
-        max-height: 300px; /* Set a fixed height for vertical scroll */
-        overflow-y: auto; /* Enable vertical scrolling */
-        width: 100%;
-    }
-
-    .msa-pyment-tbl thead {
-        position: sticky; /* Fix the header at the top */
-        top: 0;
-        background-color: #fff; /* Ensure the header is visible while scrolling */
-        z-index: 1; /* Make sure the header stays on top */
-    }
-
-    .msa-pyment-tbl thead tr {
-        display: table; /* Ensure header row behaves like a table */
-        width: 100%;
-        table-layout: fixed; /* Prevent column width adjustment */
-    }
-
-    .msa-pyment-tbl tbody tr {
-        display: table; /* Ensure rows behave like table rows */
-        width: 100%;
-        table-layout: fixed; /* Ensure consistent column width */
-    }
-
-    .msa-pyment-tbl th, .msa-pyment-tbl td {
-        padding: 7px 10px;
-        font-size: 13px;
-        text-align: center;
-        border: 1px solid #ddd; /* Optional border for better clarity */
-        word-wrap: break-word; /* Allow word breaking if the text is too long */
-    }
-
-    .view-btn, .delete-btn {
-        font-size: 12px;
-        padding: 3px;
-        width: auto; /* Ensure buttons are inline */
-    }
 }
 
