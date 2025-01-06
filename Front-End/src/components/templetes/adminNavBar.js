@@ -82,7 +82,7 @@ export default function Navbar() {
   };
 
   return (
-    <div>
+    <div className="adm-nav-bar">
       <nav
         className="navbar navbar-expand-lg fixed-top"
         style={{ backgroundColor: '#24757e', color: '#ffffff' }}
