@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import {ToastContainer} from 'react-toastify';
 import Navbar from "../../../components/templetes/empNavBar";
 import Footer from "../../../components/templetes/Footer";
 import Sidebar from "../../../components/templetes/ESideBar";
@@ -15,11 +16,6 @@ const PaymentsTable = () => {
     const [employee, setEmployee] = useState(null);
 
     const navigate = useNavigate();
-
-    const toggleSidebar = () => {
-        setSidebarVisible(!sidebarVisible);
-    };
-
     // Fetch employee details
     useEffect(() => {
         const email = localStorage.getItem("email");
@@ -71,74 +67,71 @@ const PaymentsTable = () => {
 
         fetchPaymentDetails();
     }, [employee?.EmployeeID]);
-
-    const handleView = () => {
-        navigate(`/employee-pay`);
-    };
-
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString("en-GB");
     };
 
     return (
-        <div>
+        <div className="d-flex flex-column msa-emp-payment-container">
+            <ToastContainer position="top-right" autoClose={3000} />
             <Navbar />
-            <div className="msa-emp-payment-container">
-                <nav className="msa-breadcrumb" aria-label="breadcrumb">
-                    <p className="msa-profile-breadcrumb">
-                        <span className="home">Home</span> / <span className="contact">My Payment</span>
-                    </p>
-                </nav>
-                <div className="msa-emppay-container">
-                    <div className="head">
-                        <h1 className="text-center">My Payments</h1>
+            <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>
+                {/* Sidebar */}
+                <div
+                    className={`msa-sidebar-container ${sidebarVisible ? "show-sidebar" : ""}`}
+                    style={{ flexShrink: 0 }}
+                >
+                    <Sidebar sidebarVisible={sidebarVisible} />
+                </div>
+                <div className="d-flex flex-column flex-grow-1">
+                    <div className="msa-content-container flex-grow-1 p-4">
+                        <nav>
+                            <p className="msa-profile-breadcrumb">
+                                <span className="home">Home</span> / <span className="contact">My Payment</span>
+                            </p>
+                        </nav>
+                    </div>
+                    <div className="card mt-2 msa-card-container-height border-0">
+                        <div className="card-body">
+                            <h1 className="msa-head text-center mt-1">My Payments</h1>
+                            {/*MakePayment*/}
+                            <button
+                                className="msa-add-payment-button me-5"
+                                onClick={() => navigate("/employee-pay")}
+                            >
+                                Make Payment
+                            </button>
+                            {loading && <p>Loading payments...</p>}
+                            {error && <p style={{ color: "red" }}>{error}</p>}
+                            <div className="msa-employee-payment-table-container mt-1">
+                                <table className="table table-bordered msa-employee-payment-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Payment ID</th>
+                                        <th>Invoice ID</th>
+                                        <th>Amount</th>
+                                        <th>Payment Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {payments.map((payment) => (
+                                        <tr key={payment.paymentID}>
+                                            <td>{payment.paymentID}</td>
+                                            <td>{payment.invoiceID}</td>
+                                            <td>{payment.amount}</td>
+                                            <td>{formatDate(payment.payment_date)}</td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
 
-                    <header className="msa-emppayment-header">
-                        <button className="msa-emppay-btn" onClick={() => navigate("/employee-pay")}>
-                            Make Payment
-                        </button>
-                    </header>
-
-                    {loading && <p>Loading payments...</p>}
-                    {error && <p style={{ color: "red" }}>{error}</p>}
-
-                    {!loading && !error && payments.length > 0 && (
-                        <div className="msa-table-wrapper">
-                            <table className="msa-emppayment-table">
-                                <thead>
-                                <tr>
-                                    <th>Payment ID</th>
-                                    <th>Invoice ID</th>
-                                    <th>Amount</th>
-                                    <th>Payment Date</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {payments.map((payment) => (
-                                    <tr key={payment.paymentID}>
-                                        <td>{payment.paymentID}</td>
-                                        <td>{payment.invoiceID}</td>
-                                        <td>{payment.amount}</td>
-                                        <td>{formatDate(payment.payment_date)}</td>
-                                    </tr>
-                                ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    )}
-
-                    {!loading && !error && payments.length === 0 && <p>No payment records found.</p>}
+                    {/* Footer */}
+                    <Footer />
                 </div>
-            </div>
-
-            
-            <div className={`flex-grow-1 d-flex ${sidebarVisible ? "show-sidebar" : ""}`}>
-                <Sidebar sidebarVisible={sidebarVisible} />
-            </div>
-            <div className="msa-container3">
-                <Footer />
             </div>
         </div>
     );
