@@ -1,208 +1,217 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {toast, ToastContainer} from 'react-toastify';
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
-import "../../../css/employee/invoice/EmployeeInvoice.css";
-import axios from "axios";
-import Navbar from "../../../components/templetes/empNavBar";
-import Sidebar from "../../../components/templetes/ESideBar";
-import Footer from '../../../components/templetes/Footer';
-import searchIcon from "../../../assets/image.png";
-
-
-function EmployeeInvoice() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [invoices, setInvoices] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [employee, setEmployee] = useState(null);
-  const [sidebarVisible, setSidebarVisible] = useState(false);
-
-  const navigate = useNavigate();
-  // Toggle Sidebar
-  const toggleSidebar = () => {
-    setSidebarVisible(!sidebarVisible);
-  };
-  // Fetch employee details
-  useEffect(() => {
-    const email = localStorage.getItem("email");
-    if (email) {
-      const fetchEmployeeDetails = async () => {
-        try {
-          const response = await fetch(`http://localhost:5000/api/employee/employee/${email}`);
-          if (!response.ok) throw new Error("Failed to fetch employee details");
-          const data = await response.json();
-          if (data?.data) {
-            setEmployee(data.data);
-          } else {
-            throw new Error("Employee details not found");
-          }
-        } catch (err) {
-          console.error("Error fetching employee details:", err);
-          setError(err.message);
-        }
-      };
-
-      fetchEmployeeDetails();
-    }
-  }, []);
-  // Fetch invoice details based on employee ID
-  useEffect(() => {
-    if (!employee?.EmployeeID) return;
-
-    const fetchInvoiceDetails = async () => {
-      try {
-        const response = await fetch(
-            `http://localhost:5000/api/employee/employee/invoice/${employee.EmployeeID}`
-        );
-        if (!response.ok) throw new Error("Failed to fetch payment details");
-        const data = await response.json();
-
-        if (Array.isArray(data?.data)) {
-          setInvoices(data.data);
-        } else {
-          throw new Error("Invalid payment data format");
-        }
-      } catch (err) {
-        console.error("Error fetching payments:", err);
-        setError(err.message);
-      } finally {
-        setLoading(false); // Stop loading spinner
-      }
-    };
-
-    fetchInvoiceDetails();
-  }, [employee?.EmployeeID]);
-  // Fetch invoices from the API
-  useEffect(() => {
-    const fetchInvoices = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/admin/invoice");
-        if (Array.isArray(response.data.data)) {
-          setInvoices(response.data.data);
-        } else {
-          throw new Error("Invalid response format. Expected an array.");
-        }
-      } catch (err) {
-        console.error("Error fetching invoices:", err);
-        setError("Failed to fetch invoices.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchInvoices();
-  }, []);
-  // Handle View Invoice
-  const handleView = (invoiceID) => {
-    navigate(`/employee-invoice-detail/${invoiceID}`); // Navigate to the PaymentInformation page with invoiceID
-
-  };
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB");
-  };
-  //handle search
-  const handleSearchChange = (e) => {
-
-  }
-  // Filter invoices by search term
-  const filteredInvoices = invoices.filter((invoice) =>
-    Object.values(invoice).some((value) =>
-      String(value).toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  );
-
-  return (
-      <div className="d-flex flex-column" style={{ minHeight: "100vh" }}>
-        <ToastContainer position="top-right" autoClose={3000} />
-        <Navbar />
-        <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>
-          {/* Sidebar */}
-          <div
-              className={`yks-sidebar-container ${sidebarVisible ? "show-sidebar" : ""}`}
-              style={{ flexShrink: 0 }}
-          >
-            <Sidebar sidebarVisible={sidebarVisible} />
-          </div>
-          {/* Content and Footer Container */}
-          <div className="d-flex flex-column flex-grow-1">
-            <div className="yks-content-container flex-grow-1 p-4">
-              <nav>
-                <p className="yks-profile-breadcrumb">
-                  <span className="home">Home</span> / <span className="contact">Invoices</span>
-                </p>
-              </nav>
-            </div>
-            <div className="card mt-2 yks-card-container-height border-0">
-              <div className="card-body">
-                <h1 className="yks-head text-center mt-1">Invoices</h1>
-                {/* Search Bar */}
-                <div className="yks-employee-search-bar-container position-relative d-flex ms-2">
-                  <input
-                      type="text"
-                      className="form-control yks-employee-search-bar"
-                      placeholder="Search"
-                      value={searchTerm}
-                      onChange={handleSearchChange}
-                  />
-                  <button className="btn yks-employee-search-bar-icon">
-                    <img alt="Search Icon" src={searchIcon} className="yks-search-bar-icon" />
-                  </button>
-                </div>
-                <div className="yks-employee-invoice-table-container mt-1">
-                  {/* Show loading or error messages */}
-                  {loading && <p>Loading invoices...</p>}
-                  {error && <p style={{ color: "red" }}>{error}</p>}
-                  <table className="table table-bordered yks-employee-invoice-table">
-                    <thead>
-                    <tr>
-                      <th>Invoice ID</th>
-                      <th>Account ID</th>
-                      <th>
-                        <div className="header-split">
-                          <span>Invoice</span>
-                          <br />
-                          <span>Date</span>
-                        </div>
-                      </th>
-                      <th>Amount</th>
-                      <th>Status</th>
-                      <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {filteredInvoices.map((invoice) => (
-                        <tr key={invoice.invoiceID}>
-                          <td>{invoice.invoiceID}</td>
-                          <td>{invoice.AcountId}</td>
-                          <td>{formatDate(invoice.invoice_date)}</td>
-                          <td>{invoice.total_cost}</td>
-                          <td>{invoice.status}</td>
-                          <td>
-                            <button
-                                className="yks-view-btn"
-                                onClick={() => handleView(invoice.invoiceID)}
-                            >
-                              View
-                            </button>
-                          </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            {/* Footer */}
-            <Footer />
-          </div>
-        </div>
-
-      </div>
-  );
+.yks-emp-invoice-container{
+    min-height: 100vh;
 }
 
-export default EmployeeInvoice;
+.yks-emp-invoice-container .yks-sidebar-container {
+    width: 230px; /* Default width for larger screens */
+    flex-shrink: 0; /* Optional: Sidebar background color */
+}
+
+@media (max-width: 768px) {
+    .yks-emp-invoice-container .yks-sidebar-container {
+        width: 100%; /* Full width for mobile screens */
+        position: fixed; /* Fixed sidebar for smaller screens */
+        z-index: 1000;
+        top: 0;
+        left: 0; /* Place it above other content */
+    }
+}
+
+.yks-emp-invoice-container .yks-content-container {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    .yks-emp-invoice-container .yks-content-container {
+        margin-top: 60px; /* Adjust for fixed navbar/sidebar */
+        padding: 10px; /* Reduced padding for smaller screens */
+    }
+}
+
+.yks-emp-invoice-container .yks-content-container .yks-profile-breadcrumb {
+    font-size: 18px;
+    font-weight: 100;
+    margin: 50px 0 0 50px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Style for breadcrumb items */
+.yks-emp-invoice-container .yks-content-container span.home {
+    color: black;
+}
+.yks-emp-invoice-container .yks-content-container span.contact {
+    color: #24757E;
+}
+.yks-emp-invoice-container .yks-card-container-height {
+    min-height: 430px;
+}
+
+@media (max-width: 768px) {
+    .yks-emp-invoice-container .yks-card-container-height {
+        padding: 10px; /* Reduce padding on smaller screens */
+    }
+}
+.yks-emp-invoice-container .yks-head h1 {
+    max-width: 100%;
+    color: #24757E;
+}
+
+.yks-emp-invoice-container .yks-employee-invoice-table-container {
+    flex-grow: 1;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #ffffff;
+    margin: 10px;
+    font-size: 12px;
+    border-radius: 10px;
+    overflow-x: auto; /* Allow horizontal scrolling when necessary */
+}
+
+@media (max-width: 768px) {
+    .yks-emp-invoice-container .yks-employee-invoice-table-container {
+        padding: 1px; /* Reduce padding on smaller screens */
+    }
+
+    .yks-emp-invoice-container .yks-employee-invoice-table th,
+    .yks-emp-invoice-container .yks-employee-invoice-table td {
+        padding: 6px; /* Reduce padding on very small screens */
+        font-size: 9px; /* Smaller font size for very small screens */
+    }
+}
+
+@media (max-width: 408px) {
+    .yks-emp-invoice-container .yks-employee-invoice-table-container {
+        padding: 1px; /* Reduce padding on smaller screens */
+    }
+}
+
+.yks-emp-invoice-container .yks-employee-invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px; /* Adjust font size for readability */
+    border: 1px solid #8c8c8c33;
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+.yks-emp-invoice-container .yks-employee-invoice-table th,
+.yks-emp-invoice-container .yks-employee-invoice-table td {
+    border: 1px solid #ddd;
+    text-align: center; /* Center-align text for all cells */
+}
+
+.yks-emp-invoice-container .yks-employee-invoice-table th {
+    background-color: #f8f9fa;
+    color: #000000;
+    font-weight: bold;
+}
+
+.yks-emp-invoice-container .yks-employee-invoice-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.yks-emp-invoice-container .yks-employee-invoice-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+@media (max-width: 768px) {
+    .yks-emp-invoice-container .yks-employee-invoice-table-container {
+        padding: 5px; /* Reduce padding on smaller screens */
+        overflow-x: auto; /* Ensure horizontal scroll when necessary */
+    }
+
+    .yks-emp-invoice-container .yks-employee-invoice-table {
+        width: 100%; /* Ensure the table takes full width */
+    }
+
+    .yks-emp-invoice-container .yks-employee-invoice-table th,
+    .yks-emp-invoice-container .yks-employee-invoice-table td {
+        padding: 8px; /* Reduce padding on smaller screens */
+        font-size: 10px; /* Adjust font size for smaller screens */
+    }
+}
+
+/* Scrollbar styling */
+tbody::-webkit-scrollbar {
+    width: 2px;
+}
+tbody::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+tbody::-webkit-scrollbar-thumb:hover {
+    background-color: #888;
+}
+
+.yks-emp-invoice-container .yks-employee-invoice-table .yks-view-btn {
+    padding: 4px 10px;
+    color: white;
+    background-color: #24757E;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.yks-emp-invoice-container .yks-employee-search-bar-container {
+    position: relative;
+    flex-grow: 1; /* Allow search bar to grow */
+    max-width: 40%;
+    margin-right: 10px;
+}
+
+.yks-emp-invoice-container .yks-employee-search-bar {
+    margin-top: 7px;
+    border-radius: 50px;
+    width: 100%; /* Full width for smaller screens */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    .yks-emp-invoice-container .yks-employee-search-bar-container {
+        max-width: 20%; /* Adjust max width for smaller screens */
+    }
+}
+
+.yks-emp-invoice-container .yks-employee-search-bar-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 18px;
+    color: #6c757d;
+    border: none;
+    box-shadow: none;
+    margin-top: 2px;
+    background-color: transparent; /* Hides the background color */
+}
+
+.yks-emp-invoice-container .yks-search-bar-icon {
+    margin-top: 2px;
+    width: 30px;
+    height: 25px;
+}
+
+@media (max-width: 768px) {
+    .yks-emp-invoice-container .yks-employee-search-bar-icon {
+        margin-left: 25px; /* Adjust icon position for smaller screens */
+    }
+}
+
+@media (max-width: 408px) {
+    .yks-emp-invoice-container .yks-employee-search-bar-container {
+        max-width: 45%; /* Adjust max width for smaller screens */
+    }
+    .yks-emp-invoice-container .yks-employee-invoice-table .yks-view-btn {
+        padding: 3px 7px;
+        color: white;
+        background-color: #24757E;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+}
+
