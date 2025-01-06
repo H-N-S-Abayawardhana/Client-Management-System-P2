@@ -5,7 +5,7 @@ import Footer from '../../../components/templetes/Footer';
 import Sidebar from "../../../components/templetes/SideBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // useNavigate import
-import {toast} from "react-toastify";
+import {toast ,ToastContainer} from "react-toastify";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -66,80 +66,76 @@ const PaymentsTable = () => {
     };
 
     return (
-        <div>
+        <div className="d-flex flex-column msa-admin-payment-container">
+            <ToastContainer position="top-right" autoClose={3000} />
             <Navbar />
-            <div className="msa-payment-container">
-                <nav>
-                    <p className="msa-profile-breadcrumb">
-                        <span className="home">Home</span> / <span className="home">Invoice</span> / <span className="contact">All Invoices</span>
-                    </p>
-                </nav>
-                <div className="msa-payment-table-container">
-                    <div className='head'>
-                        <h1 className="text-center">Payments</h1>
+            <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>
+                {/* Sidebar */}
+                <div
+                    className={`msa-sidebar-container ${sidebarVisible ? "show-sidebar" : ""}`}
+                    style={{ flexShrink: 0 }}
+                >
+                    <Sidebar sidebarVisible={sidebarVisible} />
+                </div>
+                <div className="d-flex flex-column flex-grow-1">
+                    <div className="msa-content-container flex-grow-1 p-4">
+                        <nav>
+                            <p className="msa-profile-breadcrumb">
+                                <span className="home">Home</span> / <span className="home">Invoice</span> / <span className="contact">All Invoices</span>
+                            </p>
+                        </nav>
                     </div>
-
-
-                    {/* Show loading or error messages */}
-                    {loading && <p>Loading payments...</p>}
-                    {error && <p style={{ color: "red" }}>{error}</p>}
-
-                    {/* Render the table when payments data is loaded */}
-                    {!loading && !error && (
-                        <div className="msa-container-table">
-                            <table className='msa-pyment-tbl'>
-                                <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Invoice ID</th>
-                                    <th>Employee ID</th>
-                                    <th>Amount</th>
-                                    <th>Payment date</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {payments.map((payment, index) => (
-                                    <tr key={payment.paymentID}>
-                                        <td>{payment.paymentID}</td>
-                                        <td>{payment.invoiceID}</td>
-                                        <td>{payment.EmployeeID}</td>
-                                        <td>{payment.amount}</td>
-                                        <td>{formatDate(payment.payment_date)}</td>
-                                        <td>
-                                            <button
-                                                className="view-btn"
-                                                onClick={() => handleView(payment.paymentID)} // Call handleView on "View" button click
-                                            >
-                                                View
-                                            </button>
-                                            <button
-                                                className="delete-btn"
-                                                onClick={() => handleDelete(payment.paymentID)} // Delete payment on "Delete" button click
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
+                    <div className="card mt-2 msa-card-container-height border-0">
+                        <div className="card-body">
+                            <h1 className="msa-head text-center mt-1">Payments</h1>
+                            <div className="msa-admin-payment-table-container mt-1">
+                                {loading && <p>Loading invoices...</p>}
+                                {error && <p style={{ color: "red" }}>{error}</p>}
+                                <table className='table table-bordered msa-admin-payment-table'>
+                                    <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Invoice ID</th>
+                                        <th>Employee ID</th>
+                                        <th>Amount</th>
+                                        <th>Payment date</th>
+                                        <th>Actions</th>
                                     </tr>
-                                ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {payments.map((payment, index) => (
+                                        <tr key={payment.paymentID}>
+                                            <td>{payment.paymentID}</td>
+                                            <td>{payment.invoiceID}</td>
+                                            <td>{payment.EmployeeID}</td>
+                                            <td>{payment.amount}</td>
+                                            <td>{formatDate(payment.payment_date)}</td>
+                                            <td>
+                                                <button
+                                                    className="msa-view-btn"
+                                                    onClick={() => handleView(payment.paymentID)} // Call handleView on "View" button click
+                                                >
+                                                    View
+                                                </button>
+                                                <button
+                                                    className="msa-delete-btn"
+                                                    onClick={() => handleDelete(payment.paymentID)} // Delete payment on "Delete" button click
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    )}
-
-
+                    </div>
+                    {/* Footer */}
+                    <Footer />
                 </div>
             </div>
-            
-            <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
-                <Sidebar sidebarVisible={sidebarVisible} />
-            </div>
-            <div className="container3">
-                <Footer />
-            </div>
-
         </div>
     );
 };
-
 export default PaymentsTable;
