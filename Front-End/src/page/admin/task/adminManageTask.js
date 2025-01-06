@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import "../../../css/admin/task/(apwgr)adminManageTask.css";
 
@@ -30,17 +31,28 @@ const AdminManageTask = () => {
         }
     };
 
-    // Delete a task
+    // Delete a task with confirmation
     const deleteTask = async (taskId) => {
-        try {
-            await axios.delete(`http://localhost:5000/admin/task/tasks/${taskId}`);
-            // Remove the task from the state
-            setTasks(tasks.filter(task => task.TaskID !== taskId));
-            alert('Task deleted successfully.');
-        } catch (error) {
-            console.error('Error deleting task:', error);
-            alert('Failed to delete task.');
-        }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you really want to delete this task? This action cannot be undone.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await axios.delete(`http://localhost:5000/admin/task/tasks/${taskId}`);
+                    setTasks(tasks.filter(task => task.TaskID !== taskId));
+                    Swal.fire('Deleted!', 'The task has been deleted.', 'success');
+                } catch (error) {
+                    console.error('Error deleting task:', error);
+                    Swal.fire('Error!', 'Failed to delete the task.', 'error');
+                }
+            }
+        });
     };
 
     useEffect(() => {
@@ -91,7 +103,12 @@ const AdminManageTask = () => {
                                         <td>{task.Description}</td>
                                         <td>{new Date(task.Deadline).toISOString().split('T')[0]}</td>
                                         <td>
-                                            <button className="apwgr-delete-btn" onClick={() => deleteTask(task.TaskID)}>Delete</button>
+                                            <button
+                                                className="apwgr-delete-btn"
+                                                onClick={() => deleteTask(task.TaskID)}
+                                            >
+                                                Delete
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}
@@ -101,7 +118,6 @@ const AdminManageTask = () => {
                 </div>
             </div>
 
-            
             <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
                 <Sidebar sidebarVisible={sidebarVisible} />
             </div>

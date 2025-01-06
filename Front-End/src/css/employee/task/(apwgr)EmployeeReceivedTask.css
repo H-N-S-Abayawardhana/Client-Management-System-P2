@@ -1,182 +1,181 @@
-.apwgr-emp-back-button-area{
-    display: flex;
-    justify-content:left;
-    align-items: start;
-  }
+.apwgr-emp-back-button-area {
+  display: flex;
+  justify-content: left;
+  align-items: start;
+}
 
-  .apwgr-emp-back-button-area .apwgr-but-inside{
-    width: 100%;
-    max-width: 800px;
-  }
+.apwgr-emp-back-button-area .apwgr-but-inside {
+  width: 100%;
+  max-width: 800px;
+}
 
-  .apwgr-back-btn {
-    width: auto;
-    background-color: #158d93;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-
-  .apwgr-tasks-table-container {
-    max-height: 400px; /* Adjust height as needed */
-    overflow-y: auto;
-    border: 1px solid #ddd;
-  }
+.apwgr-back-btn {
+  width: auto;
+  background-color: #158d93;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
 
-  .apwgr-tasks-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .apwgr-tasks-table th, .apwgr-tasks-table td {
-    padding: 8px 12px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
+.apwgr-tasks-table-container {
+  max-height: 400px;
+  /* Adjust height as needed */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+}
 
 
-
-  .apwgr-tasks-container {
-    margin: 20px;
-  }
-  
-  
-  .breadcrumb {
-    margin-top: 20px; 
-  }
-  
-  /* Header styling */
-.apwgr-tasks-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 35px;
-  }
-  
-  .apwgr-headManage h1{
-    color: #24757E;
-  }
-  
-  .apwgr-tasks-header h1 {
-    font-size: 1.5rem;
-    color: #333;
-  }
-
-  /* Table styling */
 .apwgr-tasks-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 2px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 5 solid black; /* Ensures the table has an outer black border */
-  }
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.apwgr-tasks-table th,
+.apwgr-tasks-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
 
 
-  .apwgr-tasks-table th,
+
+.apwgr-tasks-container {
+  margin: 20px;
+}
+
+
+.breadcrumb {
+  margin-top: 20px;
+}
+
+/* Header styling */
+.apwgr-tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.apwgr-headManage h1 {
+  color: #24757E;
+}
+
+.apwgr-tasks-header h1 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+/* Table styling */
+.apwgr-tasks-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 5 solid black;
+  /* Ensures the table has an outer black border */
+}
+
+
+.apwgr-tasks-table th,
 .apwgr-tasks-table td {
   padding: 12px 15px;
   text-align: left;
-  border: 1px solid black; /* Black border for table cells */
+  border: 1px solid black;
+  /* Black border for table cells */
 }
 
 .apwgr-tasks-table th {
-    width: 10px;
-    background-color: #d2d2d2;
-    color: rgb(9, 0, 0);
-  }
-  
-  .apwgr-tasks-table tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-        /* Main container styling */
-        .apwgr-recived-tasks-container {
-          padding: 20px;
-          /*background-color: #f8f9fa;*/
-          border-radius: 8px;
-          margin: 20px;
-          margin-left: 16%;
-        }
-    
+  width: 10px;
+  background-color: #d2d2d2;
+  color: rgb(9, 0, 0);
+}
 
-  
-  /* Responsive Design */
+.apwgr-tasks-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Main container styling */
+.apwgr-recived-tasks-container {
+  padding: 20px;
+  /*background-color: #f8f9fa;*/
+  border-radius: 8px;
+  margin: 20px;
+  margin-left: 16%;
+  min-height: 500px;
+}
+
+
+
+/* Responsive Design */
 @media (max-width: 1024px) {
-    .apwgr-manage-tasks-container {
-        margin: 0%; /* Remove left margin for smaller screens */
-        padding: 0%;
-    }
-    
+  .apwgr-manage-tasks-container {
+    margin: 0%;
+    /* Remove left margin for smaller screens */
+    padding: 0%;
+  }
 
+
+}
+
+
+
+@media (max-width: 768px) {
+  .apwgr-recived-tasks-container {
+    padding: 0px;
+    margin: 0px;
+    margin-left: 0px;
+  }
+
+
+  .apwgr-headManage h1 {
+    padding-top: 40px;
+    font-size: calc(1.375rem + 1.5vw);
+    padding-bottom: 20px;
+    font-weight: bold !important;
+    /*!important -is used for override without affect any css*/
+  }
+
+  .apwgr-tasks-container {
+    padding-top: 80px;
+    margin: 20px;
+  }
+
+  .apwgr-tasks-header {
+    /*flex-direction: column;*/
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .apwgr-tasks-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .apwgr-tasks-table th,
+  .apwgr-tasks-table td {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .apwgr-tasks-table {
+    font-size: 0.9rem;
+    overflow-x: auto;
+    /* Enable horizontal scrolling */
+    display: block;
+    /* Make the table scrollable */
   }
 
 
 
-  @media (max-width: 768px) {
-    .apwgr-recived-tasks-container {
-      padding: 0px;
-      margin: 0px;
-      margin-left: 0px;
-    }
-
-  
-    .apwgr-headManage h1{
-      padding-top: 40px;
-      font-size: calc(1.375rem + 1.5vw);
-      padding-bottom: 20px;
-      font-weight: bold !important; /*!important -is used for override without affect any css*/
-     }
-   
-     .apwgr-tasks-container {
-      padding-top: 80px;
-      margin: 20px;
-     }
-  
-    .apwgr-tasks-header {
-        /*flex-direction: column;*/
-        align-items: flex-start;
-        gap: 20px;
-    }
-  
-    .apwgr-tasks-header h1 {
-        font-size: 1.25rem;
-    }
-  
-    .apwgr-tasks-table th,
-    .apwgr-tasks-table td {
-        font-size: 0.85rem;
-        padding: 8px;
-    }
-  
-    .apwgr-tasks-table {
-        font-size: 0.9rem;
-        overflow-x: auto; /* Enable horizontal scrolling */
-        display: block; /* Make the table scrollable */
-    }
-
-  
-  
-    .breadcrumb1 {
-      display: none;
-    }
-  
-
-    
-    .nav-item:last-child {
-      display: none; /* Hides the element */
-    }
-    
-    .nav-item:not(:last-child) {
-      margin-left: 30px !important; /* Add spacing between list items */
-    }
-  
+  .breadcrumb1 {
+    display: none;
   }
-  
-  
-  
+
+
+
+
+}
