@@ -1,108 +1,136 @@
-.yks-employee-invoice-page {
-    justify-content: center;
-    align-items: center;
-    padding: 40px 10px;
-    border-radius: 8px;
-    color: #4c7476;
-    overflow-y: auto;
-    overflow-x: hidden;
+.yks-sidebar-container {
+    width: 230px; /* Default width for larger screens */
+    flex-shrink: 0; /* Optional: Sidebar background color */
 }
 
-.yks-employee-invoice-page .yks-profile-breadcrumb {
+@media (max-width: 768px) {
+    .yks-sidebar-container {
+        width: 100%; /* Full width for mobile screens */
+        position: fixed; /* Fixed sidebar for smaller screens */
+        z-index: 1000;
+        top: 0;
+        left: 0; /* Place it above other content */
+    }
+}
+
+/* Ensure the button is above the sidebar */
+.yks-tog {
+    z-index: 1050;
+}
+
+.yks-content-container {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    .yks-content-container {
+        margin-top: 60px; /* Adjust for fixed navbar/sidebar */
+        padding: 10px; /* Reduced padding for smaller screens */
+    }
+}
+
+.yks-content-container .yks-profile-breadcrumb {
     font-size: 18px;
     font-weight: 100;
-    margin: 40px 0 0 250px;
+    margin: 50px 0 0 50px;
     font-family: 'Arial', sans-serif;
 }
 
 /* Style for breadcrumb items */
-.yks-profile-breadcrumb span.home {
+.yks-content-container span.home {
     color: black;
 }
-.yks-profile-breadcrumb span.contact {
+.yks-content-container span.contact {
     color: #24757E;
 }
-.yks-emp-invoice-container{
-    margin: 20px;
+.yks-card-container-height {
+    min-height: 430px;
 }
-.yks-emp-invoice-container .yks-head h1 {
+
+@media (max-width: 768px) {
+    .yks-card-container-height {
+        padding: 10px; /* Reduce padding on smaller screens */
+    }
+}
+.yks-head h1 {
+    max-width: 100%;
     color: #24757E;
-    margin-bottom: 10px;
-    max-width: 100%;
 }
 
-.yks-emp-invoice-container .search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
+.yks-employee-invoice-table-container {
+    flex-grow: 1;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #ffffff;
+    margin: 10px;
+    font-size: 12px;
+    border-radius: 10px;
+    overflow-x: auto; /* Allow horizontal scrolling when necessary */
 }
 
-.yks-emp-invoice-container .search-container .search-bar {
-    width: 20%;
-    padding: 10px;
-    border-radius: 30px;
-    border: 1px solid #ced4da;
-    margin-left: 750px;
-    text-align: right;
+@media (max-width: 768px) {
+    .yks-employee-invoice-table-container {
+        padding: 1px; /* Reduce padding on smaller screens */
+    }
+
+    .yks-employee-invoice-table th,
+    .yks-employee-invoice-table td {
+        padding: 6px; /* Reduce padding on very small screens */
+        font-size: 9px; /* Smaller font size for very small screens */
+    }
 }
 
-.yks-emp-invoice-container .search-container .search-icon {
-    position: absolute;
-    right: 210px;
-    top: 50%;
-    transform: translateY(-50%);
+@media (max-width: 408px) {
+    .yks-employee-invoice-table-container {
+        padding: 1px; /* Reduce padding on smaller screens */
+    }
 }
 
-.yks-table-container {
-    align-items: center;
-    padding: 20px;
-    margin-left: 250px;
-    max-width: 100%;
-}
-
-.yks-invoice-tbl {
+.yks-employee-invoice-table {
     width: 90%;
-    border-radius: 2px;
     border-collapse: collapse;
-    table-layout: auto;
-    margin: auto;
+    font-size: 16px; /* Adjust font size for readability */
+    border: 1px solid #8c8c8c33;
+    border-radius: 10px;
+    overflow-x: auto;
 }
 
-.yks-invoice-tbl th,
-.yks-invoice-tbl td {
-    padding: 8px;
+.yks-employee-invoice-table th,
+.yks-employee-invoice-table td {
     border: 1px solid #ddd;
-    text-align: center;
+    text-align: center; /* Center-align text for all cells */
 }
 
-.yks-invoice-tbl th {
-    background-color: #ababab !important;
-    color: rgb(9, 0, 0);
+.yks-employee-invoice-table th {
+    background-color: #f8f9fa;
+    color: #000000;
     font-weight: bold;
 }
-.yks-invoice-tbl tr{
-    color: rgb(9, 0, 0);
-}
-.yks-invoice-tbl tr:hover {
-    background-color: #f1f1f1;
-}
-/* Scrollable table body */
-.yks-invoice-tbl tbody {
-    display: block;
-    max-height: 200px;
-    overflow-y: auto;
-    width: 100%;
-}
-.yks-invoice-tbl td{
-    color: black;
+
+.yks-employee-invoice-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
-.thead, tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
+.yks-employee-invoice-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+@media (max-width: 768px) {
+    .yks-employee-invoice-table-container {
+        padding: 5px; /* Reduce padding on smaller screens */
+        overflow-x: auto; /* Ensure horizontal scroll when necessary */
+    }
+
+    .yks-employee-invoice-table {
+        width: 100%; /* Ensure the table takes full width */
+    }
+
+    .yks-employee-invoice-table th,
+    .yks-employee-invoice-table td {
+        padding: 8px; /* Reduce padding on smaller screens */
+        font-size: 10px; /* Adjust font size for smaller screens */
+    }
 }
 
 /* Scrollbar styling */
@@ -117,114 +145,75 @@ tbody::-webkit-scrollbar-thumb:hover {
     background-color: #888;
 }
 
-
-
-/* Mobile-specific styles */
-@media (max-width: 768px) {
-    .yks-employee-invoice-page .yks-profile-breadcrumb{
-        display: none;
-    }
-    .yks-emp-invoice-container{
-        max-width: 90%; /* Ensure the form fits within the viewport */
-        margin: 20px auto; /* Center and add vertical margin */
-        padding: 15px;
-    }
-    .yks-emp-invoice-container .yks-head h1{
-        padding-top: 80px;
-        margin-bottom: 30px;
-        font-size: calc(1.375rem + 1.5vw);
-        font-weight: bold;
-        margin-left: 150px;
-    }
-    .yks-emp-invoice-container .search-container .search-bar{
-        width: 200px;
-        text-align: right;
-        margin-right: 550px;
-    }
-    .yks-emp-invoice-container .search-container .search-icon{
-        display: none;
-    }
-    .yks-table-container {
-        align-items: center;
-        padding: 20px;
-        margin: 0px;
-        max-width: 100%;
-    }
-    .yks-emp-invoice-container {
-        align-items: center;
-        padding: 3px;
-        max-width: 100%;
-    }
-    .yks-invoice-tbl table {
-        width: 100%;
-        border-collapse: collapse;
-        overflow: auto;
-    }
-
-    .yks-invoice-tbl thead,
-    tbody {
-        display: block;
-    }
-
-    .yks-invoice-tbl tbody {
-        max-height: 400px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        width: 100%;
-    }
-
-    .yks-invoice-tbl thead tr,
-    tbody tr {
-        display: table;
-        width: 100%;
-        table-layout: fixed;
-    }
-
-    .yks-head .text-center{
-        margin-left: 0%;
-
-    .yks-invoice-tbl tbody {
-        max-height: 400px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        width: 100%;
-    }
-
-    .yks-invoice-tbl thead tr,
-    tbody tr {
-        display: table;
-        width: 100%;
-        table-layout: fixed;
-
-    }
-
-    .yks-invoice-tbl th,
-    td {
-        padding: 15px 12px;
-        font-size: 12px;
-        text-align: center;
-    }
-
-
-
-    .yks-table-container {
-        align-items: center;
-        padding: 0px;
-        margin-left: 0px;
-        max-width: 100%;
-        margin-bottom: 60px;
-        margin-top: 20px;
-    }
-
-    .yks-emp-invoice-container{
-        margin: 0px;
-    }
-    .yks-employee-invoice-page {
-        margin: 0px;
-    }
-    .yks-invoice-tbl {
-        width: auto;
-    }
-
+.yks-employee-invoice-table .yks-view-btn {
+    padding: 4px 10px;
+    color: white;
+    background-color: #24757E;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
+.yks-employee-search-bar-container {
+    position: relative;
+    flex-grow: 1; /* Allow search bar to grow */
+    max-width: 40%;
+    margin-right: 10px;
+}
+
+.yks-employee-search-bar {
+    margin-top: 7px;
+    border-radius: 50px;
+    width: 100%; /* Full width for smaller screens */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+@media (min-width: 768px) {
+    .yks-employee-search-bar-container {
+        max-width: 20%; /* Adjust max width for smaller screens */
+    }
+}
+.yks-employee-search-bar-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 18px;
+    color: #6c757d;
+    border: none;
+    box-shadow: none;
+    margin-top: 2px;
+    background-color: transparent; /* Hides the background color */
+}
+.yks-search-bar-icon {
+    margin-top: 2px;
+    width: 30px;
+    height: 25px;
+}
+@media (max-width: 768px) {
+    .yks-employee-search-bar-icon {
+        margin-left: 25px; /* Adjust icon position for smaller screens */
+    }
+}
+
+@media (max-width: 408px) {
+    .yks-employee-search-bar-container {
+        max-width: 45%; /* Adjust max width for smaller screens */
+    }
+
+    .yks-search-bar-icon {
+        margin-top: 2px;
+        width: 25px;
+        height: 22px;
+    }
+    .yks-employee-invoice-table .yks-view-btn {
+        padding: 3px 7px;
+        color: white;
+        background-color: #24757E;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
 }
