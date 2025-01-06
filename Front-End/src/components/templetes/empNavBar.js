@@ -9,13 +9,10 @@ import user from '../../assets/user.png';
 import logoutIcon from '../../assets/logout.png';
 import menuIcon from '../../assets/menu.png';
 import attendence from '../../assets/attendence.png';
-import dashboard from '../../assets/dashboard.png';
 import invoice from '../../assets/invoice.png';
 import payment from '../../assets/payment.png';
 import task from '../../assets/task.png';
 import mail from '../../assets/mail.png';
-import user2 from '../../assets/myprofile.png';
-import logout2 from '../../assets/logout2.png';
 
 export default function EmpNavbar() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -80,7 +77,7 @@ export default function EmpNavbar() {
   };
 
   return (
-    <div>
+    <div className="emp-nav-bar">
       <nav
         className="navbar navbar-expand-lg fixed-top"
         style={{ backgroundColor: '#24757e', color: '#ffffff' }}
@@ -95,9 +92,10 @@ export default function EmpNavbar() {
                 className="me-2"
               />
               <span className="text-white fs-6 fs-md-4" style={{ lineHeight: '1.2' }}>
-                <a href="/" style={{ textDecoration: "none", color: "white" }}>
-                  GAMAGE RECRUITERS
-                </a>
+              <a href="/" style={{ textDecoration: "none", color: "white" }}>
+                      GAMAGE RECRUITERS
+              </a>
+
               </span>
             </div>
 
@@ -145,24 +143,16 @@ export default function EmpNavbar() {
                     }}
                   >
                     <li>
-                      <a className="dropdown-item d-flex align-items-center" href="/employee-profile">
-                        <img src={user2} alt="Profile" style={{ width: '20px', marginRight: '14px' }} />
+                      <a className="dropdown-item" href="/employee-profile">
                         My Profile
                       </a>
                     </li>
                     <li>
                       <button
-                        className="dropdown-item d-flex align-items-center text-danger"
+                        className="dropdown-item text-danger"
                         onClick={handleLogout}
-                        style={{ 
-                          border: 'none', 
-                          width: '100%', 
-                          textAlign: 'left', 
-                          padding: '8px 20px',
-                          background: 'none'
-                        }}
+                        style={{ border: 'none', width: '100%', textAlign: 'left', padding: '8px 20px' }}
                       >
-                        <img src={logout2} alt="Logout" style={{ width: '20px', marginRight: '14px' }} />
                         Log out
                       </button>
                     </li>
@@ -203,60 +193,56 @@ export default function EmpNavbar() {
           ></button>
           <ul className="list-group mt-4">
             <li className="list-group-item">
-              <a href="/employee-profile" className="d-flex align-items-center text-decoration-none text-dark">
-                <img src={user2} alt="Profile" style={{ width: '20px', marginRight: '14px' }} />
+              <a href="/employee-profile">
+                <img src={user} alt="Profile" style={{ width: '20px', marginRight: '14px' }} />
                 My Profile
               </a>
             </li>
             <li className="list-group-item">
-              <a href="/employee-dashboard" className="d-flex align-items-center text-decoration-none text-dark">
-                <img src={dashboard} alt="Dashboard" style={{ width: '20px', marginRight: '14px' }} />
+              <a href="/employee-dashboard">
+                <img src={attendence} alt="Dashboard" style={{ width: '20px', marginRight: '14px' }} />
                 Dashboard
               </a>
             </li>
             <li className="list-group-item">
-              <a href="/employee-attendance" className="d-flex align-items-center text-decoration-none text-dark">
+              <a href="/employee-attendance">
                 <img src={attendence} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} />
                 Attendance
               </a>
             </li>
             <li className="list-group-item">
-              <a href="/employee-invoice" className="d-flex align-items-center text-decoration-none text-dark">
+              <a href="/employee-invoice">
                 <img src={invoice} alt="Invoice" style={{ width: '20px', marginRight: '14px' }} />
                 Invoice
               </a>
             </li>
             <li className="list-group-item">
-              <a href="/employee-payment" className="d-flex align-items-center text-decoration-none text-dark">
+              <a href="/employee-payment">
                 <img src={payment} alt="Payment" style={{ width: '20px', marginRight: '14px' }} />
                 Payment
               </a>
             </li>
             <li className="list-group-item">
-              <a href="/employee-manage-task-prgress" className="d-flex align-items-center text-decoration-none text-dark">
+              <a href="/employee-manage-task-prgress">
                 <img src={task} alt="Task" style={{ width: '20px', marginRight: '14px' }} />
                 Task
               </a>
             </li>
             <li className="list-group-item">
-              <a href="/employee-mailbox" className="d-flex align-items-center text-decoration-none text-dark">
+              <a href="/employee-mailbox">
                 <img src={mail} alt="Mailbox" style={{ width: '20px', marginRight: '14px' }} />
                 Mail-Box
               </a>
             </li>
-            <li className="list-group-item">
+            <li className="list-group-item text-danger">
               <button
                 onClick={handleLogout}
-                className="d-flex align-items-center text-danger"
                 style={{
                   border: 'none',
                   background: 'none',
                   padding: 0,
-                  width: '100%',
-                  textDecoration: 'none',
                 }}
               >
-                <img src={logout2} alt="Logout" style={{ width: '20px', marginRight: '14px' }} />
                 Log out
               </button>
             </li>

@@ -177,12 +177,12 @@
 
 
 
-  .nav-item:last-child {
+  .emp-nav-bar .nav-item:last-child {
     display: none;
     /* Hides the element */
   }
 
-  .nav-item:not(:last-child) {
+  .emp-nav-bar .nav-item:not(:last-child) {
     margin-left: 30px !important;
     /* Add spacing between list items */
   }
