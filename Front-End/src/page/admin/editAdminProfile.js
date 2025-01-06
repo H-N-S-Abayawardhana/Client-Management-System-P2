@@ -20,43 +20,48 @@ const EditAdminProfile = () => {
 
   useEffect(() => {
     const fetchAdminData = async () => {
-        try {
-            const token = localStorage.getItem("token");
-            const email = localStorage.getItem("email");
-            const userType = localStorage.getItem("type");
+      try {
+        const token = localStorage.getItem("token");
+        const email = localStorage.getItem("email");
+        const userType = localStorage.getItem("type");
 
-            if (!token || !email || !userType) {
-                navigate("/login");
-                throw new Error("Missing authentication data");
-            }
-
-            if (userType !== "Admin") {
-                navigate("/login");
-                throw new Error("Unauthorized access");
-            }
-
-            const response = await fetch(`http://localhost:5000/api/admin/admin/profile/${email}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to fetch admin data");
-            }
-
-            const data = await response.json();
-            setAdmin(data);
-        } catch (error) {
-            console.error("Error fetching admin data:", error);
-            setError("Error fetching admin data");
+        if (!token || !email || !userType) {
+          navigate("/login");
+          throw new Error("Missing authentication data");
         }
+
+        if (userType !== "Admin") {
+          navigate("/login");
+          throw new Error("Unauthorized access");
+        }
+
+        const response = await fetch(`http://localhost:5000/api/admin/admin/profile/${email}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch admin data");
+        }
+
+        const data = await response.json();
+        // Convert the date from MySQL format to DD/MM/YYYY
+        if (data.RegistrationDate) {
+          const dateObj = new Date(data.RegistrationDate);
+          data.RegistrationDate = formatDateToDDMMYYYY(dateObj);
+        }
+        setAdmin(data);
+      } catch (error) {
+        console.error("Error fetching admin data:", error);
+        setError("Error fetching admin data");
+      }
     };
 
     fetchAdminData();
-}, [navigate]);
+  }, [navigate]);
 
   const formatDateToDDMMYYYY = (date) => {
     const day = String(date.getDate()).padStart(2, "0");
@@ -66,58 +71,58 @@ const EditAdminProfile = () => {
   };
 
   const convertDDMMYYYYToDate = (dateString) => {
+    if (!dateString) return "";
     const [day, month, year] = dateString.split("/");
     return `${year}-${month}-${day}`;
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setAdmin({ ...admin, [name]: value });
+    setAdmin(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Show loading toast
     const loadingToast = toast.loading("Updating profile...");
 
-    const formattedDate = convertDDMMYYYYToDate(admin.RegistrationDate);
-    const updatedAdmin = {
-      ...admin,
-      RegistrationDate: formattedDate
-    };
+    try {
+      const token = localStorage.getItem("token");
+      const formattedDate = convertDDMMYYYYToDate(admin.RegistrationDate);
+      
+      const updatedAdmin = {
+        ...admin,
+        RegistrationDate: formattedDate
+      };
 
-    fetch('http://localhost:5000/api/admin/current/update', {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedAdmin),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to update admin details");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // Dismiss loading toast and show success
-        toast.dismiss(loadingToast);
-        toast.success("Profile updated successfully!");
-        
-        // Navigate after a short delay to allow toast to be seen
-        setTimeout(() => {
-          navigate("/admin-profile");
-        }, 1500);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setError("Error updating admin details");
-        
-        // Dismiss loading toast and show error
-        toast.dismiss(loadingToast);
-        toast.error("Failed to update profile. Please try again.");
+      const response = await fetch('http://localhost:5000/api/admin/current/update', {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(updatedAdmin),
       });
+
+      if (!response.ok) {
+        throw new Error("Failed to update admin details");
+      }
+
+      const data = await response.json();
+      toast.dismiss(loadingToast);
+      toast.success("Profile updated successfully!");
+      
+      setTimeout(() => {
+        navigate("/admin-profile");
+      }, 1500);
+    } catch (error) {
+      console.error("Error:", error);
+      toast.dismiss(loadingToast);
+      toast.error("Failed to update profile. Please try again.");
+      setError("Error updating admin details");
+    }
   };
 
   return (
@@ -138,18 +143,18 @@ const EditAdminProfile = () => {
         <form className="hmr-edit-admin-form" onSubmit={handleSubmit}>
           <input
             type="text"
-            name="AdminName"
+            name="Name"
             placeholder="Admin Name"
-            value={admin.Name}
+            value={admin.Name || ""}
             onChange={handleChange}
             required
           />
 
           <input
             type="text"
-            name="UserName"
+            name="Username"
             placeholder="User Name"
-            value={admin.Username}
+            value={admin.Username || ""}
             onChange={handleChange}
             required
           />
@@ -158,7 +163,7 @@ const EditAdminProfile = () => {
             type="email"
             name="Email"
             placeholder="Email"
-            value={admin.Email}
+            value={admin.Email || ""}
             onChange={handleChange}
             required
           />
@@ -167,7 +172,7 @@ const EditAdminProfile = () => {
             type="text"
             name="ContactNumber"
             placeholder="Contact Number"
-            value={admin.ContactNumber}
+            value={admin.ContactNumber || ""}
             onChange={handleChange}
             required
           />
@@ -175,7 +180,7 @@ const EditAdminProfile = () => {
           <input
             type="date"
             name="RegistrationDate"
-            value={convertDDMMYYYYToDate(admin.RegistrationDate)}
+            value={convertDDMMYYYYToDate(admin.RegistrationDate) || ""}
             onChange={handleChange}
             required
           />
@@ -187,7 +192,6 @@ const EditAdminProfile = () => {
       </div>
       <Footer />
       
-      {/* Toast Container */}
       <ToastContainer
         position="top-right"
         autoClose={3000}

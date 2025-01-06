@@ -9,11 +9,15 @@ import user from '../../assets/user.png';
 import logoutIcon from '../../assets/logout.png';
 import menuIcon from '../../assets/menu.png';
 import attendence from '../../assets/attendence.png';
+import dashboard from '../../assets/dashboard.png';
 import invoice from '../../assets/invoice.png';
 import employee from '../../assets/employee.png';
 import payment from '../../assets/payment.png';
 import task from '../../assets/task.png';
 import mail from '../../assets/mail.png';
+import user2 from '../../assets/myprofile.png';
+import logout2 from '../../assets/logout2.png';
+import changepswd from '../../assets/cpswd.png';
 
 export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -93,9 +97,9 @@ export default function Navbar() {
                 className="me-2"
               />
               <span className="text-white fs-6 fs-md-4" style={{ lineHeight: '1.2' }}>
-              <a href="/" style={{ textDecoration: "none", color: "white" }}>
-                      GAMAGE RECRUITERS
-              </a>
+                <a href="/" style={{ textDecoration: "none", color: "white" }}>
+                  GAMAGE RECRUITERS
+                </a>
               </span>
             </div>
 
@@ -147,26 +151,30 @@ export default function Navbar() {
                     }}
                   >
                     <li>
-                      <a className="dropdown-item" href="/admin-profile">
+                      <a className="dropdown-item d-flex align-items-center" href="/admin-profile">
+                        <img src={user2} alt="Profile" style={{ width: '20px', marginRight: '14px' }} />
                         My Profile
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="/adminChange-password">
+                      <a className="dropdown-item d-flex align-items-center" href="/adminChange-password">
+                        <img src={changepswd} alt="Change Password" style={{ width: '20px', marginRight: '14px' }} />
                         Change Password
                       </a>
                     </li>
                     <li>
                       <button
-                        className="dropdown-item text-danger"
+                        className="dropdown-item d-flex align-items-center text-danger"
                         onClick={handleLogout}
                         style={{
                           border: 'none',
-                          background: 'none',
-                          padding: 0,
-                          marginLeft: '18px',
+                          width: '100%',
+                          textAlign: 'left',
+                          padding: '8px 20px',
+                          background: 'none'
                         }}
                       >
+                        <img src={logout2} alt="Logout" style={{ width: '20px', marginRight: '14px' }} />
                         Log out
                       </button>
                     </li>
@@ -186,7 +194,7 @@ export default function Navbar() {
                 height: '30px',
                 position: 'absolute',
                 top: '10px',
-                right: '20px', // Moved slightly to the left
+                right: '20px',
                 cursor: 'pointer',
               }}
             />
@@ -197,7 +205,7 @@ export default function Navbar() {
       {/* Sidebar */}
       {showSidebar && (
         <div
-          className="sidebar bg-light position-fixed top-0 start-0 h-100"
+          className="sidebar bg-light position-fixed top-0 start-0 h-100 overflow-auto"
           style={{ width: '250px', zIndex: 1050 }}
         >
           <button
@@ -205,65 +213,77 @@ export default function Navbar() {
             onClick={toggleSidebar}
             aria-label="Close"
           ></button>
-          <ul className="list-group mt-4">
-            <li className="list-group-item">
-              <a href="/admin-profile">My Profile</a>
+          <ul className="list-group mt-2">
+            <li className="list-group-item py-2">
+              <a href="/admin-profile" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
+                <img src={user2} alt="Profile" style={{ width: '25px', marginRight: '10px' }} />
+                <span>My Profile</span>
+              </a>
             </li>
-            <li className="list-group-item">
-              <a href="/admin-dashboard">
-                <img src={attendence} alt="Dashboard" style={{ width: '20px', marginRight: '14px' }} />
+            <li className="list-group-item py-2">
+              <a href="/admin-dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
+                <img src={dashboard} alt="Dashboard" style={{ width: '20px', marginRight: '14px' }} />
                 <span>Dashboard</span>
               </a>
             </li>
-            <li className="list-group-item">
-              <a href="/admin-attendance">
+            <li className="list-group-item py-2">
+              <a href="/admin-attendance" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
                 <img src={attendence} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} />
                 <span>Attendance</span>
               </a>
             </li>
-            <li className="list-group-item">
-              <a href="/admin-invoice">
+            <li className="list-group-item py-2">
+              <a href="/admin-invoice" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
                 <img src={invoice} alt="Invoice" style={{ width: '25px', marginRight: '10px' }} />
                 <span>Invoice</span>
               </a>
             </li>
-            <li className="list-group-item">
-              <a href="/view-employees">
+            <li className="list-group-item py-2">
+              <a href="/view-employees" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
                 <img src={employee} alt="Employees" style={{ width: '25px', marginRight: '10px' }} />
                 <span>Employers</span>
               </a>
             </li>
-            <li className="list-group-item">
-              <a href="/admin-payment">
+            <li className="list-group-item py-2">
+              <a href="/admin-payment" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
                 <img src={payment} alt="Payment" style={{ width: '25px', marginRight: '10px' }} />
                 <span>Payment</span>
               </a>
             </li>
-            <li className="list-group-item">
-              <a href="/admin-manage-task">
+            <li className="list-group-item py-2">
+              <a href="/admin-manage-task" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
                 <img src={task} alt="Task" style={{ width: '25px', marginRight: '10px' }} />
                 <span>Task</span>
               </a>
             </li>
-            <li className="list-group-item">
-              <a href="/admin-mailbox">
+            <li className="list-group-item py-2">
+              <a href="/admin-mailbox" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
                 <img src={mail} alt="Mailbox" style={{ width: '25px', marginRight: '10px' }} />
                 <span>Mail-Box</span>
               </a>
             </li>
-            <li className="list-group-item">
-              <a href="/adminChange-password">Change Password</a>
+            <li className="list-group-item py-2">
+              <a href="/adminChange-password" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
+                <img src={changepswd} alt="Change Password" style={{ width: '25px', marginRight: '10px' }} />
+                <span>Change Password</span>
+              </a>
             </li>
-            <li className="list-group-item text-danger">
+            <li className="list-group-item py-2">
               <button
                 onClick={handleLogout}
                 style={{
+                  display: 'flex',
+                  alignItems: 'center',
                   border: 'none',
                   background: 'none',
                   padding: 0,
+                  color: '#dc3545',
+                  width: '100%',
+                  textAlign: 'left'
                 }}
               >
-                Log out
+                <img src={logout2} alt="Logout" style={{ width: '25px', marginRight: '15px' }} />
+                <span>Log out</span>
               </button>
             </li>
           </ul>
@@ -287,6 +307,13 @@ export default function Navbar() {
           }
           .swal2-cancel {
             color: #333 !important;
+          }
+          .list-group-item a, .list-group-item button {
+            text-decoration: none;
+            color: inherit;
+          }
+          .list-group-item {
+            border-radius: 0 !important;
           }
         `}
       </style>

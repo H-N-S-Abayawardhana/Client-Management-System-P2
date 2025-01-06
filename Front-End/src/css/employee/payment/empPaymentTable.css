@@ -1,252 +1,189 @@
-.msa-emp-payment-container {
-    justify-content: center;
-    align-items: center;
-    padding: 40px 10px;
-    border-radius: 8px;
-    margin: 10px;
-    color: #4c7476;
-    overflow-y: auto;
-    overflow-x: hidden;
+.msa-emp-payment-container{
+    min-height: 100vh;
 }
 
-.msa-emp-payment-container .msa-profile-breadcrumb {
+.msa-emp-payment-container .msa-sidebar-container {
+    width: 230px; /* Default width for larger screens */
+    flex-shrink: 0; /* Optional: Sidebar background color */
+}
+
+@media (max-width: 768px) {
+    .msa-emp-payment-container .msa-sidebar-container {
+        width: 100%; /* Full width for mobile screens */
+        position: fixed; /* Fixed sidebar for smaller screens */
+        z-index: 1000;
+        top: 0;
+        left: 0; /* Place it above other content */
+    }
+}
+
+.msa-emp-payment-container .msa-content-container {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    .msa-emp-payment-container .msa-content-container {
+        margin-top: 60px; /* Adjust for fixed navbar/sidebar */
+        padding: 10px; /* Reduced padding for smaller screens */
+    }
+}
+
+.msa-emp-payment-container .msa-content-container .msa-profile-breadcrumb {
     font-size: 18px;
     font-weight: 100;
-    margin-top: 40px;
-    margin-left: 250px;
-    margin-bottom: 14px;
+    margin: 50px 0 0 50px;
     font-family: 'Arial', sans-serif;
 }
 
 /* Style for breadcrumb items */
-.msa-emp-payment-container .msa-profile-breadcrumb span.home {
+.msa-emp-payment-container .msa-content-container span.home {
     color: black;
 }
-
-.msa-emp-payment-container .msa-profile-breadcrumb span.contact {
+.msa-emp-payment-container .msa-content-container span.contact {
     color: #24757E;
 }
-
-.msa-emp-payment-container .msa-emppay-container {
-    margin: 20px;
+.msa-emp-payment-container .msa-card-container-height {
+    min-height: 430px;
 }
 
-/* Header styling */
-.msa-emppayment-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 100px;
+@media (max-width: 768px) {
+    .msa-emp-payment-container .msa-card-container-height {
+        padding: 10px; /* Reduce padding on smaller screens */
+    }
 }
-
-.head h1 {
-    color: #24757E;
+.msa-emp-payment-container .msa-head h1 {
     max-width: 100%;
+    color: #24757E;
 }
-
-.msa-emppay-btn {
-    padding: 8px 10px;
-    border: none;
+.msa-emp-payment-container .msa-add-payment-button {
     border-radius: 8px;
-    cursor: pointer;
-    width: 12%;
-    background-color: #640b0b;
     color: white;
-    margin-left: auto;
-    margin-right:6% ;
-}
-
-.msa-view-btn {
-    padding: 4px 10px;
-    color: white;
-    background-color: #24757E;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 35px;
-}
-
-/* Table styling */
-.msa-table-wrapper {
+    padding: 10px 15px;
+    display: flex;
     align-items: center;
-    padding: 20px;
-    margin-left: 250px;
-    max-width: 100%;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 1px;
+    white-space: nowrap; /* Prevent text wrapping */
+    flex-shrink: 1; /* Allow shrinking */
+    max-width: 35%; /* Adjustable max width */
+    min-width: 120px; /* Prevent button from shrinking too much */
+    justify-content: center; /* Center text and icon */
+    width: 12%;
+    background-color: #4F0505FF;
+    margin-left: auto;
 }
 
-.msa-emppayment-table {
-    width: 90%;
-    border-radius: 2px;
+.msa-emp-payment-container .msa-add-payment-button:hover {
+    background-color: #640b0b;
+}
+
+
+@media (max-width: 768px) {
+    .msa-emp-payment-container .msa-add-payment-button {
+        max-width: 33%; /* Adjust max width for smaller screens */
+        padding: 8px 25px 8px 25px; /* Reduce padding for smaller buttons */
+    }
+}
+
+@media (max-width: 408px) {
+    .msa-emp-payment-container .msa-add-payment-button {
+        max-width: 45%; /* Adjust max width for smaller screens */
+        padding: 5px 25px 5px 25px; /* Reduce padding for smaller buttons */
+        margin-top: 7px;
+    }
+
+    .msa-emp-payment-container .msa-add-payment-button {
+        font-size: 12px; /* Adjust font size for smaller screens */
+    }
+}
+.msa-emp-payment-container .msa-employee-payment-table-container {
+    flex-grow: 1;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #ffffff;
+    margin: 10px;
+    font-size: 12px;
+    border-radius: 10px;
+    overflow-x: auto; /* Allow horizontal scrolling when necessary */
+}
+
+@media (max-width: 768px) {
+    .msa-emp-payment-container .msa-employee-payment-table-container {
+        padding: 1px; /* Reduce padding on smaller screens */
+    }
+
+    .msa-emp-payment-container .msa-employee-payment-table th,
+    .msa-emp-payment-container .msa-employee-payment-table td {
+        padding: 6px; /* Reduce padding on very small screens */
+        font-size: 9px; /* Smaller font size for very small screens */
+    }
+}
+
+@media (max-width: 408px) {
+    .msa-emp-payment-container .msa-employee-payment-table-container {
+        padding: 1px; /* Reduce padding on smaller screens */
+    }
+}
+
+.msa-emp-payment-container .msa-employee-payment-table {
+    width:100%;
     border-collapse: collapse;
-    table-layout: auto;
-    margin: auto;
+    font-size: 16px; /* Adjust font size for readability */
+    border: 1px solid #8c8c8c33;
+    border-radius: 10px;
+    overflow-x: auto;
 }
 
-.msa-emppayment-table th,
-.msa-emppayment-table td {
-    padding: 8px;
+.msa-emp-payment-container .msa-employee-payment-table th,
+.msa-emp-payment-container .msa-employee-payment-table td {
     border: 1px solid #ddd;
-    text-align: center;
+    text-align: center; /* Center-align text for all cells */
 }
 
-.msa-emppayment-table th {
-    background-color: #ababab !important;
-    color: rgb(9, 0, 0);
+.msa-emp-payment-container .msa-employee-payment-table th {
+    background-color: #f8f9fa;
+    color: #000000;
     font-weight: bold;
 }
 
-.msa-emppayment-table tr {
-    color: rgb(9, 0, 0);
+.msa-emp-payment-container .msa-employee-payment-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
-.msa-emppayment-table tr:hover {
+.msa-emp-payment-container .msa-employee-payment-table tbody tr:hover {
     background-color: #f1f1f1;
 }
 
-/* Scrollable table body */
-.msa-emppayment-table tbody {
-    display: block;
-    max-height: 200px;
-    overflow-y: auto;
-    width: 100%;
-}
+@media (max-width: 768px) {
+    .msa-emp-payment-container .msa-employee-payment-table-container {
+        padding: 5px; /* Reduce padding on smaller screens */
+        overflow-x: auto; /* Ensure horizontal scroll when necessary */
+    }
 
-.thead,
-tbody tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
+    .msa-emp-payment-container .msa-employee-payment-table {
+        width: 100%; /* Ensure the table takes full width */
+    }
+
+    .msa-emp-payment-container .msa-employee-payment-table th,
+    .msa-emp-payment-container .msa-employee-payment-table td {
+        padding: 8px; /* Reduce padding on smaller screens */
+        font-size: 10px; /* Adjust font size for smaller screens */
+    }
 }
 
 /* Scrollbar styling */
-.msa-emppayment-table tbody::-webkit-scrollbar {
+tbody::-webkit-scrollbar {
     width: 2px;
 }
-
-.msa-emppayment-table tbody::-webkit-scrollbar-thumb {
+tbody::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 4px;
 }
-
-.msa-emppayment-table tbody::-webkit-scrollbar-thumb:hover {
+tbody::-webkit-scrollbar-thumb:hover {
     background-color: #888;
 }
 
-/* Sidebar toggle button */
-.msa-sidebar-toggle {
-    display: none;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .msa-emp-payment-container {
-        margin: 0;
-        padding-top: 10%;
-        padding-left: 0%;
-        padding-right: 0%;
-        padding-bottom: 0%;
-        margin-bottom: 70px;
-    }
-
-    /* Table styling */
-    .msa-table-wrapper {
-        align-items: center;
-        padding: 20px;
-        margin: 0px;
-        max-width: 100%;
-    }
-
-    .msa-profile-breadcrumb {
-        display: none;
-    }
-
-    .head h1 {
-        padding-top: 60px;
-        margin-bottom: 30px;
-        font-size: calc(1.375rem + 1.5vw);
-        font-weight: bold;
-    }
-
-    .msa-emppay-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 5px;
-        margin-left: 0%;
-        margin-right: 0%;
-        max-width: 100%;
-        overflow: auto;
-    }
-    .msa-emppayment-header {
-
-        margin-right: 10px;
-    }
-    .msa-table-wrapper table {
-        width: 100%;
-        border-collapse: collapse;
-        overflow: auto;
-    }
-
-    .msa-emppayment-table thead,
-    tbody {
-        display: block;
-    }
-
-    .msa-emppayment-table tbody {
-        max-height: 400px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        width: 100%;
-    }
-
-    .msa-emppayment-table thead tr,
-    tbody tr {
-        display: table;
-        width: 100%;
-        table-layout: fixed;
-    }
-
-    .msa-emppayment-table th,
-    td {
-        padding: 15px 12px;
-        font-size: 12px;
-        text-align: center;
-    }
-
-    .msa-view-btn {
-        width: 90%;
-        padding: 7px;
-        margin-left: 0;
-    }
-
-    .msa-emppay-btn {
-        width: 160px;
-        margin-left: 200px;
-    }
-
-    .msa-sidebar-toggle {
-        display: block;
-        z-index: 9999;
-        position: fixed;
-        top: 15px;
-        left: 85%;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        background-color: #346269;
-        color: white;
-        cursor: pointer;
-    }
-
-    .msa-sidebar-toggle:hover {
-        background-color: #1f5d53;
-    }
-
-    .nav-item:last-child {
-        display: none;
-    }
-
-    .nav-item:not(:last-child) {
-        margin-left: 30px !important;
-    }
-}

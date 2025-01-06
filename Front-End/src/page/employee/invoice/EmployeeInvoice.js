@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {toast, ToastContainer} from 'react-toastify';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -8,6 +9,7 @@ import axios from "axios";
 import Navbar from "../../../components/templetes/empNavBar";
 import Sidebar from "../../../components/templetes/ESideBar";
 import Footer from '../../../components/templetes/Footer';
+import searchIcon from "../../../assets/image.png";
 
 
 function EmployeeInvoice() {
@@ -19,7 +21,6 @@ function EmployeeInvoice() {
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
   const navigate = useNavigate();
-
   // Toggle Sidebar
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
@@ -47,7 +48,6 @@ function EmployeeInvoice() {
       fetchEmployeeDetails();
     }
   }, []);
-
   // Fetch invoice details based on employee ID
   useEffect(() => {
     if (!employee?.EmployeeID) return;
@@ -75,8 +75,6 @@ function EmployeeInvoice() {
 
     fetchInvoiceDetails();
   }, [employee?.EmployeeID]);
-
-
   // Fetch invoices from the API
   useEffect(() => {
     const fetchInvoices = async () => {
@@ -97,7 +95,6 @@ function EmployeeInvoice() {
 
     fetchInvoices();
   }, []);
-
   // Handle View Invoice
   const handleView = (invoiceID) => {
     navigate(`/employee-invoice-detail/${invoiceID}`); // Navigate to the PaymentInformation page with invoiceID
@@ -107,6 +104,10 @@ function EmployeeInvoice() {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-GB");
   };
+  //handle search
+  const handleSearchChange = (e) => {
+
+  }
 
   // Filter invoices by search term
   const filteredInvoices = invoices.filter((invoice) =>
@@ -116,40 +117,48 @@ function EmployeeInvoice() {
   );
 
   return (
-      <div>
+      <div className="d-flex flex-column yks-emp-invoice-container">
+        <ToastContainer position="top-right" autoClose={3000} />
         <Navbar />
-        <div className="yks-employee-invoice-page">
-          <nav>
-            <p className="yks-profile-breadcrumb">
-              <span className="home">Home</span> / <span className="contact">Invoices</span>
-            </p>
-          </nav>
-          <div className="yks-emp-invoice-container">
+        <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>
+          {/* Sidebar */}
+          <div
+              className={`yks-sidebar-container ${sidebarVisible ? "show-sidebar" : ""}`}
+              style={{ flexShrink: 0 }}
+          >
+            <Sidebar sidebarVisible={sidebarVisible} />
+          </div>
 
-            <div className="yks-head">
-              <h1>Invoices</h1>
+          {/* Content and Footer Container */}
+          <div className="d-flex flex-column flex-grow-1">
+            <div className="yks-content-container flex-grow-1 p-4">
+              <nav>
+                <p className="yks-profile-breadcrumb">
+                  <span className="home">Home</span> / <span className="contact">Invoices</span>
+                </p>
+              </nav>
             </div>
-
-            {/* Search Bar */}
-            <div className="search-container">
-              <input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="search-bar"
-              />
-              <i className="fas fa-search search-icon"></i>
-            </div>
-
-            {/* Show loading or error messages */}
-            {loading && <p>Loading invoices...</p>}
-            {error && <p style={{ color: "red" }}>{error}</p>}
-
-            {/* Render the table when invoices data is loaded */}
-            {!loading && !error && (
-                <div className="yks-table-container">
-                  <table className="yks-invoice-tbl">
+            <div className="card mt-2 yks-card-container-height border-0">
+              <div className="card-body">
+                <h1 className="yks-head text-center mt-1">Invoices</h1>
+                {/* Search Bar */}
+                <div className="yks-employee-search-bar-container position-relative d-flex ms-2">
+                  <input
+                      type="text"
+                      className="form-control yks-employee-search-bar"
+                      placeholder="Search"
+                      value={searchTerm}
+                      onChange={handleSearchChange}
+                  />
+                  <button className="btn yks-employee-search-bar-icon">
+                    <img alt="Search Icon" src={searchIcon} className="yks-search-bar-icon" />
+                  </button>
+                </div>
+                <div className="yks-employee-invoice-table-container mt-1">
+                  {/* Show loading or error messages */}
+                  {loading && <p>Loading invoices...</p>}
+                  {error && <p style={{ color: "red" }}>{error}</p>}
+                  <table className="table table-bordered yks-employee-invoice-table">
                     <thead>
                     <tr>
                       <th>Invoice ID</th>
@@ -176,7 +185,7 @@ function EmployeeInvoice() {
                           <td>{invoice.status}</td>
                           <td>
                             <button
-                                className="msa-view-btn"
+                                className="yks-view-btn"
                                 onClick={() => handleView(invoice.invoiceID)}
                             >
                               View
@@ -187,17 +196,15 @@ function EmployeeInvoice() {
                     </tbody>
                   </table>
                 </div>
-            )}
+              </div>
+            </div>
 
+
+            {/* Footer */}
+            <Footer />
           </div>
         </div>
-        
-        <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
-          <Sidebar sidebarVisible={sidebarVisible} />
-        </div>
-        <div className="msa-container3">
-          <Footer />
-        </div>
+
       </div>
   );
 }

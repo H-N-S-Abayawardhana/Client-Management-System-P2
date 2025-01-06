@@ -50,7 +50,7 @@ const CreateInvoice = () => {
                 </nav>
 
                 <div className='yks-head'>
-                    <h1 className="text-center">Add Invoice Details</h1>
+                    <h1 className="text-center">Add Service Details</h1>
                 </div>
 
                 {/* Form Container */}
