@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 //Main
 import MainPage from './page/mainPage';
 import SigninPage from './page/signinPage';
@@ -7,15 +8,13 @@ import Services from './page/services';
 import Aboutus from './page/aboutUs.js';
 import ContactUs from './page/contactUs.js';
 
-//Admin
+//Admin Side
 
+import AdminDashboard from './page/admin/adminDashboard';
 import AdminChangePassword from './page/admin/adminChangePassword.js';
-
-//Task - Admin Side
 import AdminManageTask from './page/admin/task/adminManageTask';
 import AdminAddTask from './page/admin/task/AdminAddTask';
 import AdminReceivedTask from './page/admin/task/AdminReceivedTask';
-//Service - Admin Side
 import AdminProfile from './page/admin/adminProfile.js';
 import EditAdminProfile from './page/admin/editAdminProfile.js';
 import PaymentInformation from './page/admin/payemnt/paymentinformation';
@@ -29,22 +28,14 @@ import RegisterEmployee from './page/admin/employers/RegisterEmployee.js';
 import UpdateEmployee from './page/admin/employers/UpdateEmployee.js';
 import ViewEmployees from './page/admin/employers/ViewEmployees.js';
 
-//Employee
-
+//Employee Side
 
 import EmployeeDashboard from './page/employee/empDashboard';
-import AdminDashboard from './page/admin/adminDashboard';
-
-//Task - Employee Side
 import EmployeeReceivedTask from './page/employee/task/EmployeeReceivedTask';
 import EmployeeManageTask from './page/employee/task/EmployeeManageTask';
 import EmployeeAddTaskProgress from './page/employee/task/EmployeeAddTaskProgress';
 import EmployeeInvoice from './page/employee/invoice/EmployeeInvoice';
 import InvoiceForm from './page/employee/invoice/invoiceForm';
-
-
-
-//to protect the routes
 import ForgotPassword from './page/employee/forgotPassword';
 import EmployeeProfile from './page/employee/employeeProfile';
 import ViewPay from './page/employee/payment/emppayment';
@@ -53,9 +44,9 @@ import EmployeeAttenance from './page/employee/attendance/EmployeeAttendance.js'
 import EmployeeMailBox from './page/employee/mailbox/EmployeeMailBox.js';
 
 //Protected Routes
-import ProtectedRoute from './Routes/ProtectedRoute';
-import EmployeeProtectedRoute from './Routes/EmployeeProtectedRoute.js';
-import AdminProtectedRoute from './Routes/AdminProtectedRoute.js';
+import ProtectedRoute from './Routes/ProtectedRoute';  //Any Logged User can view 
+import EmployeeProtectedRoute from './Routes/EmployeeProtectedRoute.js'; // Only Employee can view
+import AdminProtectedRoute from './Routes/AdminProtectedRoute.js';   // Only Admin can view
 
 
 
@@ -74,7 +65,7 @@ function App() {
 
 
  
-        {/* Admin - Routes */}
+        {/* Admin Side- Routes */}
         <Route path="/admin-manage-task" element={<AdminProtectedRoute><AdminManageTask/></AdminProtectedRoute>}/>
         <Route path="/admin-add-task" element={<AdminProtectedRoute><AdminAddTask/></AdminProtectedRoute>}/>
         <Route path="/admin-recived-task" element={<AdminProtectedRoute><AdminReceivedTask/></AdminProtectedRoute>}/>
@@ -93,7 +84,7 @@ function App() {
         <Route path="/update-employee/:EmployeeID" element={<AdminProtectedRoute><UpdateEmployee /></AdminProtectedRoute>} />
         <Route path="/view-employees" element={<AdminProtectedRoute><ViewEmployees /></AdminProtectedRoute>} />
 
-        {/* Employee-Routes */}
+        {/* Employee Side-Routes */}
 
 
         <Route path="/employee-dashboard" element={<EmployeeProtectedRoute><EmployeeDashboard/></EmployeeProtectedRoute>}/>
