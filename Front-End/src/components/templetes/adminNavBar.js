@@ -33,6 +33,11 @@ export default function Navbar() {
     setShowSidebar(!showSidebar);
   };
 
+  const navigateToDashboard = () => {
+    navigate('/admin-dashboard');
+    setShowSidebar(false);
+  };
+
   const handleLogout = async () => {
     const result = await Swal.fire({
       imageUrl: logoutIcon,
@@ -97,7 +102,7 @@ export default function Navbar() {
                 className="me-2"
               />
               <span className="text-white fs-6 fs-md-4" style={{ lineHeight: '1.2' }}>
-                <a href="/" style={{ textDecoration: "none", color: "white" }}>
+                <a href="/admin-dashboard" style={{ textDecoration: "none", color: "white" }}>
                   GAMAGE RECRUITERS
                 </a>
               </span>
@@ -183,7 +188,6 @@ export default function Navbar() {
               </li>
             </ul>
 
-            {/* Menu Icon for Mobile */}
             <img
               src={menuIcon}
               alt="Menu"
@@ -202,7 +206,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Sidebar */}
       {showSidebar && (
         <div
           className="sidebar bg-light position-fixed top-0 start-0 h-100 overflow-auto"
@@ -212,15 +215,28 @@ export default function Navbar() {
             backgroundColor: '#b9c2c1' 
           }}
         >
-          <button
-            className="btn-close mt-2 ms-3"
-            onClick={toggleSidebar}
-            aria-label="Close"
-          ></button>
+          <div className="d-flex justify-content-between align-items-center p-3">
+          <h2 
+              className="mb-0" 
+              style={{ 
+                color: '#1c5d5f', 
+                cursor: 'pointer',
+                fontSize: '1.5rem'
+              }}
+              onClick={navigateToDashboard}
+            >
+              Dashboard
+            </h2>
+            <button
+              className="btn-close"
+              onClick={toggleSidebar}
+              aria-label="Close"
+            ></button>
+          </div>
+
           <ul className="list-group mt-2">
             {[
               { href: '/admin-profile', icon: user2, text: 'My Profile' },
-              { href: '/admin-dashboard', icon: dashboard, text: 'Dashboard' },
               { href: '/admin-attendance', icon: attendence, text: 'Attendance' },
               { href: '/admin-invoice', icon: invoice, text: 'Invoice' },
               { href: '/view-employees', icon: employee, text: 'Employers' },

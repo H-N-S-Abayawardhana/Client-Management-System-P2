@@ -7,6 +7,7 @@ import arrow from '../../assets/arrow.png';
 import logo from '../../assets/logo.png';
 import user from '../../assets/user.png';
 import logoutIcon from '../../assets/logout2.png';
+import logoutuser from '../../assets/logout.png';
 import menuIcon from '../../assets/menu.png';
 import attendence from '../../assets/attendence.png';
 import invoice from '../../assets/invoice.png';
@@ -32,7 +33,7 @@ export default function EmpNavbar() {
 
   const handleLogout = async () => {
     const result = await Swal.fire({
-      imageUrl: logoutIcon,
+      imageUrl: logoutuser,
       imageWidth: 50,
       imageHeight: 50,
       title: 'Do you want to logout?',
@@ -76,6 +77,11 @@ export default function EmpNavbar() {
         setLogoutError('An unexpected error occurred.');
       }
     }
+  };
+
+  const navigateToDashboard = () => {
+    navigate('/employee-dashboard');
+    setShowSidebar(false);
   };
 
   return (
@@ -191,15 +197,27 @@ export default function EmpNavbar() {
             backgroundColor: '#b9c2c1' 
           }}
         >
-          <button
-            className="btn-close mt-2 ms-3"
-            onClick={toggleSidebar}
-            aria-label="Close"
-          ></button>
-          <ul className="list-group mt-4">
+          <div className="d-flex justify-content-between align-items-center p-3">
+            <h2 
+              className="mb-0" 
+              style={{ 
+                color: '#1c5d5f', 
+                cursor: 'pointer',
+                fontSize: '1.5rem'
+              }}
+              onClick={navigateToDashboard}
+            >
+              Dashboard
+            </h2>
+            <button
+              className="btn-close"
+              onClick={toggleSidebar}
+              aria-label="Close"
+            ></button>
+          </div>
+          <ul className="list-group mt-2">
             {[
               { href: '/employee-profile', icon: myprofile, text: 'My Profile' },
-              { href: '/employee-dashboard', icon: attendence, text: 'Dashboard' },
               { href: '/employee-attendance', icon: attendence, text: 'Attendance' },
               { href: '/employee-invoice', icon: invoice, text: 'Invoice' },
               { href: '/employee-payment', icon: payment, text: 'Payment' },
