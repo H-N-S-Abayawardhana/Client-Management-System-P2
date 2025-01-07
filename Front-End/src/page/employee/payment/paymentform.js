@@ -55,7 +55,6 @@ function PaymentForm() {
 
     const handlePayment = async (e) => {
         e.preventDefault();
-
         // Validate input fields
         if (!selectedInvoice || !formData.cardNumber || !formData.cvv) {
             alert("Please fill in all required fields.");
@@ -81,10 +80,13 @@ function PaymentForm() {
             );
             // Handle successful response
             if (response.status === 200 && response.data?.data) {
-                toast.success("Payment saved successfully!");
+                const response1 = await axios.put(
+                    `http://localhost:5000/api/employee/update/invoice/${selectedInvoice.invoiceID}`
+                );
             } else {
-                toast.error("Network error or server unreachable");
+                toast.error("Network error or server unreachable (in)");
             }
+            toast.success("Payment saved successfully!");
         } catch (err) {
             console.error("Payment error:", err);
             setError(err.message);
@@ -236,7 +238,7 @@ function PaymentForm() {
                 </div>
 
             </div>
-            
+
             <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
                 <Sidebar sidebarVisible={sidebarVisible} />
             </div>
