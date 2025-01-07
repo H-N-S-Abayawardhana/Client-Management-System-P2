@@ -128,6 +128,20 @@ router.post("/payment", async (req, res) => {
 
 });
 
+// update invoice status ...
+router.put('/update/invoice/:id', async (req, res) => {
+    console.log(req.body);
+    const sql = "UPDATE invoice SET status = 'paid' WHERE InvoiceID = ?";
+    const invoiceID = req.params.id;
+
+    try {
+        const result = await db.query(sql, invoiceID);
+        return res.status(200).json({ message: "invoice updated successfully", data: result });
+    } catch (error) {
+        return res.status(500).send("Error updating data", error.message);
+    }
+});
+
 
 //Get all invoice which unpaid
 router.get('/employee/invoice', async (req, res) => {
