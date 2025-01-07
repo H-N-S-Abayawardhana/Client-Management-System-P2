@@ -52,6 +52,26 @@ router.get('/employee/empCount', async (req, res) => {
     }
 });
 
+
+
+// Fetch Payment Count
+router.get('/employee/paymentCount', async (req, res) => {
+    const query = "SELECT COUNT(paymentID) AS paymentCount FROM payment";
+
+    try {
+        const [rows] = await db.query(query);
+        const count = rows[0]?.paymentCount || 0;
+        return res.status(200).json({ paymentCount: count });
+    } catch (error) {
+        console.error("Database query error:", error);
+        return res.status(500).json({ error: "Database error" });
+    }
+});
+
+
+
+
+
 router.get('/employee/attendCount', async (req, res) => {
     try {
         const currentDate = new Date().toISOString().split('T')[0];

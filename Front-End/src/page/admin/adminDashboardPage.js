@@ -239,5 +239,19 @@ function AdminDashboard() {
     </div>
   );
 }
+const withAuth = (WrappedComponent) => {
+  return function WithAuthComponent(props) {
+    const navigate = useNavigate();
 
-export default AdminDashboard;
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/login');
+      }
+    }, [navigate]);
+
+    return <WrappedComponent {...props} />;
+  };
+};
+
+export default withAuth(AdminDashboard);

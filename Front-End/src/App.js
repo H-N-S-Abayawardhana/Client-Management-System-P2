@@ -8,7 +8,7 @@ import Aboutus from './page/aboutUs.js';
 import ContactUs from './page/contactUs.js';
 
 //Admin
-import AdminDashboard from './page/admin/adminDashboardPage';
+
 import AdminChangePassword from './page/admin/adminChangePassword.js';
 
 //Task - Admin Side
@@ -30,7 +30,11 @@ import UpdateEmployee from './page/admin/employers/UpdateEmployee.js';
 import ViewEmployees from './page/admin/employers/ViewEmployees.js';
 
 //Employee
-import EmployeeDashboard from './page/employee/employeeDashboard';
+
+
+import EmployeeDashboard from './page/employee/empDashboard';
+import AdminDashboard from './page/admin/adminDashboard';
+
 //Task - Employee Side
 import EmployeeReceivedTask from './page/employee/task/EmployeeReceivedTask';
 import EmployeeManageTask from './page/employee/task/EmployeeManageTask';
@@ -70,13 +74,12 @@ function App() {
 
 
  
-        {/* Task - Routes */}
+        {/* Admin - Routes */}
         <Route path="/admin-manage-task" element={<AdminProtectedRoute><AdminManageTask/></AdminProtectedRoute>}/>
         <Route path="/admin-add-task" element={<AdminProtectedRoute><AdminAddTask/></AdminProtectedRoute>}/>
         <Route path="/admin-recived-task" element={<AdminProtectedRoute><AdminReceivedTask/></AdminProtectedRoute>}/>
-        {/* Service - Routes */}
         <Route path="/admin-Dashboard" element={<AdminProtectedRoute><AdminDashboard/></AdminProtectedRoute>} />
-        <Route path="/adminChange-password" element={<AdminProtectedRoute><AdminChangePassword /></AdminProtectedRoute>} />
+        <Route path="/admin-change-password" element={<AdminProtectedRoute><AdminChangePassword /></AdminProtectedRoute>} />
         <Route path="/admin-profile" element={<AdminProtectedRoute><AdminProfile /></AdminProtectedRoute>} />
         <Route path="/edit-admin-profile" element={<AdminProtectedRoute><EditAdminProfile /></AdminProtectedRoute>} />
         <Route path="/admin-payment" element={<AdminProtectedRoute><Payment/></AdminProtectedRoute>} />
@@ -90,14 +93,13 @@ function App() {
         <Route path="/update-employee/:EmployeeID" element={<AdminProtectedRoute><UpdateEmployee /></AdminProtectedRoute>} />
         <Route path="/view-employees" element={<AdminProtectedRoute><ViewEmployees /></AdminProtectedRoute>} />
 
-        {/* Employee-Side Routes */}
-        <Route path="/employee-dashboard" element={<EmployeeProtectedRoute><EmployeeDashboard/></EmployeeProtectedRoute>}/>
+        {/* Employee-Routes */}
 
-        {/* Task - Routes */}
+
+        <Route path="/employee-dashboard" element={<EmployeeProtectedRoute><EmployeeDashboard/></EmployeeProtectedRoute>}/>
         <Route path="/employee-progress-task" element={<EmployeeProtectedRoute><EmployeeAddTaskProgress/></EmployeeProtectedRoute>}/>
         <Route path="/employee-recived-task" element={<EmployeeProtectedRoute><EmployeeReceivedTask/></EmployeeProtectedRoute>}/>
         <Route path="/employee-manage-task-prgress" element={<EmployeeProtectedRoute><EmployeeManageTask/></EmployeeProtectedRoute>}/>
-        <Route path="/employee-dashboard" element={<EmployeeProtectedRoute><EmployeeDashboard/></EmployeeProtectedRoute>}/>
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/employee-profile" element={<EmployeeProtectedRoute><EmployeeProfile /></EmployeeProtectedRoute>} />
         <Route path="/employee-payment" element={<EmployeeProtectedRoute><ViewPay/></EmployeeProtectedRoute>} />

@@ -1,0 +1,177 @@
+/* EmpDashboard.css */
+.ae-emp-dashboard-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .ae-emp-main-content {
+    display: flex;
+    flex: 1;
+    background-color: #ffffff;
+  }
+  
+  .ae-emp-dashboard-right {
+    flex: 1;
+    padding: 20px 30px;
+  }
+  
+  .ae-emp-breadcrumb {
+    color: #666;
+    margin-top: 50px;
+    margin-left: 240px;
+    font-size: 20px;
+  }
+  
+  .ae-emp-content-wrapper {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .ae-emp-left-content {
+    flex: 1;
+  }
+  
+  .ae-emp-right-content {
+    width: 300px;
+  }
+  
+
+  .ae-emp-info-cards {
+    display: flex;
+    gap: 20px;
+    margin-top: 50px;
+    width: 75%;
+    margin-left:250px;
+    
+  }
+  
+  .ae-emp-info-card {
+    background: #6d9da3;
+    border-radius: 4px;
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    width:75%;
+    
+    border-radius: 10px;
+
+  }
+  
+  .ae-emp-card-left {
+    background: #6d9da3;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 2;
+    border-radius: 10px;
+    height:100px;
+  }
+  
+  .ae-emp-card-left img {
+    width: 36px;
+    height: 36px;
+    
+  }
+  
+  .ae-emp-card-left span {
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.3;
+  }
+  
+  .ae-emp-card-right {
+    background: #d9d9d9;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    
+  }
+  
+  .ae-emp-card-right span {
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .ae-emp-tasks-section {
+    background: white;
+    border-radius: 4px;
+    padding: 20px;
+  }
+  
+  .ae-emp-mytask-title {
+    color: #000000;
+    margin-bottom: 20px;
+    font-size: 18px;
+    margin-left: 250px;
+    margin-top: 40px;
+  }
+  
+  .ae-emp-tasks-table table {
+    width: 75%;
+    border-collapse: collapse;
+    margin-left:250px;
+    border: 10px solid #d4eff1;
+  }
+  
+  .ae-emp-tasks-table th,
+  .ae-emp-tasks-table td {
+    border: 1px solid #000000;
+    padding: 12px 15px;
+    text-align: left;
+  }
+  
+  .ae-emp-tasks-table th {
+    background-color: white;
+    color: #333;
+    font-weight: 600;
+  }
+
+  .ae-emp-overview-title{
+    color: #000000;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    font-size: 18px;
+
+  }
+  
+  .ae-emp-overview-section {
+    background: #d4eff1;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+  .ae-emp-overview-sub-titles{
+    color: #254684;
+    margin: 15px 0 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .ae-emp-overview-para{
+    color: #000000;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+
+  .ae-emp-overview-section-ulist{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ae-emp-overview-section-li{
+    color: #000000;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .ae-emp-container3{
+    margin-top:60px;
+  }
