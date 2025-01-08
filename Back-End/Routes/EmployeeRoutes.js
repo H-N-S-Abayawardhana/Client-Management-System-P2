@@ -1,8 +1,6 @@
 import express from "express";
 import db from "../utils/db.js";
-import authenticateToken from "../middleware/authMiddleware.js";
 import { isDDMMYYYYWithDash, isYYYYMMDD } from "../utils/formatDate.js";
-import { isDDMMYYYYWithDash , isYYYYMMDD } from "../utils/EmpformatDate.js";
 
 const router = express.Router();
 
@@ -11,7 +9,7 @@ const router = express.Router();
 router.get("/employee/profile/:email", async (req, res) => {
     try {
         const { email } = req.params;
-        
+
         // Fetch employee data using email
         const [employees] = await db.query(
             `SELECT 
@@ -69,10 +67,6 @@ router.get('/employee/paymentCount', async (req, res) => {
     }
 });
 
-
-
-
-
 router.get('/employee/attendCount', async (req, res) => {
     try {
         const currentDate = new Date().toISOString().split('T')[0];
@@ -87,8 +81,6 @@ router.get('/employee/attendCount', async (req, res) => {
         return res.status(500).json({ error: 'An error occurred while fetching the attendance count.' });
     }
 });
-
-
 
 // Fetch invoice count
 router.get('/employee/invoiceCount', async (req, res) => {
@@ -347,25 +339,31 @@ router.get("/employee/:email", async (req, res) => {
     }
 });
 // search the invoice in searchbar
-router.get('/invoices/:input', async (req, res) => {
+router.get('/invoices/:input/:empid', async (req, res) => {
     try {
         const input = req.params.input;
+        const EmployeeID = req.params.empid;
 
-        const sql = `SELECT
-                         ROW_NUMBER() OVER (ORDER BY invoice.invoiceID) AS RowNumber,
-                             invoice.invoiceID,
-                         invoice.EmployeeID,
-                         invoice.total_cost,
-                         DATE_FORMAT(invoice.invoice_date, '%d-%m-%Y') AS invoice_date,
-                         invoice.AcountId,
-                         invoice.description,
-                         invoice.status
-                     FROM
-                         invoice
-                     WHERE
-                         invoice.invoiceID = ?
+        const sql = `
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY invoice.invoiceID) AS RowNumber,
+                    invoice.invoiceID,
+                invoice.EmployeeID,
+                invoice.total_cost,
+                DATE_FORMAT(invoice.invoice_date, '%d-%m-%Y') AS invoice_date,
+                invoice.AcountId,
+                invoice.description,
+                invoice.status
+            FROM
+                invoice
+            WHERE
+                (
+                            invoice.invoiceID = ?
                         OR invoice.status LIKE CONCAT(?, '%')
-                        OR DATE_FORMAT(invoice.invoice_date, '%d-%m-%Y') LIKE CONCAT(?, '%')`;
+                        OR DATE_FORMAT(invoice.invoice_date, '%d-%m-%Y') LIKE CONCAT(?, '%')
+                    )
+              AND invoice.EmployeeID = ?
+        `;
 
         let queryParam;
 
@@ -384,7 +382,8 @@ router.get('/invoices/:input', async (req, res) => {
             queryParam = input; // Status
         }
 
-        const [data] = await db.query(sql, [queryParam, queryParam, queryParam]);
+        // Execute the query with appropriate parameters
+        const [data] = await db.query(sql, [queryParam, queryParam, queryParam, EmployeeID]);
 
         if (!data.length) {
             return res.status(404).json({ message: "No invoices found" });
