@@ -12,40 +12,71 @@
   position: relative;
 }
 
-.hmr-admin-back-button {
-  position: fixed;
-  font-size: 50px; 
-  top: 120px; 
-  left: 30px; 
-  width: 50px;
-  height: 50px;
-  background-color: #24757e; 
-  color: white; 
-  border: none;
-  border-radius: 50%; 
+
+/* Back button base styles */
+.hmr-admin-profile-back-button {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background-color: #24757e;
+  border: none;
+  border-radius: 7px;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  z-index: 1000;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  gap: 8px;
+  min-width: 100px;
 }
 
-.hmr-admin-back-button:hover {
-  background-color: #1a5c63; 
-}
-
-.hmr-admin-back-button:focus {
-  outline: none;
-}
-
-.hmr-admin-back-button-icon {
-  font-size: 100px; 
-  font-weight: bold;
+/* Add back arrow icon */
+.hmr-admin-profile-back-button::before {
+  content: "←";
+  font-size: 20px;
+  margin-right: 4px;
   line-height: 1;
-  margin-top: -2px; 
-  color: inherit; 
+}
+
+/* Back text */
+.hmr-admin-profile-back-button span {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* Hover state */
+.hmr-admin-profile-back-button:hover {
+  background-color: #248579;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Active/Pressed state */
+.hmr-admin-profile-back-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Focus state */
+.hmr-admin-profile-back-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.3);
+}
+
+/* Disabled state */
+.hmr-admin-profile-back-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Ensure proper spacing if used within a container */
+.hmr-admin-container .hmr-edit-admin-profile-back-button {
+  margin-bottom: 20px;
 }
 
 .hmr-admin-profile-title {

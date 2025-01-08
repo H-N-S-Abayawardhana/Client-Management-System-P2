@@ -85,58 +85,58 @@ const EmployeeProfile = () => {
     <div>
       <Navbar />
 
-      <div className="hmr-profile-container">
-        <button 
-          className="hmr-emp-back-button" 
+      <div className="hmr-emp-profile-container">
+              <button
+          className="hmr-emp-profile-back-button"
           onClick={() => navigate("/employee-dashboard")}
           aria-label="Back to dashboard"
         >
-          &#171;
+          <span>Back</span>
         </button>
-        <h1 className="hmr-profile-title">My Profile</h1>
+        <h1 className="hmr-emp-profile-title">My Profile</h1>
 
         {/* Profile Header */}
-        <div className="hmr-profile-header-card">
+        <div className="hmr-emp-profile-header-card">
           <img
             src={profileIcon}
             alt="Employee Avatar"
-            className="hmr-profile-avatar"
+            className="hmr-emp-profile-avatar"
           />
-          <div className="hmr-profile-info">
-            <h3 className="hmr-profile-name">{employee.Name}</h3>
-            <p className="hmr-profile-id">{employee.EmployeeID}</p>
-            <p className="hmr-profile-designation">{employee.Designation}</p>
+          <div className="hmr-emp-profile-info">
+            <h3 className="hmr-emp-profile-name">{employee.Name}</h3>
+            <p className="hmr-emp-profile-id">{employee.EmployeeID}</p>
+            <p className="hmr-emp-profile-designation">{employee.Designation}</p>
           </div>
         </div>
 
         {/* Profile Details */}
-        <div className="hmr-profile-details-card">
-          <div className="hmr-details-row">
-            <div className="hmr-details-item">
+        <div className="hmr-emp-profile-details-card">
+          <div className="hmr-emp-profile-details-row">
+            <div className="hmr-emp-profile-details-item">
               <h4>Employee ID</h4>
               <p>{employee.EmployeeID}</p>
             </div>
-            <div className="hmr-details-item">
+            <div className="hmr-emp-profile-details-item">
               <h4>Designation</h4>
               <p>{employee.Designation}</p>
             </div>
           </div>
-          <div className="hmr-details-row">
-            <div className="hmr-details-item">
+          <div className="hmr-emp-profile-details-row">
+            <div className="hmr-emp-profile-details-item">
               <h4>Work Start Date</h4>
               <p>{formatDate(employee.WorkStartDate)}</p>
             </div>
-            <div className="hmr-details-item">
+            <div className="hmr-emp-profile-details-item">
               <h4>Contact Number</h4>
               <p>{employee.ContactNumber}</p>
             </div>
           </div>
-          <div className="hmr-details-row">
-            <div className="hmr-details-item">
+          <div className="hmr-emp-profile-details-row">
+            <div className="hmr-emp-profile-details-item">
               <h4>Email</h4>
               <p>{employee.Email}</p>
             </div>
-            <div className="hmr-details-item">
+            <div className="hmr-emp-profile-details-item">
               <h4>Address</h4>
               <p>
                 {employee.Address.split(",").map((line, index, array) => (
