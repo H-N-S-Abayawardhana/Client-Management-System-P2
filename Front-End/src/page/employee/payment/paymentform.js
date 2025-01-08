@@ -21,11 +21,6 @@ function PaymentForm() {
         expirationYear: "",
         cvv: "",
     });
-
-    const toggleSidebar = () => {
-        setSidebarVisible(!sidebarVisible);
-    };
-
     const navigate = useNavigate();
 
     useEffect(() => {
