@@ -63,6 +63,7 @@ const PaymentsTable = () => {
             .padStart(2, "0")}-${date.getFullYear()}`;
     };
 
+
     return (
         <div className="d-flex flex-column msa-admin-payment-container">
             <ToastContainer position="top-right" autoClose={3000} />
