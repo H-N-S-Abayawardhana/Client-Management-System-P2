@@ -65,11 +65,13 @@ function EmployeeInvoice() {
     fetchEmployeeDetails();
   }, []);
 
-  // Fetch all invoices on component mount
+  // Fetch invoices based on employee's ID
   useEffect(() => {
-    const fetchInvoices = async () => {
+    if (!employee || !employee.EmployeeID) return;
+
+    const fetchInvoicesByEmployee = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/admin/invoice");
+        const response = await axios.get(`http://localhost:5000/api/employee/employee/invoice/${employee.EmployeeID}`);
         if (Array.isArray(response.data.data)) {
           setInvoices(response.data.data);
         } else {
@@ -83,19 +85,39 @@ function EmployeeInvoice() {
       }
     };
 
-    fetchInvoices();
-  }, []);
+    fetchInvoicesByEmployee();
+  }, [employee]);
 
   // Fetch filtered invoices when debounced search term changes
   useEffect(() => {
     if (!debouncedSearchTerm) {
-      setInvoices([]); // Clear invoices if no search term
+      // If search term is empty, fetch all invoices
+      if (employee && employee.EmployeeID) {
+        const fetchInvoicesByEmployee = async () => {
+          setLoading(true);
+          try {
+            const response = await axios.get(`http://localhost:5000/api/employee/employee/invoice/${employee.EmployeeID}`);
+            if (Array.isArray(response.data.data)) {
+              setInvoices(response.data.data);
+            } else {
+              throw new Error("Invalid response format. Expected an array.");
+            }
+          } catch (err) {
+            console.error("Error fetching invoices:", err);
+            setError("Failed to fetch invoices.");
+          } finally {
+            setLoading(false);
+          }
+        };
+
+        fetchInvoicesByEmployee();
+      }
       return;
     }
 
     const searchInvoices = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/employee/invoices/${debouncedSearchTerm}`);
+        const response = await fetch(`http://localhost:5000/api/employee/invoices/${debouncedSearchTerm}/${employee.EmployeeID}`);
         const contentType = response.headers.get("content-type");
 
         if (!response.ok) {
@@ -127,7 +149,7 @@ function EmployeeInvoice() {
     };
 
     searchInvoices();
-  }, [debouncedSearchTerm]);
+  }, [debouncedSearchTerm, employee]);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value); // Update the search term
@@ -139,7 +161,6 @@ function EmployeeInvoice() {
         .toString()
         .padStart(2, "0")}-${date.getFullYear()}`;
   };
-
 
   return (
       <div className="d-flex flex-column yks-emp-invoice-container">
