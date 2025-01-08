@@ -1,4 +1,3 @@
-/* EmpDashboard.css */
 .ae-emp-dashboard-container {
     display: flex;
     flex-direction: column;
@@ -21,6 +20,13 @@
     margin-top: 50px;
     margin-left: 240px;
     font-size: 20px;
+  }
+
+  .ae-emp-dashboard-title{
+    font-size: 30px;
+    color: #1c5d5f;
+    margin-left: 600px;
+    display: none;
   }
   
   .ae-emp-content-wrapper {
@@ -175,3 +181,154 @@
   .ae-emp-container3{
     margin-top:60px;
   }
+  
+
+  /* ... (previous CSS remains the same until media query) ... */
+
+@media screen and (max-width: 768px) {
+  .ae-emp-main-content {
+    flex-direction: column;
+  }
+
+  .ae-emp-dashboard-right {
+    padding: 10px;
+    width: 100%;
+  }
+
+  .ae-emp-breadcrumb {
+    display: none;
+  }
+
+  .ae-emp-dashboard-title {
+    display: block;
+    font-size: 24px;
+    color: #1c5d5f;
+    text-align: center;
+    margin: 100px 0px;
+    padding-top: 20px;
+  }
+
+  .ae-emp-content-wrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  /* Info Cards Layout - Keeping these unchanged */
+  .ae-emp-info-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 10px;
+    margin: 0px 0px;
+    width: auto;
+    padding: 5px;
+  }
+
+  .ae-emp-info-card {
+    width: 100%;
+    margin-left: 0;
+    height: 100px;
+    margin-top: 20px;
+  }
+
+  .ae-emp-info-card:nth-child(3) {
+    grid-column: -1 / 1;
+  }
+
+  /* Info cards specific styles remain unchanged */
+  .ae-emp-card-left {
+    padding: 10px;
+    height: auto;
+    width: 60%;
+  }
+
+  .ae-emp-att-img {
+    margin-bottom: 50px;
+    margin-left: -70px;
+  }
+  
+  .ae-emp-att-text {
+    margin-top: 30px;
+    margin-left: 25px;
+  }
+
+  .ae-emp-inv-img {
+    margin-bottom: 50px;
+    margin-left: -50px;
+  }
+  
+  .ae-emp-inv-text {
+    margin-top: 30px;
+    margin-left: 25px;
+  }
+
+  .ae-emp-pay-img {
+    margin-left: -150px;
+  }
+  
+  .ae-emp-pay-text {
+    margin-left: 110px;
+  }
+
+  .ae-emp-card-right {
+    padding: 0px 0px;
+  }
+
+  /* New styles to swap Tasks and Overview sections */
+  .ae-emp-tasks-section {
+    order: 2;  /* Move tasks section after overview */
+    margin: 20px 10px;
+    padding: 10px;
+    width: auto;
+  }
+
+  .ae-emp-right-content {
+    order: 1;  /* Move overview before tasks */
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .ae-emp-mytask-title {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .ae-emp-overview-section {
+    margin: 0 10px;
+    padding: 15px;
+  }
+
+  .ae-emp-overview-title {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .ae-emp-tasks-table table {
+    width: 100%;
+    margin-left: 0;
+    font-size: 14px;
+  }
+
+  .ae-emp-tasks-table th,
+  .ae-emp-tasks-table td {
+    padding: 8px;
+  }
+
+  .ae-emp-container3 {
+    margin-top: 30px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .ae-emp-card-left span {
+    font-size: 13px;
+  }
+
+  .ae-emp-card-right span {
+    font-size: 20px;
+  }
+
+  .ae-emp-overview-para {
+    font-size: 13px;
+  }
+}

@@ -145,15 +145,16 @@ function EmpDashboard() {
           </div>
           
           
+          
           <div className="ae-emp-content-wrapper">
             <div className="ae-emp-left-content">
-              {/*<h1 className="ae-emp-dashboard-title">Dashboard</h1>*     Use in mobile view*/}
+             <h1 className="ae-emp-dashboard-title">Dashboard</h1>
 
               <div className="ae-emp-info-cards">
                 <div className="ae-emp-info-card">
                   <div className="ae-emp-card-left">
-                    <span>Today<br />Attendance</span>
-                    <img src={attendImage} alt="Attendance" />
+                    <span className="ae-emp-att-text">Today<br />Attendance</span>
+                    <img className="ae-emp-att-img" src={attendImage} alt="Attendance" />
                   </div>
                   <div className="ae-emp-card-right">
                     <span>{attendance}</span>     {/*Fetching Today Attendance*/}
@@ -162,8 +163,8 @@ function EmpDashboard() {
 
                 <div className="ae-emp-info-card">
                   <div className="ae-emp-card-left">
-                    <span>Pending<br />Invoices</span>
-                    <img src={InfoInvoice} alt="Pending Invoices" />
+                    <span className="ae-emp-inv-text">Pending<br />Invoices</span>
+                    <img className="ae-emp-inv-img" src={InfoInvoice} alt="Pending Invoices" />
                   </div>
                   <div className="ae-emp-card-right">
                     <span>{invoice}</span>      {/*Fetching Invoice Count*/}
@@ -172,11 +173,11 @@ function EmpDashboard() {
 
                 <div className="ae-emp-info-card">
                   <div className="ae-emp-card-left">
-                    <span>Total<br />Payments</span>
-                    <img src={InfoPay} alt="Total Payments" />
+                    <span className="ae-emp-pay-text">Total<br />Payments</span>
+                    <img className="ae-emp-pay-img" src={InfoPay} alt="Total Payments" />
                   </div>
                   <div className="ae-emp-card-right">
-                    <span>{payment}</span> {/*Fetching Employee Count*/}{/*Replace with payment count*/}
+                    <span>{payment}</span> {/*Fetching Employee Count*/}
                   </div>
                 </div>
               </div>
@@ -192,7 +193,8 @@ function EmpDashboard() {
                         <th>Budget</th>
                         <th>Description</th>
                      </tr>
-                    </thead>                                        <tbody>
+                    </thead>    
+                    <tbody>                                   
                       {data.length > 0 ? (
                         data.map((task, index) => (
                           <tr key={index}>
