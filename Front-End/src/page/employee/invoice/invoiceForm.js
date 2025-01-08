@@ -22,10 +22,6 @@ function InvoiceForm() {
     const navigate = useNavigate();
     const invoiceDetailRef = useRef(null);
 
-    const toggleSidebar = () => {
-        setSidebarVisible(!sidebarVisible);
-    };
-
     useEffect(() => {
         if (!selectedInvoiceId) {
             setError("Invoice ID is missing");
@@ -94,7 +90,9 @@ function InvoiceForm() {
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString("en-GB");
+        return `${date.getDate().toString().padStart(2, "0")}-${(date.getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}-${date.getFullYear()}`;
     };
 
     const downloadPDF = async () => {
