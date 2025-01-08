@@ -23,9 +23,6 @@ const Invoice = () => {
     status : "unpaid",
     description: state.services.map((s) => s.description).join(", "), // Optional description aggregation
   });
-  const toggleSidebar = () => {
-    setSidebarVisible(!sidebarVisible);
-  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -189,7 +186,7 @@ const Invoice = () => {
           </div>
 
         </div>
-        
+
         <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
           <Sidebar sidebarVisible={sidebarVisible} />
         </div>

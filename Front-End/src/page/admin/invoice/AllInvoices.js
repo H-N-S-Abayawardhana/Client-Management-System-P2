@@ -13,15 +13,14 @@ const InvoiceTable = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [sidebarVisible, setSidebarVisible] = useState(false);
-
-    const navigate = useNavigate();
+    
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString("en-GB");
+        return `${date.getDate().toString().padStart(2, "0")}-${(date.getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}-${date.getFullYear()}`;
     };
-    const toggleSidebar = () => {
-        setSidebarVisible(!sidebarVisible);
-    };
+
     // Fetch payments from the API
     useEffect(() => {
         axios

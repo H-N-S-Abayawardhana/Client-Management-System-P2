@@ -14,8 +14,8 @@ const PaymentsTable = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [employee, setEmployee] = useState(null);
-
     const navigate = useNavigate();
+
     // Fetch employee details
     useEffect(() => {
         const email = localStorage.getItem("email");
@@ -67,10 +67,13 @@ const PaymentsTable = () => {
 
         fetchPaymentDetails();
     }, [employee?.EmployeeID]);
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString("en-GB");
-    };
+   const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getDate().toString().padStart(2, "0")}-${(date.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}-${date.getFullYear()}`;
+};
+
 
     return (
         <div className="d-flex flex-column msa-emp-payment-container">

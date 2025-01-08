@@ -1,6 +1,5 @@
 import express from "express";
 import db from "../utils/db.js";
-import authenticateToken from "../middleware/authMiddleware.js";
 import { isDDMMYYYYWithDash, isYYYYMMDD } from "../utils/formatDate.js";
 
 const router = express.Router();
@@ -10,7 +9,7 @@ const router = express.Router();
 router.get("/employee/profile/:email", async (req, res) => {
     try {
         const { email } = req.params;
-        
+
         // Fetch employee data using email
         const [employees] = await db.query(
             `SELECT 
@@ -68,10 +67,6 @@ router.get('/employee/paymentCount', async (req, res) => {
     }
 });
 
-
-
-
-
 router.get('/employee/attendCount', async (req, res) => {
     try {
         const currentDate = new Date().toISOString().split('T')[0];
@@ -87,11 +82,9 @@ router.get('/employee/attendCount', async (req, res) => {
     }
 });
 
-
-
 // Fetch invoice count
 router.get('/employee/invoiceCount', async (req, res) => {
-    const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM invoice";
+    const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM invoice WHERE status='unpaid'";
 
     try {
         // Use promise-based query
@@ -103,9 +96,6 @@ router.get('/employee/invoiceCount', async (req, res) => {
         return res.status(500).json({ error: "Database error" });
     }
 });
-
-
-
 
 // Save payment
 router.post("/payment", async (req, res) => {
@@ -281,7 +271,8 @@ router.get("/emp/:id", async (req, res) => {
             details: err.message,
         });
     }
-});// Get service
+});
+// Get service
 router.get("/service/:id", async (req, res) => {
     const sql = "SELECT * FROM Service WHERE invoiceID = ?";
     const invoiceID = req.params.id;
@@ -300,7 +291,6 @@ router.get("/service/:id", async (req, res) => {
                 message: "Services not found",
             });
         }
-
         // Return the array of services (not just the first service)
         return res.json({
             success: true,
@@ -346,6 +336,64 @@ router.get("/employee/:email", async (req, res) => {
             success: false,
             message: "Database query failed",
         });
+    }
+});
+// search the invoice in searchbar
+router.get('/invoices/:input/:empid', async (req, res) => {
+    try {
+        const input = req.params.input;
+        const EmployeeID = req.params.empid;
+
+        const sql = `
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY invoice.invoiceID) AS RowNumber,
+                    invoice.invoiceID,
+                invoice.EmployeeID,
+                invoice.total_cost,
+                DATE_FORMAT(invoice.invoice_date, '%d-%m-%Y') AS invoice_date,
+                invoice.AcountId,
+                invoice.description,
+                invoice.status
+            FROM
+                invoice
+            WHERE
+                (
+                            invoice.invoiceID = ?
+                        OR invoice.status LIKE CONCAT(?, '%')
+                        OR DATE_FORMAT(invoice.invoice_date, '%d-%m-%Y') LIKE CONCAT(?, '%')
+                    )
+              AND invoice.EmployeeID = ?
+        `;
+
+        let queryParam;
+
+        // Handle different input cases
+        if (isDDMMYYYYWithDash(input)) {
+            const [day, month, year] = input.split('-');
+            if (!isValidDateObject(day, month, year)) {
+                return res.status(400).json({ message: "Invalid date format" });
+            }
+            queryParam = `${year}-${month}-${day}`;
+        } else if (isYYYYMMDD(input)) {
+            queryParam = input;
+        } else if (!isNaN(input)) {
+            queryParam = input; // Invoice ID
+        } else {
+            queryParam = input; // Status
+        }
+
+        // Execute the query with appropriate parameters
+        const [data] = await db.query(sql, [queryParam, queryParam, queryParam, EmployeeID]);
+
+        if (!data.length) {
+            return res.status(404).json({ message: "No invoices found" });
+        }
+
+        return res.status(200).json(data);
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 });
 
