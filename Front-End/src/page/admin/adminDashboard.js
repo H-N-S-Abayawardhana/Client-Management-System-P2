@@ -143,13 +143,13 @@ function AdminDashboard() {
           
           <div className="ae-admin-content-wrapper">
             <div className="ae-admin-left-content">
-              {/*<h1 className="ae-admin-dashboard-title">Dashboard</h1>*     Use in mobile view*/}
+             <h1 className="ae-admin-dashboard-title">Dashboard</h1>
 
               <div className="ae-admin-info-cards">
                 <div className="ae-admin-info-card">
                   <div className="ae-admin-card-left">
-                    <span>Today<br />Attendance</span>
-                    <img src={attendImage} alt="Attendance" />
+                    <span className= "ae-admin-att-text">Today<br />Attendance</span>
+                    <img className= "ae-admin-att-img" src={attendImage} alt="Attendance" />
                   </div>
                   <div className="ae-admin-card-right">
                     <span>{attendance}</span>
@@ -158,8 +158,8 @@ function AdminDashboard() {
 
                 <div className="ae-admin-info-card">
                   <div className="ae-admin-card-left">
-                    <span>Total<br />Employers</span>
-                    <img src={attendImage} alt="Pending Invoices" />
+                    <span className= "ae-admin-emp-text">Total<br />Employers</span>
+                    <img className= "ae-admin-emp-img" src={attendImage} alt="Pending Invoices" />
                   </div>
                   <div className="ae-admin-card-right">
                     <span>{employee}</span>
@@ -168,8 +168,8 @@ function AdminDashboard() {
 
                 <div className="ae-admin-info-card">
                   <div className="ae-admin-card-left">
-                    <span>Pending<br />Invoices</span>
-                    <img src={InfoInvoice} alt="Total Payments" />
+                    <span className= "ae-admin-inv-text">Pending<br />Invoices</span>
+                    <img className= "ae-admin-inv-img" src={InfoInvoice} alt="Total Payments" />
                   </div>
                   <div className="ae-admin-card-right">
                     <span>{invoice}</span>

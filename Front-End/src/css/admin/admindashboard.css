@@ -9,6 +9,10 @@
     flex: 1;
     background-color: #ffffff;
   }
+
+  .ae-admin-dashboard-title{
+    display:none;
+  }
   
   .ae-admin-dashboard-right {
     flex: 1;
@@ -52,7 +56,7 @@
     flex: 1;
     overflow: hidden;
     width:75%;
-    
+    margin-top:-20px;
     border-radius: 10px;
 
   }
@@ -136,7 +140,7 @@
     margin-bottom: 5px;
     margin-left: 10px;
     font-size: 18px;
-
+    margin-top:20px;
   }
 
   .ae-admin-overview {
@@ -175,3 +179,154 @@
   .ae-admin-container3{
     margin-top:200px;
   }
+
+
+  
+@media screen and (max-width: 768px) {
+  .ae-admin-main-content {
+    flex-direction: column;
+  }
+
+  .ae-admin-dashboard-right {
+    padding: 10px;
+    width: 100%;
+  }
+
+  .ae-admin-breadcrumb {
+    display: none;
+  }
+
+  .ae-admin-dashboard-title {
+    display: block;
+    font-size: 24px;
+    color: #1c5d5f;
+    text-align: center;
+    margin: 100px 0px;
+    padding-top: 20px;
+  }
+
+  .ae-admin-content-wrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  /* Info Cards Layout - Keeping these unchanged */
+  .ae-admin-info-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 10px;
+    margin: 0px 0px;
+    width: auto;
+    padding: 5px;
+  }
+
+  .ae-admin-info-card {
+    width: 100%;
+    margin-left: 0;
+    height: 100px;
+    margin-top: 20px;
+
+  }
+
+  .ae-admin-info-card:nth-child(3) {
+    grid-column: -1 / 1;
+  }
+
+  /* Info cards specific styles remain unchanged */
+  .ae-admin-card-left {
+    padding: 10px;
+    height: auto;
+    width: 60%;
+  }
+
+  .ae-admin-att-img {
+    margin-bottom: 50px;
+    margin-left: -70px;
+  }
+  
+  .ae-admin-att-text {
+    margin-top: 30px;
+    margin-left: 25px;
+  }
+
+  .ae-admin-emp-img {
+    margin-bottom: 50px;
+    margin-left: -50px;
+  }
+  
+  .ae-admin-emp-text {
+    margin-top: 30px;
+    margin-left: 25px;
+  }
+
+  .ae-admin-inv-img {
+    margin-left: -150px;
+  }
+  
+  .ae-admin-inv-text {
+    margin-left: 110px;
+  }
+
+  .ae-admin-card-right {
+    padding: 0px 0px;
+  }
+
+  /* New styles to swap Tasks and Overview sections */
+  .ae-admin-tasks-section {
+    order: 2;  /* Move tasks section after overview */
+    margin: 20px 10px;
+    padding: 10px;
+    width: auto;
+  }
+
+  .ae-admin-right-content {
+    order: 1;  /* Move overview before tasks */
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .ae-admin-mytask-title {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .ae-admin-overview-section {
+    margin: 0 10px;
+    padding: 15px;
+  }
+
+  .ae-admin-overview-title {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .ae-admin-tasks-table table {
+    width: 100%;
+    margin-left: 0;
+    font-size: 14px;
+  }
+
+  .ae-admin-tasks-table th,
+  .ae-admin-tasks-table td {
+    padding: 8px;
+  }
+
+  .ae-admin-container3 {
+    margin-top: 30px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .ae-admin-card-left span {
+    font-size: 13px;
+  }
+
+  .ae-admin-card-right span {
+    font-size: 20px;
+  }
+
+  .ae-admin-overview-para {
+    font-size: 13px;
+  }
+}
