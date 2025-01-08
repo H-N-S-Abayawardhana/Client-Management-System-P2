@@ -214,7 +214,7 @@
     .yks-container .yks-btn-groupup {
         margin-left: 0px;
         display: flex;
-        flex-wrap: wrap; /* Ensure buttons adjust properly on smaller screens */
+        flex-wrap:initial; /* Ensure buttons adjust properly on smaller screens */
     }
 
     .yks-input {
