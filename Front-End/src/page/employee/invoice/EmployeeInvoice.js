@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {toast, ToastContainer} from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -11,6 +11,22 @@ import Sidebar from "../../../components/templetes/ESideBar";
 import Footer from '../../../components/templetes/Footer';
 import searchIcon from "../../../assets/image.png";
 
+// Debounce utility function
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
 
 function EmployeeInvoice() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,61 +37,35 @@ function EmployeeInvoice() {
   const [sidebarVisible, setSidebarVisible] = useState(false);
 
   const navigate = useNavigate();
-  // Toggle Sidebar
-  const toggleSidebar = () => {
-    setSidebarVisible(!sidebarVisible);
-  };
+
+  // Debounced search term
+  const debouncedSearchTerm = useDebounce(searchTerm, 500); // 500ms debounce
+
   // Fetch employee details
   useEffect(() => {
-    const email = localStorage.getItem("email");
-    if (email) {
-      const fetchEmployeeDetails = async () => {
-        try {
-          const response = await fetch(`http://localhost:5000/api/employee/employee/${email}`);
-          if (!response.ok) throw new Error("Failed to fetch employee details");
-          const data = await response.json();
-          if (data?.data) {
-            setEmployee(data.data);
-          } else {
-            throw new Error("Employee details not found");
-          }
-        } catch (err) {
-          console.error("Error fetching employee details:", err);
-          setError(err.message);
-        }
-      };
+    const fetchEmployeeDetails = async () => {
+      const email = localStorage.getItem("email");
+      if (!email) return;
 
-      fetchEmployeeDetails();
-    }
-  }, []);
-  // Fetch invoice details based on employee ID
-  useEffect(() => {
-    if (!employee?.EmployeeID) return;
-
-    const fetchInvoiceDetails = async () => {
       try {
-        const response = await fetch(
-            `http://localhost:5000/api/employee/employee/invoice/${employee.EmployeeID}`
-        );
-        if (!response.ok) throw new Error("Failed to fetch payment details");
+        const response = await fetch(`http://localhost:5000/api/employee/employee/${email}`);
+        if (!response.ok) throw new Error("Failed to fetch employee details");
         const data = await response.json();
-
-        if (Array.isArray(data?.data)) {
-          setInvoices(data.data);
+        if (data?.data) {
+          setEmployee(data.data);
         } else {
-          throw new Error("Invalid payment data format");
+          throw new Error("Employee details not found");
         }
       } catch (err) {
-        console.error("Error fetching payments:", err);
+        console.error("Error fetching employee details:", err);
         setError(err.message);
-      } finally {
-        setLoading(false); // Stop loading spinner
       }
     };
 
-    fetchInvoiceDetails();
-  }, [employee?.EmployeeID]);
-  // Fetch invoices from the API
+    fetchEmployeeDetails();
+  }, []);
+
+  // Fetch all invoices on component mount
   useEffect(() => {
     const fetchInvoices = async () => {
       try {
@@ -95,26 +85,61 @@ function EmployeeInvoice() {
 
     fetchInvoices();
   }, []);
-  // Handle View Invoice
-  const handleView = (invoiceID) => {
-    navigate(`/employee-invoice-detail/${invoiceID}`); // Navigate to the PaymentInformation page with invoiceID
 
+  // Fetch filtered invoices when debounced search term changes
+  useEffect(() => {
+    if (!debouncedSearchTerm) {
+      setInvoices([]); // Clear invoices if no search term
+      return;
+    }
+
+    const searchInvoices = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/employee/invoices/${debouncedSearchTerm}`);
+        const contentType = response.headers.get("content-type");
+
+        if (!response.ok) {
+          const errorData = contentType && contentType.includes("application/json")
+              ? await response.json()
+              : { message: "Error occurred: Invalid response format" };
+          console.error("API Error:", errorData);
+          toast.error(errorData.message || "Error occurred");
+          setInvoices([]); // Clear data on error
+          return;
+        }
+
+        const responseData = contentType && contentType.includes("application/json")
+            ? await response.json()
+            : [];
+        if (Array.isArray(responseData)) {
+          setInvoices(responseData);
+        } else {
+          console.error("Invalid data format:", responseData);
+          setInvoices([]); // Clear data if response is invalid
+        }
+      } catch (error) {
+        console.error("Error during search:", error);
+        toast.error("Search failed due to an error.");
+        setInvoices([]); // Clear data on network error
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    searchInvoices();
+  }, [debouncedSearchTerm]);
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value); // Update the search term
   };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB");
+    return `${date.getDate().toString().padStart(2, "0")}-${(date.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}-${date.getFullYear()}`;
   };
-  //handle search
-  const handleSearchChange = (e) => {
 
-  }
-
-  // Filter invoices by search term
-  const filteredInvoices = invoices.filter((invoice) =>
-    Object.values(invoice).some((value) =>
-      String(value).toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  );
 
   return (
       <div className="d-flex flex-column yks-emp-invoice-container">
@@ -155,7 +180,6 @@ function EmployeeInvoice() {
                   </button>
                 </div>
                 <div className="yks-employee-invoice-table-container mt-1">
-                  {/* Show loading or error messages */}
                   {loading && <p>Loading invoices...</p>}
                   {error && <p style={{ color: "red" }}>{error}</p>}
                   <table className="table table-bordered yks-employee-invoice-table">
@@ -163,20 +187,14 @@ function EmployeeInvoice() {
                     <tr>
                       <th>Invoice ID</th>
                       <th>Account ID</th>
-                      <th>
-                        <div className="header-split">
-                          <span>Invoice</span>
-                          <br />
-                          <span>Date</span>
-                        </div>
-                      </th>
+                      <th>Invoice Date</th>
                       <th>Amount</th>
                       <th>Status</th>
                       <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {filteredInvoices.map((invoice) => (
+                    {invoices.map((invoice) => (
                         <tr key={invoice.invoiceID}>
                           <td>{invoice.invoiceID}</td>
                           <td>{invoice.AcountId}</td>
@@ -186,7 +204,7 @@ function EmployeeInvoice() {
                           <td>
                             <button
                                 className="yks-view-btn"
-                                onClick={() => handleView(invoice.invoiceID)}
+                                onClick={() => navigate(`/employee-invoice-detail/${invoice.invoiceID}`)}
                             >
                               View
                             </button>
@@ -199,12 +217,10 @@ function EmployeeInvoice() {
               </div>
             </div>
 
-
             {/* Footer */}
             <Footer />
           </div>
         </div>
-
       </div>
   );
 }
