@@ -92,7 +92,7 @@ router.get('/employee/attendCount', async (req, res) => {
 
 // Fetch invoice count
 router.get('/employee/invoiceCount', async (req, res) => {
-    const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM invoice";
+    const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM invoice WHERE status='unpaid'";
 
     try {
         // Use promise-based query
