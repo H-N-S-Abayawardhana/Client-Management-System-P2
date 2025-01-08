@@ -17,12 +17,13 @@ const PaymentInformation = () => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const invoiceCardRef = useRef(null);
 
-  const formatDate = (dateString) => {
+ const formatDate = (dateString) => {
     const date = new Date(dateString);
     return `${date.getDate().toString().padStart(2, "0")}-${(date.getMonth() + 1)
         .toString()
         .padStart(2, "0")}-${date.getFullYear()}`;
-  };
+};
+
 
   useEffect(() => {
     if (!selectedPaymentId) {
