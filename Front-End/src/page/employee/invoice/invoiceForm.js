@@ -95,6 +95,7 @@ function InvoiceForm() {
             .padStart(2, "0")}-${date.getFullYear()}`;
     };
 
+
     const downloadPDF = async () => {
         try {
             const element = invoiceDetailRef.current;
