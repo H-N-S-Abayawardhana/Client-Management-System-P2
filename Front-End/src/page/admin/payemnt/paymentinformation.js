@@ -17,12 +17,11 @@ const PaymentInformation = () => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const invoiceCardRef = useRef(null);
 
-  const toggleSidebar = () => {
-    setSidebarVisible(!sidebarVisible);
-  };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-GB");
+    return `${date.getDate().toString().padStart(2, "0")}-${(date.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}-${date.getFullYear()}`;
   };
 
   useEffect(() => {
@@ -159,7 +158,7 @@ const PaymentInformation = () => {
         </div>
       </div>
 
-      
+
       <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
         <Sidebar sidebarVisible={sidebarVisible} />
       </div>
