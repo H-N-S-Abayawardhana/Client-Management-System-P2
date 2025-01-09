@@ -6,7 +6,7 @@ body {
     background-color: white;
   }
   
-  .signin-container {
+  .nu-signin-page-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -16,17 +16,17 @@ body {
   
   
   /* Main Section */
-  .signin-main {
+  .nu-signin-main {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 80px;
     background-color: white;
-    min-height: 70vh; /* Adjusted height */
+    min-height: 70vh; 
   }
   
-  .signin-card {
+  .nu-signin-card {
     display: flex;
     background-color:#e6e7e9 ;
     border-radius: 20px;
@@ -35,7 +35,7 @@ body {
     flex-direction: row;
   }
   
-  .signin-form {
+  .nu-signin-form {
     padding: 40px;
     max-width: 450px;
     display: flex;
@@ -43,23 +43,23 @@ body {
     
   }
   
-  .signin-form h2 {
+  .nu-signin-form h2 {
     margin-bottom: 30px;
     margin-top:30px;
     color: #1f7a8c;
-    text-align: center; /* Centers the text */
+    text-align: center; 
   }
   
-  .signin-form p {
+  .nu-signin-form p {
     margin-bottom: 50px;
    
     
   }
-  .italic-link {
+  .nu-signin-italic-link {
     font-style: italic;
 }
   
-  .signin-form form input  {
+  .nu-signin-form form input  {
     margin-bottom: 30px;
     padding: 10px;
     border: 1px solid #a8aaab;
@@ -69,7 +69,7 @@ body {
     
    
   }
-  .signin-form form select{
+  .nu-signin-form form select{
     margin-bottom: 30px;
     padding: 10px;
     border: 1px solid #a8aaab;
@@ -78,9 +78,29 @@ body {
     font-style: italic;
    
   }
+  .nu-signin-form form select option {
+    width: auto;  /* This ensures the dropdown list matches the select element */
+    max-width: 100%;  /* Prevents options from extending beyond the select element */
+    font-size: 14px;  /* Slightly smaller font size */
+    padding: 5px;     /* Reduced padding */
+}
+  .nu-signin-usertype-select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.nu-signin-usertype-select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
  
   
-  .signin-form .forgot-link {
+  .nu-signin-form .nu-signin-forgot-link {
     font-size: 0.8em;
     margin-bottom: 20px;
     margin-top: 20px;
@@ -92,8 +112,8 @@ body {
     
   }
   
-  .signin-form .signin-button {
-    margin: 0 auto; /* Automatically centers the button horizontally */
+  .nu-signin-form .nu-signin-button {
+    margin: 0 auto; 
     display: block;
     padding: 10px;
     background-color: #1f7a8c;
@@ -106,89 +126,87 @@ body {
     cursor: pointer;
   }
   
-  .signin-image img {
+  .nu-signin-image img {
     width: 300px;
     height: 550px;
     object-fit: cover;
   }
   
   
-  
-  /* Responsive Design */
-
-/* Tablets (768px and below) */
-@media (max-width: 760px) {
-    .signin-card {
-      flex-direction: column;
-      width: 100%;
-      margin: 20px auto;
-    }
-  
-    .signin-image img {
-      display: none;
-    }
-  
-    .signin-form {
-      padding: 20px;
-      max-width: 100%;
-      align-items: center;
-    }
-}
-   
-  
   /* Mobile Phones (480px and below) */
-  @media (max-width: 480px) {
-    .signin-main {
+  @media (max-width: 768px) {
+    .nu-signin-main {
       padding: 20px;
       min-height: auto;
       
     }
   
-    .signin-card {
+    .nu-signin-card {
       width: 100%;
-      margin: 10px;
+      margin: 140px 0px;
       box-shadow: 0 4px 6px 0 rgba(23, 24, 23, 0.3);
       border:1px solid #1f7a8c ;
       background-color: white;
     }
+    
   
-    .signin-image img {
-        display: none; /* Hide the image container */
+    .nu-signin-image img {
+        display: none; 
+      }
+      .nu-signin-form  {
+        top:50px;
       }
     
-    .signin-form h2 {
+    .nu-signin-form h2 {
       font-size: 1.4em;
       margin-bottom: 15px;
       font-weight: bolder;
     }
   
-    .signin-form p {
+    .nu-signin-form p {
       margin-bottom: 30px;
       font-size: 0.9em;
     }
+
   
-    .signin-form form input {
+    .nu-signin-form form input {
       margin-bottom: 20px;
     margin-left:20px;
     margin-right:20px;
     padding: 10px;
     font-size: 0.9em;
-    width: 90%; /* Use percentage to make it responsive */
+    width: 90%; 
     text-align:left;
     }
-    .signin-form form select {
+    .nu-signin-form form select {
       margin-bottom: 20px;
-    margin-left:20px;
-    margin-right:20px;
-    padding: 10px;
-    border: 1px solid #a8aaab;
-    background-color: #dadcdd;
-    width: 90%; /* Use percentage to make it responsive */
-    font-style: italic;
-    text-align: left;
-    }
+      margin-left: 20px;
+      margin-right: 20px;
+      padding: 10px;
+      border: 1px solid #a8aaab;
+      background-color: #dadcdd;
+      width: 90%;
+      font-style: italic;
+      text-align: left;
+      /* Add these properties to control the dropdown appearance */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 1em;
+      max-width: 300px; 
+  }
+  .nu-signin-form form select option {
+    width: auto;
+    max-width: 300px !important;  /* Match the select element's max-width */
+    font-size: 14px;
+    padding: 0px;
+}
+
   
-    .signin-form .signin-button {
+    .nu-signin-form .nu-signin-button {
       padding: 10px;
       font-size: 0.9em;
       width: 50%;
