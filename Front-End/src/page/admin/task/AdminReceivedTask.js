@@ -41,30 +41,31 @@ export default function AdminReceivedTask() {
   return (
 
     <div>
-      <Navbar />
+      <div className='admin-recive-task-prog-container'>
+        <Navbar />
 
 
-      <div class='apwgr-container1'>
-        <nav className="breadcrumb " aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a class="text-decoration-none" href="#">Home</a></li>
-            <li class="breadcrumb-item"><a class="text-decoration-none" href="#">Task</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Received Task progress</li>
-          </ol>
-        </nav>
-      </div>
-
-
-      <div class='apwgr-container2  '>
-        <div className='addtop'>
-          <h1 class="text-center">Received Task </h1>
+        <div class='apwgr-container1'>
+          <nav className="breadcrumb " aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a class="text-decoration-none" href="#">Home</a></li>
+              <li class="breadcrumb-item"><a class="text-decoration-none" href="#">Task</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Received Task progress</li>
+            </ol>
+          </nav>
         </div>
-        <div>
-          <button class="btn apwgr-back-btn my-3" onClick={() => navigate('/admin-manage-task')}>
-            <span class="bi bi-arrow-left-circle m-0 text-white"></span>
-            <span class="ms-2">Back</span>
-          </button>
-        </div>
+
+
+        <div class='apwgr-container2  '>
+          <div className='addtop'>
+            <h1 class="text-center">Received Task </h1>
+          </div>
+          <div>
+            <button class="btn apwgr-back-btn my-3" onClick={() => navigate('/admin-manage-task')}>
+              <span class="bi bi-arrow-left-circle m-0 text-white"></span>
+              <span class="ms-2">Back</span>
+            </button>
+          </div>
 
 
           <div className="apwgr-tasks-table-container addgap">
@@ -112,11 +113,11 @@ export default function AdminReceivedTask() {
           </div>
 
 
-  
 
-      </div>
 
-      
+        </div></div>
+
+
       <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
         <Sidebar sidebarVisible={sidebarVisible} />
       </div>

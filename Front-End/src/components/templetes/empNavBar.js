@@ -6,15 +6,15 @@ import Swal from 'sweetalert2';
 import arrow from '../../assets/arrow.png';
 import logo from '../../assets/logo.png';
 import user from '../../assets/user.png';
-import logoutIcon from '../../assets/logout.png';
+import logoutIcon from '../../assets/logout2.png';
+import logoutuser from '../../assets/logout.png';
 import menuIcon from '../../assets/menu.png';
 import attendence from '../../assets/attendence.png';
-import dashboard from '../../assets/dashboard.png';
 import invoice from '../../assets/invoice.png';
 import payment from '../../assets/payment.png';
 import task from '../../assets/task.png';
 import mail from '../../assets/mail.png';
-import user2 from '../../assets/myprofile.png';
+import myprofile from '../../assets/myprofile.png';
 import logout2 from '../../assets/logout2.png';
 
 export default function EmpNavbar() {
@@ -33,7 +33,7 @@ export default function EmpNavbar() {
 
   const handleLogout = async () => {
     const result = await Swal.fire({
-      imageUrl: logoutIcon,
+      imageUrl: logoutuser,
       imageWidth: 50,
       imageHeight: 50,
       title: 'Do you want to logout?',
@@ -79,8 +79,13 @@ export default function EmpNavbar() {
     }
   };
 
+  const navigateToDashboard = () => {
+    navigate('/employee-dashboard');
+    setShowSidebar(false);
+  };
+
   return (
-    <div>
+    <div className="emp-nav-bar">
       <nav
         className="navbar navbar-expand-lg fixed-top"
         style={{ backgroundColor: '#24757e', color: '#ffffff' }}
@@ -146,21 +151,15 @@ export default function EmpNavbar() {
                   >
                     <li>
                       <a className="dropdown-item d-flex align-items-center" href="/employee-profile">
-                        <img src={user2} alt="Profile" style={{ width: '20px', marginRight: '14px' }} />
+                        <img src={myprofile} alt="Profile" style={{ width: '20px', marginRight: '14px' }} />
                         My Profile
                       </a>
                     </li>
                     <li>
                       <button
-                        className="dropdown-item d-flex align-items-center text-danger"
+                        className="dropdown-item d-flex align-items-center"
                         onClick={handleLogout}
-                        style={{ 
-                          border: 'none', 
-                          width: '100%', 
-                          textAlign: 'left', 
-                          padding: '8px 20px',
-                          background: 'none'
-                        }}
+                        style={{ border: 'none', width: '100%', textAlign: 'left', padding: '8px 20px' }}
                       >
                         <img src={logout2} alt="Logout" style={{ width: '20px', marginRight: '14px' }} />
                         Log out
@@ -171,7 +170,6 @@ export default function EmpNavbar() {
               </li>
             </ul>
 
-            {/* Menu Icon for Mobile */}
             <img
               src={menuIcon}
               alt="Menu"
@@ -190,74 +188,53 @@ export default function EmpNavbar() {
         </div>
       </nav>
 
-      {/* Sidebar */}
       {showSidebar && (
         <div
-          className="sidebar bg-light position-fixed top-0 start-0 h-100"
-          style={{ width: '250px', zIndex: 1050 }}
+          className="sidebar position-fixed top-0 start-0 h-100"
+          style={{ 
+            width: '250px', 
+            zIndex: 1050,
+            backgroundColor: '#b9c2c1' 
+          }}
         >
-          <button
-            className="btn-close mt-2 ms-3"
-            onClick={toggleSidebar}
-            aria-label="Close"
-          ></button>
-          <ul className="list-group mt-4">
-            <li className="list-group-item">
-              <a href="/employee-profile" className="d-flex align-items-center text-decoration-none text-dark">
-                <img src={user2} alt="Profile" style={{ width: '20px', marginRight: '14px' }} />
-                My Profile
-              </a>
-            </li>
-            <li className="list-group-item">
-              <a href="/employee-dashboard" className="d-flex align-items-center text-decoration-none text-dark">
-                <img src={dashboard} alt="Dashboard" style={{ width: '20px', marginRight: '14px' }} />
-                Dashboard
-              </a>
-            </li>
-            <li className="list-group-item">
-              <a href="/employee-attendance" className="d-flex align-items-center text-decoration-none text-dark">
-                <img src={attendence} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} />
-                Attendance
-              </a>
-            </li>
-            <li className="list-group-item">
-              <a href="/employee-invoice" className="d-flex align-items-center text-decoration-none text-dark">
-                <img src={invoice} alt="Invoice" style={{ width: '20px', marginRight: '14px' }} />
-                Invoice
-              </a>
-            </li>
-            <li className="list-group-item">
-              <a href="/employee-payment" className="d-flex align-items-center text-decoration-none text-dark">
-                <img src={payment} alt="Payment" style={{ width: '20px', marginRight: '14px' }} />
-                Payment
-              </a>
-            </li>
-            <li className="list-group-item">
-              <a href="/employee-manage-task-prgress" className="d-flex align-items-center text-decoration-none text-dark">
-                <img src={task} alt="Task" style={{ width: '20px', marginRight: '14px' }} />
-                Task
-              </a>
-            </li>
-            <li className="list-group-item">
-              <a href="/employee-mailbox" className="d-flex align-items-center text-decoration-none text-dark">
-                <img src={mail} alt="Mailbox" style={{ width: '20px', marginRight: '14px' }} />
-                Mail-Box
-              </a>
-            </li>
-            <li className="list-group-item">
-              <button
-                onClick={handleLogout}
-                className="d-flex align-items-center text-danger"
-                style={{
-                  border: 'none',
-                  background: 'none',
-                  padding: 0,
-                  width: '100%',
-                  textDecoration: 'none',
-                }}
-              >
+          <div className="d-flex justify-content-between align-items-center p-3">
+            <h2 
+              className="mb-0" 
+              style={{ 
+                color: '#1c5d5f', 
+                cursor: 'pointer',
+                fontSize: '1.5rem'
+              }}
+              onClick={navigateToDashboard}
+            >
+              Dashboard
+            </h2>
+            <button
+              className="btn-close"
+              onClick={toggleSidebar}
+              aria-label="Close"
+            ></button>
+          </div>
+          <ul className="list-group mt-2">
+            {[
+              { href: '/employee-profile', icon: myprofile, text: 'My Profile' },
+              { href: '/employee-attendance', icon: attendence, text: 'Attendance' },
+              { href: '/employee-invoice', icon: invoice, text: 'Invoice' },
+              { href: '/employee-payment', icon: payment, text: 'Payment' },
+              { href: '/employee-manage-task-prgress', icon: task, text: 'Task' },
+              { href: '/employee-mailbox', icon: mail, text: 'Mail-Box' }
+            ].map((item, index) => (
+              <li key={index} className="sidebar-item">
+                <a href={item.href} className="sidebar-link">
+                  <img src={item.icon} alt={item.text} style={{ width: '20px', marginRight: '14px' }} />
+                  <span>{item.text}</span>
+                </a>
+              </li>
+            ))}
+            <li className="sidebar-item">
+              <button onClick={handleLogout} className="sidebar-link logout-btn">
                 <img src={logout2} alt="Logout" style={{ width: '20px', marginRight: '14px' }} />
-                Log out
+                <span>Log out</span>
               </button>
             </li>
           </ul>
@@ -281,6 +258,37 @@ export default function EmpNavbar() {
           }
           .swal2-cancel {
             color: #333 !important;
+          }
+          @media (max-width: 991px) {
+            .sidebar {
+              background-color: #b9c2c1 !important;
+            }
+            .sidebar-item {
+              border: none !important;
+              margin: 0 !important;
+              padding: 0 !important;
+              background-color: #b9c2c1 !important;
+              margin-top: 20px !important;
+            }
+            .sidebar-link {
+              display: flex;
+              align-items: center;
+              text-decoration: none;
+              color: #1c5d5f !important;
+              padding: 8px 15px;
+              background-color: #b9c2c1;
+              width: 100%;
+              border: none;
+            }
+            .logout-btn {
+              background: none;
+              border: none;
+              width: 100%;
+              text-align: left;
+              padding: 8px 15px;
+              color: #1c5d5f !important;
+              margin-left:10px;
+            }
           }
         `}
       </style>

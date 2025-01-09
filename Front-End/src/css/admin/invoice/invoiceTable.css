@@ -1,263 +1,162 @@
-.yks-invoice-container {
-    justify-content: center;
-    align-items: center;
-    padding: 40px 10px;
-    border-radius: 8px;
-    margin: 10px;
-    color: #4c7476;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-.yks-invoice-container .yks-profile-breadcrumb {
-    font-size: 18px;
-    font-weight: 100;
-    margin-top: 40px;
-    margin-left: 250px;
-    margin-bottom: 14px;
-    font-family: 'Arial', sans-serif;
-}
-/* Style for 'Home' */
-.yks-invoice-container .yks-profile-breadcrumb span.home {
-    color: black; /* Black color for Home */
+.yks-admin-invoice-container{
+    min-height: 100vh;
 }
 
-/* Style for 'Contact' */
-.yks-invoice-container .yks-profile-breadcrumb span.contact {
-    color: #24757E; /* Green color for Contact */
-}
-
-/* Footer adjustments for desktop view */
-@media (min-width: 1024px) {
-    .container3 {
-        width: calc(100% - 230px);
-        margin-left: auto;
-        right: 0;
-    }
-}
-
-.yks-invoice-table-container {
-    margin: 20px;
-}
-
-.yks-head h1{
-    color: #24757E;
-    margin-bottom:30px;
-    margin-left: 750px;
-    max-width: 100%;
-}
-.yks-delete-btn {
-    color: white;
-    background-color: #E46B6B;
-    padding: 1px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 3px;
-}
-.yks-container-table {
-    align-items: center; /* Center-align the table container */
-    padding: 20px;
-    margin-left: 250px;
-    margin-top: 30px;
-    max-width: 100%; /* Limit the maximum width */
-}
-
-.yks-serve-tbl {
-    width: 90%; /* Make the table width responsive */
-    border-radius: 2px;
-    border-collapse: collapse;
-    table-layout: auto; /* Use auto layout for better column size adjustment */
-    margin: auto; /* Center the table within the container */
-}
-.yks-serve-tbl th,
-.yks-serve-tbl td {
-    padding: 8px; /* Add padding for better readability */
-    border: 1px solid #ddd;
-    text-align: center;
-}
-.yks-serve-tbl th {
-    background-color: #ababab !important;
-    color: rgb(9, 0, 0);
-    font-weight: bold;
-}
-.yks-serve-tbl tr {
-    color: rgb(9, 0, 0);
-}
-
-.yks-container-table tr:hover {
-    background-color: #f1f1f1;
-}
-
-/* Scrollable table body */
-.yks-serve-tbl tbody {
-    display: block; /* Makes the table body scrollable */
-    max-height: 200px; /* 6 rows x approximately 40px each */
-    overflow-y: auto; /* Enables vertical scrolling */
-    width: 100%; /* Ensures it matches the table's width */
-}
-
-.yks-serve-tbl thead,
-.yks-serve-tbl tbody tr {
-    display: table; /* Ensures headers and rows maintain table layout */
-    width: 100%; /* Matches the table width */
-    table-layout: fixed; /* Ensures consistent column sizing */
-}
-
-/* Hide scrollbar for cleaner look */
-.yks-serve-tbl tbody::-webkit-scrollbar {
-    width: 2px;
-}
-
-.yks-serve-tbl tbody::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 4px;
-}
-
-.yks-serve-tbl tbody::-webkit-scrollbar-thumb:hover {
-    background-color: #888;
+.yks-admin-invoice-container .yks-sidebar-container {
+    width: 230px; /* Default width for larger screens */
+    flex-shrink: 0; /* Optional: Sidebar background color */
 }
 
 @media (max-width: 768px) {
-    .yks-invoice-container .yks-head h1 {
-        padding-top: 60px;
-        margin-bottom: 30px;
-        margin-left: 70px;
-        font-size: calc(1.375rem + 1.5vw);
-        font-weight: bold !important;
-    }
-    .yks-invoice-container .yks-profile-breadcrumb {
-        display: none;
-    }
-    .yks-invoice-container {
-        margin-left: 0%;
-        margin-right: 0%;
-    }
-    .yks-invoice-container .yks-invoice-table-container {
-        margin-top: 20px;
-        margin-left: 0%;
-        margin-right: 0%;
-        margin-bottom: 20px;
-    }
-
-    .yks-invoice-container .yks-container-table {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 5px;
-        margin-left: 0;
-        max-width: 100%;
-        overflow: auto; /* Limit the maximum width */
-    }
-    .yks-container-table table{
-        width: 100%; /* Allow the table to adjust width based on content */
-        border-collapse: collapse;
-        overflow: auto;
-    }
-
-    .yks-serve-tbl {
-        width: 100%; /* Make the table width responsive */
-        border-radius: 2px;
-        border-collapse: collapse;
-        table-layout: auto; /* Use auto layout for better column size adjustment */
-        margin: auto;
-    }
-
-    .yks-serve-tbl thead,
-    .yks-serve-tbl tbody {
-        display: block; /* Allow scrolling within tbody */
-    }
-
-    .yks-serve-tbl tbody {
-        max-height: 400px; /* Fixed height for vertical scrolling */
-        overflow-y: auto; /* Enable vertical scrolling */
-        overflow-x: hidden; /* Prevent unnecessary horizontal scroll in tbody */
-        width: 100%; /* Ensure alignment with the table */
-    }
-
-    .yks-serve-tbl thead tr {
-        display: table;
-        width: 100%;
-        table-layout: fixed; /* Ensures column widths align properly */
-    }
-
-    .yks-serve-tbl tbody tr {
-        display: table;
-        width: 100%;
-        table-layout: fixed; /* Aligns rows and columns with headers */
-    }
-
-    .yks-serve-tbl th,
-    .yks-serve-tbl td {
-        padding: 5px 2px; /* Smaller padding */
-        font-size: 12px; /* Reduce font size */
-        text-align: center;
-    }
-
-    .yks-btn {
-        font-size: 10px;
-        padding: 3px 5px;
-        width: 80%;
+    .yks-admin-invoice-container .yks-sidebar-container {
+        width: 100%; /* Full width for mobile screens */
+        position: fixed; /* Fixed sidebar for smaller screens */
+        z-index: 1000;
+        top: 0;
+        left: 0; /* Place it above other content */
     }
 }
 
-@media (max-width: 480px) {
-    .yks-profile-breadcrumb {
-        display: none;
-    }
+.yks-admin-invoice-container .yks-content-container {
+    padding: 20px;
+    flex-grow: 1;
+}
 
-    .yks-container-table .yks-head h1 {
-        margin-top: 50px;
-        margin-bottom: 35px;
-    }
-
-    .yks-container-table {
-        overflow-x: auto; /* Enable horizontal scrolling */
-        overflow-y: hidden; /* Hide vertical scroll in the container */
-        white-space: nowrap; /* Prevent text wrapping in table cells */
-        padding: 8px;
-        margin: 0 auto; /* Center the table container */
-        max-width: 100%;
-    }
-    .yks-container-table table{
-        width: 100%; /* Set table width to 100% of the container */
-        border-collapse: collapse;
-    }
-    .yks-serve-tbl thead,
-    .yks-serve-tbl tbody {
-        display: block; /* Allow tbody scrolling */
-    }
-
-    .yks-serve-tbl tbody {
-        max-height: 300px; /* Fixed height for vertical scrolling */
-        overflow-y: auto; /* Enable vertical scrolling */
-        width: 100%;
-    }
-
-    .yks-serve-tbl thead tr {
-        display: table;
-        width: 100%;
-        table-layout: fixed; /* Ensures column widths align properly */
-    }
-
-    .yks-serve-tbl tbody tr {
-        display: table;
-        width: 100%;
-        table-layout: fixed; /* Aligns rows and columns with headers */
-    }
-
-    .yks-serve-tbl th,
-    .yks-serve-tbl td {
-        padding: 7px 10px;
-        font-size: 13px;
-        text-align: center;
-        border: 1px solid #ddd; /* Optional border for better clarity */
-        word-wrap: break-word;
-    }
-
-    .yks-btn {
-        font-size: 12px;
-        padding: 3px;
-        width: auto; /* Keep buttons inline */
+@media (max-width: 768px) {
+    .yks-admin-invoice-container .yks-content-container {
+        margin-top: 60px; /* Adjust for fixed navbar/sidebar */
+        padding: 10px; /* Reduced padding for smaller screens */
     }
 }
 
+.yks-admin-invoice-container .yks-content-container .yks-profile-breadcrumb {
+    font-size: 18px;
+    font-weight: 100;
+    margin: 50px 0 0 50px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Style for breadcrumb items */
+.yks-admin-invoice-container .yks-content-container span.home {
+    color: black;
+}
+.yks-admin-invoice-container .yks-content-container span.contact {
+    color: #24757E;
+}
+@media (max-width: 768px) {
+    .yks-admin-invoice-container .yks-content-container .yks-profile-breadcrumb {
+       display: none;
+    }
+}
+.yks-admin-invoice-container .yks-card-container-height {
+    min-height: 430px;
+}
+
+@media (max-width: 768px) {
+    .yks-admin-invoice-container .yks-card-container-height {
+        padding: 10px; /* Reduce padding on smaller screens */
+    }
+}
+.yks-admin-invoice-container .yks-head h1 {
+    max-width: 100%;
+    color: #24757E;
+}
+
+.yks-admin-invoice-container .yks-admin-invoice-table-container {
+    flex-grow: 1;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #ffffff;
+    margin: 10px;
+    font-size: 12px;
+    border-radius: 10px;
+    overflow-x: auto; /* Allow horizontal scrolling when necessary */
+}
+.yks-admin-invoice-container .yks-admin-invoice-table .yks-delete-btn {
+    padding: 4px 10px;
+    color: white;
+    background-color: #E46B6B;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .yks-admin-invoice-container .yks-admin-invoice-table-container {
+        padding: 1px; /* Reduce padding on smaller screens */
+    }
+
+    .yks-admin-invoice-container .yks-admin-invoice-table th,
+    .yks-admin-invoice-container .yks-admin-invoice-table td {
+        padding: 6px; /* Reduce padding on very small screens */
+        font-size: 9px; /* Smaller font size for very small screens */
+    }
+}
+
+@media (max-width: 408px) {
+    .yks-admin-invoice-container .yks-admin-invoice-table-container {
+        padding: 1px; /* Reduce padding on smaller screens */
+    }
+    .yks-admin-invoice-container .yks-admin-invoice-table .yks-delete-btn {
+        padding: 3px 4px;
+        font-size: 8px;
+    }
+}
+
+    .yks-admin-invoice-container .yks-admin-invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px; /* Adjust font size for readability */
+    border: 1px solid #8c8c8c33;
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+.yks-admin-invoice-container .yks-admin-invoice-table th,
+.yks-admin-invoice-container .yks-admin-invoice-table td {
+    border: 1px solid #ddd;
+    text-align: center; /* Center-align text for all cells */
+}
+
+.yks-admin-invoice-container .yks-admin-invoice-table th {
+    background-color: #f8f9fa;
+    color: #000000;
+    font-weight: bold;
+}
+
+.yks-admin-invoice-container .yks-admin-invoice-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.yks-admin-invoice-container .yks-admin-invoice-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+@media (max-width: 768px) {
+    .yks-admin-invoice-container .yks-admin-invoice-table-container {
+        padding: 5px; /* Reduce padding on smaller screens */
+        overflow-x: auto; /* Ensure horizontal scroll when necessary */
+    }
+
+    .yks-admin-invoice-container .yks-admin-invoice-table {
+        width: 100%; /* Ensure the table takes full width */
+    }
+
+    .yks-admin-invoice-container .yks-admin-invoice-table th,
+    .yks-admin-invoice-container .yks-admin-invoice-table td {
+        padding: 8px; /* Reduce padding on smaller screens */
+        font-size: 10px; /* Adjust font size for smaller screens */
+    }
+}
+
+/* Scrollbar styling */
+tbody::-webkit-scrollbar {
+    width: 2px;
+}
+tbody::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+tbody::-webkit-scrollbar-thumb:hover {
+    background-color: #888;
+}

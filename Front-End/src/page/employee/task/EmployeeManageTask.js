@@ -25,6 +25,7 @@ const EmployeeManageTask = () => {
 
     // Get the logged-in user EmployeeID
     const EmployeeID = useEmployeeProfile();
+    console.log('empl ID task prog - ', EmployeeID);
 
     // Fetch tasks from the API
     const fetchTasks = async () => {

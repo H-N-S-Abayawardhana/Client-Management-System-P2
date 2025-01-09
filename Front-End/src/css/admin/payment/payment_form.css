@@ -45,17 +45,19 @@
     max-width: 100%;
 }
 .msa-form-container .msa-payment-form-container .invoice-card {
-    width: 80%;
-    max-width: 400px; /* Slightly larger max-width for better visuals */
+    width: 50%;
+    max-width: fit-content; /* Slightly larger max-width for better visuals */
     padding:  20px 50px;
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin-left: 670px;
+    margin-left: 35%;
     border: 1px solid #ddd;
     border-radius: 10px;
     background-color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Prevent content from spilling */
+    word-wrap: break-word; /* Break long words */
 }
 
 .msa-form-container .msa-payment-form-container .invoice-card h3 {
@@ -69,24 +71,33 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    text-align: left;
     margin-bottom: 10px;
     font-size: 16px;
     color: black;
+    overflow-wrap: break-word; /* Ensure long text wraps */
+    line-height: 1.5; /* Improve readability */
 }
 .msa-form-container .msa-payment-form-container .invoice-card p strong {
     align-items: center;
     flex: 1;
     text-align: right;
     font-weight: bold;
-    white-space: nowrap;
+    white-space: normal; /* Allow wrapping */
+    overflow-wrap: break-word;
+    margin-right: 10px;
 }
 .msa-form-container .msa-payment-form-container .invoice-card p span {
     align-items: center;
     flex: 2;
-    text-align: center;
-    white-space: nowrap;
-    padding-left:20px;
+    /*text-align: center;*/
+    white-space: normal; /* Allow wrapping */
+    overflow-wrap: break-word;
+    max-width: calc(100% - 20px); /* Prevent overflow */
+    text-overflow: ellipsis; /* Truncate text with ellipsis if needed */
+    overflow: hidden; /* Hide overflowing text */
+    margin-left: 10px;
+
 }
 .download-btn {
     align-items: center;

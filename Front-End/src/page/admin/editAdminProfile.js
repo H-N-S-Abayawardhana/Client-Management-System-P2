@@ -13,6 +13,7 @@ const EditAdminProfile = () => {
     Email: "",
     ContactNumber: "",
     RegistrationDate: "",
+    AdminID: "" // Added AdminID to state
   });
 
   const [error, setError] = useState("");
@@ -48,12 +49,11 @@ const EditAdminProfile = () => {
         }
 
         const data = await response.json();
-        // Convert the date from MySQL format to DD/MM/YYYY
-        if (data.RegistrationDate) {
-          const dateObj = new Date(data.RegistrationDate);
-          data.RegistrationDate = formatDateToDDMMYYYY(dateObj);
-        }
-        setAdmin(data);
+        // Store the raw date string from MySQL
+        setAdmin({
+          ...data,
+          RegistrationDate: data.RegistrationDate.split('T')[0] // Format YYYY-MM-DD
+        });
       } catch (error) {
         console.error("Error fetching admin data:", error);
         setError("Error fetching admin data");
@@ -62,19 +62,6 @@ const EditAdminProfile = () => {
 
     fetchAdminData();
   }, [navigate]);
-
-  const formatDateToDDMMYYYY = (date) => {
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
-  const convertDDMMYYYYToDate = (dateString) => {
-    if (!dateString) return "";
-    const [day, month, year] = dateString.split("/");
-    return `${year}-${month}-${day}`;
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -90,20 +77,14 @@ const EditAdminProfile = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const formattedDate = convertDDMMYYYYToDate(admin.RegistrationDate);
       
-      const updatedAdmin = {
-        ...admin,
-        RegistrationDate: formattedDate
-      };
-
       const response = await fetch('http://localhost:5000/api/admin/current/update', {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(updatedAdmin),
+        body: JSON.stringify(admin), // Send the admin object directly
       });
 
       if (!response.ok) {
@@ -129,16 +110,16 @@ const EditAdminProfile = () => {
     <div className="hmr-edit-admin-page">
       <Navbar />
       <div className="hmr-edit-admin-container">
-        <button
-          className="hmr-edit-admin-back-button"
+              <button
+          className="hmr-edit-admin-profile-back-button"
           onClick={() => navigate("/admin-profile")}
-          aria-label="Back to dashboard"
+          aria-label="Back to Profile"
         >
-          &#171;
+          <span>Back</span>
         </button>
         <h1 className="hmr-edit-admin-title">Edit Profile Details</h1>
 
-        {error && <p className="hmr-error-message">{error}</p>}
+        {error && <p className="hmr-edit-admin-error-message">{error}</p>}
 
         <form className="hmr-edit-admin-form" onSubmit={handleSubmit}>
           <input
@@ -180,12 +161,12 @@ const EditAdminProfile = () => {
           <input
             type="date"
             name="RegistrationDate"
-            value={convertDDMMYYYYToDate(admin.RegistrationDate) || ""}
+            value={admin.RegistrationDate || ""}
             onChange={handleChange}
             required
           />
 
-          <button type="submit" className="hmr-update-button">
+          <button type="submit" className="hmr-edit-admin-update-button">
             Update
           </button>
         </form>

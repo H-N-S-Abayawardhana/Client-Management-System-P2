@@ -1,287 +1,94 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
-.hmr-profile-container {
-  font-family: 'Poppins', sans-serif;
-  position: relative;
-  padding: 20px;
-  max-width: 1000px;
-  margin: 40px auto;
-}
-
-
-.hmr-emp-back-button {
-  position: fixed;
-  font-size: 50px; 
-  top: 120px; 
-  left: 30px; 
-  width: 50px;
-  height: 50px;
-  background-color: #24757e; 
-  color: white; 
-  border: none;
-  border-radius: 50%; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  z-index: 1000; 
-}
-
-.hmr-emp-back-button:hover {
-  background-color: #1a5c63; 
-}
-
-.hmr-emp-back-button:focus {
-  outline: none;
-}
-
-
-.hmr-emp-back-button-icon {
-  font-size: 100px; 
-  font-weight: bold;
-  line-height: 1;
-  margin-top: -2px; 
-  color: inherit; 
-}
-
-.hmr-profile-title {
-  text-align: center;
-  font-size: 36px;
-  font-weight: bold;
-  color: #24757e;
-  margin-bottom: 50px;
-  margin-top: 150px;
-}
-
-.hmr-profile-header-card {
-  display: flex;
-  align-items: center;
-  background: #f6f6f6;
-  border: 2px solid #D9D9D9;
-  border-radius: 25px;
-  padding: 15px;
-  margin: 0 10px;
-  position: relative;
-  box-shadow: inset 0 0 0 10px #FFFFFF;
-  background-clip: padding-box;
-}
-
-.hmr-profile-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-right: 80px;
-  margin-left: 20px;
-  border: 6px solid #4d8e95;
-}
-
-.hmr-profile-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.hmr-profile-name {
-  font-size: 18px;
-  color: #000000;
-  margin: 0;
-}
-
-.hmr-profile-id,
-.hmr-profile-designation {
-  font-size: 16px;
-  color: #969696;
-  margin: 5px 0;
-}
-
-.hmr-profile-details-card {
-  background: #FFFFFF;
-  border: 2px solid #D9D9D9;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 30px 10px;
-}
-
-.hmr-details-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 30px;
-}
-
-.hmr-details-item {
-  flex: 1;
-  margin-right: 20px;
-}
-
-.hmr-details-item h4 {
-  font-size: 18px;
-  color: black;
-  margin-bottom: 8px;
-  margin-top: 10px;
-  margin-left: 50px;
-}
-
-.hmr-details-item p {
-  font-size: 18px;
-  color: #828282;
-  margin-bottom: 30px;
-  margin-left: 50px;
-}
-
-.hmr-details-item:last-child {
-  margin-right: 0;
-}
-
-
-@media (max-width: 768px) {
-  .hmr-profile-container {
-    padding: 10px;
-    margin: 20px auto;
-    max-width: 100%;
-  }
-
-  .hmr-emp-back-button {
-    top: 120px; 
-    left: 30px; 
-    font-size: 30px;
-    width: 40px;
-    height: 40px;
-  }
-
-  .hmr-profile-title {
-    font-size: 28px;
-    margin-top: 100px;
-  }
-
-  .hmr-profile-header-card {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 15px;
-    border: none;
-    background: transparent;
-    box-shadow: none;
-  }
-
-  .hmr-profile-avatar {
-    width: 70px;
-    height: 70px;
-    margin: 0 0 10px 0;
-  }
-
-  .hmr-profile-info {
-    align-items: center;
-  }
-
-  .hmr-profile-name {
-    font-size: 20px;
-  }
-
-  .hmr-profile-id {
-    font-size: 14px;
-    margin-top: 5px;
-    display: none;
-  }
-
-  .hmr-profile-designation {
-    font-size: 15px;
-  }
-
-  .hmr-profile-details-card {
-    background-color: #f4f4f4;
-    padding: 6px;
-    margin: 6px 0;
-    border: none;
-    max-width: 75%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hmr-details-row {
-    flex-direction: column;
-    margin-bottom: 2px;
-  }
-
-  .hmr-details-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    padding-left: 35px;
-  }
-
-  .hmr-details-item h4,
-  .hmr-details-item p {
-    font-size: 14px;
-    margin-left: 0;
-    text-align: left;
-    margin-bottom: 5px;
-  }
-
-  .hmr-details-item h4 {
-    font-weight: bold;
-  }
-
-  .hmr-details-item p {
-    font-weight: normal;
-  }
-} */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-.hmr-profile-container {
+.hmr-emp-profile-container {
   font-family: 'Poppins', sans-serif;
   position: relative;
   padding: 20px;
   max-width: 1000px;
-  margin: 40px auto;
+  margin:0px auto;
 }
 
-.hmr-emp-back-button {
-  position: fixed;
-  font-size: 50px; 
-  top: 120px; 
-  left: 30px; 
-  width: 50px;
-  height: 50px;
-  background-color: #24757e; 
-  color: white; 
-  border: none;
-  border-radius: 50%; 
+/* Back button base styles */
+.hmr-emp-profile-back-button {
+  position: absolute; /* Add this */
+  top: 100px;        /* Add this - adjust this value to move button down */
+  left: 50px;          /* Add this */
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background-color: #24757e;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  z-index: 1000; 
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  gap: 8px;
+  min-width: 100px;
+
 }
 
-.hmr-emp-back-button:hover {
-  background-color: #1a5c63; 
-}
-
-.hmr-emp-back-button:focus {
-  outline: none;
-}
-
-.hmr-emp-back-button-icon {
-  font-size: 100px; 
-  font-weight: bold;
+/* Add back arrow icon */
+.hmr-emp-profile-back-button::before {
+  content: "←";
+  font-size: 20px;
+  margin-right: 4px;
   line-height: 1;
-  margin-top: -2px; 
-  color: inherit; 
 }
 
-.hmr-profile-title {
+/* Back text */
+.hmr-emp-profile-back-button span {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* Hover state */
+.hmr-emp-profile-back-button:hover {
+  background-color: #248579;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Active/Pressed state */
+.hmr-emp-profile-back-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Focus state */
+.hmr-emp-profile-back-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.3);
+}
+
+/* Disabled state */
+.hmr-emp-profile-back-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Ensure proper spacing if used within a container */
+.hmr-emp-profile-container .hmr-emp-profile-back-button {
+  margin-bottom: 20px;
+}
+
+
+.hmr-emp-profile-title {
   text-align: center;
   font-size: 36px;
   font-weight: bold;
   color: #24757e;
   margin-bottom: 50px;
-  margin-top: 150px;
+  margin-top: 50px;
 }
 
-.hmr-profile-header-card {
+.hmr-emp-profile-header-card {
   display: flex;
   align-items: center;
   background: #f6f6f6;
@@ -294,7 +101,7 @@
   background-clip: padding-box;
 }
 
-.hmr-profile-avatar {
+.hmr-emp-profile-avatar {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -303,27 +110,27 @@
   border: 6px solid #4d8e95;
 }
 
-.hmr-profile-info {
+.hmr-emp-profile-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: left;
 }
 
-.hmr-profile-name {
+.hmr-emp-profile-name {
   font-size: 18px;
   color: #000000;
   margin: 0;
 }
 
-.hmr-profile-id,
-.hmr-profile-designation {
+.hmr-emp-profile-id,
+.hmr-emp-profile-designation {
   font-size: 16px;
   color: #969696;
   margin: 5px 0;
 }
 
-.hmr-profile-details-card {
+.hmr-emp-profile-details-card {
   background: #FFFFFF;
   border: 2px solid #D9D9D9;
   border-radius: 10px;
@@ -331,19 +138,19 @@
   margin: 30px 10px;
 }
 
-.hmr-details-row {
+.hmr-emp-profile-details-row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
 }
 
-.hmr-details-item {
+.hmr-emp-profile-details-item {
   flex: 1;
   margin-right: 20px;
   padding-left: 35px ; /* Add padding for left margin inside the border */
 }
 
-.hmr-details-item h4 {
+.hmr-emp-profile-details-item h4 {
   font-size: 18px;
   color: black;
   margin-bottom: 8px;
@@ -351,7 +158,7 @@
   padding-left: 10px;
 }
 
-.hmr-details-item p {
+.hmr-emp-profile-details-item p {
   font-size: 18px;
   color: #828282;
   margin-bottom: 30px;
@@ -359,31 +166,33 @@
   padding-left: 10px;
 }
 
-.hmr-details-item:last-child {
+.hmr-emp-profile-details-item:last-child {
   margin-right: 0;
 }
 
 @media (max-width: 768px) {
-  .hmr-profile-container {
+  .hmr-emp-profile-container {
     padding: 10px;
     margin: 20px auto;
     max-width: 100%;
   }
 
-  .hmr-emp-back-button {
-    top: 130px; 
-    left: 30px; 
+  .hmr-emp-profile-back-button {
+    top:115px; 
+    left: 15px; 
     font-size: 30px;
     width: 40px;
     height: 40px;
+    font-size:18px;
+    margin: 5px 5px;
   }
 
-  .hmr-profile-title {
+  .hmr-emp-profile-title {
     font-size: 28px;
     margin-top: 100px;
   }
 
-  .hmr-profile-header-card {
+  .hmr-emp-profile-header-card {
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -393,32 +202,32 @@
     box-shadow: none;
   }
 
-  .hmr-profile-avatar {
+  .hmr-emp-profile-avatar {
     width: 70px;
     height: 70px;
     margin: 0 0 10px 0;
   }
 
-  .hmr-profile-info {
+  .hmr-emp-profile-info {
     align-items: center;
     text-align: center;
   }
 
-  .hmr-profile-name {
+  .hmr-emp-profile-name {
     font-size: 20px;
   }
 
-  .hmr-profile-id {
+  .hmr-emp-profile-id {
     font-size: 14px;
     margin-top: 5px;
     display: none;
   }
 
-  .hmr-profile-designation {
+  .hmr-emp-profile-designation {
     font-size: 15px;
   }
 
-  .hmr-profile-details-card {
+  .hmr-emp-profile-details-card {
     background-color: #f4f4f4;
     padding: 6px;
     margin: 6px 0;
@@ -428,30 +237,30 @@
     margin-right: auto;
   }
 
-  .hmr-details-row {
+  .hmr-emp-profile-details-row {
     flex-direction: column;
     margin-bottom: 2px;
   }
 
-  .hmr-details-item {
+  .hmr-emp-profile-details-item {
     margin-right: 0;
     margin-bottom: 0;
     padding-left: 35px;
   }
 
-  .hmr-details-item h4,
-  .hmr-details-item p {
+  .hmr-emp-profile-details-item h4,
+  .hmr-emp-profile-details-item p {
     font-size: 14px;
     margin-left: 0;
     text-align: left;
     margin-bottom: 5px;
   }
 
-  .hmr-details-item h4 {
+  .hmr-emp-profile-details-item h4 {
     font-weight: bold;
   }
 
-  .hmr-details-item p {
+  .hmr-emp-profile-details-item p {
     font-weight: normal;
   }
 }

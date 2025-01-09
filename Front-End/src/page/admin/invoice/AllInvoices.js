@@ -1,31 +1,26 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "../../../css/admin/invoice/invoiceTable.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "../../../components/templetes/adminNavBar";
 import Sidebar from "../../../components/templetes/SideBar";
-
 import Footer from '../../../components/templetes/Footer';
-
-
 
 const InvoiceTable = () => {
     const [invoices, setInvoices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [sidebarVisible, setSidebarVisible] = useState(false);
-
-    const navigate = useNavigate();
-
+    
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString("en-GB");
+        return `${date.getDate().toString().padStart(2, "0")}-${(date.getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}-${date.getFullYear()}`;
     };
-    const toggleSidebar = () => {
-        setSidebarVisible(!sidebarVisible);
-    };
+
     // Fetch payments from the API
     useEffect(() => {
         axios
@@ -62,29 +57,33 @@ const InvoiceTable = () => {
     };
 
     return (
-        <div>
+        <div className="d-flex flex-column yks-admin-invoice-container">
+            <ToastContainer position="top-right" autoClose={3000} />
             <Navbar />
-            <div className="yks-invoice-container">
-                <nav>
-                    <p className="yks-profile-breadcrumb">
-                        <span className="home">Home</span> / <span className="home">Invoice</span> / <span className="contact">All Invoices</span>
-                    </p>
-                </nav>
-                <div className="yks-invoice-table-container">
-                    <div className="yks-head">
-                        <h1>All Invoice Details</h1>
+            <div className="d-flex flex-grow-1" style={{ flexWrap: "nowrap" }}>
+                {/* Sidebar */}
+                <div
+                    className={`yks-sidebar-container ${sidebarVisible ? "show-sidebar" : ""}`}
+                    style={{ flexShrink: 0 }}
+                >
+                    <Sidebar sidebarVisible={sidebarVisible} />
+                </div>
+                <div className="d-flex flex-column flex-grow-1">
+                    <div className="yks-content-container flex-grow-1 p-4">
+                        <nav>
+                            <p className="yks-profile-breadcrumb">
+                                <span className="home">Home</span> / <span className="home">Invoice</span> / <span className="contact">All Invoices</span>
+                            </p>
+                        </nav>
                     </div>
-
-
-                    {/* Show loading or error messages */}
-                    {loading && <p>Loading invoices...</p>}
-                    {error && <p style={{ color: "red" }}>{error}</p>}
-
-                    {/* Render the table when payments data is loaded */}
-                    {!loading && !error && (
-                        <div className="yks-container-table">
-                            <table className="yks-serve-tbl">
-                                <thead>
+                    <div className="card mt-2 yks-card-container-height border-0">
+                        <div className="card-body">
+                            <h1 className="yks-head text-center mt-1">All Invoice Details</h1>
+                            <div className="yks-admin-invoice-table-container mt-1">
+                                {loading && <p>Loading invoices...</p>}
+                                {error && <p style={{ color: "red" }}>{error}</p>}
+                                <table className="table table-bordered yks-admin-invoice-table">
+                                    <thead>
                                     <tr>
                                         <th>Invoice ID</th>
                                         <th>Employee ID</th>
@@ -100,8 +99,8 @@ const InvoiceTable = () => {
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
-                                </thead>
-                                <tbody>
+                                    </thead>
+                                    <tbody>
                                     {invoices.map((invoice) => (
                                         <tr key={invoice.invoiceID}>
                                             <td>{invoice.invoiceID}</td>
@@ -120,22 +119,15 @@ const InvoiceTable = () => {
                                             </td>
                                         </tr>
                                     ))}
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    )}
-
-
+                    </div>
+                    {/* Footer */}
+                    <Footer />
                 </div>
             </div>
-            
-            <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
-                <Sidebar sidebarVisible={sidebarVisible} />
-            </div>
-            <div className="container3">
-                <Footer />
-            </div>
-
         </div>
     );
 };

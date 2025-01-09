@@ -113,29 +113,6 @@ router.put("/current/update", async (req, res) => {
   });
   
   
-  
-
-
-// Fetch received tasks
-router.get('/admin/received', async (req, res) => {
-    try {
-        const query = `
-            SELECT 
-                Employee_name, 
-                Company, 
-                Task_name, 
-                Deadline, 
-                Budget 
-            FROM received_task`;
-
-        const [data] = await con.query(query); // Use the promise-based query method
-
-        return res.status(200).json(data);
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: 'An error occurred while fetching received tasks.' });
-    }
-});
 
 
 // // Fetch attendance count
@@ -174,8 +151,8 @@ router.get('/admin/empCount', async (req, res) => {
 // Fetch invoice count
 router.get('/admin/invoiceCount', async (req, res) => {
     try {
-        const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM invoice";
-        const [data] = await con.query(query); // Use promise-based query method
+        const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM invoice Where status = 'unpaid'";
+        const [data] = await con.query(query); 
 
         if (data && data[0].invoiceCount > 0) {
             return res.status(200).json(data[0].invoiceCount);

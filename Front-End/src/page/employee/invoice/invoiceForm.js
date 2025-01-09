@@ -22,10 +22,6 @@ function InvoiceForm() {
     const navigate = useNavigate();
     const invoiceDetailRef = useRef(null);
 
-    const toggleSidebar = () => {
-        setSidebarVisible(!sidebarVisible);
-    };
-
     useEffect(() => {
         if (!selectedInvoiceId) {
             setError("Invoice ID is missing");
@@ -94,8 +90,11 @@ function InvoiceForm() {
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString("en-GB");
+        return `${date.getDate().toString().padStart(2, "0")}-${(date.getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}-${date.getFullYear()}`;
     };
+
 
     const downloadPDF = async () => {
         try {
@@ -110,7 +109,7 @@ function InvoiceForm() {
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
             pdf.addImage(imgData, "PNG", 0, 10, pdfWidth, pdfHeight);
-            pdf.save(`invoice_${invoiceDetails.invoiceID}.pdf`);
+            pdf.save(`invoice_${invoiceDetails.invoiceID}_detail.pdf`);
         } catch (err) {
             console.error("Error generating PDF:", err);
         }
@@ -199,7 +198,7 @@ function InvoiceForm() {
                                                     <tr key={index}>
                                                         <td>{index + 1}</td>
                                                         <td>{service.service_description}</td>
-                                                        <td>${service.Cost}</td>
+                                                        <td>Rs.{service.Cost}</td>
                                                     </tr>
                                                 ))
                                             ) : (
@@ -209,7 +208,7 @@ function InvoiceForm() {
                                             )}
                                             <tr>
                                                 <td colSpan="2" className="text-end"><strong>Grand Total</strong></td>
-                                                <td><strong>${invoiceDetails?.total_cost || "0.00"}</strong></td>
+                                                <td><strong>Rs.{invoiceDetails?.total_cost || "0.00"}</strong></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -227,8 +226,6 @@ function InvoiceForm() {
                     {error && <div className="error-message">{error}</div>}
                 </div>
             </div>
-
-            
             <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
                 <Sidebar sidebarVisible={sidebarVisible} />
             </div>

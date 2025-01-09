@@ -32,7 +32,7 @@
     max-width: 100%;
 }
 .yks-container .yks-form-container{
-    width: 90%;
+    width: 950px;
     max-width: 1000px; /* Slightly larger max-width for better visuals */
     padding:  10px 50px;
     justify-content: center;
@@ -86,22 +86,25 @@
     background-color: #E9E9E9;
     margin-bottom: 10px; /* Space between inputs */
     padding: 10px;
+    border-color: #888;
 }
 /* Form Input Row Styling */
 .row.g-3 {
-    gap: 200px; /* Adds spacing between the rows */
+    /*gap: 100px;*/ /* Adds spacing between the rows */
+    justify-content: space-between;
     margin-bottom: 15px; /* Optional for bottom spacing */
 }
 .yks-container .yks-service-table {
     align-items: center; /* Center-align the table container */
-    padding: 30px;
-    margin-left: 200px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-left: 370px;
     margin-bottom: 10px;
     max-width: 90%; /* Limit the maximum width */
 }
 
 .yks-container .yks-serve-tbl {
-    width: 80%; /* Make the table width responsive */
+    width: 950px; /* Make the table width responsive */
     border-radius: 2px;
     margin-bottom: 35px;
     border-collapse: collapse;
@@ -157,8 +160,35 @@
 }
 
 @media (max-width: 780px) {
+    .yks-container .yks-serve-tbl {
+        width: 100%; 
+    }
+
+    .yks-container .yks-service-table {
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 0px;
+        max-width: 100%;
+    }
+    
     .yks-container .yks-profile-breadcrumb {
         display: none;
+    }
+
+    .yks-container .yks-btn-groupup{
+        display: flex;
+        /*justify-content: center;*/
+        justify-content: space-between;
+        margin-top: 20px;
+        border-radius: 10px;
+ 
+    }
+    
+    .yks-container .yks-view-btn {
+        width: 150px;
+
     }
 
     .yks-container .yks-head h1 {
@@ -173,6 +203,7 @@
         margin: 10px; /* Unified margin for consistency */
         padding: 20px;
         border-radius: 12px;
+        width: auto;
     }
 
     .row.g-3 {
@@ -181,14 +212,14 @@
     }
 
     .yks-container .yks-btn-groupup {
-        margin-left: 10px;
+        margin-left: 0px;
         display: flex;
         flex-wrap: wrap; /* Ensure buttons adjust properly on smaller screens */
     }
 
     .yks-input {
         background-color: #E9E9E9;
-        border-color: white;
+        border-color: rgb(119, 119, 119);
         margin-bottom: 10px;
         padding: 10px;
     }
