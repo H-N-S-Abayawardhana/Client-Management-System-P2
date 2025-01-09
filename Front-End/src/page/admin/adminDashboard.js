@@ -11,7 +11,7 @@ import '../../css/admin/admindashboard.css'
 function AdminDashboard() {
   const navigate = useNavigate();
   const [sidebarVisible, setSidebarVisible] = useState(false);
-  const [receivedTasks, setReceivedTasks] = useState([]); // State for received tasks
+  const [receivedTasks, setReceivedTasks] = useState([]);
   const [attendance, setAttendCount] = useState([]);
   const [employee, setEmpCount] = useState([]);
   const [invoice, setInvoiceCount] = useState([]);
@@ -28,14 +28,6 @@ function AdminDashboard() {
     return `${year}-${month}-${day}`;
   };
 
-  const checkSession = () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login');
-      return;
-    }
-  };
-
   const makeAuthenticatedRequest = async (url) => {
     const token = localStorage.getItem('token');
     try {
@@ -46,7 +38,6 @@ function AdminDashboard() {
       });
 
       if (response.status === 401 || response.status === 403) {
-        // Token expired or invalid
         localStorage.removeItem('token');
         navigate('/login');
         return null;
@@ -78,14 +69,11 @@ function AdminDashboard() {
       const responseData = await response.json()
       if (!response.ok) {
         console.log("error")
-      }
-      else {
-        console.log(responseData)
+      } else {
         const count = responseData.toString().padStart(2, '0');
         setEmpCount(count)
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error)
     }
   };
@@ -96,14 +84,11 @@ function AdminDashboard() {
       const responseData = await response.json()
       if (!response.ok) {
         console.log("error")
-      }
-      else {
-        console.log(responseData)
+      } else {
         const count = responseData.toString().padStart(2, '0');
         setInvoiceCount(count)
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error)
     }
   };
@@ -114,13 +99,10 @@ function AdminDashboard() {
       const responseData = await response.json()
       if (!response.ok) {
         console.log("error")
-      }
-      else {
-        console.log(responseData)
+      } else {
         setData(responseData)
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error)
     }
   }
@@ -131,6 +113,7 @@ function AdminDashboard() {
     getInvoiceCount()
     getData()
   }, []);
+
   return (
     <div className="ae-admin-dashboard-container">
       <Navbar />
@@ -142,43 +125,69 @@ function AdminDashboard() {
           </div>
           
           <div className="ae-admin-content-wrapper">
-            <div className="ae-admin-left-content">
-             <h1 className="ae-admin-dashboard-title">Dashboard</h1>
+            <h1 className="ae-admin-dashboard-title">Dashboard</h1>
 
-              <div className="ae-admin-info-cards">
-                <div className="ae-admin-info-card">
-                  <div className="ae-admin-card-left">
-                    <span className= "ae-admin-att-text">Today<br />Attendance</span>
-                    <img className= "ae-admin-att-img" src={attendImage} alt="Attendance" />
-                  </div>
-                  <div className="ae-admin-card-right">
-                    <span>{attendance}</span>
-                  </div>
+            {/* Info Cards Section */}
+            <div className="ae-admin-info-cards">
+              <div className="ae-admin-info-card">
+                <div className="ae-admin-card-left">
+                  <span className="ae-admin-att-text">Today<br />Attendance</span>
+                  <img className="ae-admin-att-img" src={attendImage} alt="Attendance" />
                 </div>
-
-                <div className="ae-admin-info-card">
-                  <div className="ae-admin-card-left">
-                    <span className= "ae-admin-emp-text">Total<br />Employers</span>
-                    <img className= "ae-admin-emp-img" src={attendImage} alt="Pending Invoices" />
-                  </div>
-                  <div className="ae-admin-card-right">
-                    <span>{employee}</span>
-                  </div>
+                <div className="ae-admin-card-right">
+                  <span>{attendance}</span>
                 </div>
+              </div>
 
-                <div className="ae-admin-info-card">
-                  <div className="ae-admin-card-left">
-                    <span className= "ae-admin-inv-text">Pending<br />Invoices</span>
-                    <img className= "ae-admin-inv-img" src={InfoInvoice} alt="Total Payments" />
-                  </div>
-                  <div className="ae-admin-card-right">
-                    <span>{invoice}</span>
+              <div className="ae-admin-info-card">
+                <div className="ae-admin-card-left">
+                  <span className="ae-admin-emp-text">Total<br />Employers</span>
+                  <img className="ae-admin-emp-img" src={attendImage} alt="Pending Invoices" />
+                </div>
+                <div className="ae-admin-card-right">
+                  <span>{employee}</span>
+                </div>
+              </div>
+
+              <div className="ae-admin-info-card">
+                <div className="ae-admin-card-left">
+                  <span className="ae-admin-inv-text">Pending<br />Invoices</span>
+                  <img className="ae-admin-inv-img" src={InfoInvoice} alt="Total Payments" />
+                </div>
+                <div className="ae-admin-card-right">
+                  <span>{invoice}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile reorder wrapper */}
+            <div className="ae-admin-mobile-reorder">
+              {/* Overview Section */}
+              <div className="ae-admin-right-content">
+                <h2 className="ae-admin-overview-title">Overview</h2>
+                <div className="ae-admin-overview">
+                  <div className="ae-admin-overview-section">
+                  <h3 className="ae-admin-overview-title-mobile">Overview</h3>
+                    <h3 className="ae-admin-overview-sub-titles">Our Mission</h3>
+                    <p className="ae-admin-overview-para">Our mission is to showcase emerging market talent globally, to provide a genuinely local solution to organizational needs.</p>
+                    
+                    <h3 className="ae-admin-overview-sub-titles">Our Vision</h3>
+                    <p className="ae-admin-overview-para">We aspire to be the premier choice for all human resource and business solution. By extending our services across borders, We tap into a broad spectrum of talent from emerging countries and industries, providing diversity in the workplace and ensuring companies find the leadership talent they need.</p>
+                    
+                    <h3 className="ae-admin-overview-sub-titles">Our Services</h3>
+                    <ul className="ae-admin-overview-ulist">
+                      <li className="ae-admin-overview-list">Headhunting</li>
+                      <li className="ae-admin-overview-list">Professional Resume Writing</li>
+                      <li className="ae-admin-overview-list">Interview Preparation</li>
+                      <li className="ae-admin-overview-list">HR Consultancy</li>
+                    </ul>
                   </div>
                 </div>
               </div>
 
+              {/* Tasks Section */}
               <div className="ae-admin-tasks-section">
-                <h2 className = "ae-admin-mytask-title">Recieved Tasks</h2>
+                <h2 className="ae-admin-mytask-title">Recieved Tasks</h2>
                 <div className="ae-admin-tasks-table">
                   <table>
                     <thead>
@@ -190,14 +199,13 @@ function AdminDashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                    {data.length > 0 ? (
+                      {data.length > 0 ? (
                         data.map((task, index) => (
                           <tr key={index}>
                             <td>{task.TaskID}</td>
                             <td>{task.EmployeeID}</td>
                             <td>{task.TaskName}</td>
                             <td>{task.TaskDescription}</td>
-                            
                           </tr>
                         ))
                       ) : (
@@ -210,36 +218,16 @@ function AdminDashboard() {
                 </div>
               </div>
             </div>
-            
-            <div className="ae-admin-right-content">
-            <h2 className = "ae-admin-overview-title">Overview</h2>
-              <div className="ae-admin-overview">                
-                <div className="ae-admin-overview-section">
-                  <h3 className="ae-admin-overview-sub-titles">Our Mission</h3>
-                  <p className ="ae-admin-overview-para">Our mission is to showcase emerging market talent globally, to provide a genuinely local solution to organizational needs.</p>
-                  
-                  <h3 className="ae-admin-overview-sub-titles">Our Vision</h3>
-                  <p className ="ae-admin-overview-para">We aspire to be the premier choice for all human resource and business solution. By extending our services across borders, We tap into a broad spectrum of talent from emerging countries and industries, providing diversity in the workplace and ensuring companies find the leadership talent they need.</p>
-                  
-                  <h3 className="ae-admin-overview-sub-titles">Our Services</h3>
-                  <ul className="ae-admin-overview-ulist">
-                    <li className="ae-admin-overview-list">Headhunting</li>
-                    <li className="ae-admin-overview-list">Professional Resume Writing</li>
-                    <li className="ae-admin-overview-list">Interview Preparation</li>
-                    <li className="ae-admin-overview-list">HR Consultancy</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
-          <div className="ae-admin-container3">
-            <Footer />
-          </div>
+      <div className="ae-admin-container3">
+        <Footer />
+      </div>
     </div>
   );
-};
+}
+
 const withAuth = (WrappedComponent) => {
   return function WithAuthComponent(props) {
     const navigate = useNavigate();

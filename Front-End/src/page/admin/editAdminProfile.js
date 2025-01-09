@@ -119,7 +119,7 @@ const EditAdminProfile = () => {
         </button>
         <h1 className="hmr-edit-admin-title">Edit Profile Details</h1>
 
-        {error && <p className="hmr-error-message">{error}</p>}
+        {error && <p className="hmr-edit-admin-error-message">{error}</p>}
 
         <form className="hmr-edit-admin-form" onSubmit={handleSubmit}>
           <input
@@ -166,7 +166,7 @@ const EditAdminProfile = () => {
             required
           />
 
-          <button type="submit" className="hmr-update-button">
+          <button type="submit" className="hmr-edit-admin-update-button">
             Update
           </button>
         </form>

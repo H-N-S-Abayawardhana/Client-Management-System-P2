@@ -49,6 +49,7 @@
     margin-top: 50px;
     width: 75%;
     margin-left:250px;
+    height: 80px;
     
   }
   
@@ -114,15 +115,16 @@
     color: #000000;
     margin-bottom: 20px;
     font-size: 18px;
-    margin-left: 250px;
-    margin-top: 40px;
+    margin-left: -900px;
+    margin-top:-430px;
   }
   
   .ae-emp-tasks-table table {
-    width: 75%;
+    width: 330%;
     border-collapse: collapse;
-    margin-left:250px;
     border: 10px solid #d4eff1;
+    margin-left:-900px;
+    margin-bottom:300px;
   }
   
   .ae-emp-tasks-table th,
@@ -184,11 +186,24 @@
   }
   
 
-  /* ... (previous CSS remains the same until media query) ... */
+  /* ...Mobile view design ... */
 
 @media screen and (max-width: 768px) {
   .ae-emp-main-content {
     flex-direction: column;
+  }
+  .ae-emp-mobile-reorder {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ae-emp-right-content {
+    order: 1;
+    width: 100% !important;
+  }
+  
+  .ae-emp-tasks-section {
+    order: 2;
   }
 
   .ae-emp-dashboard-right {
@@ -205,7 +220,7 @@
     font-size: 24px;
     color: #1c5d5f;
     text-align: center;
-    margin: 100px 0px;
+    margin: 80px 0px;
     padding-top: 20px;
   }
 
@@ -220,7 +235,7 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
     gap: 10px;
-    margin: 0px 0px;
+    margin: 30px 0px;
     width: auto;
     padding: 5px;
   }
@@ -275,39 +290,43 @@
     padding: 0px 0px;
   }
 
-  /* New styles to swap Tasks and Overview sections */
+  
   .ae-emp-tasks-section {
-    order: 2;  /* Move tasks section after overview */
+    order: 2;  
     margin: 20px 10px;
     padding: 10px;
     width: auto;
   }
 
   .ae-emp-right-content {
-    order: 1;  /* Move overview before tasks */
+    order: 1;  
     width: 100%;
     margin-top: 20px;
   }
 
-  .ae-emp-mytask-title {
-    margin-left: 0;
-    text-align: center;
-  }
 
   .ae-emp-overview-section {
-    margin: 0 10px;
+    margin: 150px 10px;
     padding: 15px;
   }
 
   .ae-emp-overview-title {
     text-align: center;
-    margin: 20px 0;
+    margin-top:40px;
+    display:none;
+  }
+
+  .ae-emp-mytask-title {
+    margin-left: 0;
+    text-align: center;
+    margin-top:-120px;
   }
 
   .ae-emp-tasks-table table {
     width: 100%;
     margin-left: 0;
     font-size: 14px;
+    margin-top:10px;
   }
 
   .ae-emp-tasks-table th,

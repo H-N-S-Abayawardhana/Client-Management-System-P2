@@ -17,7 +17,6 @@ function EmpDashboard() {
   const [invoice, setInvoiceCount] = useState([]);
   const [data, setData] = useState([]);
 
-  // Check token and session on component mount
   useEffect(() => {
     checkSession();
   }, []);
@@ -40,7 +39,6 @@ function EmpDashboard() {
       });
 
       if (response.status === 401 || response.status === 403) {
-        // Token expired or invalid
         localStorage.removeItem('token');
         navigate('/login');
         return null;
@@ -66,20 +64,18 @@ function EmpDashboard() {
     }
   };
 
-
   const getPaymentCount = async () => {
     try {
-        const response = await makeAuthenticatedRequest('http://localhost:5000/api/employee/employee/paymentCount');
-        if (response) {
-            const responseData = await response.json();
-            const count = responseData.paymentCount.toString().padStart(2, '0');
-            setPaymentCount(count);  // Assuming you have a state like `setPaymentCount` to set the count
-        }
+      const response = await makeAuthenticatedRequest('http://localhost:5000/api/employee/employee/paymentCount');
+      if (response) {
+        const responseData = await response.json();
+        const count = responseData.paymentCount.toString().padStart(2, '0');
+        setPaymentCount(count);
+      }
     } catch (error) {
-        console.error('Payment count error:', error);
+      console.error('Payment count error:', error);
     }
-};
-
+  };
 
   const getInvoiceCount = async () => {
     try {
@@ -117,10 +113,7 @@ function EmpDashboard() {
     };
 
     fetchData();
-
-    // Set up interval to check session every 30 seconds
     const sessionCheckInterval = setInterval(checkSession, 30000);
-
     return () => clearInterval(sessionCheckInterval);
   }, []);
 
@@ -134,6 +127,7 @@ function EmpDashboard() {
     const year = date.getFullYear();
     return `${year}-${month}-${day}`;
   };
+
   return (
     <div className="ae-emp-dashboard-container">
       <Navbar />
@@ -144,46 +138,67 @@ function EmpDashboard() {
             Home / Dashboard
           </div>
           
-          
-          
           <div className="ae-emp-content-wrapper">
-            <div className="ae-emp-left-content">
-             <h1 className="ae-emp-dashboard-title">Dashboard</h1>
+            <h1 className="ae-emp-dashboard-title">Dashboard</h1>
 
-              <div className="ae-emp-info-cards">
-                <div className="ae-emp-info-card">
-                  <div className="ae-emp-card-left">
-                    <span className="ae-emp-att-text">Today<br />Attendance</span>
-                    <img className="ae-emp-att-img" src={attendImage} alt="Attendance" />
-                  </div>
-                  <div className="ae-emp-card-right">
-                    <span>{attendance}</span>     {/*Fetching Today Attendance*/}
-                  </div>
+            {/* Info Cards Section */}
+            <div className="ae-emp-info-cards">
+              <div className="ae-emp-info-card">
+                <div className="ae-emp-card-left">
+                  <span className="ae-emp-att-text">Today<br />Attendance</span>
+                  <img className="ae-emp-att-img" src={attendImage} alt="Attendance" />
                 </div>
-
-                <div className="ae-emp-info-card">
-                  <div className="ae-emp-card-left">
-                    <span className="ae-emp-inv-text">Pending<br />Invoices</span>
-                    <img className="ae-emp-inv-img" src={InfoInvoice} alt="Pending Invoices" />
-                  </div>
-                  <div className="ae-emp-card-right">
-                    <span>{invoice}</span>      {/*Fetching Invoice Count*/}
-                  </div>
-                </div>
-
-                <div className="ae-emp-info-card">
-                  <div className="ae-emp-card-left">
-                    <span className="ae-emp-pay-text">Total<br />Payments</span>
-                    <img className="ae-emp-pay-img" src={InfoPay} alt="Total Payments" />
-                  </div>
-                  <div className="ae-emp-card-right">
-                    <span>{payment}</span> {/*Fetching Employee Count*/}
-                  </div>
+                <div className="ae-emp-card-right">
+                  <span>{attendance}</span>
                 </div>
               </div>
 
+              <div className="ae-emp-info-card">
+                <div className="ae-emp-card-left">
+                  <span className="ae-emp-inv-text">Pending<br />Invoices</span>
+                  <img className="ae-emp-inv-img" src={InfoInvoice} alt="Pending Invoices" />
+                </div>
+                <div className="ae-emp-card-right">
+                  <span>{invoice}</span>
+                </div>
+              </div>
+
+              <div className="ae-emp-info-card">
+                <div className="ae-emp-card-left">
+                  <span className="ae-emp-pay-text">Total<br />Payments</span>
+                  <img className="ae-emp-pay-img" src={InfoPay} alt="Total Payments" />
+                </div>
+                <div className="ae-emp-card-right">
+                  <span>{payment}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile reorder wrapper */}
+            <div className="ae-emp-mobile-reorder">
+              {/* Overview Section */}
+              <div className="ae-emp-right-content">
+                <h2 className="ae-emp-overview-title">Overview</h2>
+                <div className="ae-emp-overview-section">
+                  <h3 className="ae-emp-overview-sub-titles">Our Mission</h3>
+                  <p className='ae-emp-overview-para'>Our mission is to showcase emerging market talent globally, to provide a genuinely local solution to organizational needs.</p>
+                  
+                  <h3 className="ae-emp-overview-sub-titles">Our Vision</h3>
+                  <p className='ae-emp-overview-para'>We aspire to be the premier choice for all human resource and business solution. By extending our services across borders, We tap into a broad spectrum of talent from emerging countries and industries, providing diversity in the workplace and ensuring companies find the leadership talent they need.</p>
+                  
+                  <h3 className="ae-emp-overview-sub-titles">Our Services</h3>
+                  <ul className='ae-emp-overview-section-ulist'>
+                    <li className="ae-emp-overview-section-li">Headhunting</li>
+                    <li className="ae-emp-overview-section-li">Professional Resume Writing</li>
+                    <li className="ae-emp-overview-section-li">Interview Preparation</li>
+                    <li className="ae-emp-overview-section-li">HR Consultancy</li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Tasks Section */}
               <div className="ae-emp-tasks-section">
-                <h2 className = "ae-emp-mytask-title">My Tasks</h2>
+                <h2 className="ae-emp-mytask-title">My Tasks</h2>
                 <div className="ae-emp-tasks-table">
                   <table>
                     <thead>
@@ -192,9 +207,9 @@ function EmpDashboard() {
                         <th>Deadline</th>
                         <th>Budget</th>
                         <th>Description</th>
-                     </tr>
-                    </thead>    
-                    <tbody>                                   
+                      </tr>
+                    </thead>
+                    <tbody>
                       {data.length > 0 ? (
                         data.map((task, index) => (
                           <tr key={index}>
@@ -214,36 +229,16 @@ function EmpDashboard() {
                 </div>
               </div>
             </div>
-            
-            <div className="ae-emp-right-content">
-            <h2 className = "ae-emp-overview-title">Overview</h2>
-              <div className="ae-emp-overview-section">                
-                <div className="ae-emp-overview-section">
-                  <h3 className ="ae-emp-overview-sub-titles">Our Mission</h3>
-                  <p className='ae-emp-overview-para'>Our mission is to showcase emerging market talent globally, to provide a genuinely local solution to organizational needs.</p>
-                  
-                  <h3 className ="ae-emp-overview-sub-titles">Our Vision</h3>
-                  <p className='ae-emp-overview-para'>We aspire to be the premier choice for all human resource and business solution. By extending our services across borders, We tap into a broad spectrum of talent from emerging countries and industries, providing diversity in the workplace and ensuring companies find the leadership talent they need.</p>
-                  
-                  <h3 className ="ae-emp-overview-sub-titles">Our Services</h3>
-                  <ul className='ae-emp-overview-section-ulist'>
-                    <li className = "ae-emp-overview-section-li">Headhunting</li>
-                    <li className = "ae-emp-overview-section-li">Professional Resume Writing</li>
-                    <li className = "ae-emp-overview-section-li">Interview Preparation</li>
-                    <li className = "ae-emp-overview-section-li">HR Consultancy</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
-          <div className="ae-emp-container3">
-            <Footer />
-          </div>
+      <div className="ae-emp-container3">
+        <Footer />
+      </div>
     </div>
   );
-};
+}
+
 const withAuth = (WrappedComponent) => {
   return function WithAuthComponent(props) {
     const navigate = useNavigate();

@@ -118,7 +118,7 @@
   box-sizing: border-box;
 }
 
-.hmr-update-button {
+.hmr-edit-admin-update-button {
   margin-top: 15px;
   background-color: #24757e;
   color: white;
@@ -132,11 +132,11 @@
   transition: background-color 0.3s ease;
 }
 
-.hmr-update-button:hover {
+.hmr-edit-admin-update-button:hover {
   background-color: #1b5a61;
 }
 
-.hmr-error-message {
+.hmr-edit-admin-error-message {
   color: red;
   text-align: center;
   margin-bottom: 15px;
@@ -148,10 +148,10 @@
     border: none; 
     margin: 100px auto; 
   }
-  .hmr-edit-admin-back-button {
-    top: 130px; 
-    left: 30px; 
-    font-size: 30px;
+  .hmr-edit-admin-profile-back-button {
+    top: 250px; 
+    left: 50px; 
+    font-size: 18px;
     width: 40px;
     height: 40px;
   }
