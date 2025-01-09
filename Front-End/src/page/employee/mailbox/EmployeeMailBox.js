@@ -96,13 +96,13 @@ const EmployeeMailBox = () => {
                     display: "flex",           // Flex layout for content flow
                     flexDirection: "column"    // Stack children vertically
                 }}>
-                    <h5 className="mt-5">
+                    <h5 className="mt-5 km-breadcrumb-text">
                         Home / <span style={{ color: "#24757E" }}>Mail-Box</span>
                     </h5>
 
                     <div className="card km-card-container-height border-0">
                         <div className="card-body">
-                            <h4 className="km-employee-attendance-page-title text-center" style={{ color: "#24757E" }}>Mail Box</h4>
+                            <h4 className="km-employee-attendance-page-title text-center" style={{ color: "#24757E" }}>Mail-Box</h4>
 
                             <div className="km-mailbox-container">
                                 <form className='km-form'>

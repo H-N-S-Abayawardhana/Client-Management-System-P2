@@ -119,13 +119,13 @@ const AdminMailBox = () => {
                     display: "flex",           // Flex layout for content flow
                     flexDirection: "column"    // Stack children vertically
                 }}>
-                    <h5 className="mt-5">
+                    <h5 className="mt-5 km-breadcrumb-text">
                         Home / <span style={{ color: "#24757E" }}>Mail-Box</span>
                     </h5>
 
                     <div className="card km-card-container-height border-0">
                         <div className="card-body">
-                            <h4 className="km-employee-attendance-page-title text-center" style={{ color: "#24757E" }}>Mail Box</h4>
+                            <h4 className="km-employee-attendance-page-title text-center" style={{ color: "#24757E" }}>Mail-Box</h4>
 
                             <div className="km-mailbox-container">
                                 <form className='km-form'>
@@ -166,7 +166,7 @@ const AdminMailBox = () => {
                                         <label className="km-attachment-label d-flex align-items-center me-2">
                                             <i className="fas fa-paperclip me-4"></i>
                                             <span className="km-file-name me-2">{formData?.attachment?.name || "No file selected"}</span>
-                                            <input type="file" className="km-file-input" name="attachment" onChange={handleAttachmentChange}/>
+                                            <input type="file" className="km-file-input rounded-sm" name="attachment" onChange={handleAttachmentChange}/>
                                         </label>
                                     </div>
 

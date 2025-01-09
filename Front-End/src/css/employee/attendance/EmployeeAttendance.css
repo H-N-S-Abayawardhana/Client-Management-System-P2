@@ -128,6 +128,10 @@
 } 
 
 @media (max-width: 408px) {
+    .ekr-content-container {
+        padding: 0; /* Minimize padding for maximum width */
+    }
+
     .ekr-employee-search-bar-container {
         max-width: 45%; /* Adjust max width for smaller screens */
     }  
@@ -213,9 +217,24 @@
 } 
 
 @media (max-width: 768px) {
+    .ekr-content-container {
+        margin-top: 60px; /* Retain margin for fixed navbar/sidebar */
+        padding: 10px; /* Reduced padding for medium screens */
+    }
+
     .ekr-employee-attendance-table-container {
-        padding: 1px; /* Reduce padding on smaller screens */
-    } 
+        padding: 5px; /* Reduced padding for smaller screens */
+    }
+
+    .ekr-employee-attendance-table {
+        width: 100%; /* Ensure table spans the width */
+    }
+
+    .ekr-employee-attendance-table th,
+    .ekr-employee-attendance-table td {
+        font-size: 11px; /* Maintain a readable font size */
+        padding: 8px; /* Reduced padding */
+    }
 
     .ekr-employee-attendance-table th,
     .ekr-employee-attendance-table td {
@@ -226,7 +245,9 @@
 
 @media (max-width: 408px) {
     .ekr-employee-attendance-table-container {
-        padding: 1px; /* Reduce padding on smaller screens */
+        margin: 0; /* Remove any additional margins */
+        padding: 0; /* Remove internal padding */
+        width: 100%; /* Ensure it occupies the full width */
     }
 }
 
