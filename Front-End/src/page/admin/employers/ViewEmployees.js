@@ -46,12 +46,13 @@ function ViewEmployees() {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Delete',
+      cancelButtonTextColor: '#FFFFFF', //
       customClass: {
         popup: 'waw-smaller-swal-popup', // Add a custom class for styling ...
         title: 'waw-smaller-swal-title',
         content: 'waw-smaller-swal-content',
       },
-      width: '80%', // Make sure the popup is responsive
+      width: '100%', // Make sure the popup is responsive
       padding: '20px',
       grow: 'fullscreen', // Make the popup grow full screen on mobile
     }).then(async (result) => {

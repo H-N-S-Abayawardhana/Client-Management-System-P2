@@ -22,6 +22,7 @@
   padding: 20px;
   flex-grow: 1;
   overflow-y: auto; /* Enables scrolling if content overflows */
+  box-shadow: none;
 }
 
 @media (max-width: 768px) {
@@ -92,7 +93,6 @@
   width: 100%; /* Full width for smaller screens */
   padding-top: 10px;
   padding-bottom: 10px;
-  margin-right: 10px;
   font-size: 14px;
 } 
 
@@ -153,6 +153,7 @@
   cursor: pointer;
   font-size: 14px;
   margin-top: 1px;
+  margin-left: 10px;
   white-space: nowrap; /* Prevent text wrapping */
   flex-shrink: 1; /* Allow shrinking */
   max-width: 35%; /* Adjustable max width */
@@ -332,7 +333,7 @@
   padding: 1.5rem; /* Reduce padding */
   font-size: 0.9rem; /* Adjust font size */
   max-width: 450px;
-  max-height: 350px;
+  max-height: 390px;
   border-radius: 8px;
   font-size: 16px;
   top: 30% !important;
@@ -350,7 +351,15 @@
   font-size: 14px;
   text-align: center;
   padding: 10px;
-}  
+} 
+
+.swal2-container .swal2-confirm {
+  color: #FFFFFF !important;
+}
+
+.swal2-container .swal2-cancel {
+  color: #FFFFFF !important;
+}
 
 /* For mobile screen sizes */
 @media (max-width: 768px) {

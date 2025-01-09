@@ -7,7 +7,7 @@
   }
 
   /* Main Content */
-  .ekr-main {
+  .main-content {
     flex-grow: 1;
     padding: 20px;
     margin-top: 20px;
@@ -19,8 +19,12 @@
   }
 
   @media (max-width: 768px) {
-    .ekr-main {
+    .main-content {
       margin-top: 90px;
+    }
+
+    .ekr-breadcrumb-title {
+      margin-left: 180px;
     }
   }
 

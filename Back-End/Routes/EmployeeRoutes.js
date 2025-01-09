@@ -414,7 +414,8 @@ router.get('/attendance/:input', async (req, res) => {
                          DATE(attendance.date) AS date,
                          TIME(attendance.date) AS time, -- Added proper time display
                          CASE
-                         WHEN HOUR(attendance.date) BETWEEN 8 AND 9 AND MINUTE(attendance.date) BETWEEN 0 AND 59 THEN 'Attended'
+                         WHEN TIME(attendance.date) >= '08:00:00' AND TIME(attendance.date) < '09:00:00' THEN 'Attended'
+                         WHEN HOUR(attendance.date) >= '09:00:00' AND TIME(attendance.date) < '17:00:00' THEN 'Late Attended'
                          ELSE 'Not Attended'
         END AS status
                   FROM 

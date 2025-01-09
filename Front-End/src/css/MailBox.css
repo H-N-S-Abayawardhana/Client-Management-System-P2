@@ -12,7 +12,14 @@
         top: 0;
         left: 0; /* Place it above other content */
     }
-} 
+}  
+
+.km-breadcrumb-text {
+    margin: 0; /* Remove default margin for consistency */
+    padding: 8px 16px; /* Add padding for spacing */
+    font-size: 1rem; /* Ensure text is readable on small screens */
+    color: #333; /* Default breadcrumb color */
+}
 
 /* Ensure the button is above the sidebar */
 .km-tog {
@@ -22,7 +29,7 @@
 .km-content-container {
     background-color: #ffffff; /* Clean white background */
     border-radius: 12px; /* Smooth rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    box-shadow: none; /* Subtle shadow for depth */
     overflow: hidden; /* Ensure content fits neatly */
 } 
 
@@ -96,18 +103,24 @@
 } 
 
 .km-form {
-    max-width: 500px;
-    margin: 0 auto;
+    width: 80%; /* Full width for better alignment */
+    max-width: 750px; /* Maximum width for form */
+    margin: 0 auto; /* Center align */
+}
+
+.km-form h6 {
+    color: black;
 }
   
 .km-mailbox-input,
 .km-mailbox-textarea {
-    width: 100%;
+    width: 100%; /* Full width */
+    max-width: 700px; /* Wider maximum width */
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 0.875rem;
-    margin-bottom: 0.5rem; /* Adjust spacing between fields */
+    margin-bottom: 0.5rem;
     background-color: white !important;
 } 
 
@@ -145,8 +158,12 @@
 } 
 
 .km-attachment-container {
+    width: 100%; /* Full width */
+    max-width: 700px; /* Wider maximum width */
     align-items: center;
-    margin-top: -5px;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    margin-left: 7px;
 }
   
 .km-attachment-label {
@@ -172,6 +189,7 @@
     flex-shrink: 0;
     margin-left: auto; /* Push file input to the right */
     cursor: pointer;
+    font-size: 12px;
 } 
 
 .km-spinner {
@@ -191,4 +209,143 @@
 .km-mailbox-submit-btn:disabled {
     background-color: #1b5a64;
     cursor: not-allowed;
+} 
+
+/* General Layout Adjustments for Smaller Screens */
+@media (max-width: 768px) {
+    /* Reduce padding and margins for the form container */
+    .km-mailbox-container {
+        width: 100%; /* Full width for smaller screens */
+        padding: 10px; /* Minimal padding on smaller screens */
+        margin: 10px auto; /* Center with small margin */
+        box-shadow: none; /* Optional: Remove shadow to simplify appearance */
+        border-radius: 8px; /* Optional: Slightly less rounded corners */
+    }
+
+    /* Adjust the form within the container */
+    .km-form {
+        padding: 0; /* Remove extra padding for smaller screens */
+    }
+
+    .km-mailbox-input,
+    .km-mailbox-textarea {
+        font-size: 0.8rem; /* Slightly smaller font for smaller screens */
+        padding: 8px; /* Adjust padding for smaller screens */
+    }
+
+    /* Adjust the heading size */
+    .km-employee-attendance-page-title {
+        font-size: 18px; /* Slightly smaller heading */
+    }
+
+    /* Adjust the file attachment container */
+    .km-attachment-container {
+        flex-direction: column; /* Stack the label and file input vertically */
+        align-items: flex-start; /* Align items to the left */
+    }
+
+    .km-file-name {
+        max-width: 100%; /* Allow full-width display for filenames */
+        text-align: left;
+    }
+
+    .km-file-input {
+        margin-left: 0; /* Reset margin for smaller screens */
+    }
+
+    /* Adjust the submit button */
+    .km-mailbox-submit-btn {
+        width: 100%; /* Full-width button for smaller screens */
+        padding: 10px; /* Increase padding for better tap area */
+        font-size: 1rem; /* Larger text for better readability */
+    }
+}
+
+/* Scrollbar Adjustments for Smaller Screens */
+@media (max-width: 768px) {
+    .km-content-container::-webkit-scrollbar {
+        width: 6px; /* Slimmer scrollbar for smaller screens */
+    }
+  
+    .km-content-container::-webkit-scrollbar-thumb {
+        background-color: #24757E; /* Consistent color */
+    }
+} 
+
+/* Adjustments for very small screens (409px and below) */
+@media (max-width: 409px) {
+    /* Ensure the mailbox container fits within the viewport */
+    .km-mailbox-container {
+        width: 100%; /* Full width */
+        padding: 4px; /* Reduce padding further for small screens */
+        margin: 0 auto; /* Center the container */
+        box-shadow: none; /* Optional: Remove shadow for a cleaner look */
+        border-radius: 6px; /* Slightly less rounded corners */
+        overflow: hidden; /* Prevent content overflow */
+    }
+
+    /* Adjust the form layout */
+    .km-form {
+        max-width: 100%; /* Allow the form to take full width */
+        padding: 0; /* Remove any extra padding */
+    }
+
+    .km-mailbox-input,
+    .km-mailbox-textarea {
+        font-size: 0.75rem; /* Slightly smaller font for very small screens */
+        padding: 6px; /* Adjust padding to fit better */
+    }
+
+    /* Adjust attachment layout */
+    .km-attachment-container {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: flex-start; /* Align to the left */
+    }
+
+    .km-file-name {
+        max-width: 100%; /* Prevent cropping */
+        text-align: left; /* Align text to the left */
+    }
+
+    .km-file-input {
+        margin-left: 0; /* Reset margin */
+    }
+
+    /* Adjust the submit button */
+    .km-mailbox-submit-btn {
+        width: 30%; /* small-width button */
+        padding: 8px; /* Adjust padding */
+        font-size: 0.9rem; /* Maintain readability */
+        display: flex; /* Ensure proper alignment inside the button */
+        justify-content: center; /* Center text inside the button */
+        align-items: center; /* Center text inside the button */
+        margin: 1rem auto; /* Add margin for spacing and auto center */
+    }
+
+    /* General container adjustments to prevent cropping */
+    .km-content-container {
+        padding: 8px; /* Minimal padding to avoid cropping */
+        margin: 0; /* Reset margin */
+        width: 100%; /* Full width */
+        overflow-x: hidden; /* Prevent horizontal overflow */
+        padding-top: 1.5rem; /* Add padding to prevent overlap */
+    } 
+
+    .km-breadcrumb-text {
+        margin-top: 1rem; /* Add top margin for spacing */
+        text-align: center; /* Center-align for smaller screens */
+        font-size: 0.9rem; /* Slightly smaller font size */
+        padding: 4px 8px; /* Reduce padding for compact layout */
+        word-wrap: break-word; /* Wrap text if necessary */
+    }
+} 
+
+/* Responsive Adjustments for Larger Screens */
+@media (min-width: 769px) {
+    .km-mailbox-input,
+    .km-mailbox-textarea,
+    .km-attachment-container {
+        width: 100%; /* Full width for consistency */
+        max-width: 800px; /* Increase max width further for normal view */
+    }
 }

@@ -558,8 +558,8 @@ router.get('/ViewAllAttendances', async (req, res) => {
                         employee.email, 
                         DATE(attendance.date) AS date,
                         CASE
-                            WHEN HOUR(attendance.date) BETWEEN 8 AND 9 AND MINUTE(attendance.date) BETWEEN 0 AND 59 THEN 'Attended'
-                            WHEN HOUR(attendance.date) BETWEEN 9 AND 17 AND MINUTE(attendance.date) BETWEEN 0 AND 59 THEN 'Late Attended'
+                            WHEN TIME(attendance.date) >= '08:00:00' AND TIME(attendance.date) < '09:00:00' THEN 'Attended'
+                            WHEN HOUR(attendance.date) >= '09:00:00' AND TIME(attendance.date) < '17:00:00' THEN 'Late Attended'
                             ELSE 'Not Attended'
                         END AS status
                     FROM 
@@ -621,7 +621,8 @@ router.get('/generatePDF', async (req, res) => {
                     employee.email, 
                     DATE(attendance.date) AS date,
                     CASE
-                        WHEN HOUR(attendance.date) BETWEEN 8 AND 9 AND MINUTE(attendance.date) BETWEEN 0 AND 59 THEN 'Attended'
+                        WHEN TIME(attendance.date) >= '08:00:00' AND TIME(attendance.date) < '09:00:00' THEN 'Attended'
+                        WHEN HOUR(attendance.date) >= '09:00:00' AND TIME(attendance.date) < '17:00:00' THEN 'Late Attended'
                         ELSE 'Not Attended'
                     END AS status
                 FROM 
@@ -649,7 +650,7 @@ router.get('/generatePDF', async (req, res) => {
         } else {
             // Define the table structure ...
             const tableHeaders = ['No.', 'Name', 'Date', 'Email', 'Status'];
-            const columnWidths = [50, 130, 100, 130, 100]; // Custom column widths
+            const columnWidths = [50, 180, 70, 180, 70]; // Custom column widths
             const tableRows = result.map(item => [
                 item.RowNumber,
                 item.name,
@@ -681,8 +682,8 @@ router.get('/generatePDF', async (req, res) => {
                     doc.rect(currentX, y, columnWidths[i], 20).stroke();
 
                     // Apply different styles for each column if needed ...
-                    const cellTextColor = i === 4 && cell === 'Attended' ? '#27AE60' : i === 4 && cell === 'Not Attended' ? '#E74C3C' : '#000000';
-                    doc.fontSize(10).fillColor(cellTextColor).text(cell.toString(), currentX + 5, y + 5, { width: columnWidths[i], align: 'center' });
+                    const cellTextColor = i === 4 && cell === 'Attended' ? '#27AE60' : i === 4 && cell === 'Late Attended' ? '#E74C3C' : '#000000';
+                    doc.fontSize(8).fillColor(cellTextColor).text(cell.toString(), currentX + 5, y + 5, { width: columnWidths[i], align: 'center' });
                         currentX += columnWidths[i]; // Move to the next column ...
                     });
                     y += 20; // Move to the next row ...

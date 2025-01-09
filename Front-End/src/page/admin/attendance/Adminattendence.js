@@ -176,9 +176,9 @@ const AdminAttendance = () => {
         <Navbar />
 
         <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
-          <div className="ekr-main-content p-4 ekr-main">
+          <div className="main-content p-4 ekr-main">
             <div className="ekr-breadcrumb mb-3 mt-4">
-              <h5>
+              <h5 className="ekr-breadcrumb-title">
                 Home / <span style={{ color: '#24757E' }}>Attendance</span>
               </h5>
             </div>
@@ -270,7 +270,6 @@ const AdminAttendance = () => {
             </div>
           </div>
         </div>
-        
         <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
           <Sidebar sidebarVisible={sidebarVisible} />
         </div>
