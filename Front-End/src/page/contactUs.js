@@ -92,7 +92,7 @@ const ContactUs = () => {
               
               <div className="nu-form-group">
                 <textarea
-                  name="message"
+                  name="nu-message"
                   placeholder="Message"
                   value={formData.message}
                   onChange={handleChange}

@@ -162,7 +162,7 @@ export default function Navbar() {
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item d-flex align-items-center" href="/adminChange-password">
+                      <a className="dropdown-item d-flex align-items-center" href="/admin-change-password">
                         <img src={changepswd} alt="Change Password" style={{ width: '20px', marginRight: '14px' }} />
                         Change Password
                       </a>
