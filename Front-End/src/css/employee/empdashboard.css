@@ -28,6 +28,10 @@
     margin-left: 600px;
     display: none;
   }
+
+  .ae-emp-overview-title-mobile{
+    display: none;
+  }
   
   .ae-emp-content-wrapper {
     display: flex;
@@ -222,6 +226,14 @@
     text-align: center;
     margin: 80px 0px;
     padding-top: 20px;
+  }
+
+  .ae-emp-overview-title-mobile{
+    display: block;
+    font-size: 24px;
+    color: #1c5d5f;
+    text-align: center;
+    padding-top: 0px;    
   }
 
   .ae-emp-content-wrapper {

@@ -180,6 +180,7 @@ function EmpDashboard() {
               <div className="ae-emp-right-content">
                 <h2 className="ae-emp-overview-title">Overview</h2>
                 <div className="ae-emp-overview-section">
+                <h3 className="ae-emp-overview-title-mobile">Overview</h3>
                   <h3 className="ae-emp-overview-sub-titles">Our Mission</h3>
                   <p className='ae-emp-overview-para'>Our mission is to showcase emerging market talent globally, to provide a genuinely local solution to organizational needs.</p>
                   
