@@ -1,13 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import arrow from '../../assets/arrow.png';
 import logo from '../../assets/logo.png';
 import user from '../../assets/user.png';
-import logoutIcon from '../../assets/logout2.png';
 import logoutuser from '../../assets/logout.png';
+import signout from '../../assets/signout.png';
 import menuIcon from '../../assets/menu.png';
 import attendence from '../../assets/attendence.png';
 import invoice from '../../assets/invoice.png';
@@ -15,11 +15,14 @@ import payment from '../../assets/payment.png';
 import task from '../../assets/task.png';
 import mail from '../../assets/mail.png';
 import myprofile from '../../assets/myprofile.png';
-import logout2 from '../../assets/logout2.png';
+import user1 from '../../assets/user1.png';
+
 
 export default function EmpNavbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [logoutError, setLogoutError] = useState(null);
+  const [employeeName, setEmployeeName] = useState("");
+   const [error, setError] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
   const navigate = useNavigate();
 
@@ -83,6 +86,49 @@ export default function EmpNavbar() {
     navigate('/employee-dashboard');
     setShowSidebar(false);
   };
+
+
+  useEffect(() => {
+    const fetchEmployeeName = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const email = localStorage.getItem("email");
+            const userType = localStorage.getItem("type");
+
+            if (!token || !email || !userType) {
+                navigate("/login");
+                throw new Error("Missing authentication data");
+            }
+
+            if (userType !== "Employee") {
+                navigate("/login");
+                throw new Error("Unauthorized access");
+            }
+
+            // Fetch only the Name
+            const response = await fetch(`http://localhost:5000/api/employee/employee/name/${email}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch employee name");
+            }
+
+            const data = await response.json();
+            setEmployeeName(data.name); // Assuming you're storing the name in state
+        } catch (error) {
+            console.error("Error fetching employee name:", error);
+            setError("Error fetching employee name");
+        }
+    };
+
+    fetchEmployeeName();
+}, [navigate]);
+
 
   return (
     <div className="emp-nav-bar">
@@ -149,9 +195,15 @@ export default function EmpNavbar() {
                       minWidth: '150px',
                     }}
                   >
-                    <li>
+                     <li>
                       <a className="dropdown-item d-flex align-items-center" href="/employee-profile">
                         <img src={myprofile} alt="Profile" style={{ width: '20px', marginRight: '14px' }} />
+                        {employeeName}
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item d-flex align-items-center" href="/employee-profile">
+                        <img src={user1} alt="Profile" style={{ width: '20px', marginRight: '14px' }} />
                         My Profile
                       </a>
                     </li>
@@ -161,7 +213,7 @@ export default function EmpNavbar() {
                         onClick={handleLogout}
                         style={{ border: 'none', width: '100%', textAlign: 'left', padding: '8px 20px' }}
                       >
-                        <img src={logout2} alt="Logout" style={{ width: '20px', marginRight: '14px' }} />
+                        <img src={signout} alt="Logout" style={{ width: '20px', marginRight: '14px' }} />
                         Log out
                       </button>
                     </li>
@@ -233,7 +285,7 @@ export default function EmpNavbar() {
             ))}
             <li className="sidebar-item">
               <button onClick={handleLogout} className="sidebar-link logout-btn">
-                <img src={logout2} alt="Logout" style={{ width: '20px', marginRight: '14px' }} />
+                <img src={signout} alt="Logout" style={{ width: '20px', marginRight: '14px' }} />
                 <span>Log out</span>
               </button>
             </li>
