@@ -36,6 +36,28 @@ router.get("/employee/profile/:email", async (req, res) => {
     }
 });
 
+//get employee name
+router.get('/employee/name/:email', async (req, res) => {
+    try {
+        const { email } = req.params;
+
+        const [result] = await db.execute(
+            'SELECT Name FROM employee WHERE email = ?',
+            [email]
+        );
+
+        if (result.length > 0) {
+            res.status(200).json({ name: result[0].Name });
+        } else {
+            res.status(404).json({ message: 'Employee not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+
 
 //Fetch Employee Count
 router.get('/employee/empCount', async (req, res) => {

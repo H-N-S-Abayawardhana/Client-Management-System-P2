@@ -74,6 +74,28 @@ router.get("/admin/profile/:email", async (req, res) => {
     }
 });
 
+router.get('/admin/username/:email', async (req, res) => {
+    try {
+        const { email } = req.params;
+
+        const [result] = await db.execute(
+            'SELECT Username FROM admin WHERE email = ?',
+            [email]
+        );
+
+        if (result.length > 0) {
+            res.status(200).json({ username: result[0].Username });
+        } else {
+            res.status(404).json({ message: 'Admin not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+
+
 router.put("/current/update", async (req, res) => {
     try {
       const token = req.headers.authorization?.split(' ')[1];

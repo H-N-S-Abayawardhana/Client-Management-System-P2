@@ -86,12 +86,12 @@ function Signin() {
     };
 
     return (
-        <div className="page-container">
+        <div className="nu-signin-page-container">
             <Navbar />
-            <div className="signin-container">
-                <main className="signin-main">
-                    <div className="signin-card">
-                        <div className="signin-form">
+            <div className="nu-signin-container">
+                <main className="nu-signin-main">
+                    <div className="nu-signin-card">
+                        <div className="nu-signin-form">
                             <h2>Sign In</h2>
                             <form onSubmit={handleSignIn}>
                                 <select
@@ -100,7 +100,7 @@ function Signin() {
                                     onChange={handleChange}
                                     required
                                 >
-                                    <option value="" disabled style={{ color: '#aaa' }}>
+                                    <option className ='nu-signin-usertype-select' value="" disabled style={{ color: '#aaa' }}>
                                         User Type
                                     </option>
                                     <option value="Admin">Admin</option>
@@ -122,15 +122,15 @@ function Signin() {
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
                                 />
-                                <a href="/forgot-password" className="forgot-link">
+                                <a href="/forgot-password" className="nu-signin-forgot-link">
                                     Forgot password?
                                 </a>
-                                <button type="submit" className="signin-button">
+                                <button type="submit" className="nu-signin-button">
                                     SIGN IN
                                 </button>
                             </form>
                         </div>
-                        <div className="signin-image">
+                        <div className="nu-signin-image">
                             <img src={image} alt="Meeting" />
                         </div>
                     </div>
