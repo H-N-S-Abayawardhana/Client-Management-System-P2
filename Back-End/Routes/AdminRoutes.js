@@ -649,7 +649,7 @@ router.get('/generatePDF', async (req, res) => {
         } else {
             // Define the table structure ...
             const tableHeaders = ['No.', 'Name', 'Date', 'Email', 'Status'];
-            const columnWidths = [50, 180, 70, 180, 70]; // Custom column widths
+            const columnWidths = [40, 180, 70, 180, 75]; // Custom column widths
             const tableRows = result.map(item => [
                 item.RowNumber,
                 item.name,

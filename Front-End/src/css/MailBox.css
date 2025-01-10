@@ -74,8 +74,28 @@
 } 
 
 @media (max-width: 768px) {
+    .km-breadcrumb-text {
+        display: none; /* Hide breadcrumb text on smaller screens */
+    }
+
     .km-employee-attendance-page-title {
         font-size: 18px; /* Slightly smaller on smaller screens */
+        margin-top: 30px; /* Adjust spacing */
+    }
+} 
+
+@media (max-width: 410px) {
+    .km-breadcrumb-text {
+        display: none; /* Hide breadcrumb text on smaller screens */
+    }
+
+    .km-employee-attendance-page-title {
+        font-size: 18px; /* Slightly smaller on smaller screens */
+        margin-top: 30px; /* Adjust spacing */
+    } 
+
+    .km-card-container-height {
+        margin-top: 50px;
     }
 }
   
@@ -93,7 +113,7 @@
     width: 80%; /* Set width to 80% of the parent container, adjust as needed */
     max-width: 600px; /* Optional: Set a maximum width for larger screens */
     margin: 0.5rem auto; /* Center the card with top/bottom spacing */
-    background-color: #f0f0f0; /* Clean white background */
+    background-color: hsla(168, 7%, 90%, 0.95);
     border-radius: 16px; /* Rounded corners */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden; /* Ensure no overflow of child elements */
@@ -121,7 +141,7 @@
     border-radius: 4px;
     font-size: 0.875rem;
     margin-bottom: 0.5rem;
-    background-color: white !important;
+    background-color: hsla(168, 7%, 83%, 0.95) !important;
 } 
 
 .km-mailbox-textarea {
@@ -141,7 +161,7 @@
 }
   
 .km-mailbox-submit-btn {
-    display: inline-block;
+    display: block;
     background-color: #24757E;
     color: white;
     padding: 8px 16px;
@@ -151,6 +171,8 @@
     border-radius: 5px;
     white-space: nowrap; /* Prevents text wrapping */
     transition: background-color 0.3s ease; /* Smooth color change on hover */
+    margin: 0 auto; /* Horizontally center the button */
+    text-align: center; /* Center text inside the button */
 }
   
 .km-mailbox-submit-btn:hover {
@@ -193,17 +215,23 @@
 } 
 
 .km-spinner {
-    border: 4px solid transparent;
-    border-top: 4px solid #24757E;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    animation: spin 1s linear infinite;
+    border: 4px solid rgba(0, 0, 0, 0.1); /* Ensure transparent border is slightly visible */
+    border-top: 4px solid #24757E; /* Solid color for the spinning part */
+    border-radius: 50%; /* Make it a circle */
+    width: 20px; /* Spinner size */
+    height: 20px; /* Spinner size */
+    animation: spin 1s linear infinite; /* Smooth spinning animation */
+    display: inline-block; /* Ensure it is visible as a standalone element */
+    margin: auto; /* Center spinner within its container */
 } 
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 } 
 
 .km-mailbox-submit-btn:disabled {

@@ -32,9 +32,38 @@ const AdminMailBox = () => {
         setSidebarVisible(!sidebarVisible);
     }; 
 
+    const validateEmail = (email) => {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailRegex.test(email);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
+
+        if(formData.to === "") {
+            toast.error('Please enter the recipient email address');
+            setIsLoading(false);
+            return;
+        }
+
+        if(formData.subject === "") {
+            toast.error('Please enter a subject for the email');
+            setIsLoading(false);
+            return;
+        }
+
+        if(formData.message === "") {
+            toast.error('Please enter the message to send');
+            setIsLoading(false);
+            return;
+        }
+
+        if(!validateEmail(formData.to)) {
+            toast.error('Please enter a valid email address');
+            setIsLoading(false);
+            return;
+        }
         
         const formDataToSend = new FormData();
         formDataToSend.append("to", formData.to);
@@ -56,6 +85,7 @@ const AdminMailBox = () => {
             if (!response.ok) {
                 const errorData = await response.json();
                 console.log(`Failed: ${errorData.message || 'Unknown error'}`);
+                toast.error('❌ Failed to send email', `${errorData.message}`);
                 return;
             }
         
