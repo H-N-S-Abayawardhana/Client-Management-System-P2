@@ -160,7 +160,7 @@ function EmployeeAttendance() {
                 <div className="d-flex flex-column flex-grow-1">
                     {/* Content */}
                     <div className="ekr-content-container flex-grow-1 p-4">
-                        <h5 className="mt-5">
+                        <h5 className="mt-5 ekr-breadcrump-text">
                             Home / <span style={{ color: "#24757E" }}>Attendance</span>
                         </h5>
                         <div className="card mt-2 ekr-card-container-height border-0">

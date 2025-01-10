@@ -51,6 +51,10 @@
     .ekr-employee-attendance-page-title {
         font-size: 18px; /* Slightly smaller on smaller screens */
     }
+
+    .ekr-breadcrump-text {
+        display: none; /* Hide breadcrumb text on smaller screens */
+    }
 }
 
 .ekr-employee-main-container {
@@ -128,6 +132,10 @@
 } 
 
 @media (max-width: 408px) {
+    .ekr-content-container {
+        padding: 0; /* Minimize padding for maximum width */
+    }
+
     .ekr-employee-search-bar-container {
         max-width: 45%; /* Adjust max width for smaller screens */
     }  
@@ -213,20 +221,59 @@
 } 
 
 @media (max-width: 768px) {
+    .ekr-content-container {
+        margin-top: 60px; /* Retain margin for fixed navbar/sidebar */
+        padding: 10px; /* Reduced padding for medium screens */
+    }
+
     .ekr-employee-attendance-table-container {
-        padding: 1px; /* Reduce padding on smaller screens */
-    } 
+        padding: 5px; /* Reduced padding for smaller screens */
+    }
+
+    .ekr-employee-attendance-table {
+        width: 100%; /* Ensure table spans the width */
+    }
+
+    .ekr-employee-attendance-table th,
+    .ekr-employee-attendance-table td {
+        font-size: 11px; /* Maintain a readable font size */
+        padding: 8px; /* Reduced padding */
+    }
 
     .ekr-employee-attendance-table th,
     .ekr-employee-attendance-table td {
         padding: 6px; /* Reduce padding on very small screens */
         font-size: 9px; /* Smaller font size for very small screens */
-    }
+    } 
 } 
+
+/* Styles for small screens (below 768px) */
+@media (max-width: 768px) {
+    .ekr-employee-search-bar-container {
+        display: flex;
+        flex-direction: row; /* Ensure they remain inline */
+        gap: 10px; /* Add a small gap between the search bar and the icon */
+    }
+  
+    .ekr-employee-search-bar {
+        padding-right: 10px; /* Remove padding for inside-the-bar positioning */
+        flex-grow: 1; /* Make the search bar take available space */
+    }
+  
+    .ekr-employee-search-bar-icon {
+        position: relative; /* Inline with the search bar */
+        top: auto; /* Remove absolute positioning */
+        transform: none; /* Reset transform */
+        margin-top: 5px; /* Move icon slightly downward */
+        padding: 5px; /* Optional: Add padding for better touch target */
+    }
+}
 
 @media (max-width: 408px) {
     .ekr-employee-attendance-table-container {
-        padding: 1px; /* Reduce padding on smaller screens */
+        margin: 0; /* Remove any additional margins */
+        padding: 0; /* Remove internal padding */
+        width: 100%; /* Ensure it occupies the full width */
     }
 }
 
@@ -263,7 +310,7 @@
 @media (max-width: 768px) {
     .ekr-employee-attendance-table-container {
         padding: 5px; /* Reduce padding on smaller screens */
-        overflow-x: auto; /* Ensure horizontal scroll when necessary */
+        overflow-x: scroll; /* Ensure horizontal scroll when necessary */
     }
 
     .ekr-employee-attendance-table {
@@ -334,3 +381,26 @@
     }
 }  
   
+@media (max-width: 650px) {
+    .ekr-employee-attendance-page-title {
+      margin-top: 50px;
+    }
+}
+  
+@media (max-width: 555px) {
+    .ekr-employee-attendance-page-title {
+      margin-top: 50px;
+    }  
+}
+  
+@media (max-width: 495px) {
+    .ekr-employee-attendance-page-title {
+      margin-top: 50px;
+    } 
+} 
+
+@media (max-width: 401px) {
+    .ekr-employee-attendance-page-title {
+      margin-top: 80px;
+    } 
+}

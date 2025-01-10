@@ -43,6 +43,11 @@
 .msa-emp-payment-container .msa-content-container span.contact {
     color: #24757E;
 }
+@media (max-width: 768px) {
+    .msa-emp-payment-container .msa-content-container .msa-profile-breadcrumb {
+       display: none;
+    }
+}
 .msa-emp-payment-container .msa-card-container-height {
     min-height: 430px;
 }

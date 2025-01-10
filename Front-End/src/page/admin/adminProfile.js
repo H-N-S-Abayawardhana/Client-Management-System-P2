@@ -68,12 +68,12 @@ const AdminProfile = () => {
     <div>
       <Navbar />
       <div className="hmr-admin-profile-container">
-        <button
-          className="hmr-admin-back-button"
+              <button
+          className="hmr-admin-profile-back-button"
           onClick={() => navigate("/admin-dashboard")}
           aria-label="Back to dashboard"
         >
-          &#171;
+          <span>Back</span>
         </button>
         <h1 className="hmr-admin-profile-title">Admin Profile</h1>
 

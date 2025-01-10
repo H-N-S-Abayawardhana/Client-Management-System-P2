@@ -82,14 +82,14 @@ const UpdateEmployee = () => {
             toast.error("Password is required!");
             return;
         }
-        // if(!validateEmail(email)) {
-        //     toast.error("Invalid email address!");
-        //     return;
-        // }
-        // if(!validatePhoneNumber(contactNumber)) {
-        //     toast.error("Invalid contact number!");
-        //     return;
-        // }
+        if(!validateEmail(email)) {
+            toast.error("Invalid email address!");
+            return;
+        }
+        if(!validatePhoneNumber(contactNumber)) {
+            toast.error("Invalid contact number!");
+            return;
+        }
 
         // Submit the form data to the API
         axios.post("http://localhost:5000/api/admin/register", {
@@ -131,13 +131,13 @@ const UpdateEmployee = () => {
                     display: "flex",           // Flex layout for content flow
                     flexDirection: "column"    // Stack children vertically
                 }}>
-                    <h5 className="mt-5">
+                    <h5 className="mt-5 waw-breadcrumb-text">
                         Home / Employees / <span style={{ color: "#24757E" }}>Register Employee</span>
                     </h5>
 
                     <div className="card waw-card-container-height border-0">
                         <div className="card-body">
-                            <h4 className="waw-employee-update-page-title text-center" style={{ color: "#24757E" }}>Register Employee</h4>
+                            <h4 className="waw-employee-register-page-title text-center fw-bold" style={{ color: "#24757E" }}>Register Employee</h4>
                             {/* form */}
                             <div className="waw-form-container">
                                 <form className='waw-form'>

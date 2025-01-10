@@ -149,10 +149,13 @@
     }
 
     .yks-empinvoice-btn{
-        width: 135px;
-        margin-left: 230px;
+        width: 105px;
+        font-size: 12px;
     }
     .yks-card{
-        margin-left: 10px;
+        margin: auto;
+    }
+    .report-btn{
+        margin-left: 105px;
     }
 }

@@ -46,12 +46,13 @@ function ViewEmployees() {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Delete',
+      cancelButtonTextColor: '#FFFFFF', //
       customClass: {
         popup: 'waw-smaller-swal-popup', // Add a custom class for styling ...
         title: 'waw-smaller-swal-title',
         content: 'waw-smaller-swal-content',
       },
-      width: '80%', // Make sure the popup is responsive
+      width: '100%', // Make sure the popup is responsive
       padding: '20px',
       grow: 'fullscreen', // Make the popup grow full screen on mobile
     }).then(async (result) => {
@@ -118,7 +119,7 @@ function ViewEmployees() {
 
                 {/* Content Container */}
                 <div className="waw-content-container flex-grow-1 p-4">
-                    <h5 className="mt-5">
+                    <h5 className="mt-5 waw-breadcrumb-text">
                         Home / <span style={{ color: "#24757E" }}>Employee</span>
                     </h5>
                     <div className="card mt-2 waw-card-container-height border-0">
@@ -156,7 +157,7 @@ function ViewEmployees() {
                                         <th className="text-center">Email</th>
                                         <th className="text-center">Username</th>
                                         {/* <th className="w-5 text-center">Password</th> */}
-                                        <th className="text-center">Action</th>
+                                        <th className="w-10 text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="employee-table-body">

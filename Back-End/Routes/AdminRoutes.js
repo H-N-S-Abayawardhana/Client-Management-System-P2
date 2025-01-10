@@ -74,6 +74,28 @@ router.get("/admin/profile/:email", async (req, res) => {
     }
 });
 
+router.get('/admin/username/:email', async (req, res) => {
+    try {
+        const { email } = req.params;
+
+        const [result] = await db.execute(
+            'SELECT Username FROM admin WHERE email = ?',
+            [email]
+        );
+
+        if (result.length > 0) {
+            res.status(200).json({ username: result[0].Username });
+        } else {
+            res.status(404).json({ message: 'Admin not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+
+
 router.put("/current/update", async (req, res) => {
     try {
       const token = req.headers.authorization?.split(' ')[1];
@@ -113,29 +135,6 @@ router.put("/current/update", async (req, res) => {
   });
   
   
-  
-
-
-// Fetch received tasks
-router.get('/admin/received', async (req, res) => {
-    try {
-        const query = `
-            SELECT 
-                Employee_name, 
-                Company, 
-                Task_name, 
-                Deadline, 
-                Budget 
-            FROM received_task`;
-
-        const [data] = await con.query(query); // Use the promise-based query method
-
-        return res.status(200).json(data);
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: 'An error occurred while fetching received tasks.' });
-    }
-});
 
 
 // // Fetch attendance count
@@ -174,8 +173,8 @@ router.get('/admin/empCount', async (req, res) => {
 // Fetch invoice count
 router.get('/admin/invoiceCount', async (req, res) => {
     try {
-        const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM invoice";
-        const [data] = await con.query(query); // Use promise-based query method
+        const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM invoice Where status = 'unpaid'";
+        const [data] = await con.query(query); 
 
         if (data && data[0].invoiceCount > 0) {
             return res.status(200).json(data[0].invoiceCount);
@@ -558,8 +557,8 @@ router.get('/ViewAllAttendances', async (req, res) => {
                         employee.email, 
                         DATE(attendance.date) AS date,
                         CASE
-                            WHEN HOUR(attendance.date) BETWEEN 8 AND 9 AND MINUTE(attendance.date) BETWEEN 0 AND 59 THEN 'Attended'
-                            WHEN HOUR(attendance.date) BETWEEN 9 AND 17 AND MINUTE(attendance.date) BETWEEN 0 AND 59 THEN 'Late Attended'
+                            WHEN TIME(attendance.date) >= '08:00:00' AND TIME(attendance.date) < '09:00:00' THEN 'Attended'
+                            WHEN HOUR(attendance.date) >= '09:00:00' AND TIME(attendance.date) < '17:00:00' THEN 'Late Attended'
                             ELSE 'Not Attended'
                         END AS status
                     FROM 
@@ -621,7 +620,8 @@ router.get('/generatePDF', async (req, res) => {
                     employee.email, 
                     DATE(attendance.date) AS date,
                     CASE
-                        WHEN HOUR(attendance.date) BETWEEN 8 AND 9 AND MINUTE(attendance.date) BETWEEN 0 AND 59 THEN 'Attended'
+                        WHEN TIME(attendance.date) >= '08:00:00' AND TIME(attendance.date) < '09:00:00' THEN 'Attended'
+                        WHEN HOUR(attendance.date) >= '09:00:00' AND TIME(attendance.date) < '17:00:00' THEN 'Late Attended'
                         ELSE 'Not Attended'
                     END AS status
                 FROM 
@@ -649,7 +649,7 @@ router.get('/generatePDF', async (req, res) => {
         } else {
             // Define the table structure ...
             const tableHeaders = ['No.', 'Name', 'Date', 'Email', 'Status'];
-            const columnWidths = [50, 130, 100, 130, 100]; // Custom column widths
+            const columnWidths = [40, 180, 70, 180, 75]; // Custom column widths
             const tableRows = result.map(item => [
                 item.RowNumber,
                 item.name,
@@ -681,8 +681,8 @@ router.get('/generatePDF', async (req, res) => {
                     doc.rect(currentX, y, columnWidths[i], 20).stroke();
 
                     // Apply different styles for each column if needed ...
-                    const cellTextColor = i === 4 && cell === 'Attended' ? '#27AE60' : i === 4 && cell === 'Not Attended' ? '#E74C3C' : '#000000';
-                    doc.fontSize(10).fillColor(cellTextColor).text(cell.toString(), currentX + 5, y + 5, { width: columnWidths[i], align: 'center' });
+                    const cellTextColor = i === 4 && cell === 'Attended' ? '#27AE60' : i === 4 && cell === 'Late Attended' ? '#E74C3C' : '#000000';
+                    doc.fontSize(8).fillColor(cellTextColor).text(cell.toString(), currentX + 5, y + 5, { width: columnWidths[i], align: 'center' });
                         currentX += columnWidths[i]; // Move to the next column ...
                     });
                     y += 20; // Move to the next row ...

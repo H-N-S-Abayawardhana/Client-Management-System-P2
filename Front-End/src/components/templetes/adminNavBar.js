@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import arrow from '../../assets/arrow.png';
@@ -9,19 +9,22 @@ import user from '../../assets/user.png';
 import logoutIcon from '../../assets/logout.png';
 import menuIcon from '../../assets/menu.png';
 import attendence from '../../assets/attendence.png';
-import dashboard from '../../assets/dashboard.png';
 import invoice from '../../assets/invoice.png';
 import employee from '../../assets/employee.png';
 import payment from '../../assets/payment.png';
 import task from '../../assets/task.png';
 import mail from '../../assets/mail.png';
 import user2 from '../../assets/myprofile.png';
-import logout2 from '../../assets/logout2.png';
-import changepswd from '../../assets/cpswd.png';
+import signout from '../../assets/signout.png';
+import changepswd from '../../assets/cnpswd.png';
+import user1 from '../../assets/user1.png';
+
 
 export default function Navbar() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [logoutError, setLogoutError] = useState(null);
+  const [adminUsername, setAdminUsername] = useState("");
+  const [error, setError] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
   const navigate = useNavigate();
 
@@ -31,6 +34,11 @@ export default function Navbar() {
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
+  };
+
+  const navigateToDashboard = () => {
+    navigate('/admin-dashboard');
+    setShowSidebar(false);
   };
 
   const handleLogout = async () => {
@@ -81,6 +89,52 @@ export default function Navbar() {
     }
   };
 
+  useEffect(() => {
+    const fetchUsername = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const email = localStorage.getItem("email");
+            const userType = localStorage.getItem("type");
+
+            if (!token || !email || !userType) {
+                navigate("/login");
+                throw new Error("Missing authentication data");
+            }
+
+            if (userType !== "Admin") {
+                navigate("/login");
+                throw new Error("Unauthorized access");
+            }
+
+            // Fetch only the Username
+            const response = await fetch(`http://localhost:5000/api/admin/admin/username/${email}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch username");
+            }
+
+            const data = await response.json();
+            setAdminUsername(data.username); // Assuming you're storing the username in state
+        } catch (error) {
+            console.error("Error fetching username:", error);
+            setError("Error fetching username");
+        }
+    };
+
+    fetchUsername();
+}, [navigate]);
+
+
+
+
+
+
   return (
     <div className="adm-nav-bar">
       <nav
@@ -97,7 +151,7 @@ export default function Navbar() {
                 className="me-2"
               />
               <span className="text-white fs-6 fs-md-4" style={{ lineHeight: '1.2' }}>
-                <a href="/" style={{ textDecoration: "none", color: "white" }}>
+                <a href="/admin-dashboard" style={{ textDecoration: "none", color: "white" }}>
                   GAMAGE RECRUITERS
                 </a>
               </span>
@@ -150,14 +204,20 @@ export default function Navbar() {
                       minWidth: '150px',
                     }}
                   >
-                    <li>
+                                        <li>
                       <a className="dropdown-item d-flex align-items-center" href="/admin-profile">
                         <img src={user2} alt="Profile" style={{ width: '20px', marginRight: '14px' }} />
+                        {adminUsername}
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item d-flex align-items-center" href="/admin-profile">
+                        <img src={user1} alt="Profile" style={{ width: '20px', marginRight: '14px' }} />
                         My Profile
                       </a>
                     </li>
                     <li>
-                      <a className="dropdown-item d-flex align-items-center" href="/adminChange-password">
+                      <a className="dropdown-item d-flex align-items-center" href="/admin-change-password">
                         <img src={changepswd} alt="Change Password" style={{ width: '20px', marginRight: '14px' }} />
                         Change Password
                       </a>
@@ -174,7 +234,7 @@ export default function Navbar() {
                           background: 'none'
                         }}
                       >
-                        <img src={logout2} alt="Logout" style={{ width: '20px', marginRight: '14px' }} />
+                        <img src={signout} alt="Logout" style={{ width: '20px', marginRight: '14px' }} />
                         Log out
                       </button>
                     </li>
@@ -183,7 +243,6 @@ export default function Navbar() {
               </li>
             </ul>
 
-            {/* Menu Icon for Mobile */}
             <img
               src={menuIcon}
               alt="Menu"
@@ -202,87 +261,55 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Sidebar */}
       {showSidebar && (
         <div
           className="sidebar bg-light position-fixed top-0 start-0 h-100 overflow-auto"
-          style={{ width: '250px', zIndex: 1050 }}
+          style={{ 
+            width: '250px', 
+            zIndex: 1050,
+            backgroundColor: '#b9c2c1' 
+          }}
         >
-          <button
-            className="btn-close mt-2 ms-3"
-            onClick={toggleSidebar}
-            aria-label="Close"
-          ></button>
+          <div className="d-flex justify-content-between align-items-center p-3">
+          <h2 
+              className="mb-0" 
+              style={{ 
+                color: '#1c5d5f', 
+                cursor: 'pointer',
+                fontSize: '1.5rem'
+              }}
+              onClick={navigateToDashboard}
+            >
+              Dashboard
+            </h2>
+            <button
+              className="btn-close"
+              onClick={toggleSidebar}
+              aria-label="Close"
+            ></button>
+          </div>
+
           <ul className="list-group mt-2">
-            <li className="list-group-item py-2">
-              <a href="/admin-profile" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={user2} alt="Profile" style={{ width: '25px', marginRight: '10px' }} />
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/admin-dashboard" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={dashboard} alt="Dashboard" style={{ width: '20px', marginRight: '14px' }} />
-                <span>Dashboard</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/admin-attendance" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={attendence} alt="Attendance" style={{ width: '20px', marginRight: '14px' }} />
-                <span>Attendance</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/admin-invoice" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={invoice} alt="Invoice" style={{ width: '25px', marginRight: '10px' }} />
-                <span>Invoice</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/view-employees" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={employee} alt="Employees" style={{ width: '25px', marginRight: '10px' }} />
-                <span>Employers</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/admin-payment" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={payment} alt="Payment" style={{ width: '25px', marginRight: '10px' }} />
-                <span>Payment</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/admin-manage-task" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={task} alt="Task" style={{ width: '25px', marginRight: '10px' }} />
-                <span>Task</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/admin-mailbox" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={mail} alt="Mailbox" style={{ width: '25px', marginRight: '10px' }} />
-                <span>Mail-Box</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <a href="/adminChange-password" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
-                <img src={changepswd} alt="Change Password" style={{ width: '25px', marginRight: '10px' }} />
-                <span>Change Password</span>
-              </a>
-            </li>
-            <li className="list-group-item py-2">
-              <button
-                onClick={handleLogout}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  border: 'none',
-                  background: 'none',
-                  padding: 0,
-                  color: '#dc3545',
-                  width: '100%',
-                  textAlign: 'left'
-                }}
-              >
-                <img src={logout2} alt="Logout" style={{ width: '25px', marginRight: '15px' }} />
+            {[
+              { href: '/admin-profile', icon: user2, text: 'My Profile' },
+              { href: '/admin-attendance', icon: attendence, text: 'Attendance' },
+              { href: '/admin-invoice', icon: invoice, text: 'Invoice' },
+              { href: '/view-employees', icon: employee, text: 'Employers' },
+              { href: '/admin-payment', icon: payment, text: 'Payment' },
+              { href: '/admin-manage-task', icon: task, text: 'Task' },
+              { href: '/admin-mailbox', icon: mail, text: 'Mail-Box' },
+              { href: '/admin-change-password', icon: changepswd, text: 'Change Password' }
+            ].map((item, index) => (
+              <li key={index} className="sidebar-item">
+                <a href={item.href} className="sidebar-link">
+                  <img src={item.icon} alt={item.text} style={{ width: '25px', marginRight: '10px' }} />
+                  <span>{item.text}</span>
+                </a>
+              </li>
+            ))}
+            <li className="sidebar-item">
+              <button onClick={handleLogout} className="sidebar-link logout-btn">
+                <img src={signout} alt="Logout" style={{ width: '25px', marginRight: '15px' }} />
                 <span>Log out</span>
               </button>
             </li>
@@ -308,12 +335,35 @@ export default function Navbar() {
           .swal2-cancel {
             color: #333 !important;
           }
-          .list-group-item a, .list-group-item button {
-            text-decoration: none;
-            color: inherit;
-          }
-          .list-group-item {
-            border-radius: 0 !important;
+          @media (max-width: 991px) {
+            .sidebar {
+              background-color: #b9c2c1 !important;
+            }
+            .sidebar-item {
+              border: none !important;
+              margin-top: 10px !important;
+              padding: 0 !important;
+              background-color: #b9c2c1 !important;
+            }
+            .sidebar-link {
+              display: flex;
+              align-items: center;
+              text-decoration: none;
+              color: #1c5d5f !important;
+              padding: 8px 15px;
+              background-color: #b9c2c1;
+              width: 100%;
+              border: none;
+            }
+            .logout-btn {
+              background: none;
+              border: none;
+              width: 100%;
+              text-align: left;
+              padding: 8px 15px;
+              color: #1c5d5f !important;
+              margin-left:8px;
+            }
           }
         `}
       </style>

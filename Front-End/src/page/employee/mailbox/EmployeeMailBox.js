@@ -32,9 +32,38 @@ const EmployeeMailBox = () => {
         setSidebarVisible(!sidebarVisible);
     }; 
 
+    const validateEmail = (email) => {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return emailRegex.test(email);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+        setIsLoading(true);
+        if(formData.to === "") {
+            toast.error('Please enter the recipient email address');
+            setIsLoading(false);
+            return;
+        }
+
+        if(formData.subject === "") {
+            toast.error('Please enter a subject for the email');
+            setIsLoading(false);
+            return;
+        }
+
+        if(formData.message === "") {
+            toast.error('Please enter the message to send');
+            setIsLoading(false);
+            return;
+        }
+
+        if(!validateEmail(formData.to)) {
+            toast.error('Please enter a valid email address');
+            setIsLoading(false);
+            return;
+        }
+
         const formDataToSend = new FormData();
         formDataToSend.append("to", formData.to);
         formDataToSend.append("subject", formData.subject);
@@ -53,6 +82,7 @@ const EmployeeMailBox = () => {
             if (!response.ok) {
                 const errorData = await response.json();
                 console.log(`Failed: ${errorData.message || 'Unknown error'}`);
+                toast.error('❌ Failed to send email', `${errorData.message}`);
                 return;
             }
                     
@@ -96,13 +126,13 @@ const EmployeeMailBox = () => {
                     display: "flex",           // Flex layout for content flow
                     flexDirection: "column"    // Stack children vertically
                 }}>
-                    <h5 className="mt-5">
+                    <h5 className="mt-5 km-breadcrumb-text">
                         Home / <span style={{ color: "#24757E" }}>Mail-Box</span>
                     </h5>
 
                     <div className="card km-card-container-height border-0">
                         <div className="card-body">
-                            <h4 className="km-employee-attendance-page-title text-center" style={{ color: "#24757E" }}>Mail Box</h4>
+                            <h4 className="km-employee-attendance-page-title text-center" style={{ color: "#24757E" }}>Mail-Box</h4>
 
                             <div className="km-mailbox-container">
                                 <form className='km-form'>
@@ -164,7 +194,7 @@ const EmployeeMailBox = () => {
                                     ></textarea>
 
                                     {/* Submit Button */}
-                                    <button type="submit" className="km-mailbox-submit-btn mb-3" disabled={isLoading} onClick={handleSubmit}>
+                                    <button type="submit" className="km-mailbox-submit-btn mb-3 align-items-center" disabled={isLoading} onClick={handleSubmit}>
                                         {isLoading ? (
                                             <span className="km-spinner"></span> // Spinner
                                             ) : (

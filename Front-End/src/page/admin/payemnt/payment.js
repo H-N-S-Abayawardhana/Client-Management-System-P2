@@ -14,12 +14,8 @@ const PaymentsTable = () => {
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
     const navigate = useNavigate(); // useNavigate hook
 
-    const toggleSidebar = () => {
-        setSidebarVisible(!sidebarVisible);
-    };
     // Fetch payments from the API
     useEffect(() => {
         axios
@@ -62,8 +58,11 @@ const PaymentsTable = () => {
     };
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString("en-GB");
+        return `${date.getDate().toString().padStart(2, "0")}-${(date.getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}-${date.getFullYear()}`;
     };
+
 
     return (
         <div className="d-flex flex-column msa-admin-payment-container">
