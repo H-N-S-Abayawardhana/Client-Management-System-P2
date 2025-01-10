@@ -276,41 +276,8 @@
   }
 }
 
-.w-10 {
+.waw-w-10 {
   width: 10% !important;
-} 
-
-.w-5 {
-  width: 5% !important;
-}
-
-.w-9 {
-  width: 9% !important;
-}
-
-.w-x {
-  width: 9.5% !important;
-}
-
-.w-y {
-  width: 8.5% !important;
-}
-
-.w-15 {
-  width: 15%!important;
-}
-
-.w-1 {
-  width: 1% !important;
-}
-
-@media (max-width: 768px) {
-  .sidebar-toggle {
-    position: fixed; 
-    top: 10px; 
-    left: 360px; 
-    z-index: 9999; 
-  }
 } 
 
 .waw-action-buttons {

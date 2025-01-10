@@ -148,7 +148,7 @@ function ViewEmployees() {
                                 <table className="table table-bordered waw-employee-table">
                                     <thead className="thead-light">
                                         <tr className="text-center">
-                                        <th className="w-10 text-center">EmployeeID</th>
+                                        <th className="waw-w-10 text-center">EmployeeID</th>
                                         <th className="text-center">Employee Name</th>
                                         <th className="text-center">Designation</th>
                                         <th className="text-center">Work Starting Date</th>
@@ -157,14 +157,14 @@ function ViewEmployees() {
                                         <th className="text-center">Email</th>
                                         <th className="text-center">Username</th>
                                         {/* <th className="w-5 text-center">Password</th> */}
-                                        <th className="w-10 text-center">Action</th>
+                                        <th className="waw-w-10 text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="employee-table-body">
                                       {filteredEmployees.length > 0 ? (
                                       filteredEmployees.map((data, i) => (
                                         <tr key={data.EmployeeID}>
-                                          <td className="w-10 text-center">{data.EmployeeID || "N/A"}</td>
+                                          <td className="waw-w-10 text-center">{data.EmployeeID || "N/A"}</td>
                                           <td className="text-center">{data.Name || "N/A"}</td>
                                           <td className="text-center">{data.Designation || "N/A"}</td>
                                           <td className="text-center">{formatDateToDMY(new Date(data.WorkStartDate)) || "N/A"}</td>
