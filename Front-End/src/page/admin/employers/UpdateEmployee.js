@@ -144,7 +144,7 @@ const UpdateEmployee = () => {
                     display: "flex",           // Flex layout for content flow
                     flexDirection: "column"    // Stack children vertically
                 }}>
-                    <h5 className="mt-5">
+                    <h5 className="mt-5 waw-breadcrumb-text">
                         Home / Employees / <span style={{ color: "#24757E" }}>Update Employee</span>
                     </h5>
 

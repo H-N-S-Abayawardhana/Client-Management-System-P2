@@ -56,6 +56,10 @@
 @media (max-width: 768px) {
   .waw-card-container-height {
       padding: 10px; /* Reduce padding on smaller screens */
+  } 
+
+  .waw-breadcrumb-text {
+    display: none; /* Hide breadcrumb text on smaller screens */
   }
 } 
 
@@ -69,6 +73,10 @@
 @media (max-width: 768px) {
   .waw-employee-update-page-title {
       font-size: 18px; /* Slightly smaller on smaller screens */
+  } 
+
+  .waw-breadcrumb-text {
+    display: none; /* Hide breadcrumb text on smaller screens */
   }
 }
 
@@ -308,6 +316,36 @@
   .waw-custom-toast-container {
       top: 60px; /* Adjust the distance from the top of the screen */
       right: 10px; /* Adjust the distance from the right side of the screen */
+  }
+}
+
+@media (max-width: 650px) {
+  .waw-employee-update-page-title {
+    margin-top: 45px;
+  }
+
+  .waw-form-row button {
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 555px) {
+  .waw-employee-update-page-title {
+    margin-top: 45px;
+  }
+
+  .waw-form-row button {
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 495px) {
+  .waw-employee-update-page-title {
+    margin-top: 45px;
+  } 
+
+  .waw-form-row button {
+    max-width: 100px;
   }
 }
 

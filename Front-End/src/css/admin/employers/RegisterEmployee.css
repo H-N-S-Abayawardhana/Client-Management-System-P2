@@ -13,6 +13,10 @@
       top: 0;
       left: 0; /* Place it above other content */
   }
+
+  .waw-breadcrumb-text {
+    display: none; /* Hide breadcrumb text on smaller screens */
+  }
 } 
 
 /* Ensure the button is above the sidebar */
@@ -60,7 +64,7 @@
   }
 } 
 
-.waw-employee-update-page-title {
+.waw-employee-register-page-title {
   font-size: 22px;
   font-weight: bold;
   color: #24757E;
@@ -262,6 +266,35 @@
   }
 }
 
+@media (max-width: 650px) {
+  .waw-employee-register-page-title {
+    margin-top: 45px;
+  }
+
+  .waw-password-input-wrapper input {
+    max-width: 320px; /* Match the wrapper's width */
+  }
+}
+
+@media (max-width: 555px) {
+  .waw-employee-register-page-title {
+    margin-top: 45px;
+  }
+
+  .waw-password-input-wrapper input {
+    max-width: 320px; /* Match the wrapper's width */
+  }
+}
+
+@media (max-width: 495px) {
+  .waw-employee-register-page-title {
+    margin-top: 45px;
+  } 
+
+  .waw-password-input-wrapper input {
+    max-width: 320px; /* Match the wrapper's width */
+  }
+}
 
 
 

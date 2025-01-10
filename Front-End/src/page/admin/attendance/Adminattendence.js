@@ -170,10 +170,9 @@ const AdminAttendance = () => {
   };
 
   return (
-    <div className="ekr-admin-attendance-wrapper">
-      <div className="ekr-admin-attendance-container d-flex flex-column" style={{ minHeight: '100vh' }}>
-        <ToastContainer className='mt-5 ekr-custom-toast-container'/>
-        <Navbar />
+    <div className="ekr-admin-attendance-container d-flex flex-column" style={{ minHeight: '100vh' }}>
+      <ToastContainer className='mt-5 ekr-custom-toast-container'/>
+      <Navbar />
 
         <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
           <div className="main-content p-4 ekr-main">
@@ -276,7 +275,6 @@ const AdminAttendance = () => {
         <div className="container3">
           <Footer />
         </div>
-      </div>
     </div>
   );
 };
