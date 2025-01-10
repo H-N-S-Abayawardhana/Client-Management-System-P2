@@ -89,6 +89,8 @@ router.get('/employee/paymentCount', async (req, res) => {
     }
 });
 
+
+//Fetch attend count
 router.get('/employee/attendCount', async (req, res) => {
     try {
         const currentDate = new Date().toISOString().split('T')[0];
@@ -118,6 +120,56 @@ router.get('/employee/invoiceCount', async (req, res) => {
         return res.status(500).json({ error: "Database error" });
     }
 });
+
+//Fetch task according to logged user
+
+router.get('/api/employee/tasks/:email', async (req, res) => {
+    try {
+        const { email } = req.params;
+        console.log("Received request for email:", email);
+
+        const [employeeResult] = await db.execute(
+            'SELECT EmployeeID FROM employee WHERE Email = ?',
+            [email]
+        );
+        console.log("Employee query result:", employeeResult);
+
+        if (employeeResult.length === 0) {
+            console.log("No employee found for email:", email);
+            return res.status(404).json({ 
+                message: 'Employee not found' 
+            });
+        }
+
+        const employeeId = employeeResult[0].EmployeeID;
+        console.log("Found EmployeeID:", employeeId);
+
+        const [tasksResult] = await db.execute(
+            `SELECT 
+                TaskID, 
+                TaskName, 
+                Description, 
+                Deadline, 
+                BudgetInfo 
+            FROM task 
+            WHERE EmployeeID = ?
+            ORDER BY Deadline ASC`,
+            [employeeId]
+        );
+        console.log("Tasks query result:", tasksResult);
+
+        res.status(200).json(tasksResult);
+
+    } catch (error) {
+        console.error('Error in /api/employee/tasks/:email:', error);
+        res.status(500).json({ 
+            message: 'Error fetching tasks',
+            error: error.message 
+        });
+    }
+});
+
+
 
 // Save payment
 router.post("/payment", async (req, res) => {
