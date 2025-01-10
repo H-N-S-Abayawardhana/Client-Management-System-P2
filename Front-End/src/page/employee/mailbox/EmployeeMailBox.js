@@ -3,7 +3,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';  // Add this import
 import Sidebar from "../../../components/templetes/ESideBar";
 import Navbar from "../../../components/templetes/empNavBar";
-import Footer from "../../../components/PagesFooter";
+import Footer from "../../../components/templetes/Footer";
 import '../../../css/MailBox.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
