@@ -1,19 +1,19 @@
-.yks-emp-invoice-container{
+.yks-emp-invoice-container {
     min-height: 100vh;
 }
 
 .yks-emp-invoice-container .yks-sidebar-container {
-    width: 230px; /* Default width for larger screens */
-    flex-shrink: 0; /* Optional: Sidebar background color */
+    width: 230px;
+    flex-shrink: 0;
 }
 
 @media (max-width: 768px) {
     .yks-emp-invoice-container .yks-sidebar-container {
-        width: 100%; /* Full width for mobile screens */
-        position: fixed; /* Fixed sidebar for smaller screens */
+        width: 100%;
+        position: fixed;
         z-index: 1000;
         top: 0;
-        left: 0; /* Place it above other content */
+        left: 0;
     }
 }
 
@@ -24,8 +24,8 @@
 
 @media (max-width: 768px) {
     .yks-emp-invoice-container .yks-content-container {
-        margin-top: 60px; /* Adjust for fixed navbar/sidebar */
-        padding: 10px; /* Reduced padding for smaller screens */
+        margin-top: 60px;
+        padding: 10px;
     }
 }
 
@@ -36,30 +36,74 @@
     font-family: 'Arial', sans-serif;
 }
 
-/* Style for breadcrumb items */
 .yks-emp-invoice-container .yks-content-container span.home {
     color: black;
 }
+
 .yks-emp-invoice-container .yks-content-container span.contact {
     color: #24757E;
 }
+
 @media (max-width: 768px) {
     .yks-emp-invoice-container .yks-content-container .yks-profile-breadcrumb {
-       display: none;
+        display: none;
     }
 }
+
 .yks-emp-invoice-container .yks-card-container-height {
     min-height: 430px;
 }
 
 @media (max-width: 768px) {
     .yks-emp-invoice-container .yks-card-container-height {
-        padding: 10px; /* Reduce padding on smaller screens */
+        padding: 10px;
     }
 }
+
 .yks-emp-invoice-container .yks-head h1 {
     max-width: 100%;
     color: #24757E;
+}
+
+/* Search bar container styles */
+.yks-emp-invoice-container .yks-employee-search-bar-container {
+    position: relative;
+    flex-grow: 1;
+    max-width: 20%;
+    margin-right: 10px;
+}
+
+/* Search bar input styles */
+.yks-emp-invoice-container .yks-employee-search-bar {
+    border-radius: 50px;
+    width: 100%;
+    margin-top: 45px;
+    margin-right: 10px;
+    font-size: 14px;
+    height: 40px;
+    padding-right: 40px;
+}
+
+/* Search icon button styles */
+.yks-emp-invoice-container .yks-employee-search-bar-icon {
+    position: absolute;
+    right: 10px;
+    top: 45px;  /* Match the margin-top of search bar */
+    height: 40px; /* Match height of search bar */
+    pointer-events: none;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Search icon image styles */
+.yks-emp-invoice-container .yks-search-bar-icon {
+    width: 30px;
+    height: 25px;
 }
 
 .yks-emp-invoice-container .yks-employee-invoice-table-container {
@@ -70,31 +114,39 @@
     margin: 10px;
     font-size: 12px;
     border-radius: 10px;
-    overflow-x: auto; /* Allow horizontal scrolling when necessary */
+    overflow-x: auto;
 }
 
 @media (max-width: 768px) {
+    .yks-emp-invoice-container .yks-employee-search-bar-container {
+        max-width: 45%;
+    }
+    
     .yks-emp-invoice-container .yks-employee-invoice-table-container {
-        padding: 1px; /* Reduce padding on smaller screens */
+        padding: 1px;
     }
 
     .yks-emp-invoice-container .yks-employee-invoice-table th,
     .yks-emp-invoice-container .yks-employee-invoice-table td {
-        padding: 6px; /* Reduce padding on very small screens */
-        font-size: 9px; /* Smaller font size for very small screens */
+        padding: 6px;
+        font-size: 9px;
     }
 }
 
 @media (max-width: 408px) {
+    .yks-emp-invoice-container .yks-employee-search-bar-container {
+        max-width: 45%;
+    }
+
     .yks-emp-invoice-container .yks-employee-invoice-table-container {
-        padding: 1px; /* Reduce padding on smaller screens */
+        padding: 1px;
     }
 }
 
 .yks-emp-invoice-container .yks-employee-invoice-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 16px; /* Adjust font size for readability */
+    font-size: 16px;
     border: 1px solid #8c8c8c33;
     border-radius: 10px;
     overflow-x: auto;
@@ -103,7 +155,7 @@
 .yks-emp-invoice-container .yks-employee-invoice-table th,
 .yks-emp-invoice-container .yks-employee-invoice-table td {
     border: 1px solid #ddd;
-    text-align: center; /* Center-align text for all cells */
+    text-align: center;
 }
 
 .yks-emp-invoice-container .yks-employee-invoice-table th {
@@ -122,18 +174,18 @@
 
 @media (max-width: 768px) {
     .yks-emp-invoice-container .yks-employee-invoice-table-container {
-        padding: 5px; /* Reduce padding on smaller screens */
-        overflow-x: auto; /* Ensure horizontal scroll when necessary */
+        padding: 5px;
+        overflow-x: auto;
     }
 
     .yks-emp-invoice-container .yks-employee-invoice-table {
-        width: 100%; /* Ensure the table takes full width */
+        width: 100%;
     }
 
     .yks-emp-invoice-container .yks-employee-invoice-table th,
     .yks-emp-invoice-container .yks-employee-invoice-table td {
-        padding: 8px; /* Reduce padding on smaller screens */
-        font-size: 10px; /* Adjust font size for smaller screens */
+        padding: 8px;
+        font-size: 10px;
     }
 }
 
@@ -141,10 +193,12 @@
 tbody::-webkit-scrollbar {
     width: 2px;
 }
+
 tbody::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 4px;
 }
+
 tbody::-webkit-scrollbar-thumb:hover {
     background-color: #888;
 }
@@ -157,65 +211,9 @@ tbody::-webkit-scrollbar-thumb:hover {
     border-radius: 4px;
     cursor: pointer;
 }
-.yks-emp-invoice-container .yks-employee-search-bar-container {
-    position: relative;
-    flex-grow: 1; /* Allow search bar to grow */
-    max-width: 40%;
-    margin-right: 10px;
-}
-
-.yks-emp-invoice-container .yks-employee-search-bar {
-    border-radius: 50px;
-    width: 100%; 
-    margin-top:45px;
-    margin-right: 10px;
-    font-size: 14px;
-    height:40px;
-}
-
-@media (min-width: 768px) {
-    .yks-emp-invoice-container .yks-employee-search-bar-container {
-        max-width: 20%; /* Adjust max width for smaller screens */
-    }
-}
-
-.yks-emp-invoice-container .yks-employee-search-bar-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    font-size: 18px;
-    color: #6c757d;
-    border: none;
-    box-shadow: none;
-    margin-top: 2px;
-    background-color: transparent; /* Hides the background color */
-}
-
-.yks-emp-invoice-container .yks-search-bar-icon {
-    margin-top: 2px;
-    width: 30px;
-    height: 25px;
-}
-
-@media (max-width: 768px) {
-    .yks-emp-invoice-container .yks-employee-search-bar-icon {
-        margin-left: 25px; /* Adjust icon position for smaller screens */
-    }
-}
 
 @media (max-width: 408px) {
-    .yks-emp-invoice-container .yks-employee-search-bar-container {
-        max-width: 45%; /* Adjust max width for smaller screens */
-    }
     .yks-emp-invoice-container .yks-employee-invoice-table .yks-view-btn {
         padding: 3px 7px;
-        color: white;
-        background-color: #24757E;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
     }
 }
-
