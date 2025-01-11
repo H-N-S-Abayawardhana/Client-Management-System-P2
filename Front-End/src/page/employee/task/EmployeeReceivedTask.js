@@ -12,6 +12,10 @@ import Sidebar from '../../../components/templetes/ESideBar';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// Get the logged-in employee's ID (EmployeeID)
+import useEmployeeProfile from '../../../Routes/useEmployeeProfile';
+
+
 const EmployeeReceivedTask = () => {
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const toggleSidebar = () => {
@@ -21,10 +25,19 @@ const EmployeeReceivedTask = () => {
     const navigate = useNavigate();
     const [tasks, setTasks] = useState([]);
 
+    // Get the logged-in user EmployeeID
+    const EmployeeID = useEmployeeProfile();
+    console.log('empl ID task prog - ', EmployeeID);
+
     // Fetch tasks from the API
     const fetchTasks = async () => {
+        if (!EmployeeID) {
+            console.error('EmployeeID is missing or not available yet');
+            return;
+        }
+
         try {
-            const response = await axios.get('http://localhost:5000/employee/task/tasks'); // Change this to the proper employee route
+            const response = await axios.get(`http://localhost:5000/employee/task/tasks/${EmployeeID}`); // Change this to the proper employee route
             setTasks(response.data);
         } catch (error) {
             console.error('Error fetching tasks:', error);
@@ -32,8 +45,12 @@ const EmployeeReceivedTask = () => {
     };
 
     useEffect(() => {
-        fetchTasks();
-    }, []);
+        if (EmployeeID) {
+            fetchTasks();
+            //console.log('emp mange task EmployeeID = ', EmployeeID);
+        }
+    }, [EmployeeID]); // Trigger the effect when EmployeeID changes
+
 
     // Function to format the deadline
     const formatDate = (datetime) => {
