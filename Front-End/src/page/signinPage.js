@@ -5,7 +5,6 @@ import Footer from '../components/templetes/Footer';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import image from '../assets/Rectangle 1965.png';
 
 function Signin() {

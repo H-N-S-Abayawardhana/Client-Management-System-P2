@@ -292,7 +292,7 @@
   } 
 
   .waw-password-input-wrapper input {
-    max-width: 320px; /* Match the wrapper's width */
+    max-width: 305px; /* Match the wrapper's width */
   }
 }
 

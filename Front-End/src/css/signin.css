@@ -155,6 +155,7 @@ body {
       }
       .nu-signin-form  {
         top:50px;
+        
       }
     
     .nu-signin-form h2 {
@@ -171,24 +172,23 @@ body {
   
     .nu-signin-form form input {
       margin-bottom: 20px;
-    margin-left:20px;
+    margin-left:40px;
     margin-right:20px;
     padding: 10px;
     font-size: 0.9em;
-    width: 90%; 
+    width: 70%; 
     text-align:left;
     }
     .nu-signin-form form select {
       margin-bottom: 20px;
-      margin-left: 20px;
+      margin-left: 40px;
       margin-right: 20px;
       padding: 10px;
       border: 1px solid #a8aaab;
       background-color: #dadcdd;
-      width: 90%;
+      width: 70%;
       font-style: italic;
       text-align: left;
-      /* Add these properties to control the dropdown appearance */
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;

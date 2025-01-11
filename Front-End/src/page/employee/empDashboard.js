@@ -11,15 +11,12 @@ import '../../css/employee/empdashboard.css'
 function EmpDashboard() {
   const navigate = useNavigate();
   const [sidebarVisible, setSidebarVisible] = useState(false);
-  const [tasks, setTasks] = useState([]);
   const [attendance, setAttendCount] = useState(null);
   const [payment, setPaymentCount] = useState([]);
   const [invoice, setInvoiceCount] = useState([]);
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    checkSession();
-  }, []);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [tasks, setTasks] = useState([]);
 
   const checkSession = () => {
     const token = localStorage.getItem('token');
@@ -34,7 +31,8 @@ function EmpDashboard() {
     try {
       const response = await fetch(url, {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
       });
 
@@ -90,29 +88,90 @@ function EmpDashboard() {
     }
   };
 
-  const getData = async () => {
+  const fetchEmployeeTasks = async () => {
     try {
-      const response = await makeAuthenticatedRequest('http://localhost:5000/employee/task/tasks');
-      if (response) {
-        const responseData = await response.json();
-        setData(responseData);
+      const token = localStorage.getItem("token");
+      const email = localStorage.getItem("email");
+      const userType = localStorage.getItem("type");
+  
+      if (!token || !email || !userType) {
+        navigate("/login");
+        setError("Missing authentication data");
+        return;
       }
+  
+      if (userType !== "Employee") {
+        navigate("/login");
+        setError("Unauthorized: Only employees can access this page");
+        return;
+      }
+  
+      // Simplify the API endpoint and use makeAuthenticatedRequest
+      const response = await fetch(
+        `http://localhost:5000/api/employee/api/employee/tasks/${email}`,
+        {
+          method: "GET",
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json' // Explicitly request JSON response
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      // Check content type of response
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Received non-JSON response from server");
+      }
+  
+      const data = await response.json();
+      
+      // Validate the response data
+      if (!Array.isArray(data)) {
+        console.error("Received non-array data:", data);
+        setTasks([]);
+        setError("Invalid data format received");
+        return;
+      }
+  
+      setTasks(data);
+      setError(""); // Clear any previous errors
     } catch (error) {
-      console.error('Task data error:', error);
+      console.error("Error fetching tasks:", error);
+      setError(error.message);
+      setTasks([]); // Reset tasks on error
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      await Promise.all([
-        getAttendCount(),
-        getPaymentCount(),
-        getInvoiceCount(),
-        getData()
-      ]);
+    checkSession();
+  }, []);
+
+  useEffect(() => {
+    const fetchAllData = async () => {
+      try {
+        await Promise.all([
+          getAttendCount(),
+          getPaymentCount(),
+          getInvoiceCount(),
+          fetchEmployeeTasks()
+        ]);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setError("Failed to fetch data");
+      } finally {
+        setLoading(false);
+      }
     };
 
-    fetchData();
+    fetchAllData();
     const sessionCheckInterval = setInterval(checkSession, 30000);
     return () => clearInterval(sessionCheckInterval);
   }, []);
@@ -122,10 +181,15 @@ function EmpDashboard() {
   };
 
   const formatDateToDMY = (date) => {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${year}-${month}-${day}`;
+    try {
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      return `${year}-${month}-${day}`;
+    } catch (error) {
+      console.error('Date formatting error:', error);
+      return 'Invalid Date';
+    }
   };
 
   return (
@@ -149,7 +213,7 @@ function EmpDashboard() {
                   <img className="ae-emp-att-img" src={attendImage} alt="Attendance" />
                 </div>
                 <div className="ae-emp-card-right">
-                  <span>{attendance}</span>
+                  <span>{attendance || '00'}</span>
                 </div>
               </div>
 
@@ -159,7 +223,7 @@ function EmpDashboard() {
                   <img className="ae-emp-inv-img" src={InfoInvoice} alt="Pending Invoices" />
                 </div>
                 <div className="ae-emp-card-right">
-                  <span>{invoice}</span>
+                  <span>{invoice || '00'}</span>
                 </div>
               </div>
 
@@ -169,7 +233,7 @@ function EmpDashboard() {
                   <img className="ae-emp-pay-img" src={InfoPay} alt="Total Payments" />
                 </div>
                 <div className="ae-emp-card-right">
-                  <span>{payment}</span>
+                  <span>{payment || '00'}</span>
                 </div>
               </div>
             </div>
@@ -180,7 +244,7 @@ function EmpDashboard() {
               <div className="ae-emp-right-content">
                 <h2 className="ae-emp-overview-title">Overview</h2>
                 <div className="ae-emp-overview-section">
-                <h3 className="ae-emp-overview-title-mobile">Overview</h3>
+                  <h3 className="ae-emp-overview-title-mobile">Overview</h3>
                   <h3 className="ae-emp-overview-sub-titles">Our Mission</h3>
                   <p className='ae-emp-overview-para'>Our mission is to showcase emerging market talent globally, to provide a genuinely local solution to organizational needs.</p>
                   
@@ -211,8 +275,16 @@ function EmpDashboard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {data.length > 0 ? (
-                        data.map((task, index) => (
+                      {loading ? (
+                        <tr>
+                          <td colSpan="4" className="text-center">Loading tasks...</td>
+                        </tr>
+                      ) : error ? (
+                        <tr>
+                          <td colSpan="4" className="text-center text-red-500">Error: {error}</td>
+                        </tr>
+                      ) : tasks.length > 0 ? (
+                        tasks.map((task, index) => (
                           <tr key={index}>
                             <td>{task.TaskName}</td>
                             <td>{formatDateToDMY(new Date(task.Deadline))}</td>
@@ -222,7 +294,7 @@ function EmpDashboard() {
                         ))
                       ) : (
                         <tr>
-                          <td colSpan="4">No tasks found</td>
+                          <td colSpan="4" className="text-center">No tasks found</td>
                         </tr>
                       )}
                     </tbody>
