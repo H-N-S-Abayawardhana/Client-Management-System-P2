@@ -34,6 +34,25 @@ export const getTaskProgressByEmployeeID = async (req, res) => {
 };
 
 
+// Fetch tasks for a specific EmployeeID
+export const getTaskByEmployeeID = async (req, res) => {
+  const { EmployeeID } = req.params; // Extract EmployeeID from request parameters
+
+  if (!EmployeeID) {
+    return res.status(400).json({ error: 'EmployeeID is required' });
+  }
+
+  const query = `SELECT * FROM Task WHERE EmployeeID = ?`; // Adjust table name and condition
+  try {
+    const [results] = await db.query(query, [EmployeeID]); // Use parameterized query to prevent SQL injection
+    res.json(results);
+  } catch (err) {
+    console.error('Error fetching task progress:', err.message);
+    res.status(500).json({ error: 'Failed to fetch tasks of the Employee' });
+  }
+};
+
+
 // Download task progress attachment
 export const downloadAttachment = async (req, res) => {
   const { TaskProgressID } = req.params; // Task Progress ID
