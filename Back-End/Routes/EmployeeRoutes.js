@@ -42,7 +42,7 @@ router.get('/employee/name/:email', async (req, res) => {
         const { email } = req.params;
 
         const [result] = await db.execute(
-            'SELECT Name FROM employee WHERE email = ?',
+            'SELECT Name FROM Employee WHERE email = ?',
             [email]
         );
 
@@ -316,7 +316,7 @@ router.get("/invoice/:id", async (req, res) => {
 });
 //Get Employee
 router.get("/emp/:id", async (req, res) => {
-    const sql = "SELECT * FROM employee WHERE EmployeeID = ?";
+    const sql = "SELECT * FROM Employee WHERE EmployeeID = ?";
     const EmployeeID = req.params.id;
 
     try {
@@ -383,7 +383,7 @@ router.get("/service/:id", async (req, res) => {
 
 // Get Email by Email
 router.get("/employee/:email", async (req, res) => {
-    const sql = "SELECT * FROM employee WHERE email = ?";
+    const sql = "SELECT * FROM Employee WHERE email = ?";
     const paymentID = req.params.email;
 
     try {
@@ -421,7 +421,7 @@ router.get('/invoices/:input/:empid', async (req, res) => {
         const sql = `
             SELECT
                 ROW_NUMBER() OVER (ORDER BY invoice.invoiceID) AS RowNumber,
-                    invoice.invoiceID,
+                invoice.invoiceID,
                 invoice.EmployeeID,
                 invoice.total_cost,
                 DATE_FORMAT(invoice.invoice_date, '%d-%m-%Y') AS invoice_date,
@@ -474,7 +474,7 @@ router.get('/invoices/:input/:empid', async (req, res) => {
 // Route to view all employees ...
 router.get('/ViewAllEmployees', (req, res) => {
     try {
-        const sql = `SELECT * FROM employee`;
+        const sql = `SELECT * FROM Employee`;
         con.query(sql, (err, data) => {
             if(err) return res.json(err);
             return res.json(data);
@@ -489,9 +489,9 @@ router.get('/ViewAllAttendances', async (req, res) => {
     try {
         const sql = `SELECT
                          ROW_NUMBER() OVER (ORDER BY employee.EmployeeID) AS RowNumber,
-                             employee.EmployeeID,
-                         employee.name,
-                         employee.email,
+                             Employee.EmployeeID,
+                         Employee.name,
+                         Employee.email,
                          DATE(attendance.date) AS date,
                          TIME(attendance.date) AS time, -- Updated to show proper time field
                          CASE
@@ -502,9 +502,9 @@ router.get('/ViewAllAttendances', async (req, res) => {
                   FROM 
                       attendance 
                   INNER JOIN 
-                      employee 
+                      Employee 
                   ON 
-                      attendance.EmployeeID = employee.EmployeeID`;
+                      attendance.EmployeeID = Employee.EmployeeID`;
 
         const [data] = await db.query(sql);
         if(data.length === 0) {
@@ -522,7 +522,7 @@ router.get('/ViewAllAttendances', async (req, res) => {
 router.get('/viewEmployees/:input', async (req, res) => {
     try {
         const input = req.params.input;
-        const sql = `SELECT * FROM employee WHERE name = ? OR email = ?`;
+        const sql = `SELECT * FROM Employee WHERE name = ? OR email = ?`;
         const [data] = await db.query(sql, [input, input]);
 
         if(data.length === 0) {
@@ -541,10 +541,10 @@ router.get('/attendance/:input', async (req, res) => {
     try {
         const input = req.params.input;
         const sql = `SELECT
-                         ROW_NUMBER() OVER (ORDER BY employee.EmployeeID) AS RowNumber,
-                             employee.EmployeeID,
-                         employee.name,
-                         employee.email,
+                         ROW_NUMBER() OVER (ORDER BY Employee.EmployeeID) AS RowNumber,
+                             Employee.EmployeeID,
+                         Employee.name,
+                         Employee.email,
                          DATE(attendance.date) AS date,
                          TIME(attendance.date) AS time, -- Added proper time display
                          CASE
@@ -555,12 +555,12 @@ router.get('/attendance/:input', async (req, res) => {
                   FROM 
                       attendance 
                   INNER JOIN 
-                      employee 
+                      Employee 
                   ON 
-                      attendance.EmployeeID = employee.EmployeeID 
+                      attendance.EmployeeID = Employee.EmployeeID 
                   WHERE 
-                      (employee.name LIKE CONCAT(?, '%')  -- Matches names starting with the entered text
-                      OR employee.email LIKE CONCAT(?, '%')  -- Matches emails starting with the entered text
+                      (Employee.name LIKE CONCAT(?, '%')  -- Matches names starting with the entered text
+                      OR Employee.email LIKE CONCAT(?, '%')  -- Matches emails starting with the entered text
                       OR DATE(attendance.date) LIKE CONCAT(?, '%'))  -- Matches dates starting with the entered text`;
 
         if (isDDMMYYYYWithDash(input)) {
