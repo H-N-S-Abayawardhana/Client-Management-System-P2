@@ -20,7 +20,7 @@ router.get("/employee/profile/:email", async (req, res) => {
                 Address,
                 WorkStartDate,
                 EmployeeID
-             FROM employee
+             FROM Employee
              WHERE Email = ?`,
             [email]
         );
@@ -61,7 +61,7 @@ router.get('/employee/name/:email', async (req, res) => {
 
 //Fetch Employee Count
 router.get('/employee/empCount', async (req, res) => {
-    const query = "SELECT COUNT(EmployeeID) AS empCount FROM employee";
+    const query = "SELECT COUNT(EmployeeID) AS empCount FROM Employee";
 
     try {
         const [rows] = await db.query(query);
@@ -129,7 +129,7 @@ router.get('/api/employee/tasks/:email', async (req, res) => {
         console.log("Received request for email:", email);
 
         const [employeeResult] = await db.execute(
-            'SELECT EmployeeID FROM employee WHERE Email = ?',
+            'SELECT EmployeeID FROM Employee WHERE Email = ?',
             [email]
         );
         console.log("Employee query result:", employeeResult);
