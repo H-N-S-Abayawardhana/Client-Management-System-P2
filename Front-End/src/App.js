@@ -44,12 +44,8 @@ import EmployeeAttenance from './page/employee/attendance/EmployeeAttendance.js'
 import EmployeeMailBox from './page/employee/mailbox/EmployeeMailBox.js';
 
 //Protected Routes
-import ProtectedRoute from './Routes/ProtectedRoute';  //Any Logged User can view 
 import EmployeeProtectedRoute from './Routes/EmployeeProtectedRoute.js'; // Only Employee can view
 import AdminProtectedRoute from './Routes/AdminProtectedRoute.js';   // Only Admin can view
-
-
-
 
 
 function App() {
