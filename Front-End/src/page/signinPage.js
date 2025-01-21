@@ -8,20 +8,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import image from '../assets/Rectangle 1965.png';
 
 function Signin() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [selectedValue, setSelectedValue] = useState('');
-    const navigate = useNavigate();
-
-    // Backend URL
-    const backendURL = 'https://client-management-system-p2-gzspdw.fly.dev/api/auth/login';
+    const navigate = useNavigate(); // for navigation
 
     useEffect(() => {
-        // Redirect if the user is already logged in
+        // Check if the user is already logged in
         const token = localStorage.getItem('token');
         const userType = localStorage.getItem('type');
 
         if (token) {
+            // Redirect based on the user type
             if (userType === 'Admin') {
                 navigate('/admin-dashboard');
             } else if (userType === 'Employee') {
@@ -34,26 +32,31 @@ function Signin() {
         setSelectedValue(e.target.value);
     };
 
+    // Handle sign-in form submission
     const handleSignIn = async (e) => {
         e.preventDefault();
 
         if (!selectedValue) {
-            toast.error('Please select a user type.');
+            toast.error("Please select a user type.");
             return;
         }
 
         if (!email || !password) {
-            toast.error('Email and password are required.');
+            toast.error("Email and password are required.");
             return;
         }
 
         try {
-            const response = await fetch(backendURL, {
+            const response = await fetch('http://localhost:5000/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password, userType: selectedValue }),
+                body: JSON.stringify({
+                    email,
+                    password,
+                    userType: selectedValue,
+                }),
             });
 
             const data = await response.json();
@@ -61,10 +64,10 @@ function Signin() {
             if (response.ok) {
                 toast.success(data.message);
 
-                // Save token and user data in local storage
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('email', email);
-                localStorage.setItem('type', selectedValue);
+                // Save token to local storage
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("email", email);
+                localStorage.setItem("type", selectedValue);
 
                 // Redirect based on user type
                 if (selectedValue === 'Admin') {
@@ -77,7 +80,7 @@ function Signin() {
             }
         } catch (error) {
             console.error(error);
-            toast.error('An error occurred. Please try again.');
+            toast.error("An error occurred. Please try again.");
         }
     };
 
@@ -96,7 +99,7 @@ function Signin() {
                                     onChange={handleChange}
                                     required
                                 >
-                                    <option className="nu-signin-usertype-select" value="" disabled>
+                                    <option className ='nu-signin-usertype-select' value="" disabled style={{ color: '#aaa' }}>
                                         User Type
                                     </option>
                                     <option value="Admin">Admin</option>
@@ -133,6 +136,7 @@ function Signin() {
                 </main>
             </div>
             <Footer />
+            {/* Toast notification container */}
             <ToastContainer />
         </div>
     );
