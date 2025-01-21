@@ -7,11 +7,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import image from '../assets/Rectangle 1965.png';
 
+
+
 function Signin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [selectedValue, setSelectedValue] = useState('');
     const navigate = useNavigate(); // for navigation
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
     useEffect(() => {
         // Check if the user is already logged in
@@ -47,7 +50,7 @@ function Signin() {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/auth/login', {
+            const response = await fetch(`${API_URL}/api/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
