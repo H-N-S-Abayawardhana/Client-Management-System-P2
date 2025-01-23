@@ -1,9 +1,10 @@
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+ from = "/*"
+ to = "/index.html"
+ status = 200
 
 [build]
-  base = "/opt/build/repo"
-  command = "npm install"
-  publish = "Front-End/build"
+ base = "Front-End"
+ command = "npm install"
+ publish = "build"
+ 
