@@ -64,7 +64,7 @@ const ContactUs = () => {
           </div>
           
           <div className="nu-form-section">
-            <h1>Contact USo</h1>
+            <h1>CONTACT US</h1>
             
             <form onSubmit={handleSubmit}>
               <div className="nu-form-group">
