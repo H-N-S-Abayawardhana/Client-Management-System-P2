@@ -17,6 +17,7 @@ function EmpDashboard() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [tasks, setTasks] = useState([]);
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   const checkSession = () => {
     const token = localStorage.getItem('token');
@@ -51,7 +52,7 @@ function EmpDashboard() {
 
   const getAttendCount = async () => {
     try {
-      const response = await makeAuthenticatedRequest('http://localhost:5000/api/employee/employee/attendCount');
+      const response = await makeAuthenticatedRequest(`${API_URL}/api/employee/employee/attendCount`);
       if (response) {
         const responseData = await response.json();
         const count = responseData.toString().padStart(2, '0');
@@ -64,7 +65,7 @@ function EmpDashboard() {
 
   const getPaymentCount = async () => {
     try {
-      const response = await makeAuthenticatedRequest('http://localhost:5000/api/employee/employee/paymentCount');
+      const response = await makeAuthenticatedRequest(`${API_URL}/api/employee/employee/paymentCount`);
       if (response) {
         const responseData = await response.json();
         const count = responseData.paymentCount.toString().padStart(2, '0');
@@ -77,7 +78,7 @@ function EmpDashboard() {
 
   const getInvoiceCount = async () => {
     try {
-      const response = await makeAuthenticatedRequest('http://localhost:5000/api/employee/employee/invoiceCount');
+      const response = await makeAuthenticatedRequest(`${API_URL}/api/employee/employee/invoiceCount`);
       if (response) {
         const responseData = await response.json();
         const count = responseData.invoiceCount.toString().padStart(2, '0');
@@ -108,7 +109,7 @@ function EmpDashboard() {
   
       // Simplify the API endpoint and use makeAuthenticatedRequest
       const response = await fetch(
-        `http://localhost:5000/api/employee/api/employee/tasks/${email}`,
+        `${API_URL}/api/employee/api/employee/tasks/${email}`,
         {
           method: "GET",
           headers: {
