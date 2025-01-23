@@ -14,7 +14,7 @@ function Signin() {
     const [password, setPassword] = useState("");
     const [selectedValue, setSelectedValue] = useState('');
     const navigate = useNavigate(); // for navigation
-    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+    const API_URL = process.env.REACT_APP_API_URL ;
 
     useEffect(() => {
         // Check if the user is already logged in
