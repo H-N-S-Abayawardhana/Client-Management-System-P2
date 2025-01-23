@@ -13,6 +13,7 @@ const ContactUs = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState({ text: '', type: '' });
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +29,7 @@ const ContactUs = () => {
     setResponseMessage({ text: '', type: '' });
 
     try {
-      const response = await axios.post('http://localhost:5000/api/contact/sendMail', formData);
+      const response = await axios.post(`${API_URL}/api/contact/sendMail`, formData);
       
       if (response.status === 200) {
         setResponseMessage({ 
