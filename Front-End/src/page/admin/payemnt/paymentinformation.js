@@ -16,6 +16,7 @@ const PaymentInformation = () => {
   const { selectedPaymentId } = useParams();
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const invoiceCardRef = useRef(null);
+  const API_URL = process.env.REACT_APP_API_URL ;
 
  const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -33,7 +34,7 @@ const PaymentInformation = () => {
 
     const fetchPaymentDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/admin/payment/${selectedPaymentId}`);
+        const response = await fetch(`${API_URL}/api/admin/payment/${selectedPaymentId}`);
         if (!response.ok) throw new Error("Failed to fetch payment details");
         const data = await response.json();
         if (data?.data) {
@@ -53,7 +54,7 @@ const PaymentInformation = () => {
     if (paymentDetails?.invoiceID) {
       const fetchInvoiceDetails = async () => {
         try {
-          const response = await fetch(`http://localhost:5000/api/admin/invoice/${paymentDetails.invoiceID}`);
+          const response = await fetch(`${API_URL}/api/admin/invoice/${paymentDetails.invoiceID}`);
           if (!response.ok) throw new Error("Failed to fetch invoice details");
           const data = await response.json();
           if (data?.data) {
@@ -74,7 +75,7 @@ const PaymentInformation = () => {
     if (paymentDetails?.EmployeeID) {
       const fetchEmployeeDetails = async () => {
         try {
-          const response = await fetch(`http://localhost:5000/api/admin/employee/${paymentDetails.EmployeeID}`);
+          const response = await fetch(`${API_URL}/api/admin/employee/${paymentDetails.EmployeeID}`);
           if (!response.ok) throw new Error("Failed to fetch employee details");
           const data = await response.json();
           if (data?.data) {

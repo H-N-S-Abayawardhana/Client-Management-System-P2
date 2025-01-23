@@ -13,6 +13,7 @@ const ContactUs = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState({ text: '', type: '' });
+  const API_URL = process.env.REACT_APP_API_URL ;
 
 
   const handleChange = (e) => {
@@ -29,7 +30,7 @@ const ContactUs = () => {
     setResponseMessage({ text: '', type: '' });
 
     try {
-      const response = await axios.post('https://client-management-system-p2-production.up.railway.app/api/contact/sendMail', formData);
+      const response = await axios.post(`${API_URL}/api/contact/sendMail`, formData);
       
       if (response.status === 200) {
         setResponseMessage({ 
@@ -64,7 +65,7 @@ const ContactUs = () => {
           </div>
           
           <div className="nu-form-section">
-            <h1>CONTAT_US</h1>
+            <h1>Contact Us</h1>
             
             <form onSubmit={handleSubmit}>
               <div className="nu-form-group">

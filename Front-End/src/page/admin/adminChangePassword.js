@@ -14,6 +14,7 @@ function AdminChangePassword() {
   });
 
   const navigate = useNavigate();
+  const API_URL = process.env.REACT_APP_API_URL ;
 
   // Handle input changes
   const handleChange = (e) => {
@@ -44,7 +45,7 @@ function AdminChangePassword() {
       }
 
       // Call backend API to change password
-      const response = await fetch('http://localhost:5000/api/admin/change-password', {
+      const response = await fetch(`${API_URL}/api/admin/change-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -21,6 +21,7 @@ const AdminAddTask = () => {
     });
 
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL ;
 
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
@@ -34,7 +35,7 @@ const AdminAddTask = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:5000/admin/task/add-task', {
+            const response = await fetch(`${API_URL}/admin/task/add-task`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

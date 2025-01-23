@@ -1,31 +1,25 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
 import '../../../css/employee/task/(apwgr)EmployeeAddTaskProgress.css';
-
 import Navbar from '../../../components/templetes/empNavBar';
 import Footer from '../../../components/templetes/Footer';
 import Sidebar from '../../../components/templetes/ESideBar';
-
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-
-//get the perticuler loged in employee is ID(EmployeeID)
 import useEmployeeProfile from '../../../Routes/useEmployeeProfile';
 
 const EmployeeAddTaskProgress = () => {
 
     const navigate = useNavigate();
-
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const [TaskName, setTaskTitle] = useState('');
     const [TaskID, setTaskID] = useState('');
     const [TaskDescription, setTaskDescription] = useState('');
     const [file, setFile] = useState(null);
-  
-    //const EmployeeID = 1; //Hard Code,this is manualy Hardcoded EmployeeID=5 , PLZ change this when the login/authentication process has been implemented
+    const API_URL = process.env.REACT_APP_API_URL ;
+
     //get the logein user EmployeeID
     const EmployeeID = useEmployeeProfile();
 
@@ -43,7 +37,7 @@ const EmployeeAddTaskProgress = () => {
       }
   
       try { // Send the form data to the server using axios POST request
-        const response = await axios.post('http://localhost:5000/employee/task/task-progress', formData, {
+        const response = await axios.post(`${API_URL}/employee/task/task-progress`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -62,7 +56,7 @@ const EmployeeAddTaskProgress = () => {
         } else {
           alert('Failed to Update the Task Progress.');
         }
-      } catch (error) { // Handle any errors that occur during the request
+      } catch (error) { 
         console.error('Error Updating the Task:', error);
         alert('An Error Occurred while Updating the Task Progress.');
       }

@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const EmployeeMailBox = () => {
     const [sidebarVisible, setSidebarVisible] = useState(false);
+    const API_URL = process.env.REACT_APP_API_URL ;
     const [formData, setFormData] = useState({
         to: "",
         subject: "",
@@ -73,7 +74,7 @@ const EmployeeMailBox = () => {
         }
     
         try {
-            const response = await fetch('http://localhost:5000/api/email/send-email', {
+            const response = await fetch(`${API_URL}/api/email/send-email`, {
                 method: 'POST',
                 body: formDataToSend,
                 credentials: 'include',

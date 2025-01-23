@@ -16,6 +16,7 @@ function ForgotPassword() {
 
   const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
+  const API_URL = process.env.REACT_APP_API_URL ;
 
   // Handle input change
   const handleChange = (e) => {
@@ -38,7 +39,7 @@ function ForgotPassword() {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/reset-password', {
+      const response = await fetch(`${API_URL}/api/auth/reset-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

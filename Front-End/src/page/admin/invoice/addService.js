@@ -11,11 +11,12 @@ const CreateInvoice = () => {
     const state = useSnapshot(serviceState);
     const navigate = useNavigate();
     const [sidebarVisible, setSidebarVisible] = useState(false);
+    const API_URL = process.env.REACT_APP_API_URL ;
     const [newService, setNewService] = useState({
         description: "",
         cost: "",
     });
-    const [nextId, setNextId] = useState(1); // Start ID tracking from 1
+    const [nextId, setNextId] = useState(1); 
 
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);

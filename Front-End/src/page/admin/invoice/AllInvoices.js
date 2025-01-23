@@ -13,6 +13,7 @@ const InvoiceTable = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [sidebarVisible, setSidebarVisible] = useState(false);
+    const API_URL = process.env.REACT_APP_API_URL ;
     
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -24,7 +25,7 @@ const InvoiceTable = () => {
     // Fetch payments from the API
     useEffect(() => {
         axios
-            .get("http://localhost:5000/api/admin/invoice")
+            .get(`${API_URL}/api/admin/invoice`)
             .then((response) => {
                 if (Array.isArray(response.data.data)) {
                     setInvoices(response.data.data);
@@ -43,7 +44,7 @@ const InvoiceTable = () => {
     const handleDelete = (invoiceID) => {
         if (window.confirm("Are you sure you want to delete this invoice?")) {
             axios
-                .delete(`http://localhost:5000/api/admin/invoice/${invoiceID}`)
+                .delete(`${API_URL}/api/admin/invoice/${invoiceID}`)
                 .then(() => {
                     setInvoices((prevInvoices) =>
                         prevInvoices.filter((invoice) => invoice.invoiceID !== invoiceID)

@@ -9,7 +9,7 @@ const AdminProfile = () => {
   const [admin, setAdmin] = useState(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
+  const API_URL = process.env.REACT_APP_API_URL ;
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -33,7 +33,7 @@ const AdminProfile = () => {
                 throw new Error("Unauthorized access");
             }
 
-            const response = await fetch(`http://localhost:5000/api/admin/admin/profile/${email}`, {
+            const response = await fetch(`${API_URL}/api/admin/admin/profile/${email}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,

@@ -3,11 +3,9 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../../css/admin/task/(apwgr)adminRecivedTask.css'
 import { IoDownloadOutline } from "react-icons/io5";
-
 import Navbar from '../../../components/templetes/adminNavBar';
 import Footer from '../../../components/templetes/Footer';
 import Sidebar from '../../../components/templetes/SideBar';
-
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
@@ -15,10 +13,10 @@ import { useNavigate } from 'react-router-dom';
 export default function AdminReceivedTask() {
 
   const navigate = useNavigate();
-
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const API_URL = process.env.REACT_APP_API_URL ;
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
@@ -27,7 +25,7 @@ export default function AdminReceivedTask() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/employee/task/admin-recived-tasks-progress');
+        const response = await axios.get(`${API_URL}/employee/task/admin-recived-tasks-progress`);
         setTasks(response.data);
 
       } catch (error) {
@@ -95,7 +93,7 @@ export default function AdminReceivedTask() {
                         </span>
                         {task.Attachment ? (
                           <a
-                            href={`http://localhost:5000/employee/task/task-progress/download/${task.TaskProgressID}`}
+                            href={`${API_URL}/employee/task/task-progress/download/${task.TaskProgressID}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >

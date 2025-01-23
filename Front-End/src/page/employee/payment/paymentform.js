@@ -14,6 +14,7 @@ function PaymentForm() {
     const [invoices, setInvoices] = useState([]);
     const [selectedInvoice, setSelectedInvoice] = useState(null);
     const [error, setError] = useState(null);
+    const API_URL = process.env.REACT_APP_API_URL ;
     const [formData, setFormData] = useState({
         cardType: "",
         cardNumber: "",
@@ -25,7 +26,7 @@ function PaymentForm() {
 
     useEffect(() => {
         axios
-            .get("http://localhost:5000/api/employee/employee/invoice")
+            .get(`${API_URL}/api/employee/employee/invoice`)
             .then((response) => {
                 if (Array.isArray(response.data.data)) {
                     setInvoices(response.data.data);
@@ -70,13 +71,13 @@ function PaymentForm() {
         try {
             // Correct API request using axios.post
             const response = await axios.post(
-                "http://localhost:5000/api/employee/payment",
+                `${API_URL}/api/employee/payment`,
                 paymentData
             );
             // Handle successful response
             if (response.status === 200 && response.data?.data) {
                 const response1 = await axios.put(
-                    `http://localhost:5000/api/employee/update/invoice/${selectedInvoice.invoiceID}`
+                    `${API_URL}/api/employee/update/invoice/${selectedInvoice.invoiceID}`
                 );
             } else {
                 toast.error("Network error or server unreachable (in)");

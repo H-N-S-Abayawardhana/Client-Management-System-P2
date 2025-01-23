@@ -16,6 +16,8 @@ function ViewEmployees() {
   const [employee, setEmployees] = useState([]);
   const [searchTerm, setSearchTerm] = useState(''); // State to track the search term
   const navigate = useNavigate();
+  const API_URL = process.env.REACT_APP_API_URL ;
+  
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
@@ -29,7 +31,7 @@ function ViewEmployees() {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/admin/employees")
+    axios.get(`${API_URL}/api/admin/employees`)
       .then(res => {
         console.log(res.data);
         setEmployees(res.data);
@@ -59,7 +61,7 @@ function ViewEmployees() {
         if (result.isConfirmed) {
             // Perform the actiontry {
             try {
-              await axios.delete(`http://localhost:5000/api/admin/employee/${EmployeeID}`);
+              await axios.delete(`${API_URL}/api/admin/employee/${EmployeeID}`);
               setEmployees((prevEmployees) => prevEmployees.filter(emp => emp.EmployeeID !== EmployeeID));
               toast.success("Employee deleted successfully!");
             } catch (err) {
@@ -83,18 +85,6 @@ function ViewEmployees() {
     navigate(`/update-employee/${EmployeeID}`);
   };
 
-  // Filter the employees based on the search term
-  // const filteredEmployees = employee.filter((data) => {
-  //   return (
-  //     data.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //     data.EmployeeID.toString().includes(searchTerm) ||
-  //     data.Designation.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //     data.ContactNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //     data.Address.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //     data.Email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //     data.Username.toLowerCase().includes(searchTerm.toLowerCase())
-  //   );
-  // });
   const filteredEmployees = employee.filter((data) => {
     return (
       data.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||

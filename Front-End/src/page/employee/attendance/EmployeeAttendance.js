@@ -19,6 +19,7 @@ function EmployeeAttendance() {
     const [inputData, setInputData] = useState(null);
     const [openPopup, setOpenPopup] = useState(false);
     const [loggedUser, setLoggeduser] = useState([]);
+    const API_URL = process.env.REACT_APP_API_URL ;
 
     const formatDateToDMY = (date) => {
         const day = String(date.getDate()).padStart(2, '0');
@@ -33,7 +34,7 @@ function EmployeeAttendance() {
 
     const getLoggedUserData = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/employee/employee/profile/${localStorage.email}`, {
+            const response = await fetch(`${API_URL}/api/employee/employee/profile/${localStorage.email}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type':'application/json',
@@ -57,7 +58,7 @@ function EmployeeAttendance() {
 
     const viewAllAttendances = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/employee/ViewAllAttendances', {
+            const response = await fetch(`${API_URL}/api/employee/ViewAllAttendances`, {
                 method: 'GET',
                 headers: {
                     'Content-Type':'application/json',
@@ -84,7 +85,7 @@ function EmployeeAttendance() {
         try {
             console.log(input);
             setInputData(input);
-            const response = await fetch(`http://localhost:5000/api/employee/attendance/${input}`, {
+            const response = await fetch(`${API_URL}/api/employee/attendance/${input}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type':'application/json',

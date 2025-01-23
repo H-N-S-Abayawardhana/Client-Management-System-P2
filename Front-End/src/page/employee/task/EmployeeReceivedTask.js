@@ -18,6 +18,7 @@ import useEmployeeProfile from '../../../Routes/useEmployeeProfile';
 
 const EmployeeReceivedTask = () => {
     const [sidebarVisible, setSidebarVisible] = useState(false);
+    const API_URL = process.env.REACT_APP_API_URL ;
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
@@ -37,7 +38,7 @@ const EmployeeReceivedTask = () => {
         }
 
         try {
-            const response = await axios.get(`http://localhost:5000/employee/task/tasks/${EmployeeID}`); // Change this to the proper employee route
+            const response = await axios.get(`${API_URL}/employee/task/tasks/${EmployeeID}`); 
             setTasks(response.data);
         } catch (error) {
             console.error('Error fetching tasks:', error);
@@ -47,9 +48,9 @@ const EmployeeReceivedTask = () => {
     useEffect(() => {
         if (EmployeeID) {
             fetchTasks();
-            //console.log('emp mange task EmployeeID = ', EmployeeID);
+            
         }
-    }, [EmployeeID]); // Trigger the effect when EmployeeID changes
+    }, [EmployeeID]);
 
 
     // Function to format the deadline

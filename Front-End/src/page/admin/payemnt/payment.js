@@ -4,9 +4,8 @@ import Navbar from "../../../components/templetes/adminNavBar";
 import Footer from '../../../components/templetes/Footer';
 import Sidebar from "../../../components/templetes/SideBar";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // useNavigate import
+import { useNavigate } from "react-router-dom";
 import {toast ,ToastContainer} from "react-toastify";
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const PaymentsTable = () => {
@@ -14,12 +13,13 @@ const PaymentsTable = () => {
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const navigate = useNavigate(); // useNavigate hook
+    const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL ;
 
     // Fetch payments from the API
     useEffect(() => {
         axios
-            .get("http://localhost:5000/api/admin/payment")
+            .get(`${API_URL}/api/admin/payment`)
             .then((response) => {
                 if (Array.isArray(response.data.data)) {
                     setPayments(response.data.data);
@@ -38,7 +38,7 @@ const PaymentsTable = () => {
     const handleDelete = (paymentID) => {
         if (window.confirm("Are you sure you want to delete this payment?")) {
             axios
-                .delete(`http://localhost:5000/api/admin/payment/${paymentID}`)
+                .delete(`${API_URL}/api/admin/payment/${paymentID}`)
                 .then(() => {
                     setPayments(
                         payments.filter((payment) => payment.paymentID !== paymentID)

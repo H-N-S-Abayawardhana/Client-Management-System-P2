@@ -15,6 +15,7 @@ const PaymentsTable = () => {
     const [error, setError] = useState(null);
     const [employee, setEmployee] = useState(null);
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL ;
 
     // Fetch employee details
     useEffect(() => {
@@ -22,7 +23,7 @@ const PaymentsTable = () => {
         if (email) {
             const fetchEmployeeDetails = async () => {
                 try {
-                    const response = await fetch(`http://localhost:5000/api/employee/employee/${email}`);
+                    const response = await fetch(`${API_URL}/api/employee/employee/${email}`);
                     if (!response.ok) throw new Error("Failed to fetch employee details");
                     const data = await response.json();
                     if (data?.data) {
@@ -47,7 +48,7 @@ const PaymentsTable = () => {
         const fetchPaymentDetails = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:5000/api/employee/employee/payment/${employee.EmployeeID}`
+                    `${API_URL}/api/employee/employee/payment/${employee.EmployeeID}`
                 );
                 if (!response.ok) throw new Error("Failed to fetch payment details");
                 const data = await response.json();

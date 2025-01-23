@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
 import "../../../css/employee/task/(apwgr)EmployeeManageTask.css";
-
 import Navbar from '../../../components/templetes/empNavBar';
 import Footer from '../../../components/templetes/Footer';
 import Sidebar from '../../../components/templetes/ESideBar';
-
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-// Get the logged-in employee's ID (EmployeeID)
 import useEmployeeProfile from '../../../Routes/useEmployeeProfile';
 
 const EmployeeManageTask = () => {
     const [sidebarVisible, setSidebarVisible] = useState(false);
+    const API_URL = process.env.REACT_APP_API_URL ;
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
@@ -35,7 +31,7 @@ const EmployeeManageTask = () => {
         }
 
         try {
-            const response = await axios.get(`http://localhost:5000/employee/task/employee-sended-tasks-progress/${EmployeeID}`);
+            const response = await axios.get(`${API_URL}/employee/task/employee-sended-tasks-progress/${EmployeeID}`);
             setTasks(response.data);
         } catch (error) {
             console.error('Error fetching tasks:', error);
@@ -45,9 +41,9 @@ const EmployeeManageTask = () => {
     useEffect(() => {
         if (EmployeeID) {
             fetchTasks();
-            //console.log('emp mange task EmployeeID = ', EmployeeID);
+            
         }
-    }, [EmployeeID]); // Trigger the effect when EmployeeID changes
+    }, [EmployeeID]); 
 
     
 

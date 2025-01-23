@@ -13,6 +13,7 @@ const Invoice = () => {
   const navigate = useNavigate();
   const state = useSnapshot(serviceState);
   const [sidebarVisible, setSidebarVisible] = useState(false);
+  const API_URL = process.env.REACT_APP_API_URL ;
   const [formData, setFormData] = useState({
     invoiceID: "",
     EmployeeID: "",
@@ -35,7 +36,7 @@ const Invoice = () => {
 
     try {
       // Step 1: Create the invoice
-      const invoiceResponse = await axios.post("http://localhost:5000/api/admin/invoice", formData);
+      const invoiceResponse = await axios.post(`${API_URL}/api/admin/invoice`, formData);
       const createdInvoice = invoiceResponse.data.data;
 
       if (createdInvoice) {
@@ -48,7 +49,7 @@ const Invoice = () => {
             service_description: service.description,
             cost: service.cost,
           };
-          return axios.post("http://localhost:5000/api/admin/service", serviceData);
+          return axios.post(`${API_URL}/api/admin/service`, serviceData);
         });
 
         // Step 3: Wait for all service saving to complete

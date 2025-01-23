@@ -23,6 +23,8 @@ const UpdateEmployee = () => {
     const [password, setPassword] = useState("");
     const { EmployeeID } = useParams();
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL ;
+    
 
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
@@ -43,21 +45,13 @@ const UpdateEmployee = () => {
         const parsedDate = new Date(date);
         if (isNaN(parsedDate.getTime())) return ""; // Handle invalid dates
         return parsedDate.toISOString().split("T")[0];
-        // if (!date) return ""; // Handle empty or invalid dates
-        // const parsedDate = new Date(date); 
-        // if (isNaN(parsedDate.getTime())) return ""; // Return empty string if invalid
-    
-        // // Adjust to local timezone and ensure no time offset
-        // const offset = parsedDate.getTimezoneOffset();
-        // parsedDate.setMinutes(parsedDate.getMinutes() - offset);
-    
-        // return parsedDate.toISOString().split("T")[0];
+
     };
 
     const fetchEmployeeDetails = async () => {
         console.log(EmployeeID);
         try {
-            const response = await axios.get(`http://localhost:5000/api/admin/employee/${EmployeeID}`);
+            const response = await axios.get(`${API_URL}/api/admin/employee/${EmployeeID}`);
             if (response.data) {
                 console.log(response.data);
                 setEmployeeID(EmployeeID);
@@ -108,7 +102,7 @@ const UpdateEmployee = () => {
             if (result.isConfirmed) {
                 try {
                     console.log(workStartDate);
-                    await axios.put(`http://localhost:5000/api/admin/update/${EmployeeID}`, {
+                    await axios.put(`${API_URL}/api/admin/update/${EmployeeID}`, {
                         Name: name,
                         Designation: designation,
                         WorkStartDate: workStartDate,

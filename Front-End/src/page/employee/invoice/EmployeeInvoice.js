@@ -14,6 +14,7 @@ import searchIcon from "../../../assets/image.png";
 // Debounce utility function
 const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
+  const API_URL = process.env.REACT_APP_API_URL ;
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -39,7 +40,8 @@ function EmployeeInvoice() {
   const navigate = useNavigate();
 
   // Debounced search term
-  const debouncedSearchTerm = useDebounce(searchTerm, 500); // 500ms debounce
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  const API_URL = process.env.REACT_APP_API_URL ;
 
   // Fetch employee details
   useEffect(() => {
@@ -48,7 +50,7 @@ function EmployeeInvoice() {
       if (!email) return;
 
       try {
-        const response = await fetch(`http://localhost:5000/api/employee/employee/${email}`);
+        const response = await fetch(`${API_URL}/api/employee/employee/${email}`);
         if (!response.ok) throw new Error("Failed to fetch employee details");
         const data = await response.json();
         if (data?.data) {
@@ -71,7 +73,7 @@ function EmployeeInvoice() {
 
     const fetchInvoicesByEmployee = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/employee/employee/invoice/${employee.EmployeeID}`);
+        const response = await axios.get(`${API_URL}/api/employee/employee/invoice/${employee.EmployeeID}`);
         if (Array.isArray(response.data.data)) {
           setInvoices(response.data.data);
         } else {
@@ -96,7 +98,7 @@ function EmployeeInvoice() {
         const fetchInvoicesByEmployee = async () => {
           setLoading(true);
           try {
-            const response = await axios.get(`http://localhost:5000/api/employee/employee/invoice/${employee.EmployeeID}`);
+            const response = await axios.get(`${API_URL}/api/employee/employee/invoice/${employee.EmployeeID}`);
             if (Array.isArray(response.data.data)) {
               setInvoices(response.data.data);
             } else {
@@ -117,7 +119,7 @@ function EmployeeInvoice() {
 
     const searchInvoices = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/employee/invoices/${debouncedSearchTerm}/${employee.EmployeeID}`);
+        const response = await fetch(`${API_URL}/api/employee/invoices/${debouncedSearchTerm}/${employee.EmployeeID}`);
         const contentType = response.headers.get("content-type");
 
         if (!response.ok) {

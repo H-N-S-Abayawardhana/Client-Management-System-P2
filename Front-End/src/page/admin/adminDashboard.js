@@ -16,6 +16,7 @@ function AdminDashboard() {
   const [employee, setEmpCount] = useState([]);
   const [invoice, setInvoiceCount] = useState([]);
   const [data, setData] = useState([]);
+  const API_URL = process.env.REACT_APP_API_URL ;
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
@@ -52,7 +53,7 @@ function AdminDashboard() {
 
   const getAttendCount = async () => {
     try {
-      const response = await makeAuthenticatedRequest('http://localhost:5000/api/admin/admin/attendCount')
+      const response = await makeAuthenticatedRequest(`${API_URL}/api/admin/admin/attendCount`)
       if (response) {
         const responseData = await response.json();
         const count = responseData.toString().padStart(2, '0');
@@ -65,7 +66,7 @@ function AdminDashboard() {
       
   const getEmpCount = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/admin/admin/empCount')
+      const response = await fetch(`${API_URL}/api/admin/admin/empCount`)
       const responseData = await response.json()
       if (!response.ok) {
         console.log("error")
@@ -80,7 +81,7 @@ function AdminDashboard() {
 
   const getInvoiceCount = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/admin/admin/invoiceCount')
+      const response = await fetch(`${API_URL}/api/admin/admin/invoiceCount`)
       const responseData = await response.json()
       if (!response.ok) {
         console.log("error")
@@ -95,7 +96,7 @@ function AdminDashboard() {
 
   const getData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/employee/task/admin-recived-tasks-progress')
+      const response = await fetch(`${API_URL}/employee/task/admin-recived-tasks-progress`)
       const responseData = await response.json()
       if (!response.ok) {
         console.log("error")

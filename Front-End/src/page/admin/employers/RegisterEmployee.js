@@ -20,6 +20,7 @@ const UpdateEmployee = () => {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL ;
 
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
@@ -92,7 +93,7 @@ const UpdateEmployee = () => {
         }
 
         // Submit the form data to the API
-        axios.post("http://localhost:5000/api/admin/register", {
+        axios.post(`${API_URL}/api/admin/register`, {
             Name: name,
             Designation: designation,
             WorkStartDate: workStartDate,

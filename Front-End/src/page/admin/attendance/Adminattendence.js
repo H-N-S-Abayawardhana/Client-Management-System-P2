@@ -19,6 +19,7 @@ const AdminAttendance = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [attendanceData, setAttendanceData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const API_URL = process.env.REACT_APP_API_URL ;
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
@@ -38,7 +39,7 @@ const AdminAttendance = () => {
 
   const fetchAttendanceData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/admin/ViewAllAttendances');
+      const response = await fetch(`${API_URL}/api/admin/ViewAllAttendances`);
       const data = await response.json();
       if (Array.isArray(data)) {
         setAttendanceData(data);
@@ -82,7 +83,7 @@ const AdminAttendance = () => {
 
   const handleDownloadPDF = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/admin/generatePDF', { method: 'GET' });
+      const response = await fetch(`${API_URL}/api/admin/generatePDF`, { method: 'GET' });
       const blob = await response.blob();
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
@@ -115,7 +116,7 @@ const AdminAttendance = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch('http://localhost:5000/api/admin/resetData', { method: 'GET' });
+          const response = await fetch(`${API_URL}/api/admin/resetData`, { method: 'GET' });
           const result = await response.json();
           if (response.ok) {
             setAttendanceData([]);
@@ -130,40 +131,11 @@ const AdminAttendance = () => {
             });
           } else {
             toast.error('Error resetting attendance data.');
-            // Error message
-            // Swal.fire({
-            //   icon: 'error',
-            //   title: 'Reset Failed!',
-            //   text: 'An error occurred while reset attendance details. Please try again.',
-            //   confirmButtonColor: '#d33',
-            //   customClass: {
-            //     popup: 'smaller-swal-popup',
-            //     title: 'smaller-swal-title',
-            //     content: 'smaller-swal-content',
-            //   },
-            //   width: '80%',
-            //   padding: '20px',
-            //   grow: 'fullscreen',
-            // });
+
           }
         } catch (error) {
           console.error('Error resetting attendance data:', error);
           toast.error('Error resetting attendance data.');
-          // Error message
-          // Swal.fire({
-          //   icon: 'error',
-          //   title: 'Reset Failed!',
-          //   text: 'An error occurred while reset attendance details. Please try again.',
-          //   confirmButtonColor: '#d33',
-          //   customClass: {
-          //     popup: 'smaller-swal-popup',
-          //     title: 'smaller-swal-title',
-          //     content: 'smaller-swal-content',
-          //   },
-          //   width: '80%',
-          //   padding: '20px',
-          //   grow: 'fullscreen',
-          // });
         }
       }
     });

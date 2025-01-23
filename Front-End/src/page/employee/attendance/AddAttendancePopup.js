@@ -8,9 +8,7 @@ const AddAttendancePopup = ({ closePopup, data }) => {
     const [date, setDate] = useState('');
 
     const current_date = new Date();
-    // const currentHour = current_date.getHours();
-    // const currentMinute = current_date.getMinutes();
-
+    const API_URL = process.env.REACT_APP_API_URL ;
     useEffect(() => {
         // Get the current date in the Sri Lankan timezone
         const formatter = new Intl.DateTimeFormat('en-GB', {
@@ -48,7 +46,7 @@ const AddAttendancePopup = ({ closePopup, data }) => {
         const employeeId = data.EmployeeID;
         console.log(name, date, email, employeeId);
         try {
-            const response =  await fetch('http://localhost:5000/api/employee/addAttendance', {
+            const response =  await fetch(`${API_URL}/api/employee/addAttendance`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,22 +64,7 @@ const AddAttendancePopup = ({ closePopup, data }) => {
                 closePopup(); // Close the popup after successful submission ...
                 window.location.reload(); // Reload the page to show the added attendance data ...
                 return;
-                // // This part is not important. Added for the sake of the process ...
-                // const responseData = await response.json();
-                // console.log(responseData);
-                // console.log(currentHour, currentMinute);
-                // if((currentHour >= 8) || (currentHour < 17)) {
-                //     console.log('Time Error');
-                //     toast.error('Cannot add attendance');
-                //     closePopup();
-                // } else {
-                //     console.log('No Error');
-                //     console.log(response);
-                //     console.log(responseData);
-                //     toast.success('Visit Confirmation Successfull!')
-                //     closePopup(); // Close the popup after successful submission ...
-                //     window.location.reload();
-                // }
+
             }
         } catch (error) {
             console.log(error);

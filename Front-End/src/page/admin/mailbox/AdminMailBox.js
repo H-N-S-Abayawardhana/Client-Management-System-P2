@@ -17,6 +17,7 @@ const AdminMailBox = () => {
     });
 
     const [isLoading, setIsLoading] = useState(false);
+    const API_URL = process.env.REACT_APP_API_URL ;
     
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -74,7 +75,7 @@ const AdminMailBox = () => {
         }
     
         try {
-            const response = await fetch('http://localhost:5000/api/email/send-email', {
+            const response = await fetch(`${API_URL}/api/email/send-email`, {
                 method: 'POST',
                 body: formDataToSend,
                 credentials: 'include',

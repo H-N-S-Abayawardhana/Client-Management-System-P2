@@ -14,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AdminManageTask = () => {
     const [sidebarVisible, setSidebarVisible] = useState(false);
+    const API_URL = process.env.REACT_APP_API_URL ;
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
@@ -24,7 +25,7 @@ const AdminManageTask = () => {
     // Fetch tasks from the API
     const fetchTasks = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/admin/task/tasks');
+            const response = await axios.get(`${API_URL}/admin/task/tasks`);
             setTasks(response.data);
         } catch (error) {
             console.error('Error fetching tasks:', error);
@@ -44,7 +45,7 @@ const AdminManageTask = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    await axios.delete(`http://localhost:5000/admin/task/tasks/${taskId}`);
+                    await axios.delete(`${API_URL}/admin/task/tasks/${taskId}`);
                     setTasks(tasks.filter(task => task.TaskID !== taskId));
                     Swal.fire('Deleted!', 'The task has been deleted.', 'success');
                 } catch (error) {

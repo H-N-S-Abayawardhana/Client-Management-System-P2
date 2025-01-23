@@ -8,7 +8,6 @@ import axios from "axios";
 import Navbar from "../../../components/templetes/empNavBar";
 import Sidebar from "../../../components/templetes/ESideBar";
 import Footer from "../../../components/templetes/Footer";
-
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 
@@ -20,6 +19,7 @@ function InvoiceForm() {
     const [error, setError] = useState(null);
     const { selectedInvoiceId } = useParams();
     const navigate = useNavigate();
+    const API_URL = process.env.REACT_APP_API_URL ;
     const invoiceDetailRef = useRef(null);
 
     useEffect(() => {
@@ -30,7 +30,7 @@ function InvoiceForm() {
 
         const fetchInvoiceDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/employee/invoice/${selectedInvoiceId}`);
+                const response = await fetch(`${API_URL}/api/employee/invoice/${selectedInvoiceId}`);
                 if (!response.ok) throw new Error("Failed to fetch invoice details");
                 const data = await response.json();
                 if (data.data) {
@@ -50,7 +50,7 @@ function InvoiceForm() {
         if (invoiceDetails?.EmployeeID) {
             const fetchEmployeeDetails = async () => {
                 try {
-                    const response = await fetch(`http://localhost:5000/api/employee/emp/${invoiceDetails.EmployeeID}`);
+                    const response = await fetch(`${API_URL}/api/employee/emp/${invoiceDetails.EmployeeID}`);
                     if (!response.ok) throw new Error("Failed to fetch employee details");
                     const data = await response.json();
                     if (data?.data) {
@@ -71,7 +71,7 @@ function InvoiceForm() {
         if (invoiceDetails?.invoiceID) {
             const fetchServiceDetails = async () => {
                 try {
-                    const response = await fetch(`http://localhost:5000/api/employee/service/${invoiceDetails.invoiceID}`);
+                    const response = await fetch(`${API_URL}/api/employee/service/${invoiceDetails.invoiceID}`);
                     if (!response.ok) throw new Error("Failed to fetch service details");
                     const data = await response.json();
                     if (data?.data) {
