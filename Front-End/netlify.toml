@@ -6,4 +6,4 @@
 [build]
   base = "Front-End"
   command = "npm install"
-  publish = "/opt/build/repo/Front-End/build"
+  publish = "build"
