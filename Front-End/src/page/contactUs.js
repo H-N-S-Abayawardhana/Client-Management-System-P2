@@ -29,7 +29,7 @@ const ContactUs = () => {
     setResponseMessage({ text: '', type: '' });
 
     try {
-      const response = await axios.post(`${API_URL}/api/contact/sendMail`, formData);
+      const response = await axios.post('https://client-management-system-p2-production.up.railway.app/api/contact/sendMail', formData);
       
       if (response.status === 200) {
         setResponseMessage({ 
