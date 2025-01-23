@@ -17,7 +17,7 @@ function EmpDashboard() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [tasks, setTasks] = useState([]);
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const checkSession = () => {
     const token = localStorage.getItem('token');
