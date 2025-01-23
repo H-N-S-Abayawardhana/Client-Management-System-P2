@@ -4,7 +4,6 @@
  status = 200
 
 [build]
- base = "Front-End"
+ base = "."
  command = "npm install"
  publish = "build"
- 
