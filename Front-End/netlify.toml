@@ -6,4 +6,4 @@
 [build]
   base = "Front-End"
   command = "npm install"
-  publish = "build"
+  publish = "Front-End/build"
