@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 8080;
 
 // Middleware
 app.use(cors({
-  origin: ['https://gamage-recruiters-cms.netlify.app'], // No trailing slash
+  origin: ['https://gamage-recruiters-cms.vercel.app'], // No trailing slash
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Include OPTIONS for preflight requests
   credentials: true, // Allow credentials like cookies
 }));
