@@ -27,6 +27,7 @@ export default function Navbar() {
   const [error, setError] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
   const navigate = useNavigate();
+  const API_URL = process.env.REACT_APP_API_URL ;
 
   const toggleNavbar = () => {
     setShowDropdown(!showDropdown);
@@ -66,7 +67,7 @@ export default function Navbar() {
           return;
         }
 
-        const response = await fetch('http://localhost:5000/api/auth/logout', {
+        const response = await fetch(`${API_URL}/api/auth/logout`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -106,8 +107,8 @@ export default function Navbar() {
                 throw new Error("Unauthorized access");
             }
 
-            // Fetch only the Username
-            const response = await fetch(`http://localhost:5000/api/admin/admin/username/${email}`, {
+            // Fetch  the Username of admin to dropdown
+            const response = await fetch(`${API_URL}/api/admin/admin/username/${email}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -120,7 +121,7 @@ export default function Navbar() {
             }
 
             const data = await response.json();
-            setAdminUsername(data.username); // Assuming you're storing the username in state
+            setAdminUsername(data.username); 
         } catch (error) {
             console.error("Error fetching username:", error);
             setError("Error fetching username");

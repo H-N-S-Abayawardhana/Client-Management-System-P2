@@ -25,6 +25,7 @@ export default function EmpNavbar() {
    const [error, setError] = useState("");
   const [showSidebar, setShowSidebar] = useState(false);
   const navigate = useNavigate();
+  const API_URL = process.env.REACT_APP_API_URL ;
 
   const toggleNavbar = () => {
     setShowDropdown(!showDropdown);
@@ -59,7 +60,7 @@ export default function EmpNavbar() {
           return;
         }
 
-        const response = await fetch('http://localhost:5000/api/auth/logout', {
+        const response = await fetch(`${API_URL}/api/auth/logout`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${token}`,
@@ -105,8 +106,8 @@ export default function EmpNavbar() {
                 throw new Error("Unauthorized access");
             }
 
-            // Fetch only the Name
-            const response = await fetch(`http://localhost:5000/api/employee/employee/name/${email}`, {
+            // Fetch the Name of employee to dropdown
+            const response = await fetch(`${API_URL}/api/employee/employee/name/${email}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,

@@ -8,25 +8,23 @@ import adminRoutes from './Routes/AdminRoutes.js';
 import employeeRoutes from './Routes/EmployeeRoutes.js';
 import emailRoutes from './Routes/EmailRoute.js';
 import ContactUsRoute from './Routes/ContactUsRoute.js';
-
-//Tasks
 import AdminTaskRoutes from './Routes/AdminTaskRoutes.js';
 import EmployeeTaskProgressRoutes from './Routes/EmployeeTaskProgressRoutes.js';
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080; // If env var not working then port is set to 8080.
 
 // Middleware
 app.use(cors({
-  origin: ['https://gamage-recruiters-cms.vercel.app'], // No trailing slash
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Include OPTIONS for preflight requests
+  origin: ['https://gamage-recruiters-cms.vercel.app'], 
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
   credentials: true, // Allow credentials like cookies
 }));
 app.use(bodyParser.json());
 
-// Preflight Handling (Optional but Recommended)
+
 app.options('*', cors()); // Handle preflight requests for all routes
 
 // Routes
