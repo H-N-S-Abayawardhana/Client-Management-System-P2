@@ -285,12 +285,12 @@ function EmpDashboard() {
                           <td colSpan="4" className="text-center text-red-500">Error: {error}</td>
                         </tr>
                       ) : tasks.length > 0 ? (
-                        tasks.map((task, index) => (
+                        tasks.map((Task, index) => (
                           <tr key={index}>
-                            <td>{task.TaskName}</td>
-                            <td>{formatDateToDMY(new Date(task.Deadline))}</td>
-                            <td>{task.BudgetInfo}</td>
-                            <td>{task.Description}</td>
+                            <td>{Task.TaskName}</td>
+                            <td>{formatDateToDMY(new Date(Task.Deadline))}</td>
+                            <td>{Task.BudgetInfo}</td>
+                            <td>{Task.Description}</td>
                           </tr>
                         ))
                       ) : (

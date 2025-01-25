@@ -96,7 +96,7 @@ router.get('/employee/attendCount', async (req, res) => {
         const currentDate = new Date().toISOString().split('T')[0];
 
         // Modified query to compare only date portions
-        const query = "SELECT COUNT(AttendanceID) AS attendCount FROM attendance WHERE DATE(Date) = ?";
+        const query = "SELECT COUNT(AttendanceID) AS attendCount FROM Attendance WHERE DATE(Date) = ?";
         const [data] = await db.query(query, [currentDate]);
 
         return res.status(200).json(data[0].attendCount || 0);
@@ -488,19 +488,19 @@ router.get('/ViewAllEmployees', (req, res) => {
 router.get('/ViewAllAttendances', async (req, res) => {
     try {
         const sql = `SELECT
-                         ROW_NUMBER() OVER (ORDER BY employee.EmployeeID) AS RowNumber,
-                             Employee.EmployeeID,
+                         ROW_NUMBER() OVER (ORDER BY Employee.EmployeeID) AS RowNumber,
+                         Employee.EmployeeID,
                          Employee.name,
                          Employee.email,
-                         DATE(attendance.date) AS date,
-                         TIME(attendance.date) AS time, -- Updated to show proper time field
+                         DATE(Attendance.date) AS date,
+                         TIME(Attendance.date) AS time, 
                          CASE
-                         WHEN TIME(attendance.date) >= '08:00:00' AND TIME(attendance.date) < '09:00:00' THEN 'Attended'
-                         WHEN HOUR(attendance.date) >= '09:00:00' AND TIME(attendance.date) < '17:00:00' THEN 'Late Attended'
+                         WHEN TIME(Attendance.date) >= '08:00:00' AND TIME(Attendance.date) < '09:00:00' THEN 'Attended'
+                         WHEN HOUR(Attendance.date) >= '09:00:00' AND TIME(Attendance.date) < '17:00:00' THEN 'Late Attended'
                          ELSE 'Not Attended'
         END AS status
                   FROM 
-                      attendance 
+                      Attendance 
                   INNER JOIN 
                       Employee 
                   ON 
@@ -542,26 +542,26 @@ router.get('/attendance/:input', async (req, res) => {
         const input = req.params.input;
         const sql = `SELECT
                          ROW_NUMBER() OVER (ORDER BY Employee.EmployeeID) AS RowNumber,
-                             Employee.EmployeeID,
+                         Employee.EmployeeID,
                          Employee.name,
                          Employee.email,
-                         DATE(attendance.date) AS date,
-                         TIME(attendance.date) AS time, -- Added proper time display
+                         DATE(Attendance.date) AS date,
+                         TIME(Attendance.date) AS time, 
                          CASE
-                         WHEN TIME(attendance.date) >= '08:00:00' AND TIME(attendance.date) < '09:00:00' THEN 'Attended'
-                         WHEN HOUR(attendance.date) >= '09:00:00' AND TIME(attendance.date) < '17:00:00' THEN 'Late Attended'
+                         WHEN TIME(Attendance.date) >= '08:00:00' AND TIME(Attendance.date) < '09:00:00' THEN 'Attended'
+                         WHEN HOUR(Attendance.date) >= '09:00:00' AND TIME(Attendance.date) < '17:00:00' THEN 'Late Attended'
                          ELSE 'Not Attended'
         END AS status
                   FROM 
-                      attendance 
+                      Attendance 
                   INNER JOIN 
                       Employee 
                   ON 
-                      attendance.EmployeeID = Employee.EmployeeID 
+                      Attendance.EmployeeID = Employee.EmployeeID 
                   WHERE 
                       (Employee.name LIKE CONCAT(?, '%')  -- Matches names starting with the entered text
                       OR Employee.email LIKE CONCAT(?, '%')  -- Matches emails starting with the entered text
-                      OR DATE(attendance.date) LIKE CONCAT(?, '%'))  -- Matches dates starting with the entered text`;
+                      OR DATE(Attendance.date) LIKE CONCAT(?, '%'))  -- Matches dates starting with the entered text`;
 
         if (isDDMMYYYYWithDash(input)) {
             const [day, month, year] = input.split('-');
@@ -606,16 +606,16 @@ router.post('/addAttendance', async (req, res) => {
         console.log(name, date, email, hour, minute, second, fullDateTime);
 
         // First check if the employee already added attendane for the relevant date ...
-        const sql1 = "SELECT COUNT(*) AS count FROM attendance WHERE Date(Date) = ? AND Name = ? AND Email = ?";
+        const sql1 = "SELECT COUNT(*) AS count FROM Attendance WHERE Date(Date) = ? AND Name = ? AND Email = ?";
         const result = await db.query(sql1, [date, name, email]);
         console.log("Count:", result[0][0].count);
         const count = result[0][0].count;
         if(count === 1) {
-            return res.status(401).send("Attendance already added for the employee for today!");
+            return res.status(401).send("Attendance already added for the Employee for today!");
         } else {
             if(hour >= 8 && hour < 17) {
                 // Insert the new attendance record into the database ...
-                const sql2 = `INSERT INTO attendance (EmployeeID, Name, Email, Date) VALUES (?, ?, ?, ?)`;
+                const sql2 = `INSERT INTO Attendance (EmployeeID, Name, Email, Date) VALUES (?, ?, ?, ?)`;
                 await db.query(sql2, [employeeId, name, email, fullDateTime]);
                 return res.status(200).send("Attendance added successfully!");
             } else {

@@ -23,8 +23,6 @@ router.post('/task-progress', upload.single('Attachment'), handleTaskProgress);
 router.get('/task-progress/download/:TaskProgressID', downloadAttachment); // Download attachment
 
 router.get('/admin-recived-tasks-progress', getAllTaskProgress); //show all the task Progress to Admin side
-//get all the task Progression - Employee Side
-//router.get('/employee-sended-tasks-progress', getAllTaskProgress); //show all the task Progress to client side
 
 // Route to get task progresses for a specific employee
 router.get('/employee-sended-tasks-progress/:EmployeeID', getTaskProgressByEmployeeID);

@@ -5,7 +5,7 @@ import fs from 'fs';
 import authenticateToken from '../middleware/authMiddleware.js';
 import { formatDateToDMY } from "../utils/formatDate.js";
 import db from '../utils/db.js';
-import con from '../utils/db.js'; // Assuming 'con' is your MySQL connection instance
+import con from '../utils/db.js'; 
 
 const router = express.Router();
 
@@ -54,7 +54,7 @@ router.get("/admin/profile/:email", async (req, res) => {
                 Username,
                 RegistrationDate,
                 AdminID
-             FROM admin
+             FROM Admin
              WHERE Email = ?`,
             [email]
         );
@@ -79,7 +79,7 @@ router.get('/admin/username/:email', async (req, res) => {
         const { email } = req.params;
 
         const [result] = await db.execute(
-            'SELECT Username FROM admin WHERE email = ?',
+            'SELECT Username FROM Admin WHERE email = ?',
             [email]
         );
 
@@ -95,7 +95,7 @@ router.get('/admin/username/:email', async (req, res) => {
 });
 
 
-
+//Update Admin Profile
 router.put("/current/update", async (req, res) => {
     try {
       const token = req.headers.authorization?.split(' ')[1];
@@ -113,7 +113,7 @@ router.put("/current/update", async (req, res) => {
       } = req.body;
   
       const [result] = await db.query(
-        `UPDATE admin 
+        `UPDATE Admin 
          SET Name = ?, 
              Username = ?, 
              Email = ?, 
@@ -136,14 +136,13 @@ router.put("/current/update", async (req, res) => {
   
   
 
-
-// // Fetch attendance count
+ // Fetch attendance count
 router.get('/admin/attendCount', async (req, res) => {
     try {
         const currentDate = new Date().toISOString().split('T')[0];
 
         // Modified query to compare only date portions
-        const query = "SELECT COUNT(AttendanceID) AS attendCount FROM attendance WHERE DATE(Date) = ?";
+        const query = "SELECT COUNT(AttendanceID) AS attendCount FROM Attendance WHERE DATE(Date) = ?";
         const [data] = await con.query(query, [currentDate]);
 
         return res.status(200).json(data[0].attendCount || 0);
@@ -157,7 +156,7 @@ router.get('/admin/attendCount', async (req, res) => {
 // Fetch employee count
 router.get('/admin/empCount', async (req, res) => {
     try {
-        const query = "SELECT COUNT(EmployeeID) AS empCount FROM employee";
+        const query = "SELECT COUNT(EmployeeID) AS empCount FROM Employee";
         const [data] = await con.query(query); // Use await with promise API
         if (data[0].empCount > 0) {
             return res.status(200).json(data[0].empCount);
@@ -189,29 +188,12 @@ router.get('/admin/invoiceCount', async (req, res) => {
 
 
 
-
-// Fetch received tasks
-router.get('/received', (req, res) => {
-    try {
-        const query = "SELECT received_task.Employee_name, received_task.Company, received_task.Task_name, received_task.Deadline, received_task.Budget FROM received_task";
-        con.query(query, (error, data) => {
-            if (error) {
-                return res.json(error);
-            } else {
-                return res.status(200).json(data);
-            }
-        });
-    } catch (error) {
-        console.log(error);
-    }
-});
-
 // Fetch attendance count
 router.get('/attendCount', (req, res) => {
     try {
         const currentDate = new Date().toISOString().split('T')[0];
         console.log(currentDate);
-        const query = "SELECT COUNT(AttendanceID) AS attendCount FROM attendance WHERE Date = ?";
+        const query = "SELECT COUNT(AttendanceID) AS attendCount FROM Attendance WHERE Date = ?";
         con.query(query, [currentDate], (error, data) => {
             if (error) {
                 return res.json(error);
@@ -231,7 +213,7 @@ router.get('/attendCount', (req, res) => {
 // Fetch employee count
 router.get('/empCount', (req, res) => {
     try {
-        const query = "SELECT COUNT(EmployeeID) AS empCount FROM employee";
+        const query = "SELECT COUNT(EmployeeID) AS empCount FROM Employee";
         con.query(query, (error, data) => {
             if (data[0].empCount > 0) {
                 return res.status(200).json(data[0].empCount);
@@ -259,6 +241,8 @@ router.get('/invoiceCount', (req, res) => {
         console.log(error);
     }
 });
+
+
 // Get All Payments
 router.get("/payment", async (req, res) => {
     try {
@@ -277,6 +261,8 @@ router.get("/payment", async (req, res) => {
         return res.status(500).json({ error: "Database query failed" });
     }
 });
+
+
 // Get Payment by ID
 router.get("/payment/:id", async (req, res) => {
     const sql = "SELECT * FROM payment WHERE paymentID = ?";
@@ -375,7 +361,7 @@ router.get("/invoice/:id", async (req, res) => {
 });
 //Get Employee
 router.get("/employee/:id", async (req, res) => {
-    const sql = "SELECT * FROM employee WHERE EmployeeID = ?";
+    const sql = "SELECT * FROM Employee WHERE EmployeeID = ?";
     const EmployeeID = req.params.id;
 
     try {
@@ -499,7 +485,7 @@ router.post("/invoice", async (req, res) => {
                 invoice_date: req.body.invoice_date,
                 description: req.body.description || null,
                 status: req.body.status,
-                insertId: result.insertId, // Include the auto-generated ID if applicable
+                insertId: result.insertId, 
             },
         });
     } catch (err) {
@@ -549,24 +535,24 @@ router.post('/service', async (req, res) => {
 // Route to view all attendances ...
 router.get('/ViewAllAttendances', async (req, res) => {
     try {
-        // const sql = `SELECT * FROM attendance INNER JOIN employee ON attendance.EmployeeID = employee.EmployeeID`;
+        
         const sql = `SELECT 
-                        LPAD(ROW_NUMBER() OVER (ORDER BY employee.EmployeeID), 2, '0') AS RowNumber,
-                        employee.EmployeeID,
-                        employee.name, 
-                        employee.email, 
-                        DATE(attendance.date) AS date,
+                        LPAD(ROW_NUMBER() OVER (ORDER BY Employee.EmployeeID), 2, '0') AS RowNumber,
+                        Employee.EmployeeID,
+                        Employee.name, 
+                        Employee.email, 
+                        DATE(Attendance.date) AS date,
                         CASE
-                            WHEN TIME(attendance.date) >= '08:00:00' AND TIME(attendance.date) < '09:00:00' THEN 'Attended'
-                            WHEN HOUR(attendance.date) >= '09:00:00' AND TIME(attendance.date) < '17:00:00' THEN 'Late Attended'
+                            WHEN TIME(Attendance.date) >= '08:00:00' AND TIME(Attendance.date) < '09:00:00' THEN 'Attended'
+                            WHEN HOUR(Attendance.date) >= '09:00:00' AND TIME(Attendance.date) < '17:00:00' THEN 'Late Attended'
                             ELSE 'Not Attended'
                         END AS status
                     FROM 
-                        attendance 
+                        Attendance 
                     INNER JOIN 
-                        employee 
+                        Employee 
                     ON 
-                        attendance.EmployeeID = employee.EmployeeID`;
+                        Attendance.EmployeeID = Employee.EmployeeID`;
 
         const [data] = await db.query(sql);
         if(data.length === 0) {
@@ -584,8 +570,8 @@ router.get('/ViewAllAttendances', async (req, res) => {
 router.get('/attendance/:date', async (req, res) => {
     try {
         const date = req.params.date;
-        const sql = `SELECT * FROM attendance INNER JOIN employee ON attendance.EmployeeID = employee.EmployeeID 
-                WHERE DATE(attendance.date) = ?`;
+        const sql = `SELECT * FROM Attendance INNER JOIN Employee ON Attendance.EmployeeID = Employee.EmployeeID 
+                WHERE DATE(Attendance.date) = ?`;
         const [data] = await db.query(sql, [date]);
 
         if (data.length === 0) {
@@ -602,7 +588,7 @@ router.get('/attendance/:date', async (req, res) => {
 // Route to reset data in the table and database ...
 router.get('/resetData', async (req, res) => {
     try {
-        const result = await db.query(`DELETE FROM attendance`);
+        const result = await db.query(`DELETE FROM Attendance`);
         return res.status(200).json({ message: 'Data reset successfully', data: result });
     } catch(error) {
         console.log(error);
@@ -610,26 +596,26 @@ router.get('/resetData', async (req, res) => {
     }
 });
 
-// Route to generate a pdf file ... Not Completed ...
+// Route to generate a pdf file 
 router.get('/generatePDF', async (req, res) => {
     // console.log(req);
     try {
         const sql = `SELECT 
-                    LPAD(ROW_NUMBER() OVER (ORDER BY employee.EmployeeID), 2, '0') AS RowNumber,
-                    employee.name, 
-                    employee.email, 
-                    DATE(attendance.date) AS date,
+                    LPAD(ROW_NUMBER() OVER (ORDER BY Employee.EmployeeID), 2, '0') AS RowNumber,
+                    Employee.name, 
+                    Employee.email, 
+                    DATE(Attendance.date) AS date,
                     CASE
-                        WHEN TIME(attendance.date) >= '08:00:00' AND TIME(attendance.date) < '09:00:00' THEN 'Attended'
-                        WHEN HOUR(attendance.date) >= '09:00:00' AND TIME(attendance.date) < '17:00:00' THEN 'Late Attended'
+                        WHEN TIME(Attendance.date) >= '08:00:00' AND TIME(Attendance.date) < '09:00:00' THEN 'Attended'
+                        WHEN HOUR(Attendance.date) >= '09:00:00' AND TIME(Attendance.date) < '17:00:00' THEN 'Late Attended'
                         ELSE 'Not Attended'
                     END AS status
                 FROM 
-                    attendance 
+                    Attendance 
                 INNER JOIN 
-                    employee 
+                    Employee 
                 ON 
-                    attendance.EmployeeID = employee.EmployeeID`;
+                    Attendance.EmployeeID = Employee.EmployeeID`;
         // Await the query result
         const [result] = await db.query(sql);
         const doc = new PDFDocument();
@@ -707,7 +693,7 @@ router.get('/generatePDF', async (req, res) => {
 // Route to get all the employees ...
 router.get("/employees", async (req, res) => {
     try {
-        const [data] = await db.query("SELECT * FROM employee");
+        const [data] = await db.query("SELECT * FROM Employee");
 
         if (data.length === 0) {
             return res.status(404).send("Employee not found");
@@ -724,7 +710,7 @@ router.get("/employees", async (req, res) => {
 // Route to get an employee by ID ...
 router.get("/employee/:EmployeeID", async (req, res) => {
     try {
-        const sql = "SELECT * FROM employee WHERE EmployeeID = ?";
+        const sql = "SELECT * FROM Employee WHERE EmployeeID = ?";
         const { EmployeeID } = req.params;  // Destructure to get EmployeeID from the request params
         const [data] = await db.query(sql, [EmployeeID]);
 
@@ -734,7 +720,7 @@ router.get("/employee/:EmployeeID", async (req, res) => {
 
         return res.status(200).json(data);  // Return a single employee object
     } catch (err) {
-        console.error("Error fetching employee:", err.message);
+        console.error("Error fetching Employee:", err.message);
         return res.status(500).send(err.message);
     }
 });
@@ -746,7 +732,7 @@ router.post("/register", async (req, res) => {
         // Hasing the entered password ...
         const hashedPassword = await bcrypt.hash(req.body.Password, 10);
         console.log(hashedPassword);
-        const sql = "INSERT INTO employee (Name, Address, ContactNumber, Designation, WorkStartDate, Email, Username, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        const sql = "INSERT INTO Employee (Name, Address, ContactNumber, Designation, WorkStartDate, Email, Username, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         const values = [ req.body.Name, req.body.Address, req.body.ContactNumber, req.body.Designation,
                     req.body.WorkStartDate, req.body.Email, req.body.UserName, hashedPassword ];
         console.log(values);
@@ -762,7 +748,7 @@ router.post("/register", async (req, res) => {
 // Route to update an existing employee ...
 router.put('/update/:EmployeeID', async (req, res) => {
     console.log(req.body);
-    const sql = "UPDATE employee SET Name = ?, Address = ?, ContactNumber = ?, Designation = ?, WorkStartDate = ?, Email = ?, Username = ? WHERE EmployeeID = ?";
+    const sql = "UPDATE Employee SET Name = ?, Address = ?, ContactNumber = ?, Designation = ?, WorkStartDate = ?, Email = ?, Username = ? WHERE EmployeeID = ?";
     const values = [
         req.body.Name,
         req.body.Address,
@@ -786,7 +772,7 @@ router.put('/update/:EmployeeID', async (req, res) => {
 
 // Route to delete an employee ...
 router.delete("/employee/:EmployeeID", async (req, res) => {
-    const sql = "DELETE FROM employee WHERE EmployeeID = ?";
+    const sql = "DELETE FROM Employee WHERE EmployeeID = ?";
     const EmployeeID = req.params.EmployeeID;
 
     try {
