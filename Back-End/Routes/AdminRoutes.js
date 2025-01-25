@@ -172,7 +172,7 @@ router.get('/admin/empCount', async (req, res) => {
 // Fetch invoice count
 router.get('/admin/invoiceCount', async (req, res) => {
     try {
-        const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM invoice Where status = 'unpaid'";
+        const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM Invoice Where status = 'unpaid'";
         const [data] = await con.query(query); 
 
         if (data && data[0].invoiceCount > 0) {
@@ -229,7 +229,7 @@ router.get('/empCount', (req, res) => {
 // Fetch invoice count
 router.get('/invoiceCount', (req, res) => {
     try {
-        const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM invoice";
+        const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM Invoice";
         con.query(query, (error, data) => {
             if (data[0].invoiceCount > 0) {
                 return res.status(200).json(data[0].invoiceCount);
@@ -246,7 +246,7 @@ router.get('/invoiceCount', (req, res) => {
 // Get All Payments
 router.get("/payment", async (req, res) => {
     try {
-        const sql = "SELECT * FROM payment";
+        const sql = "SELECT * FROM Payment";
         const [data] = await db.query(sql); // Use await for the promise-based query
         console.log("Query successful, sending data:", data);
 
@@ -265,7 +265,7 @@ router.get("/payment", async (req, res) => {
 
 // Get Payment by ID
 router.get("/payment/:id", async (req, res) => {
-    const sql = "SELECT * FROM payment WHERE paymentID = ?";
+    const sql = "SELECT * FROM Payment WHERE paymentID = ?";
     const paymentID = req.params.id;
 
     try {
@@ -297,7 +297,7 @@ router.get("/payment/:id", async (req, res) => {
 
 //Delete payment
 router.delete("/payment/:id", async (req, res) => {
-    const sql = "DELETE FROM payment WHERE paymentID = ?";
+    const sql = "DELETE FROM Payment WHERE paymentID = ?";
     const paymentID = req.params.id;
 
     try {
@@ -329,7 +329,7 @@ router.delete("/payment/:id", async (req, res) => {
 });
 //Get Invoice
 router.get("/invoice/:id", async (req, res) => {
-    const sql = "SELECT * FROM invoice WHERE invoiceID = ?";
+    const sql = "SELECT * FROM Invoice WHERE invoiceID = ?";
     const invoiceID = req.params.id;
 
     try {
@@ -393,7 +393,7 @@ router.get("/employee/:id", async (req, res) => {
 });
 // Get All Invoices
 router.get('/invoice', async (req, res) => {
-    const sql = 'SELECT * FROM invoice';
+    const sql = 'SELECT * FROM Invoice';
 
     try {
         // Execute the query and await the result
@@ -421,7 +421,7 @@ router.delete("/invoice/:id", async (req, res) => {
     const invoiceID = req.params.id;
     console.log("DELETE /invoice/:id called with ID:", invoiceID);
 
-    const sql = "DELETE FROM invoice WHERE invoiceID = ?";
+    const sql = "DELETE FROM Invoice WHERE invoiceID = ?";
 
     try {
         // Execute the delete query and destructure the result
@@ -456,16 +456,16 @@ router.delete("/invoice/:id", async (req, res) => {
 // Save New Invoice
 router.post("/invoice", async (req, res) => {
     const sql = `
-        INSERT INTO invoice (invoiceID, EmployeeID, AcountId, total_cost, invoice_date, description,status)
+        INSERT INTO Invoice (invoiceID, EmployeeID, AcountId, total_cost, invoice_date, description,status)
         VALUES (?, ?, ?, ?, ?, ?,?)
     `;
     const values = [
         req.body.invoiceID,
         req.body.EmployeeID,
-        req.body.AcountId, // Fixed typo: Ensure it matches 'AccountID' in your database schema
+        req.body.AcountId,
         req.body.total_cost,
-        req.body.invoice_date, // Ensure it matches 'invoice_date' in your database schema
-        req.body.description || null, // Optional field; defaults to null if not provided
+        req.body.invoice_date, 
+        req.body.description || null, 
         req.body.status,
     ];
 

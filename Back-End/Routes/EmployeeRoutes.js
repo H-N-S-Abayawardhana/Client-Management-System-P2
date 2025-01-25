@@ -77,7 +77,7 @@ router.get('/employee/empCount', async (req, res) => {
 
 // Fetch Payment Count
 router.get('/employee/paymentCount', async (req, res) => {
-    const query = "SELECT COUNT(paymentID) AS paymentCount FROM payment";
+    const query = "SELECT COUNT(paymentID) AS paymentCount FROM Payment";
 
     try {
         const [rows] = await db.query(query);
@@ -108,7 +108,7 @@ router.get('/employee/attendCount', async (req, res) => {
 
 // Fetch invoice count
 router.get('/employee/invoiceCount', async (req, res) => {
-    const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM invoice WHERE status='unpaid'";
+    const query = "SELECT COUNT(invoiceID) AS invoiceCount FROM Invoice WHERE status='unpaid'";
 
     try {
         // Use promise-based query
@@ -151,7 +151,7 @@ router.get('/api/employee/tasks/:email', async (req, res) => {
                 Description, 
                 Deadline, 
                 BudgetInfo 
-            FROM task 
+            FROM Task 
             WHERE EmployeeID = ?
             ORDER BY Deadline ASC`,
             [employeeId]
@@ -173,7 +173,7 @@ router.get('/api/employee/tasks/:email', async (req, res) => {
 
 // Save payment
 router.post("/payment", async (req, res) => {
-    const sql = `INSERT INTO payment (invoiceID, EmployeeID, card_holder_name, card_number, expiry_date, cvc, amount, payment_status, payment_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO Payment (invoiceID, EmployeeID, card_holder_name, card_number, expiry_date, cvc, amount, payment_status, payment_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     const {invoiceID,EmployeeID,card_holder_name,card_number,expiry_date,cvc,amount,payment_status,payment_date} = req.body;
     const values = [invoiceID,EmployeeID,card_holder_name,card_number,expiry_date,cvc,amount,payment_status,payment_date];
     try {
@@ -195,7 +195,7 @@ router.post("/payment", async (req, res) => {
 // update invoice status ...
 router.put('/update/invoice/:id', async (req, res) => {
     console.log(req.body);
-    const sql = "UPDATE invoice SET status = 'paid' WHERE InvoiceID = ?";
+    const sql = "UPDATE Invoice SET status = 'paid' WHERE InvoiceID = ?";
     const invoiceID = req.params.id;
 
     try {
@@ -209,7 +209,7 @@ router.put('/update/invoice/:id', async (req, res) => {
 
 //Get all invoice which unpaid
 router.get('/employee/invoice', async (req, res) => {
-    const sql = 'SELECT * FROM invoice WHERE status="unpaid"';
+    const sql = 'SELECT * FROM Invoice WHERE status="unpaid"';
 
     try {
         // Execute the query and await the result
@@ -234,7 +234,7 @@ router.get('/employee/invoice', async (req, res) => {
 });
 //Get all payment by empid
 router.get('/employee/payment/:id', async (req, res) => {
-    const sql = 'SELECT * FROM payment WHERE EmployeeID =?';
+    const sql = 'SELECT * FROM Payment WHERE EmployeeID =?';
     const EmployeeID = req.params.id;
     try {
         // Execute the query and await the result
@@ -259,7 +259,7 @@ router.get('/employee/payment/:id', async (req, res) => {
 });
 //Get all payment by empid
 router.get('/employee/invoice/:id', async (req, res) => {
-    const sql = 'SELECT * FROM invoice WHERE EmployeeID =?';
+    const sql = 'SELECT * FROM Invoice WHERE EmployeeID =?';
     const EmployeeID = req.params.id;
     try {
         // Execute the query and await the result
@@ -285,7 +285,7 @@ router.get('/employee/invoice/:id', async (req, res) => {
 
 // Get Invoice by ID
 router.get("/invoice/:id", async (req, res) => {
-    const sql = "SELECT * FROM invoice WHERE InvoiceID = ?";
+    const sql = "SELECT * FROM Invoice WHERE InvoiceID = ?";
     const InvoiceID = req.params.id;
 
     try {
@@ -420,22 +420,22 @@ router.get('/invoices/:input/:empid', async (req, res) => {
 
         const sql = `
             SELECT
-                ROW_NUMBER() OVER (ORDER BY invoice.invoiceID) AS RowNumber,
-                invoice.invoiceID,
-                invoice.EmployeeID,
-                invoice.total_cost,
-                DATE_FORMAT(invoice.invoice_date, '%d-%m-%Y') AS invoice_date,
-                invoice.AcountId,
-                invoice.description,
-                invoice.status
+                ROW_NUMBER() OVER (ORDER BY Invoice.invoiceID) AS RowNumber,
+                Invoice.invoiceID,
+                Invoice.EmployeeID,
+                Invoice.total_cost,
+                DATE_FORMAT(Invoice.invoice_date, '%d-%m-%Y') AS invoice_date,
+                Invoice.AcountId,
+                Invoice.description,
+                Invoice.status
             FROM
-                invoice
+                Invoice
             WHERE
                 (
-                            invoice.invoiceID = ?
-                        OR invoice.status LIKE CONCAT(?, '%')
-                        OR DATE_FORMAT(invoice.invoice_date, '%d-%m-%Y') LIKE CONCAT(?, '%')
-                    )
+                    Invoice.invoiceID = ?
+                    OR Invoice.status LIKE CONCAT(?, '%')
+                    OR DATE_FORMAT(Invoice.invoice_date, '%d-%m-%Y') LIKE CONCAT(?, '%')
+                )
               AND invoice.EmployeeID = ?
         `;
 
@@ -504,7 +504,7 @@ router.get('/ViewAllAttendances', async (req, res) => {
                   INNER JOIN 
                       Employee 
                   ON 
-                      attendance.EmployeeID = Employee.EmployeeID`;
+                      Attendance.EmployeeID = Employee.EmployeeID`;
 
         const [data] = await db.query(sql);
         if(data.length === 0) {

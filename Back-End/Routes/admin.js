@@ -10,7 +10,7 @@ const router = express.Router();
 // Get All Payments
 router.get("/payment", async (req, res) => {
     try {
-        const sql = "SELECT * FROM payment";
+        const sql = "SELECT * FROM Payment";
         const [data] = await db.query(sql); // Use await for the promise-based query
         console.log("Query successful, sending data:", data);
 
@@ -28,7 +28,7 @@ router.get("/payment", async (req, res) => {
 
 // Get Payment by ID
 router.get("/payment/:id", async (req, res) => {
-    const sql = "SELECT * FROM payment WHERE paymentID = ?";
+    const sql = "SELECT * FROM Payment WHERE paymentID = ?";
     const paymentID = req.params.id;
 
     try {
@@ -59,7 +59,7 @@ router.get("/payment/:id", async (req, res) => {
 });
 //Delete payment
 router.delete("/payment/:id", async (req, res) => {
-    const sql = "DELETE FROM payment WHERE paymentID = ?";
+    const sql = "DELETE FROM Payment WHERE paymentID = ?";
     const paymentID = req.params.id;
 
     try {
@@ -93,7 +93,7 @@ router.delete("/payment/:id", async (req, res) => {
 
 //Get Invoice
 router.get("/invoice/:id", async (req, res) => {
-    const sql = "SELECT * FROM invoice WHERE invoiceID = ?";
+    const sql = "SELECT * FROM Invoice WHERE invoiceID = ?";
     const invoiceID = req.params.id;
 
     try {
