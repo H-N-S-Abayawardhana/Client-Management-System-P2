@@ -30,6 +30,7 @@ const ProtectedRoute = ({ children }) => {
 
     const handleLogout = async () => {
       const token = localStorage.getItem('token');
+      const API_URL = process.env.REACT_APP_API_URL ;
       
       try {
         toast.info('Session Expired! Redirecting to sign in...', {
@@ -44,7 +45,7 @@ const ProtectedRoute = ({ children }) => {
 
         await new Promise(resolve => setTimeout(resolve, 1000));
 
-        await fetch('http://localhost:5000/api/auth/logout', {
+        await fetch(`${API_URL}/api/auth/logout`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,

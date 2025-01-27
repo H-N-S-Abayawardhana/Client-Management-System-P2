@@ -8,6 +8,7 @@ const useEmployeeProfile = () => {
       try {
         const token = localStorage.getItem("token");
         const email = localStorage.getItem("email");
+        const API_URL = process.env.REACT_APP_API_URL ;
 
         // Check if email or token is missing
         if (!email || !token) {
@@ -15,7 +16,7 @@ const useEmployeeProfile = () => {
           return;
         }
 
-        const response = await fetch(`http://localhost:5000/api/employee/employee/profile/${email}`, {
+        const response = await fetch(`${API_URL}/api/employee/employee/profile/${email}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
