@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 8080; // If env var not working then port is se
 
 // Middleware
 app.use(cors({
-  origin: ['https://cms-gamagerecruiters.vercel.app'], 
+  origin: ['https://cms-gamage--recruiters.vercel.app'], 
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
   credentials: true, // Allow credentials like cookies
 }));
