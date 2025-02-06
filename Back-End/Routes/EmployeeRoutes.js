@@ -596,25 +596,36 @@ router.post('/addAttendance', async (req, res) => {
     try {
         const { name, date, email, employeeId } = req.body;
 
+        // Debug timezone information
         const current_date = new Date();
-        const hour = current_date.getHours();
-        const minute = current_date.getMinutes();
-        const second = current_date.getSeconds();
+        console.log('Server Timezone Offset:', current_date.getTimezoneOffset());
+        console.log('Server Current Time:', current_date.toString());
+        console.log('UTC Time:', current_date.toUTCString());
 
-        // Concatenate the `date` with the current time in HH:mm:ss format ...
+        // Convert to your local timezone (replace 'Asia/Kolkata' with your timezone)
+        const localTime = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+        const localDate = new Date(localTime);
+        
+        const hour = localDate.getHours();
+        const minute = localDate.getMinutes();
+        const second = localDate.getSeconds();
+
+        console.log('Local Time:', localTime);
+        console.log('Hour after conversion:', hour);
+
         const fullDateTime = `${date} ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`;
-        console.log(name, date, email, hour, minute, second, fullDateTime);
+        console.log('Full DateTime:', fullDateTime);
 
-        // First check if the employee already added attendane for the relevant date ...
+        // First check if the employee already added attendance
         const sql1 = "SELECT COUNT(*) AS count FROM Attendance WHERE Date(Date) = ? AND Name = ? AND Email = ?";
         const result = await db.query(sql1, [date, name, email]);
         console.log("Count:", result[0][0].count);
         const count = result[0][0].count;
+        
         if(count === 1) {
             return res.status(401).send("Attendance already added for the Employee for today!");
         } else {
             if(hour >= 8 && hour < 17) {
-                // Insert the new attendance record into the database ...
                 const sql2 = `INSERT INTO Attendance (EmployeeID, Name, Email, Date) VALUES (?, ?, ?, ?)`;
                 await db.query(sql2, [employeeId, name, email, fullDateTime]);
                 return res.status(200).send("Attendance added successfully!");
@@ -623,7 +634,7 @@ router.post('/addAttendance', async (req, res) => {
             }
         }
     } catch(error) {
-        console.log(error.message);
+        console.log('Error:', error.message);
         return res.status(500).send("An error occurred while adding attendance record!");
     }
 });
