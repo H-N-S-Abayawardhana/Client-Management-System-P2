@@ -37,7 +37,7 @@ const ContactUs = () => {
           text: 'Message sent successfully!', 
           type: 'success' 
         });
-        // Clear form after successful submission
+
         setFormData({
           fullName: '',
           email: '',

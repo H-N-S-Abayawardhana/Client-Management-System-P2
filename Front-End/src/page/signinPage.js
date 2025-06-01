@@ -17,12 +17,11 @@ function Signin() {
     const API_URL = process.env.REACT_APP_API_URL ;
 
     useEffect(() => {
-        // Check if the user is already logged in
+
         const token = localStorage.getItem('token');
         const userType = localStorage.getItem('type');
 
         if (token) {
-            // Redirect based on the user type
             if (userType === 'Admin') {
                 navigate('/admin-dashboard');
             } else if (userType === 'Employee') {
